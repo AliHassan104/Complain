@@ -7,7 +7,6 @@ function getUser() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
 
             table += `
@@ -28,18 +27,31 @@ function getQuestion() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
             if (data[i].question != null) {
                             table += `
                             <option value="${data[i].id}">${data[i].question}</option>
                         `
-                        console.log();
             }
         }
         document.getElementById("question").innerHTML = table;
     })
 }
+
+function changeOptions(){
+    
+    var select = document.getElementById('question');
+    var question = select.options[select.selectedIndex].value;
+    console.log(question);
+    
+    var select = document.getElementById('option');
+    var option = select.options[select.selectedIndex].value;
+    console.log(option);
+
+
+}
+
+
 getQuestion();
 function getPollingOption() {
     let table = ""
@@ -50,12 +62,8 @@ function getPollingOption() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
-
-            console.log("option");
             if (data[i].pollingQuestion != null) {  
-                console.log(data[i].pollingQuestion);
                 table += `
                 <option value="${data[i].id}">${data[i].option}</option>
             `
@@ -85,8 +93,6 @@ function formSubmit(){
         id : option
     }
 }
-    console.log(newPollingAnswer);
-
     fetch("http://localhost:8081/api/pollinganswer", {
     method: 'POST',
     headers: {
@@ -101,5 +107,4 @@ function formSubmit(){
     .catch((error) => {
         console.error('Error:', error);
     });
-    console.log(111);
 }

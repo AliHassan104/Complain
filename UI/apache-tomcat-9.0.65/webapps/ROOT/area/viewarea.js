@@ -65,7 +65,7 @@ function updateArea(){
 
             setTimeout(() => {
                 getArea()
-            }, 100);
+            }, 500);
 }
 
 function deleteArea(id){

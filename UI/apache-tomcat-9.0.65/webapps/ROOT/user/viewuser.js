@@ -51,7 +51,6 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
         
         table +=  `<option value="ALL" selected>ALL</option>`
         for (let i = 0; i < data.length; i++) {
@@ -175,7 +174,6 @@ function deleteArea(id){
 
 function modalValue(id){
     uid = id
-    console.log(id)
     fetch("http://localhost:8081/api/user/"+id,{
         headers:{
             "Content-Type":"application/json",
@@ -210,7 +208,6 @@ function getArea2() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
         
         table +=  `<option value="ALL" selected>ALL</option>`
         for (let i = 0; i < data.length; i++) {
@@ -248,6 +245,7 @@ function updateUser(){
     setTimeout(() => {
 
         newAddress = {city : city , houseNumber : housenumber , floorNumber : floornumber , street : street}; 
+        console.log(newAddress);
         fetch("http://localhost:8081/api/address", {
             method: 'PUT',
             headers: {
@@ -265,7 +263,7 @@ function updateUser(){
                 console.error('Error:', error);
             })
         
-    }, 1000);
+    }, 2000);
 
     setTimeout(() => {
         newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
@@ -277,6 +275,7 @@ function updateUser(){
                 id : addressId
             }
         }; 
+        console.log(newUser);
     
         fetch("http://localhost:8081/api/user", {
             method: 'PUT',
@@ -292,7 +291,7 @@ function updateUser(){
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }, 1000);
+    }, 2000);
 
 
  
