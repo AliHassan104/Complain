@@ -36,6 +36,7 @@ function addUser(){
             id : addressId
         }
     }; 
+    debugger;
     console.log(newUser);
 
     fetch("http://localhost:8081/api/user", {
@@ -104,7 +105,8 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        // console.log(data);
+        console.log(data);
+        debugger
         for (let i = 0; i < data.length; i++) {
             console.log(data);
             table += `
