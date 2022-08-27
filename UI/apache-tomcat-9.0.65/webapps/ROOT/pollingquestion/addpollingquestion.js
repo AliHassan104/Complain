@@ -91,24 +91,24 @@ function formSubmit(){
     }
 
     newPollingQuestion = {question : pollingQuestion ,
-                            option : pollingOption}
+        pollingOptions : pollingOption}
 
     console.log(newPollingQuestion);
 
-//     fetch("http://localhost:8081/api/pollingquestion", {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(newPollingQuestion)
-// })
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log('Success:', data);
-//     })
-//     .catch((error) => {
-//         console.error('Error:', error);
-//     });
+    fetch("http://localhost:8081/api/pollingquestion", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newPollingQuestion)
+})
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
     
 
