@@ -149,42 +149,44 @@
 // }
 
 
-getComplain()
 
-function getComplain() {
-    // let table = ""
-    let totalcomplain = 0
-    let inprogress = 0
-    let resolved = 0
-    let inreview = 0
-    let rejected = 0
-    fetch("http://localhost:8081/api/admin/complain",{
-        headers:{
-            "Content-Type":"application/json",
+
+// getComplain()
+
+// function getComplain() {
+//     // let table = ""
+//     let totalcomplain = 0
+//     let inprogress = 0
+//     let resolved = 0
+//     let inreview = 0
+//     let rejected = 0
+//     fetch("http://localhost:8081/api/admin/complain",{
+//         headers:{
+//             "Content-Type":"application/json",
             
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        for (let i = 0; i < data.length; i++) {
-            console.log(data[i].status);
-            totalcomplain ++;
-            if (data[i].status == "IN_REVIEW") {
-                inreview ++ ; 
-            }
-            else if(data[i].status == "IN_PROGRESS"){
-                inprogress++ ;
-            }
-            else if(data[i].status == "COMPLETED"){
-                resolved++;
-            }
-            else if(data[i].status == "REJECTED"){
-                rejected++;
-            }
-        }  
-        document.getElementById("totalcomplain").innerText = totalcomplain;
-        document.getElementById("inprogress").innerText = inprogress;
-        document.getElementById("resolved").innerText = resolved;
-        document.getElementById("inreview").innerText = inreview;
-    })
-}
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         for (let i = 0; i < data.length; i++) {
+//             console.log(data[i].status);
+//             totalcomplain ++;
+//             if (data[i].status == "IN_REVIEW") {
+//                 inreview ++ ; 
+//             }
+//             else if(data[i].status == "IN_PROGRESS"){
+//                 inprogress++ ;
+//             }
+//             else if(data[i].status == "COMPLETED"){
+//                 resolved++;
+//             }
+//             else if(data[i].status == "REJECTED"){
+//                 rejected++;
+//             }
+//         }  
+//         document.getElementById("totalcomplain").innerText = totalcomplain;
+//         document.getElementById("inprogress").innerText = inprogress;
+//         document.getElementById("resolved").innerText = resolved;
+//         document.getElementById("inreview").innerText = inreview;
+//     })
+// }

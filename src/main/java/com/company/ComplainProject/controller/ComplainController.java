@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -34,6 +35,7 @@ public class ComplainController {
     @GetMapping("/complain")
     public ResponseEntity<List<Complain>> getComplain(){
         List<Complain> complain = complainService.getAllComplain();
+
         if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
         }
@@ -107,4 +109,13 @@ public ResponseEntity<ComplainDto> addComplain(
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+//    @GetMapping("/complain/complaintype")
+//    public ResponseEntity<Map<String , Integer>> getComplainByComplainType(){
+//        Map<String , Integer> complain = (Map<String, Integer>) complainService.getComplainByComplainType();
+//        if(!complain.isEmpty()){
+//            return ResponseEntity.ok(complain);
+//        }
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//    }
 }

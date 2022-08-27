@@ -135,7 +135,7 @@ function modalValue(id){
     document.getElementById("description").value = data.description;
     document.getElementById("date").value = data.date;
     document.getElementById("time").value = data.time;
-    // document.getElementById("inpFile") = data.pictureUrl;
+    document.getElementById("inpFile") = data.pictureUrl;
     // return data.name;
     })
 }

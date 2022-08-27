@@ -8,6 +8,7 @@ import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.ComplainTypeRepository;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,7 +30,12 @@ public class ComplainService {
 
     public List<Complain> getAllComplain() {
         return complainRepository.findAll();
+
     }
+
+//    public Map<String , Integer> getComplainByComplainType() {
+//        return complainRepository.findComplainByComplain();
+//    }
 
     public Optional<Complain> getComplainTypeById(Long id) {
         return complainRepository.findById(id);
@@ -95,4 +102,7 @@ public class ComplainService {
         InputStream inputStream = new FileInputStream(assetImagePath);
         return inputStream;
     }
+
+
+
 }

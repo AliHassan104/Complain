@@ -51,7 +51,7 @@ function modalValue(id){
     .then((response)=>response.json())
     .then((data)=> {
     document.getElementById("complaintype").value = data.name;
-    return data.name;
+    // return data.name;
     })
 }
 

@@ -76,7 +76,7 @@ function updateWaterTiming(){
 
             setTimeout(() => {
                 getWaterTiming()
-            }, 100);
+            }, 1000);
 }
 
 function deleteWaterTiming(id){  

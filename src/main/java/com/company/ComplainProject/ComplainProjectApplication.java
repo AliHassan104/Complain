@@ -1,5 +1,7 @@
 package com.company.ComplainProject;
 
+import com.company.ComplainProject.repository.ComplainRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +17,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ComplainProjectApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ComplainProjectApplication.class, args);
+
+
+
 	}
 
 	@Bean
