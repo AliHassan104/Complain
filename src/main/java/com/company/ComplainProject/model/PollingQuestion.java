@@ -1,6 +1,7 @@
 package com.company.ComplainProject.model;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,8 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @ToString
 @Builder
 
@@ -18,20 +17,14 @@ import java.util.List;
 public class PollingQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+
     private Long id;
     private String question;
 
-//    @OneToMany
-//    @JoinColumn(name = "question_id")
-//    private List<PollingOption> pollingOptions;
-//
-//    @OneToOne(mappedBy = "pollingQuestion")
-//    private PollingAnswer pollingAnswer;
+    @OneToMany
+    @JoinColumn(name = "pollingQuestion_id")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
 
-
-
-
-
+    private List<PollingOption> pollingOptions;
 
 }

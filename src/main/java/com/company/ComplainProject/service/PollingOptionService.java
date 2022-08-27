@@ -37,7 +37,7 @@ public class PollingOptionService {
         PollingOption updatePollingOption = getAllPollingOption().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updatePollingOption != null){
             updatePollingOption.setOption(pollingOptionDto.getOption());
-            updatePollingOption.setPollingQuestion(pollingOptionDto.getPollingQuestion());
+//            updatePollingOption.setPollingQuestion(pollingOptionDto.getPollingQuestion());
         }
         return Optional.of(toDto(pollingOptionRepository.save(updatePollingOption)));
     }
@@ -46,7 +46,7 @@ public class PollingOptionService {
         return PollingOption.builder()
                 .id(pollingOptionDto.getId())
                 .option(pollingOptionDto.getOption())
-                .pollingQuestion(pollingOptionDto.getPollingQuestion())
+//                .pollingQuestion(pollingOptionDto.getPollingQuestion())
                 .build();
     }
 
@@ -54,7 +54,7 @@ public class PollingOptionService {
         return  PollingOptionDto.builder()
                 .id(pollingOption.getId())
                 .option(pollingOption.getOption())
-                .pollingQuestion(pollingOption.getPollingQuestion())
+//                .pollingQuestion(pollingOption.getPollingQuestion())
                 .build();
     }
 }

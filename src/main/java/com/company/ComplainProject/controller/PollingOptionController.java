@@ -40,16 +40,15 @@ public class PollingOptionController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PostMapping("/pollingoption")
-    public ResponseEntity<PollingOptionDto> addPollingOption(@RequestBody PollingOptionDto pollingOptionDto){
-        System.out.println(pollingOptionDto);
-        try{
-            return ResponseEntity.ok(pollingOptionService.addPollingOption(pollingOptionDto));
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+//    @PostMapping("/pollingoption")
+//    public ResponseEntity<PollingOptionDto> addPollingOption(@RequestBody PollingOptionDto pollingOptionDto){
+//        try{
+//            return ResponseEntity.ok(pollingOptionService.addPollingOption(pollingOptionDto));
+//        }catch (Exception e){
+//            System.out.println(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
     @DeleteMapping("/pollingoption/{id}")
     public ResponseEntity<Void> deletePollingOptionById(@PathVariable Long id){
