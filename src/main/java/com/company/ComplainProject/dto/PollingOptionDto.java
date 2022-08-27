@@ -17,6 +17,6 @@ import javax.persistence.OneToOne;
 
 public class PollingOptionDto {
     private Long id;
-    private PollingQuestion pollingQuestion;
     private String option;
+    private PollingQuestion pollingQuestion;
 }

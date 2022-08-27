@@ -1,6 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.dto.PollingQuestionDto;
+import com.company.ComplainProject.model.PollingOption;
 import com.company.ComplainProject.model.PollingQuestion;
 import com.company.ComplainProject.repository.PollingQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,11 @@ public class PollingQuestionService {
 
     public PollingQuestion dto(PollingQuestionDto pollingQuestionDto){
         return PollingQuestion.builder().id(pollingQuestionDto.getId()).question(pollingQuestionDto.getQuestion())
-                .build();
+                .pollingOptions(pollingQuestionDto.getPollingOptions()).build();
     }
 
     public PollingQuestionDto toDto(PollingQuestion pollingQuestion){
         return  PollingQuestionDto.builder().id(pollingQuestion.getId()).question(pollingQuestion.getQuestion())
-                .build();
+                .pollingOptions(pollingQuestion.getPollingOptions()).build();
     }
 }

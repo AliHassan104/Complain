@@ -41,7 +41,7 @@ public class PollingQuestionController {
 
     @PostMapping("/pollingquestion")
     public ResponseEntity<PollingQuestionDto> addComplainType(@RequestBody PollingQuestionDto pollingQuestionDto){
-        System.out.println(pollingQuestionDto);
+
         try{
             return ResponseEntity.ok(pollingQuestionService.addPollingQuestion(pollingQuestionDto));
         }catch (Exception e){
