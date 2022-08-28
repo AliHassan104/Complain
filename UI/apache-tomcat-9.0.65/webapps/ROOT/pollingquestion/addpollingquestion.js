@@ -36,7 +36,6 @@ option();
 
 function addOption(id){
 
-    // let pollingQuestion = document.getElementById("pollingquestion").value;
     let pollingOption = []
 
     for (let i = 0; i < arr.length; i++) {

@@ -148,45 +148,66 @@
 //     })
 // }
 
-
-
-
-// getComplain()
-
 // function getComplain() {
-//     // let table = ""
-//     let totalcomplain = 0
-//     let inprogress = 0
-//     let resolved = 0
-//     let inreview = 0
-//     let rejected = 0
-//     fetch("http://localhost:8081/api/admin/complain",{
+//     fetch("http://localhost:8081/api/complainbystatus",{
 //         headers:{
 //             "Content-Type":"application/json",
-            
 //         }
 //     })
 //     .then((response)=>response.json())
 //     .then((data)=> {
-//         for (let i = 0; i < data.length; i++) {
-//             console.log(data[i].status);
-//             totalcomplain ++;
-//             if (data[i].status == "IN_REVIEW") {
-//                 inreview ++ ; 
-//             }
-//             else if(data[i].status == "IN_PROGRESS"){
-//                 inprogress++ ;
-//             }
-//             else if(data[i].status == "COMPLETED"){
-//                 resolved++;
-//             }
-//             else if(data[i].status == "REJECTED"){
-//                 rejected++;
-//             }
-//         }  
-//         document.getElementById("totalcomplain").innerText = totalcomplain;
-//         document.getElementById("inprogress").innerText = inprogress;
-//         document.getElementById("resolved").innerText = resolved;
-//         document.getElementById("inreview").innerText = inreview;
+        
 //     })
 // }
+
+// getComplain()
+
+
+
+
+getComplain()
+
+let complainStatus = []
+let numberOfStatus = []
+
+function getComplain() {
+    let totalcomplain = 0
+    let inprogress = 0
+    let resolved = 0
+    let inreview = 0
+    let rejected = 0
+    fetch("http://localhost:8081/api/complainbystatus",{
+        headers:{
+            "Content-Type":"application/json",   
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=> {
+        for (const property in data) {
+            complainStatus.push(data[property].status)
+            numberOfStatus.push(data[property].numberOfComplains)
+          }
+          console.log(complainStatus);
+          console.log(numberOfStatus);
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i].status);
+            totalcomplain ++;
+            if (data[i].status == "IN_REVIEW") {
+                inreview ++ ; 
+            }
+            else if(data[i].status == "IN_PROGRESS"){
+                inprogress++ ;
+            }
+            else if(data[i].status == "COMPLETED"){
+                resolved++;
+            }
+            else if(data[i].status == "REJECTED"){
+                rejected++;
+            }
+        }  
+        document.getElementById("totalcomplain").innerText = totalcomplain;
+        document.getElementById("inprogress").innerText = inprogress;
+        document.getElementById("resolved").innerText = resolved;
+        document.getElementById("inreview").innerText = inreview;
+    })
+}

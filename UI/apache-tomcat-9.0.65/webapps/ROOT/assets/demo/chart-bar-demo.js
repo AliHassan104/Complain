@@ -3,16 +3,41 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Bar Chart Example
+
+
+let month = ["January", "February", "March", "April", "May", "June","July","August","September","October","November","December"]
+let maxComplain = 10;
+let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
+
+getComplain()
+
+function getComplain() {
+    fetch("http://localhost:8081/api/complianbymonth",{
+        headers:{
+            "Content-Type":"application/json",
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=> {
+        for (const property in data) {
+          complainNumber.push(data[property].numberofComplains)
+          complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)
+        }
+        maxComplain += Math.max( ...complainNumber );
+    })
+}
+
 var ctx = document.getElementById("myBarChart");
+
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June","July","August"],
+    labels: month,
     datasets: [{
       label: "Revenue",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [4215, 5312, 6251, 7841, 9821, 14984,1200,2000],
+      data: complainNumber,
     }],
   },
   options: {
@@ -25,13 +50,13 @@ var myLineChart = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: month.length
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          max: maxComplain,
           maxTicksLimit: 5
         },
         gridLines: {
