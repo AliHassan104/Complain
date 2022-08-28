@@ -187,22 +187,22 @@ function getComplain() {
             complainStatus.push(data[property].status)
             numberOfStatus.push(data[property].numberOfComplains)
           }
-          console.log(complainStatus);
-          console.log(numberOfStatus);
-        for (let i = 0; i < data.length; i++) {
-            console.log(data[i].status);
-            totalcomplain ++;
-            if (data[i].status == "IN_REVIEW") {
-                inreview ++ ; 
+
+        for (let i = 0; i < complainStatus.length; i++) {
+
+            totalcomplain += numberOfStatus[i];
+
+            if (complainStatus == "IN_REVIEW") {
+                inreview +=  numberOfStatus[i]; 
             }
             else if(data[i].status == "IN_PROGRESS"){
-                inprogress++ ;
+                inprogress +=  numberOfStatus[i];
             }
             else if(data[i].status == "COMPLETED"){
-                resolved++;
+                resolved +=  numberOfStatus[i];
             }
             else if(data[i].status == "REJECTED"){
-                rejected++;
+                rejected +=  numberOfStatus[i];
             }
         }  
         document.getElementById("totalcomplain").innerText = totalcomplain;
