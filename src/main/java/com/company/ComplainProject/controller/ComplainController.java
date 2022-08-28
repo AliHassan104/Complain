@@ -70,7 +70,6 @@ public ResponseEntity<ComplainDto> addComplain(
     String fileName = null;
     try {
         fileName = this.fileService.uploadImage(path , image);
-        System.out.println(path);
     } catch (IOException e) {
         e.printStackTrace();
     }
