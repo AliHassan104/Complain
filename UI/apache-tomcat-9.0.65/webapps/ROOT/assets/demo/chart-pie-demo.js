@@ -1,91 +1,49 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
+let complainType = []
+let numberOfComplain = []
+// setTimeout(() => {
+  getComplain()
+
+  function getComplain() {
+
+    fetch("http://localhost:8081/api/complainbycomplaintype",{
+        headers:{
+            "Content-Type":"application/json",
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=> {
+        for (const property in data) {
+          complainType.push(data[property].complainType)
+          // complainType.splice(data[property].complainType-1 , 1 , data[property].numberofComplains)
+          numberOfComplain.push(data[property].numberOfComplains)
+          // numberOfComplain.splice(data[property].numberOfComplains-1 , 1 , data[property].numberofComplains)
+        }
+    })
+}
+// }, 1000);
+
+setTimeout(() => {
+  
+  Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+  Chart.defaults.global.defaultFontColor = '#292b2c';
+  // Pie Chart Example
+  
+  var ctx = document.getElementById("myPieChart");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      // labels: ["Blue", "Red", "Yellow", "Green"],
+      labels: complainType,
+      datasets: [{
+        // data: [12.21, 15.58, 11.25, 8.32],
+        data: numberOfComplain,
+        // backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+        backgroundColor: ['#DFFF00', '#FFBF00', '#FF7F50', '#DE3163', '#9FE2BF', '#6495ED',"#40E0D0"],
+      }],
+    },
+  });
+}, 150);
+
+// backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#28a745', '#28a745'],
 
 
-// month = []
-// datas = []
-// color = []
-// count = 10
-// for (const property in object) {
-  //   month.push(object[property].complainType)
-//   datas.push(object[property].numberOfComplain)
-//   color.push(count+'7bff')
-//   count+=10
-//   // console.log(`${property}: ${object[property]}`);
-// }
-
-// console.log(datas);
-// console.log(months);
-
-Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#292b2c';
-// Pie Chart Example
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: ["Blue", "Red", "Yellow", "Green"],
-    // labels: ["Blue", "Red", "Yellow", "Green"],
-    datasets: [{
-      data: [12.21, 15.58, 11.25, 8.32],
-      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
-      // data: datas,
-      // backgroundColor: color,
-    }],
-  },
-});
-
-// var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-// var yValues = [55, 49, 44, 24, 15];
-// var barColors = [
-//   "#b91d47",
-//   "#00aba9",
-//   "#2b5797",
-//   "#e8c3b9",
-//   "#1e7145"
-// ];
-
-// new Chart("myChart", {
-//   type: "pie",
-//   data: {
-//     labels: xValues,
-//     datasets: [{
-//       backgroundColor: barColors,
-//       data: yValues
-//     }]
-//   },
-//   options: {
-  //     title: {
-//       display: true,
-//       text: "World Wide Wine Production 2018"
-//     }
-//   }
-// });
-
-
-// let obj =  [{"key " : "value"},{"key1" : "value2"}]
-
-// let arr1 = []
-// let arr2 = []
-
-// for (let i = 0; i < obj.length; i++) {
-//   console.log(obj[i]);
-
-// }
-// let object = [
-//     {
-//     complainType : "Electricity",
-//     numberOfComplain : 2
-//   },
-//   {
-//     complainType : "Sewerage",
-//     numberOfComplain : 2
-//   },
-//   {
-//     complainType : "Water",
-//     numberOfComplain : 2
-//   },
-//   {
-//     complainType : "Internet",
-//     numberOfComplain : 2
-//   },
-// ]

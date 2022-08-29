@@ -6,10 +6,13 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 
 let month = ["January", "February", "March", "April", "May", "June","July","August","September","October","November","December"]
-let maxComplain = 10;
+// let maxComplain = 10;
+let max = 10;
 let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
 
-getComplain()
+// setTimeout(() => {
+  getComplain()
+// }, 100);
 
 function getComplain() {
     fetch("http://localhost:8081/api/complianbymonth",{
@@ -20,11 +23,23 @@ function getComplain() {
     .then((response)=>response.json())
     .then((data)=> {
         for (const property in data) {
-          complainNumber.push(data[property].numberofComplains)
+          // complainNumber.push(data[property].numberofComplains)
           complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)
         }
-        maxComplain += Math.max( ...complainNumber );
+        console.log(complainNumber);
+        max = 0
+        for (let i = 0; i < complainNumber.length-1; i++) {
+          if (complainNumber[i] < complainNumber[i+1]) {
+            max = complainNumber[i+1]
+            console.log(max);
+          }
+        }
     })
+}
+
+
+function barchart() {
+  
 }
 
 var ctx = document.getElementById("myBarChart");
@@ -56,7 +71,8 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: maxComplain,
+          // max: maxComplain,
+          max: max,
           maxTicksLimit: 5
         },
         gridLines: {
