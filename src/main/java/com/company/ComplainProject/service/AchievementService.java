@@ -1,13 +1,11 @@
 package com.company.ComplainProject.service;
 
-import com.company.ComplainProject.Status;
 //import com.company.ComplainProject.config.image.FileServiceImplementation;
 import com.company.ComplainProject.config.image.FileServiceImplementation;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.repository.AchievementRepository;
-import com.company.ComplainProject.repository.RolesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,8 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+        import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 

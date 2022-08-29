@@ -32,7 +32,7 @@ public class FileServiceImplementation implements FileService {
     }
     public void createComplainFolder(){
         try{
-            File complainFolder  = new File("/complain");
+            File complainFolder  = new File("RentalServiceProject/complain");
             Boolean created =  complainFolder.mkdir();
             if(created){
                 System.out.println("Created Complain Folder");
@@ -44,7 +44,7 @@ public class FileServiceImplementation implements FileService {
     }
     public void imageFolderInsideComplainFolder(){
         try{
-            File imageFolderInsideComplainFolder = new File("/complain/images");
+            File imageFolderInsideComplainFolder = new File("RentalServiceProject/complain/images");
             Boolean imageFolder = imageFolderInsideComplainFolder.mkdir();
             if(imageFolder){
                 System.out.println("Folder created");

@@ -1,16 +1,10 @@
 package com.company.ComplainProject.dto;
 
-import com.company.ComplainProject.Status;
+import com.company.ComplainProject.dto.statusEnum.Status;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.model.User;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
