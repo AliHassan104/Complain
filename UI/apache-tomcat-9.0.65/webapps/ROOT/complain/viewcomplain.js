@@ -1,5 +1,7 @@
 
-getComplain()
+setTimeout(() => {
+    getComplain()
+}, 1000);
 
 function getComplain() {
     let table = ""
@@ -40,14 +42,52 @@ function getComplain() {
             <td style="width: 10%;" class="datatable">${data[i].date}</td>
             <td style="width: 10%;" class="datatable">${data[i].area.name}</td>
             <td style="width: 20%;" class="datatable"><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px"> 
-            <td style="width: 10%;" class="datatable"> 
-            <i onclick="updateComplain(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            <td style="width: 15%;" class="datatable"> 
+            <i onclick="updateComplain(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;"  
+            class="fa fa-pencil"></i>
+            <i onclick="updatedStatusModal(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#statusmodal"  
+            style="padding-right: 15px; margin-right: 15px;"  class="fa fa-file"></i>
             <i onclick="deleteComplain(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
+        //onclick="updatedStatusModal(${data[i].id})"
         }
         document.getElementById("complaintable").innerHTML = table;
     })
+}
+
+let uid;
+function updatedStatusModal(id){
+    uid = id
+}
+
+function updateStatus(){
+    console.log(uid);
+    let updatedstatus = document.getElementById("updatedstatus").value;
+
+    console.log(updatedstatus);
+
+    let updatedataus =  {
+        status: updatedstatus
+    }
+
+    fetch('http://localhost:8081/api/admin/complain/'+uid, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedataus),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                setTimeout(() => {
+                    getComplain()
+                }, 100);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 }
 
 function updateComplain(id){

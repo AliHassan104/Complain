@@ -1,3 +1,6 @@
+let uid;
+let aid;
+
 function getUser() {
     let table = ""
     fetch("http://localhost:8081/api/admin/user",{
@@ -181,6 +184,15 @@ function modalValue(id){
     })
     .then((response)=>response.json())
     .then((data)=> {
+    // console.log(data);
+
+    
+    // console.log(data.area.id);
+    // console.log(data.address.id);
+    // console.log(data.id);
+
+    aid = data.address.id
+    
 
     document.getElementById("firstname").value = data.firstname;
     document.getElementById("lastname").value = data.lastname;
@@ -195,11 +207,12 @@ function modalValue(id){
     document.getElementById("floornumber").value = data.address.floorNumber;
     document.getElementById("street").value = data.address.street;
 
-    getArea2()
+    getArea2(data.area.name)
 })
 }
 
-function getArea2() {
+function getArea2(selectedaddress) {
+    // console.log(selectedaddress);
     let table = ""
     fetch("http://localhost:8081/api/area",{
         headers:{
@@ -208,12 +221,17 @@ function getArea2() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        
-        table +=  `<option value="ALL" selected>ALL</option>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
-            <option value="${data[i].name}">${data[i].name}</option>
-        `
+        // if (condition) {
+            // }
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i].name);
+                if (data[i].name != selectedaddress) {
+                    table += `
+                    <option value="${data[i].id}">${data[i].name}</option>`
+                }else{
+                    table += `<option value="${data[i].id}" selected>${selectedaddress}</option>`
+                }
+                
         }
         document.getElementById("dropdownarea2").innerHTML = table;
     })
@@ -227,6 +245,7 @@ function updateUser(){
     var select = document.getElementById('dropdownarea2');
     var value = select.options[select.selectedIndex].value;
     areaId = value
+    console.log(areaId);
 
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
@@ -241,12 +260,29 @@ function updateUser(){
     let floornumber = document.getElementById("floornumber").value;
     let street = document.getElementById("street").value;
 
+    // newAddress = {city : city , houseNumber : housenumber , floorNumber : floornumber , street : street}; 
+
+    // newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
+    //     , email : email , password : password , numberOfFamilyMembers : family ,
+    //     area : {
+    //         id : areaId
+    //     },
+    //     address : {
+    //         id : addressId
+    //     }
+    // }; 
+
+    // console.log(aid);
+    // console.log(addressId);
+    // console.log(areaId);
 
     setTimeout(() => {
 
         newAddress = {city : city , houseNumber : housenumber , floorNumber : floornumber , street : street}; 
-        console.log(newAddress);
-        fetch("http://localhost:8081/api/address", {
+        // console.log(newAddress);
+        // console.log(aid);
+        fetch("http://localhost:8081/api/address/"+aid, {
+        // fetch("http://localhost:8081/api/address/"+aid, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -255,9 +291,12 @@ function updateUser(){
         })
             .then(response => response.json())
             .then(data => {
+
+                console.log(data);
                 console.log(data.id);
                 addressId = data.id
-                addUser()
+                // addUser()
+
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -266,18 +305,20 @@ function updateUser(){
     }, 2000);
 
     setTimeout(() => {
+        // console.log(uid);
+        // console.log(addressId);
         newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
             , email : email , password : password , numberOfFamilyMembers : family ,
             area : {
                 id : areaId
             },
             address : {
-                id : addressId
+                id : uid
             }
         }; 
         console.log(newUser);
     
-        fetch("http://localhost:8081/api/user", {
+        fetch("http://localhost:8081/api/user/"+uid, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -291,9 +332,6 @@ function updateUser(){
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }, 2000);
-
-
- 
+    }, 3000); 
 
 }

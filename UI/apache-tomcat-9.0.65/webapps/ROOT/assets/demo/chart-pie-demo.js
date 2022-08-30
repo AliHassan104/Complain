@@ -1,7 +1,7 @@
 let complainType = []
 let numberOfComplain = []
 // setTimeout(() => {
-  getComplain()
+  // getComplain()
 
   function getComplain() {
 
@@ -12,6 +12,7 @@ let numberOfComplain = []
     })
     .then((response)=>response.json())
     .then((data)=> {
+      // console.log(data);
         for (const property in data) {
           complainType.push(data[property].complainType)
           // complainType.splice(data[property].complainType-1 , 1 , data[property].numberofComplains)
@@ -22,8 +23,11 @@ let numberOfComplain = []
 }
 // }, 1000);
 
-setTimeout(() => {
+// setTimeout(() => {
   
+function piegraph() {
+  
+  console.log("pie graph");
   Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
   Chart.defaults.global.defaultFontColor = '#292b2c';
   // Pie Chart Example
@@ -42,8 +46,13 @@ setTimeout(() => {
       }],
     },
   });
-}, 150);
+}
 
-// backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#28a745', '#28a745'],
+getComplain()
+
+setTimeout(() => {
+  piegraph()
+}, 500);
+
 
 
