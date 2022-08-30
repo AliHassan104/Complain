@@ -1,7 +1,7 @@
 package com.company.ComplainProject.service;
 
-//import com.company.ComplainProject.config.image.FileServiceImplementation;
-import com.company.ComplainProject.config.image.FileServiceImplementation;
+//import com.company.ComplainProject.config.image.ComplainImageImplementation;
+import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.repository.AchievementRepository;
@@ -21,8 +21,6 @@ import java.util.Optional;
 public class AchievementService {
     @Autowired
     AchievementRepository achievementRepository;
-    @Autowired
-    FileServiceImplementation fileServiceImplementation;
 
 
     public List<Achievements> getAllAchievement() {
@@ -73,7 +71,7 @@ public class AchievementService {
                 .build();
     }
 
-    private final String imageFolderPath = Paths.get("C:\\Users\\Ali Hassan\\Desktop\\Complain\\achievement\\images").toString();
+    private final String imageFolderPath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
 //    @Override
     public InputStream getImageByName(String imageName) throws FileNotFoundException {
         String imagePath = imageFolderPath+File.separator+imageName;

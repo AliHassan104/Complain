@@ -24,21 +24,4 @@ public class Area {
     private String block;
     private String postalCode;
 
-//    @OneToMany
-//    @JoinColumn(name = "area_id")
-//    private List<Complain> complains;
-//
-//    @OneToOne(mappedBy = "area")
-//    private User user;
-//
-//    @OneToMany
-//    @JoinColumn(name = "area_id")
-//    private List<WaterTiming> waterTimings;
-//
-//    @OneToMany
-//    @JoinColumn(name = "area_id")
-//    private List<Document> documents;
-
-
-
 }
