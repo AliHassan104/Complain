@@ -1,14 +1,10 @@
 package com.company.ComplainProject.service;
 
-//import com.company.ComplainProject.config.image.FileServiceImplementation;
-import com.company.ComplainProject.config.image.FileServiceImplementation;
+//import com.company.ComplainProject.config.image.ComplainImageImplementation;
+import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.ComplainDto;
-import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.model.Complain;
-import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.repository.ComplainRepository;
-import com.company.ComplainProject.repository.ComplainTypeRepository;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,7 +21,7 @@ public class ComplainService {
     @Autowired
     ComplainRepository complainRepository;
     @Autowired
-    FileServiceImplementation fileServiceImplementation;
+    ComplainImageImplementation complainImageImplementation;
 
     public List<Complain> getAllComplain() {
         return complainRepository.findAll();
@@ -95,7 +90,7 @@ public class ComplainService {
                 .build();
     }
 
-    private final String imageFolderPath = Paths.get("C:\\Users\\Ali Hassan\\Desktop\\Complain\\complain\\images").toString();
+    private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
 //    @Override
     public InputStream getImageByName(String filename) throws FileNotFoundException {
         String assetImagePath = imageFolderPath+ File.separator+filename;

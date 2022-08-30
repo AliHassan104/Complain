@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainDto;
@@ -28,7 +29,7 @@ public class ComplainController {
     @Autowired
     ComplainService complainService;
     @Autowired
-    private FileService fileService;
+    ComplainImageImplementation complainImageImplementation;
     @Value("${complain.image}")
     private String path;
 
@@ -51,36 +52,20 @@ public class ComplainController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-//    @PostMapping("/complain")
-//    public ResponseEntity<ComplainDto> addComplain(@RequestBody ComplainDto complainDto){
-//        System.out.println(complainDto);
-//        try{
-//            return ResponseEntity.ok(complainService.addComplain(complainDto));
-//        }catch (Exception e){
-//            System.out.println(e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
 @PostMapping("/complain")
-public ResponseEntity<ComplainDto> addComplain(
-        @RequestParam("pictureUrl") MultipartFile image,
-        @RequestParam("data") String userdata
-)
-        throws IOException {
-    String fileName = null;
-    try {
-        fileName = this.fileService.uploadImage(path , image);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    ObjectMapper mapper = new ObjectMapper();
-    ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
-    System.out.println(complainDto);
-    complainDto.setPicture("http://localhost:8081/api/"+path+fileName);
-
-//        achievementsDto.setDate(userdata.);
+public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") MultipartFile image,
+                                               @RequestParam("data") String userdata) {
     try{
+        ObjectMapper mapper = new ObjectMapper();
+        ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
+
+        String  fileName = complainImageImplementation.uploadImage(image);
+
+
+        complainDto.setPicture("http://localhost:8081/api/"+path+fileName);
+
         return ResponseEntity.ok(complainService.addComplain(complainDto));
+
     }catch (Exception e){
         System.out.println(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

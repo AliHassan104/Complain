@@ -1,6 +1,6 @@
 package com.company.ComplainProject.dto.DashboardData;
 
-import com.company.ComplainProject.Status;
+import com.company.ComplainProject.dto.statusEnum.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

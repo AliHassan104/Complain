@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
@@ -23,7 +24,7 @@ public class AchievementController {
     @Autowired
     AchievementService achievementService;
     @Autowired
-    private FileService fileService;
+    AchievementImageImplementation achievementImageImplementation;
     @Value("${achievement.image}")
     private String path;
 
@@ -71,20 +72,15 @@ public class AchievementController {
     @PostMapping("/achievement")
     public ResponseEntity<AchievementsDto> addAchievements(
                                                             @RequestParam("pictureUrl") MultipartFile image,
-                                                            @RequestParam("data") String userdata)
-            throws IOException {
-        String fileName = null;
-        try {
-            fileName = this.fileService.uploadImage(path , image);
-            System.out.println(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        AchievementsDto achievementsDto = mapper.readValue(userdata,AchievementsDto.class);
-        System.out.println(achievementsDto);
-        achievementsDto.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+                                                            @RequestParam("data") String userdata) {
         try{
+            ObjectMapper mapper = new ObjectMapper();
+            AchievementsDto achievementsDto = mapper.readValue(userdata,AchievementsDto.class);
+
+            String fileName = achievementImageImplementation.uploadImage(image);
+
+            achievementsDto.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+
             return ResponseEntity.ok(achievementService.addAchievement(achievementsDto));
         }catch (Exception e){
             System.out.println(e);

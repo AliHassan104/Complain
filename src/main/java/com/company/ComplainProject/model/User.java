@@ -28,7 +28,6 @@ public class User {
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
-//    private String address;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "area_id", referencedColumnName = "id")
@@ -38,19 +37,10 @@ public class User {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ManyToMany
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id") ,
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Roles> roles = new HashSet<>();
 
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "complain_id", referencedColumnName = "id")
-//    private Complain complain;
-
-//    @OneToMany
-//    @JoinColumn(name = "user_id")
-//    private List<PollingAnswer> pollingAnswers;
 }

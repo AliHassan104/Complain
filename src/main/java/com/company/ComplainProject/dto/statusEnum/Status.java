@@ -1,4 +1,4 @@
-package com.company.ComplainProject;
+package com.company.ComplainProject.dto.statusEnum;
 
 public enum Status {
     IN_REVIEW ,
