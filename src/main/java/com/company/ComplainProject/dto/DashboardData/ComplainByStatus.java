@@ -12,11 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class ComplainByStatus {
+
     private Status status;
     private Long numberOfComplains;
+
 }
 
 
-//    SELECT count(*) FROM complain group by status;
-//
-//    SELECT COUNT(id),  MONTH(date) FROM complain GROUP BY MONTH(date);

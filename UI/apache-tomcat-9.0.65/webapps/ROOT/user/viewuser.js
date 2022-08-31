@@ -1,3 +1,8 @@
+var uid;
+var mainAreaId;
+var mainAddressId;
+var allArea = []
+
 function getUser() {
     let table = ""
     fetch("http://localhost:8081/api/admin/user",{
@@ -51,7 +56,7 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        
+        allArea = data;
         table +=  `<option value="ALL" selected>ALL</option>`
         for (let i = 0; i < data.length; i++) {
             table += `
@@ -174,7 +179,7 @@ function deleteArea(id){
 
 function modalValue(id){
     uid = id
-    fetch("http://localhost:8081/api/user/"+id,{
+    fetch("http://localhost:8081/api/user/"+uid,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -189,11 +194,14 @@ function modalValue(id){
     document.getElementById("email").value = data.email;
     document.getElementById("password").value = data.password;
     document.getElementById("family").value = data.numberOfFamilyMembers;
-
+    
     document.getElementById("city").value = data.address.city;
     document.getElementById("housenumber").value = data.address.houseNumber;
     document.getElementById("floornumber").value = data.address.floorNumber;
     document.getElementById("street").value = data.address.street;
+                                                                       
+    mainAddressId = data.address.id;
+    mainAreaId = data.area.id;
 
     getArea2()
 })
@@ -208,7 +216,7 @@ function getArea2() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        
+        table = ""
         table +=  `<option value="ALL" selected>ALL</option>`
         for (let i = 0; i < data.length; i++) {
             table += `
@@ -219,15 +227,21 @@ function getArea2() {
     })
 }
 
-let addressId;
-let areaId;
+
+
 
 function updateUser(){
 
     var select = document.getElementById('dropdownarea2');
-    var value = select.options[select.selectedIndex].value;
-    areaId = value
+    var selectedAreaName = select.options[select.selectedIndex].value;
 
+    //                                                                  Fetch the id of selected area from all area Array
+   for (let i = 0; i < allArea.length; i++) {
+     if(allArea[i].name == selectedAreaName){
+        mainAreaId = allArea[i].id;
+     }
+   }
+    
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
     let cnic = document.getElementById("cnic").value;
@@ -242,11 +256,8 @@ function updateUser(){
     let street = document.getElementById("street").value;
 
 
-    setTimeout(() => {
-
         newAddress = {city : city , houseNumber : housenumber , floorNumber : floornumber , street : street}; 
-        console.log(newAddress);
-        fetch("http://localhost:8081/api/address", {
+        fetch("http://localhost:8081/api/address/"+mainAddressId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -255,29 +266,25 @@ function updateUser(){
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.id);
-                addressId = data.id
-                addUser()
+                 console.log("Address Data succesfully updated "+data)
             })
             .catch((error) => {
                 console.error('Error:', error);
             })
         
-    }, 2000);
 
     setTimeout(() => {
         newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
             , email : email , password : password , numberOfFamilyMembers : family ,
             area : {
-                id : areaId
+                id : mainAreaId
             },
             address : {
-                id : addressId
+                id : mainAddressId
             }
         }; 
-        console.log(newUser);
-    
-        fetch("http://localhost:8081/api/user", {
+        
+        fetch("http://localhost:8081/api/user/"+uid, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -286,14 +293,13 @@ function updateUser(){
         })
             .then(response => response.json())
             .then(data => {
+                getUser() 
                 console.log('Success:', data);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }, 2000);
-
-
- 
+            
+    }, 400);
 
 }

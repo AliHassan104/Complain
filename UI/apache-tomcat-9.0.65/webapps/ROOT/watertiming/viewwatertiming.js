@@ -82,10 +82,11 @@ function updateWaterTiming(){
 function deleteWaterTiming(id){  
     fetch('http://localhost:8081/api/watertiming/'+id, {
             method: 'DELETE'
-    })
-    setTimeout(() => {
+    }).finally(()=>{
         getWaterTiming()
-    }, 100);
+    })
+    // setTimeout(() => {
+    // }, 100);
 }
 
 function modalValue(id){

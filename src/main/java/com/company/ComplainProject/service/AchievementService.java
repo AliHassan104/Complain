@@ -21,6 +21,8 @@ public class AchievementService {
     @Autowired
     AchievementRepository achievementRepository;
 
+    private final String imageFolderPath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
+
 
     public List<Achievements> getAllAchievement() {
         return achievementRepository.findAll();
@@ -48,8 +50,8 @@ public class AchievementService {
             updateAchievement.setTitle(achievementsDto.getTitle());
             updateAchievement.setDescription(achievementsDto.getDescription());
             updateAchievement.setPictureUrl(achievementsDto.getPictureUrl());
-            updateAchievement.setDate(achievementsDto.getDate());
-            updateAchievement.setTime(achievementsDto.getTime());
+//            updateAchievement.setDate(achievementsDto.getDate());
+//            updateAchievement.setTime(achievementsDto.getTime());
         }
         return Optional.of(toDto(achievementRepository.save(updateAchievement)));
     }
@@ -69,9 +71,7 @@ public class AchievementService {
                 .time(achievements.getTime())
                 .build();
     }
-
-    private final String imageFolderPath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
-//    @Override
+//                                                                                                 get Achievement Image
     public InputStream getImageByName(String imageName) throws FileNotFoundException {
         String imagePath = imageFolderPath+File.separator+imageName;
         InputStream inputStream = new FileInputStream(imagePath);

@@ -23,14 +23,12 @@ public class ComplainService {
     @Autowired
     ComplainImageImplementation complainImageImplementation;
 
+    private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
+
     public List<Complain> getAllComplain() {
         return complainRepository.findAll();
 
     }
-
-//    public Map<String , Integer> getComplainByComplainType() {
-//        return complainRepository.findComplainByComplain();
-//    }
 
     public Optional<Complain> getComplainTypeById(Long id) {
         return complainRepository.findById(id);
@@ -44,7 +42,7 @@ public class ComplainService {
         return toDto(complainRepository.save(dto(complainDto)));
     }
 
-    public Optional<ComplainDto> updateComplainById(Long id, ComplainDto complainDto) {
+    public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
         Complain updateComplain = getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updateComplain != null){
             updateComplain.setDescription(complainDto.getDescription());
@@ -54,10 +52,10 @@ public class ComplainService {
             updateComplain.setArea(complainDto.getArea());
             updateComplain.setUser(complainDto.getUser());
             updateComplain.setComplainType(complainDto.getComplainType());
-            updateComplain.setDate(complainDto.getDate());
-            updateComplain.setTime(complainDto.getTime());
+//            updateComplain.setDate(complainDto.getDate());
+//            updateComplain.setTime(complainDto.getTime());
         }
-        return Optional.of(toDto(complainRepository.save(updateComplain)));
+        return toDto(complainRepository.save(updateComplain));
     }
 
     public Complain dto(ComplainDto complainDto){
@@ -90,14 +88,18 @@ public class ComplainService {
                 .build();
     }
 
-    private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
-//    @Override
+
     public InputStream getImageByName(String filename) throws FileNotFoundException {
-        String assetImagePath = imageFolderPath+ File.separator+filename;
-        InputStream inputStream = new FileInputStream(assetImagePath);
-        return inputStream;
+        try{
+            String assetImagePath = imageFolderPath+ File.separator+filename;
+            InputStream inputStream = new FileInputStream(assetImagePath);
+            return inputStream;
+        }
+        catch (Exception e){
+            System.out.println("Image not exist in Complain "+e);
+            throw new FileNotFoundException("Image not exist in Complain");
+        }
+
     }
-
-
 
 }

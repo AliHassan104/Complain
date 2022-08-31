@@ -76,7 +76,7 @@ public class AchievementController {
         try{
             ObjectMapper mapper = new ObjectMapper();
             AchievementsDto achievementsDto = mapper.readValue(userdata,AchievementsDto.class);
-
+//                                                                                              Save Image in Database
             String fileName = achievementImageImplementation.uploadImage(image);
 
             achievementsDto.setPictureUrl("http://localhost:8081/api/"+path+fileName);

@@ -2,6 +2,8 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.UserDto;
+import com.company.ComplainProject.model.Address;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.ComplainRepository;
@@ -17,8 +19,10 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     UserRepository userRepository;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    AreaService areaService;
+    @Autowired
+    AddressService addressService;
 
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -39,14 +43,19 @@ public class UserService {
 
     public Optional<UserDto> updateUserById(Long id, UserDto userDto) {
         User updateUser = getAllUser().stream().filter(el->el.getId().equals(id)).findAny().get();
+
+        Area updatedArea =  areaService.getAllArea().stream().filter(area -> area.getId().equals(userDto.getArea().getId())).findAny().get();
+        Address updatedAddress = addressService.getAllAddress().stream().filter(address -> address.getId().equals(userDto.getAddress().getId())).findAny().get();
+
         if(updateUser != null){
             updateUser.setFirstname(userDto.getFirstname());
             updateUser.setLastname(userDto.getLastname());
+            updateUser.setEmail(userDto.getEmail());
             updateUser.setCnic(userDto.getCnic());
             updateUser.setPhoneNumber(userDto.getPhoneNumber());
             updateUser.setNumberOfFamilyMembers(userDto.getNumberOfFamilyMembers());
-            updateUser.setArea(userDto.getArea());
-            updateUser.setAddress(userDto.getAddress());
+            updateUser.setArea(updatedArea);
+            updateUser.setAddress(updatedAddress);
         }
         return Optional.of(toDto(userRepository.save(updateUser)));
     }

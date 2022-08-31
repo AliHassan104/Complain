@@ -61,7 +61,6 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
         String  fileName = complainImageImplementation.uploadImage(image);
 
-
         complainDto.setPicture("http://localhost:8081/api/"+path+fileName);
 
         return ResponseEntity.ok(complainService.addComplain(complainDto));
@@ -85,7 +84,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     }
 
     @PutMapping("/complain/{id}")
-    public ResponseEntity<Optional<ComplainDto>> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
+    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
         try{
             return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
         }catch (Exception e){
@@ -94,12 +93,4 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
         }
     }
 
-//    @GetMapping("/complain/complaintype")
-//    public ResponseEntity<Map<String , Integer>> getComplainByComplainType(){
-//        Map<String , Integer> complain = (Map<String, Integer>) complainService.getComplainByComplainType();
-//        if(!complain.isEmpty()){
-//            return ResponseEntity.ok(complain);
-//        }
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//    }
 }
