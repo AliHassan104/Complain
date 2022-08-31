@@ -3,8 +3,10 @@ package com.company.ComplainProject.service;
 //import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.repository.ComplainRepository;
+import com.company.ComplainProject.repository.specification.ComplainSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ComplainService {
@@ -88,6 +91,11 @@ public class ComplainService {
                 .build();
     }
 
+    public List<ComplainDto> getFilteredComplain(SearchCriteria searchCriteria) {
+        ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
+        List<Complain> complains = complainRepository.findAll(complainSpecification);
+        return complains.stream().map(el->toDto(el)).collect(Collectors.toList());
+    }
 
     public InputStream getImageByName(String filename) throws FileNotFoundException {
         try{

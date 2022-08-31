@@ -7,9 +7,7 @@ import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Complain;
-import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.service.ComplainService;
-import com.company.ComplainProject.service.ComplainTypeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +85,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     }
 
     @PutMapping("/complain/{id}")
-    public ResponseEntity<Optional<ComplainDto>> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
+    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
         try{
             return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
         }catch (Exception e){
