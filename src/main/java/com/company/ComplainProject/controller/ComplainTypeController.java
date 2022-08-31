@@ -54,7 +54,6 @@ public class ComplainTypeController {
     public ResponseEntity<Void> deleteComplainTypeById(@PathVariable Long id){
         System.out.println(id);
         try{
-            System.out.println("------------------------");
             complainTypeService.deleteComplainTypeById(id);
             return ResponseEntity.ok().build();
         }

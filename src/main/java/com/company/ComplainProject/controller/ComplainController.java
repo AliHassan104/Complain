@@ -5,6 +5,7 @@ import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
+import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.service.ComplainService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -94,12 +96,13 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
         }
     }
 
-//    @GetMapping("/complain/complaintype")
-//    public ResponseEntity<Map<String , Integer>> getComplainByComplainType(){
-//        Map<String , Integer> complain = (Map<String, Integer>) complainService.getComplainByComplainType();
-//        if(!complain.isEmpty()){
-//            return ResponseEntity.ok(complain);
-//        }
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//    }
+    @GetMapping("/complain/search")
+    public ResponseEntity<List<ComplainDto>>  filteredAssetBooking(@RequestBody SearchCriteria searchCriteria){
+        List<ComplainDto> complain = complainService.getFilteredComplain(searchCriteria);
+        if(!complain.isEmpty()){
+            return ResponseEntity.ok(complain);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
 }

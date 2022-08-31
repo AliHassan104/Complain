@@ -1,5 +1,7 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.service.UserService;
@@ -71,4 +73,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/user/search")
+    public ResponseEntity<List<UserDto>>  filteredAssetBooking(@RequestBody SearchCriteria searchCriteria){
+        List<UserDto> user = userService.getFilteredUser(searchCriteria);
+        if(!user.isEmpty()){
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+
+
 }

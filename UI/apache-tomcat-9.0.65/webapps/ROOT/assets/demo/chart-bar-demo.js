@@ -47,7 +47,7 @@ let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
 
 setTimeout(() => {
   barchart()
-}, 500);
+}, 1500);
     
     
 function barchart() {

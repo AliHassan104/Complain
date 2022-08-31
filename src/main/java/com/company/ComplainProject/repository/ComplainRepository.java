@@ -5,6 +5,7 @@ import com.company.ComplainProject.dto.DashboardData.ComplainByMonth;
 import com.company.ComplainProject.dto.DashboardData.ComplainByStatus;
 import com.company.ComplainProject.model.Complain;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public interface ComplainRepository extends JpaRepository<Complain,Long> {
+public interface ComplainRepository extends JpaRepository<Complain,Long> , JpaSpecificationExecutor<Complain> {
 
     @Query(value = "SELECT NEW com.company.ComplainProject.dto.DashboardData.ComplainByComplainType(ct.name,COUNT(*)) FROM Complain c INNER JOIN ComplainType ct ON c.complainType = ct.id group by name")
     public ArrayList<ComplainByComplainType> findComplainByComplain();

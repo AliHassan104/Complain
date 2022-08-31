@@ -1,17 +1,20 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.UserRepository;
+import com.company.ComplainProject.repository.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -82,4 +85,12 @@ public class UserService {
                 .roles(user.getRoles())
                 .build();
     }
+
+    public List<UserDto> getFilteredUser(SearchCriteria searchCriteria) {
+        UserSpecification userSpecification = new UserSpecification(searchCriteria);
+        List<User> users = userRepository.findAll(userSpecification);
+        return users.stream().map(el->toDto(el)).collect(Collectors.toList());
+    }
+
 }
+

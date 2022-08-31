@@ -52,7 +52,4 @@ getComplain()
 
 setTimeout(() => {
   piegraph()
-}, 500);
-
-
-
+}, 1500);
