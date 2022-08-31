@@ -12,9 +12,11 @@ function getWaterTiming() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        table += `<h2 style="display: inline-table;">Water Time</h2>`
-
-        table += `
+        if (data != null) {
+            
+            table += `<h2 style="display: inline-table;">Water Time</h2>`
+            
+            table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 20%;" class="toptable ">Area</th>
         <th style="width: 20%;" class="toptable ">Day</th>
@@ -56,37 +58,37 @@ function updateWaterTiming(){
         id : area
     } , day : day , date : date , time : time
     }; 
-
+    
     console.log(newArea);
-
+    
     fetch('http://localhost:8081/api/watertiming/'+uid, {
-            method: 'PUT',
+        method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(newArea),
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
             .catch((error) => {
                 console.error('Error:', error);
             });
+        }
 
             setTimeout(() => {
                 getWaterTiming()
             }, 1000);
-}
+        }
 
 function deleteWaterTiming(id){  
     fetch('http://localhost:8081/api/watertiming/'+id, {
-            method: 'DELETE'
-    }).finally(()=>{
-        getWaterTiming()
+        method: 'DELETE'
     })
-    // setTimeout(() => {
-    // }, 100);
+    setTimeout(() => {
+        getWaterTiming()
+    }, 100);
 }
 
 function modalValue(id){

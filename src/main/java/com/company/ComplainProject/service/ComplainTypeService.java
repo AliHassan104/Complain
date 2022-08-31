@@ -27,7 +27,6 @@ public class ComplainTypeService {
     }
 
     public void deleteComplainTypeById(Long id) {
-        System.out.println("=========================");
         complainTypeRepository.deleteById(id);
     }
 

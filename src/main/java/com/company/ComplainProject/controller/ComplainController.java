@@ -5,6 +5,7 @@ import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
+import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.service.ComplainService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,6 +63,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
         String  fileName = complainImageImplementation.uploadImage(image);
 
+
         complainDto.setPicture("http://localhost:8081/api/"+path+fileName);
 
         return ResponseEntity.ok(complainService.addComplain(complainDto));
@@ -84,13 +87,22 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     }
 
     @PutMapping("/complain/{id}")
-    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
+    public ResponseEntity<Optional<ComplainDto>> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
         try{
             return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/complain/search")
+    public ResponseEntity<List<ComplainDto>>  filteredAssetBooking(@RequestBody SearchCriteria searchCriteria){
+        List<ComplainDto> complain = complainService.getFilteredComplain(searchCriteria);
+        if(!complain.isEmpty()){
+            return ResponseEntity.ok(complain);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 }

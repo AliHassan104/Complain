@@ -1,6 +1,11 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#292b2c';
+
+
+// Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+// Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+// Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Bar Chart Example
 
@@ -11,37 +16,47 @@ let max = 10;
 let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
 
 // setTimeout(() => {
-  getComplain()
-// }, 100);
-
-function getComplain() {
+  // }, 1100);
+  
+  function getComplain() {
     fetch("http://localhost:8081/api/complianbymonth",{
-        headers:{
+      headers:{
             "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
+          }
+        })
+        .then((response)=>response.json())
     .then((data)=> {
         for (const property in data) {
           // complainNumber.push(data[property].numberofComplains)
           complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)
         }
-        console.log(complainNumber);
+        // console.log(complainNumber);
         max = 0
         for (let i = 0; i < complainNumber.length-1; i++) {
           if (complainNumber[i] < complainNumber[i+1]) {
             max = complainNumber[i+1]
-            console.log(max);
+            // console.log(max);
           }
         }
-    })
+      })
 }
 
+// setTimeout(() => {
+  getComplain()
+// }, 2000);
 
+setTimeout(() => {
+  barchart()
+}, 1500);
+    
+    
 function barchart() {
-  
-}
 
+  console.log("bar graph");
+      
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+      
 var ctx = document.getElementById("myBarChart");
 
 var myLineChart = new Chart(ctx, {
@@ -72,7 +87,7 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           min: 0,
           // max: maxComplain,
-          max: max,
+          max: max+5,
           maxTicksLimit: 5
         },
         gridLines: {
@@ -85,3 +100,5 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+}
