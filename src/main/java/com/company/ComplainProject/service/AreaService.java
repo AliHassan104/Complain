@@ -37,7 +37,6 @@ public class AreaService {
         Area updateAchievement = getAllArea().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updateAchievement != null){
             updateAchievement.setName(areaDto.getName());
-            updateAchievement.setBlock(areaDto.getBlock());
             updateAchievement.setPostalCode(areaDto.getPostalCode());
         }
         return Optional.of(toDto(areaRepository.save(updateAchievement)));
@@ -45,13 +44,12 @@ public class AreaService {
 
     public Area dto(AreaDto areaDto){
         return Area.builder().id(areaDto.getId()).name(areaDto.getName())
-                .block(areaDto.getBlock()).postalCode(areaDto.getPostalCode()).
+                .postalCode(areaDto.getPostalCode()).
                 build();
     }
 
     public AreaDto toDto(Area area){
-        return  AreaDto.builder().id(area.getId()).name(area.getName())
-                .block(area.getBlock()).postalCode(area.getPostalCode())
+        return  AreaDto.builder().id(area.getId()).name(area.getName()).postalCode(area.getPostalCode())
                 .build();
     }
 }

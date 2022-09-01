@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 @Repository
 public interface ComplainRepository extends JpaRepository<Complain,Long> , JpaSpecificationExecutor<Complain> {
@@ -24,6 +24,8 @@ public interface ComplainRepository extends JpaRepository<Complain,Long> , JpaSp
 
     @Query(value = "SELECT NEW com.company.ComplainProject.dto.DashboardData.ComplainByMonth(COUNT(c.id),MONTH(c.date)) FROM Complain c GROUP BY MONTH(c.date)" )
     public ArrayList<ComplainByMonth> findComplainByMonth();
+
+
 
 }
 
