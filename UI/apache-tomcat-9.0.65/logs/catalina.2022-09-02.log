@@ -1,0 +1,44 @@
+02-Sep-2022 14:16:56.896 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.65
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jul 14 2022 12:28:53 UTC
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.65.0
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk-16.0.2
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           16.0.2+7-67
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65
+02-Sep-2022 14:16:56.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65
+02-Sep-2022 14:16:56.934 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+02-Sep-2022 14:16:56.934 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+02-Sep-2022 14:16:56.934 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+02-Sep-2022 14:16:56.934 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+02-Sep-2022 14:16:56.934 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\conf\logging.properties
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65
+02-Sep-2022 14:16:56.950 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\temp
+02-Sep-2022 14:16:56.966 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.2.35] using APR version [1.7.0].
+02-Sep-2022 14:16:56.966 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+02-Sep-2022 14:16:56.966 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+02-Sep-2022 14:16:56.997 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 1.1.1q  5 Jul 2022]
+02-Sep-2022 14:16:58.278 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+02-Sep-2022 14:16:58.684 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [2572] milliseconds
+02-Sep-2022 14:16:58.840 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+02-Sep-2022 14:16:58.840 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.65]
+02-Sep-2022 14:16:58.872 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\docs]
+02-Sep-2022 14:16:59.950 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\docs] has finished in [1,078] ms
+02-Sep-2022 14:16:59.965 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\examples]
+02-Sep-2022 14:17:01.668 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\examples] has finished in [1,703] ms
+02-Sep-2022 14:17:01.668 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\host-manager]
+02-Sep-2022 14:17:01.903 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\host-manager] has finished in [235] ms
+02-Sep-2022 14:17:01.934 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\manager]
+02-Sep-2022 14:17:02.418 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\manager] has finished in [484] ms
+02-Sep-2022 14:17:02.434 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\ROOT]
+02-Sep-2022 14:17:02.528 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Ali Hassan\Desktop\Complain\UI\apache-tomcat-9.0.65\webapps\ROOT] has finished in [94] ms
+02-Sep-2022 14:17:02.528 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+02-Sep-2022 14:17:05.090 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [6410] milliseconds

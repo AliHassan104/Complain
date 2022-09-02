@@ -1,19 +1,19 @@
 let addressId;
 let areaId;
 
+console.log(123);
 function formSubmit(){
-    
+    console.log("form");
     var select = document.getElementById('dropdownarea');
     var value = select.options[select.selectedIndex].value;
     areaId = value
 
     setTimeout(() => {
         addAddress()
-    }, 100);
+    }, 400);
 
-    
-    var select = document.getElementById('dropdownarea');
-    var value = select.options[select.selectedIndex].value = data[0].id;
+    // var select = document.getElementById('dropdownarea');
+    // var value = select.options[select.selectedIndex].value = data[0].id;
 
 }
 
@@ -36,7 +36,7 @@ function addUser(){
             id : addressId
         }
     }; 
-    console.log(newUser);
+    // console.log(newUser);
 
     fetch("http://localhost:8081/api/user", {
     method: 'POST',
@@ -47,7 +47,23 @@ function addUser(){
 })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
+        // console.log('Success:', data);
+        let table = ""
+        table += `
+    <div  style=" 
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: 5vh; text-align: center; 
+    justify-content: center;
+    font-size: large" 
+    class="alert alert-success" role="alert">
+    <b> ${newUser.firstname +" "+ newUser.lastname} </b> &nbsp   Added In User Successfully
+    </div>` //<b> ${complaintype} </b>
+
+    
+    document.getElementById("formSubmitted").innerHTML = table
+
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -80,18 +96,19 @@ function addAddress(){
 })
     .then(response => response.json())
     .then(data => {
-        console.log(data.id);
+        // console.log(data.id);
         addressId = data.id
         addUser()
+        document.getElementById("city").value = "";
+        document.getElementById("housenumber").value = "";
+        document.getElementById("floornumber").value = "";
+        document.getElementById("street").value = "";
     })
     .catch((error) => {
         console.error('Error:', error);
     })
 
-    document.getElementById("city").value = "";
-    document.getElementById("housenumber").value = "";
-    document.getElementById("floornumber").value = "";
-    document.getElementById("street").value = "";
+    
     
 }
 
@@ -104,9 +121,7 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
-            console.log(data);
             table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `

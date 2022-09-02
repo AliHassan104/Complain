@@ -24,15 +24,31 @@ function formSubmit(){
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+        let table = ""
+        table += `
+    <div  style=" 
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: 5vh; text-align: center; 
+    justify-content: center;
+    font-size: large" 
+    class="alert alert-success" role="alert">
+    &nbsp  Water Timing Added In Area Successfully
+    </div>` //<b> ${complaintype} </b>
+
+    document.getElementById("day").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("time").value = "";
+    
+    document.getElementById("formSubmitted").innerHTML = table
     })
     .catch((error) => {
         console.error('Error:', error);
     });
 
     
-    document.getElementById("day").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
+ 
 }
 
 function getArea() {
