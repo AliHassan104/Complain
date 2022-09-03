@@ -2,6 +2,22 @@
 function deletePollingQuestion(id){
     fetch('http://localhost:8081/api/pollingquestion/'+id, {
         method: 'DELETE'
+    }).then(()=>{
+        let table = ""
+
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Polling Question Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
     })
     setTimeout(() => {
         getPollingQuestion()
@@ -19,7 +35,7 @@ function getPollingQuestion() {
             "Content-Type":"application/json",   
         }
     })
-    .then((response)=>response.json())
+    .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
@@ -53,10 +69,18 @@ function getPollingQuestion() {
 
              count += 1;
             })
+        // table += `<tr>`
+        // data[i].pollingOptions.forEach((item) => {
+        //     console.log(item);
+        //     `<td> <span style="padding-left: 6%; margin-left: 6%;"  >${count}</span> - ${item.option} </td>`
+        //     count++
+        // })
+        // table += `</tr>`
+        
             
         }
         
-        document.getElementById("pollingquestiontable").innerHTML = table;
+        document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
 

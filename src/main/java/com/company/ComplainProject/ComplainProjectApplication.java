@@ -20,8 +20,6 @@ public class ComplainProjectApplication {
 
 		SpringApplication.run(ComplainProjectApplication.class, args);
 
-
-
 	}
 
 	@Bean

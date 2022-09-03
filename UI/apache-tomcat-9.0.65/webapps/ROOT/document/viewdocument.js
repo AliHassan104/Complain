@@ -10,29 +10,31 @@ function getDocuments() {
             
         }
     })
-    .then((response)=>response.json())
+    .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
         table += `<h2 style="display: inline-table;">Document</h2>`
 
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
-        <th style="width: 40%;" class="toptable ">Area</th>
-        <th style="width: 40%;" class="toptable ">URL</th>
+        <th style="width: 30%;" class="toptable ">Area</th>
+        <th style="width: 50%;" class="toptable ">URL</th>
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
         for (let i = 0; i < data.length; i++) {
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
-            <td style="width: 40%;" class="datatable">${data[i].area.name}</td>
+            <td style="width: 30%;" class="datatable">${data[i].area.name}</td>
             
-        <td style="width: 40%;" class="datatable"><a target="_blank" href="${data[i].url}">${data[i].url}</a></td>
+        <td style="width: 50%;" class="datatable"><a target="_blank" href="${data[i].url}">${data[i].url}</a></td>
             <td style="width: 20%;" class="datatable"> 
+            
+            <a  href="/document/adddocument.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             <i onclick="deleteDocument(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
-    </td>
+        </td>
         </tr>`
         }
-        document.getElementById("documenttable").innerHTML = table;
+        document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
 getDocuments()
@@ -77,6 +79,22 @@ function deleteDocument(id){
     
     fetch('http://localhost:8081/api/document/'+id, {
             method: 'DELETE'
+    }).then(()=>{
+        let table = ""
+
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Document Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
     })
 
     setTimeout(() => {

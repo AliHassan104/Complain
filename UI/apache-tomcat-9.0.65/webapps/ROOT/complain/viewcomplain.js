@@ -15,7 +15,6 @@ function getComplain() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        table += `<h2 style="display: inline-table;">Complain</h2>`
 
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
@@ -52,7 +51,7 @@ function getComplain() {
         </tr>`
         //onclick="updatedStatusModal(${data[i].id})"
         }
-        document.getElementById("complaintable").innerHTML = table;
+        document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
 
@@ -113,6 +112,22 @@ function deleteComplain(id){
     
     fetch('http://localhost:8081/api/complain/'+id, {
             method: 'DELETE'
+    }).catch(()=>{
+        let table = ""
+
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Complain Type  Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
     })
 
     setTimeout(() => {
@@ -310,46 +325,46 @@ function filterComplainByStatus(){
             }
 
         }
-        document.getElementById("complaintable").innerHTML = table;
+        document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
-getArea()
-getComplainType()
+// getArea()
+// getComplainType()
 
-function getArea() {
-    let table = ""
-    fetch("http://localhost:8081/api/area",{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
+// function getArea() {
+//     let table = ""
+//     fetch("http://localhost:8081/api/area",{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
         
-        table +=  `<option value="ALL" selected>ALL</option>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
-            <option value="${data[i].name}">${data[i].name}</option>
-        `
-        }
-        document.getElementById("dropdownarea").innerHTML = table;
-    })
-}
-function getComplainType() {
-    let table = ""
-    fetch("http://localhost:8081/api/complaintype",{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        table +=  `<option value="ALL" selected>ALL</option>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
-            <option value="${data[i].name}">${data[i].name}</option>
-        `
-        }
-        document.getElementById("dropdowncomplaintype").innerHTML = table;
-    })
-}
+//         table +=  `<option value="ALL" selected>ALL</option>`
+//         for (let i = 0; i < data.length; i++) {
+//             table += `
+//             <option value="${data[i].name}">${data[i].name}</option>
+//         `
+//         }
+//         document.getElementById("dropdownarea").innerHTML = table;
+//     })
+// }
+// function getComplainType() {
+//     let table = ""
+//     fetch("http://localhost:8081/api/complaintype",{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         table +=  `<option value="ALL" selected>ALL</option>`
+//         for (let i = 0; i < data.length; i++) {
+//             table += `
+//             <option value="${data[i].name}">${data[i].name}</option>
+//         `
+//         }
+//         document.getElementById("dropdowncomplaintype").innerHTML = table;
+//     })
+// }

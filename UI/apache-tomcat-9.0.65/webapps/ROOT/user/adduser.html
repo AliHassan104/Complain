@@ -100,7 +100,7 @@
 					</li>
 
 					<li class="sidebar-item ">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
+						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
@@ -112,8 +112,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain Tpye</span>
 						</a>
 						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/addcomplaintype.html">Add Complain Tpye</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/viewcomplaintype.html">View Complain Tpye</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/addcomplaintype.html">Add Complain Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/viewcomplaintype.html">View Complain Type</a></li>
 						</ul>
 					</li>
 
@@ -137,7 +137,7 @@
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
 						</ul>
 					</li>
 
@@ -160,8 +160,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Document</span>
 						</a>
 						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Add Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">View Document</a></li>
 						</ul>
 					</li>
 
@@ -180,8 +180,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Achievement</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Add Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
@@ -560,10 +560,10 @@
 
 									<br>
 									<div class="row">
-									  <div class="col">
+									  <!-- <div class="col">
 										<label for="validationDefault03">City</label>
 										<input type="text" class="form-control" id="city" placeholder="City" required>
-									  </div>
+									  </div> -->
 									  <div class="col">
 										<label for="validationDefault04">Floor Number</label>
 										<input type="number" class="form-control" id="floornumber" placeholder="floor number" required>
@@ -585,7 +585,9 @@
 
 					</div>
 					<div style="width: 100%;text-align: center; justify-content: center;">
-						<button style="width: 12%;" type="submit" onclick="formSubmit()" class="btn btn-primary" >Add</button>
+						<!-- <a href="/user/viewuser.html">  -->
+							<button style="width: 12%;" type="submit" onclick="formSubmit()" class="btn btn-primary" id="formButton" >Add</button>
+						 <!-- </a> -->
 					<br>
                         
                         
@@ -598,6 +600,7 @@
 			</main>
 
 			<script src="/js/app.js"></script>
+			<script src="/js/properties.js"></script>
 			<script src="/user/adduser.js"></script>
 			
 </body>

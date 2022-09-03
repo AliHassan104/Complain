@@ -7,16 +7,12 @@ function getWaterTiming() {
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,
             "Content-Type":"application/json",
-            
         }
     })
-    .then((response)=>response.json())
+    .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-        if (data != null) {
-            
-            table += `<h2 style="display: inline-table;">Water Time</h2>`
-            
-            table += `
+        
+        table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 20%;" class="toptable ">Area</th>
         <th style="width: 20%;" class="toptable ">Day</th>
@@ -24,6 +20,7 @@ function getWaterTiming() {
         <th style="width: 20%;" class="toptable ">Time</th>
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
+        if (data != null) {
         for (let i = 0; i < data.length; i++) {
             table += `
 
@@ -32,15 +29,22 @@ function getWaterTiming() {
             <td style="width: 20%;" class="datatable">${data[i].day}</td>
             <td style="width: 20%;" class="datatable">${data[i].date}</td>
             <td style="width: 20%;" class="datatable">${data[i].time}</td>
-            <td style="width: 20%;" class="datatable"> 
-            <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
+            <td style="width: 20%;" class="datatable">
+            
+            <a  href="/watertiming/addwatertiming.html?id=${data[i].id}">
+            <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            </a>
+
             <i onclick="deleteWaterTiming(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
         }
-        document.getElementById("watertimingtable").innerHTML = table;
-    })
+    }
+    document.getElementById("datatables-reponsive").innerHTML = table;
+})
+// table += ``
+
 }
 
 function updateWaterTiming(){
@@ -75,17 +79,34 @@ function updateWaterTiming(){
             .catch((error) => {
                 console.error('Error:', error);
             });
-        }
-
+            
             setTimeout(() => {
                 getWaterTiming()
             }, 1000);
         }
-
+    
+        
 function deleteWaterTiming(id){  
     fetch('http://localhost:8081/api/watertiming/'+id, {
         method: 'DELETE'
+    }).then(()=>{
+        let table = ""
+
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Complain Type  Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
     })
+
     setTimeout(() => {
         getWaterTiming()
     }, 100);
@@ -132,28 +153,28 @@ function getArea() {
     })
 }
 
-function getAreafilter() {
-    let table = ""
-    fetch("http://localhost:8081/api/area",{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        console.log(data);
-        table += `
-        <option value="ALL">ALL</option>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
-            <option value="${data[i].name}">${data[i].name}</option>
-        `
-        }
-        document.getElementById("dropdownareafilter").innerHTML = table;
-    })
-}
+// function getAreafilter() {
+//     let table = ""
+//     fetch("http://localhost:8081/api/area",{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         console.log(data);
+//         table += `
+//         <option value="ALL">ALL</option>`
+//         for (let i = 0; i < data.length; i++) {
+//             table += `
+//             <option value="${data[i].name}">${data[i].name}</option>
+//         `
+//         }
+//         document.getElementById("dropdownareafilter").innerHTML = table;
+//     })
+// }
 
-getAreafilter()
+// getAreafilter()
 
 function filterWaterTimingByArea() {
     

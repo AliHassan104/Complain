@@ -99,8 +99,8 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item active">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
+					<li class="sidebar-item">
+						<a data-bs-target="#dashboards" href="/index.html"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
@@ -109,11 +109,11 @@
 
 					<li class="sidebar-item">
 						<a data-bs-target="#complaintype" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain Tpye</span>
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain Type</span>
 						</a>
 						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/addcomplaintype.html">Add Complain Tpye</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/viewcomplaintype.html">View Complain Tpye</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/addcomplaintype.html">Add Complain Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/viewcomplaintype.html">View Complain Type</a></li>
 						</ul>
 					</li>
 
@@ -137,7 +137,7 @@
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
 						</ul>
 					</li>
 
@@ -160,8 +160,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Document</span>
 						</a>
 						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Add Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">View Document</a></li>
 						</ul>
 					</li>
 
@@ -180,13 +180,13 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Achievement</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Add Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
 
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 						<a data-bs-target="#pollingquestion" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Polling Question</span>
 						</a>
@@ -480,7 +480,7 @@
 
 					<div class="row mb-2 mb-xxl-4" >
 						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Add Complain Type</strong> </h3>
+							<h3><strong>Add Polling Question</strong> </h3>
 						</div>
 					</div>
                     
@@ -490,13 +490,41 @@
                             <fieldset>
                                 <div class="row mb-3">
 
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Add Complain Type</label>
+                                    <label style="margin-top: 10px;" for="pollingquestion" class="col-sm-2 col-form-label">Add Polling Question
+
+
+									</label>
                                     <div class="col-sm-10">
-                                        
-                                  	<input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type">
+                                        <input style="margin-top: 10px;" type="text" class="form-control" id="addpollingquestion" aria-describedby="emailHelp" placeholder="Enter Question">
+									
+                                  	<!-- <input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type"> -->
                                     </div>
 
                                 </div>
+
+
+								<!-- <div class="form-group">
+
+									<label for="pollingquestion">Polling Question</label>
+									
+									<input style="margin-top: 10px;" type="text" class="form-control" id="pollingquestion" aria-describedby="emailHelp" placeholder="Enter Question">
+									
+									<br>
+									
+								  </div> -->
+
+								  <div class="form-group">
+
+									<label for="pollingoption">Polling Option</label>
+
+									<table id="dynamicoption">
+									  
+
+								  </table>
+
+								  <br>
+
+								  </div>
                             </fieldset>
                         </form>
 
@@ -514,8 +542,9 @@
                 </div>
 			</main>
 
-	<script src="/js/app.js"></script>
-	<script src="/complaintype/addcomplaintype.js"></script>
+	<script src="/js/app.js"></script> 
+	<script src="/js/properties.js"></script> 
+	<script src="/pollingquestion/addpollingquestion.js"></script>
 
 </body>
 

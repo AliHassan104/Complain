@@ -15,7 +15,6 @@ function getUser() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        table += `<h2 style="display: inline-table; text-align: center;">User</h2>`
 
         table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 15%;" class="toptable ">Name</th>
@@ -35,37 +34,39 @@ function getUser() {
             <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
             <td style="width: 15%;" class="datatable"> 
+            <a href="/user/adduser.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            </a>
             <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
         }
-        document.getElementById("usertable").innerHTML = table;
+        document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
 getUser()
-getArea()
+// getArea()
 
-function getArea() {
-    let table = ""
-    fetch("http://localhost:8081/api/area",{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        allArea = data;
-        table +=  `<option value="ALL" selected>ALL</option>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
-            <option value="${data[i].name}">${data[i].name}</option>
-        `
-        }
-        document.getElementById("dropdownarea1").innerHTML = table;
-    })
-}
+// function getArea() {
+//     let table = ""
+//     fetch("http://localhost:8081/api/area",{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         allArea = data;
+//         table +=  `<option value="ALL" selected>ALL</option>`
+//         for (let i = 0; i < data.length; i++) {
+//             table += `
+//             <option value="${data[i].name}">${data[i].name}</option>
+//         `
+//         }
+//         document.getElementById("dropdownarea1").innerHTML = table;
+//     })
+// }
 
 function filterComplainByArea(){
     var select = document.getElementById('dropdownarea1');
@@ -170,6 +171,22 @@ function deleteArea(id){
     
     fetch('http://localhost:8081/api/user/'+id, {
             method: 'DELETE'
+    }).then(()=>{
+        let table = ""
+
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            User Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
     })
 
     setTimeout(() => {

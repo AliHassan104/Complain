@@ -10,16 +10,14 @@ function getAchievement() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
-        table += `<h2 style="display: inline-table;text-align: center;">Achievement</h2>`
 
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 15%;" class="toptable ">Title</th>
         <th style="width: 20%;" class="toptable ">Description</th>
         <th style="width: 15%;" class="toptable ">Date</th>
-        <th style="width: 15%;" class="toptable ">Time</th>
+        <th style="width: 10%;" class="toptable ">Time</th>
         <th style="width: 20%;" class="toptable ">Picture</th>
-        <th style="width: 10%; " class="toptable ">Action</th>
+        <th style="width: 20%; " class="toptable ">Action</th>
         </tr>`
 
         for (let i = 0; i < data.length; i++) {
@@ -29,17 +27,17 @@ function getAchievement() {
             <td style="width: 15%;" class="datatable">${data[i].title}</td>
             <td style="width: 20%;" class="datatable">${data[i].description}</td>
             <td style="width: 15%;" class="datatable">${data[i].date}</td>
-            <td style="width: 15%;" class="datatable">${data[i].time}</td>
+            <td style="width: 10%;" class="datatable">${data[i].time}</td>
             <td style="width: 20%;" class="datatable"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
             </td>
-            <td style="width: 10%;" class="datatable"> 
+            <td style="width: 20%;" class="datatable"> 
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             <i onclick="deleteAchievement(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
         }
-        document.getElementById("achivementtable").innerHTML = table;
+        document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
 getAchievement();
@@ -107,6 +105,22 @@ function updateAchievement(){
 function deleteAchievement(id){
     fetch('http://localhost:8081/api/achievement/'+id, {
             method: 'DELETE'
+    }).then(()=>{
+        let table = ""
+
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Achievement Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
     })
 
     setTimeout(() => {

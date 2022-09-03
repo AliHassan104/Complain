@@ -22,13 +22,32 @@ function formSubmit(){
         body: formData
     
     }).then((response)=>response.json())
-    .then((data)=> console.log(data))
-    .catch((error)=>console.log(error))
+    .then((data)=> {
+    console.log(data);
+    let table = ""
+    table += `
+    <div  style=" 
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: 5vh; text-align: center; 
+    justify-content: center;
+    font-size: large" 
+    class="alert alert-success" role="alert">
+    Achievement Is Added  Successfully
+    </div>`
+    document.getElementById("formSubmitted").innerHTML = table
 
     document.getElementById("achievementtitle").value = "";
     document.getElementById("description").value = "";
     document.getElementById("date").value = "";
     document.getElementById("time").value = "";
     document.getElementById("inpFile").value.files = "";
+    }
+    
+    )
+    .catch((error)=>console.log(error))
+
+    
 
 }

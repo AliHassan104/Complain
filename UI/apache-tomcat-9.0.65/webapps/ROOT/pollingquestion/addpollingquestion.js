@@ -80,7 +80,7 @@ function subtractOption(id){
 }
 
 function formSubmit(){
-    let pollingQuestion = document.getElementById("pollingquestion").value;
+    let pollingQuestion = document.getElementById("addpollingquestion").value;
     let pollingOption = []
 
     for (let i = 0; i < arr.length; i++) {
