@@ -1,7 +1,5 @@
 let queryString;
-
 setTimeout(() => {
-    
     queryString = window.location.search;
     console.log(queryString);
     
@@ -17,13 +15,12 @@ setTimeout(() => {
         document.getElementById("url").value = data.url;
         document.getElementById("title").value = data.title;
         document.getElementById("dropdownarea").value = data.area.name;
+        document.getElementById("documentbtn").innerText = "Update";
     })
     .catch((error) => {
         console.error('Error:', error);
     });
-}
-
-}, 200);
+}}, 200);
 
 function formSubmit(){
 
@@ -40,9 +37,10 @@ function formSubmit(){
     }; 
     console.log(newDocument);
 
-    fetch(`${baseUrl}/api/document`, {
-    method: 'POST',
-    headers: {
+    if (queryString == "") {
+        fetch(`${baseUrl}/api/document`, {
+            method: 'POST',
+            headers: {
         'Content-Type': 'application/json',
     },
     body: JSON.stringify(newDocument)
@@ -61,6 +59,29 @@ function formSubmit(){
         console.error('Error:', error);
     });
 
+} else {
+    fetch(`${baseUrl}/api/document/${queryString}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newDocument),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            let table = ""
+        table += `
+    <div class="alert alert-success" role="alert">
+    <b> ${title} </b>  &nbsp Updated In Documents Successfully
+    </div>`
+        document.getElementById("formSubmitted").innerHTML = table
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+    
     
     document.getElementById("url").value = "";
 }

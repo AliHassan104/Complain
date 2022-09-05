@@ -474,81 +474,79 @@
 						</div>
 					</div>
 
+
+
 					<div class="row">
-						<div class="col-3">
+						<!-- <div class="col-3">
 							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<!-- <div class="card-header">Header</div> -->
 								<div class="card-body text-dark">
 								  <a href="complain/viewcomplain.html?status=INREVIEW"> <h5 class="card-title">In Review Complain</h5> </a>
 								  
 								  <h5 class="text-center" id="inreview">5</h5>
-								  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-								</div>
+								  </div>
 							  </div>
-						</div>
-						<div class="col-3">
+						</div> -->
+						<!-- <div class="col-3">
 							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<!-- <div class="card-header">Header</div> -->
 								<div class="card-body text-dark">
 								  <a href="complain/viewcomplain.html?status=INPROGRESS"> <h5 class="card-title">In Progress Complain</h5> </a>
 								  <h5 class="text-center" id="inprogress">5</h5>
-								  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-								</div>
+								  </div>
 							  </div>
-						</div>
-						<div class="col-3">
+						</div> -->
+						<!-- <div class="col-3">
 							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<!-- <div class="card-header">Header</div> -->
 								<div class="card-body text-dark">
 								  <a href="complain/viewcomplain.html?status=RESOLVED"> <h5 class="card-title">Resolved Complain</h5> </a>
 								  <h5 class=" text-center" id="resolved">5</h5>
-								  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-								</div>
+								  </div>
 							  </div>
-						</div>
-						<div class="col-3">
+						</div> -->
+						<!-- <div class="col-3">
 							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<!-- <div class="card-header">Header</div> -->
 								<div class="card-body text-dark">
 								  <a href="complain/viewcomplain.html"> <h5 class="card-title">Total Complain</h5> </a>
 								  <h5 class="text-center" id="totalcomplain" >5</h5>
-								  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-								</div>
+								  </div>
 							  </div>
-						</div>
-						
+						</div>	 -->
 					</div>
 
-					<!-- <div class="row">
+					<div class="row">
 						<div class="col-xl-6 col-xxl-5 d-flex">
 							<div class="w-100">
 								<div class="row">
 									<div class="col-sm-6">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Sales</h5>
-													</div>
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+										<a href="/complain/viewcomplain.html?status=inreview" style="text-decoration: none;">
+
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">In Review</h5>
+														</div>
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="truck"></i>
+															</div>
 														</div>
 													</div>
-												</div>
-												<h1 class="mt-1 mb-3">2.382</h1>
-												<div class="mb-0">
-													<span class="badge badge-primary-light"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-													<span class="text-muted">Since last week</span>
+													<h1 class="mt-1 mb-3" id="inreview">2.382</h1>
+													<div class="mb-0">
+														<span class="badge badge-primary-light" id="inreviewperc"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65 % </span>
+														<span class="text-muted">Complains Are In Review</span>
+													</div>
 												</div>
 											</div>
-										</div>
+										</a>
+
+									<a href="/complain/viewcomplain.html?status=inreview" style="text-decoration: none;">
 
 										<div class="card">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Visitors</h5>
+														<h5 class="card-title">In Progress</h5>
 													</div>
 
 													<div class="col-auto">
@@ -557,23 +555,24 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">14.212</h1>
+												<h1 class="mt-1 mb-3" id="inprogress">14.212</h1>
 												<div class="mb-0">
-													<span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-													<span class="text-muted">Since last week</span>
+													<span class="badge badge-success-light" id="inprogressperc"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
+													<span class="text-muted">Complains Are In Progress</span>
 												</div>
 											</div>
 										</div>
-
+									</a>
 									</div>
 
 									<div class="col-sm-6">
 										
+										<a href="/complain/viewcomplain.html?status=inreview" style="text-decoration: none;">
 										<div class="card">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Earnings</h5>
+														<h5 class="card-title">Resolved</h5>
 													</div>
 
 													<div class="col-auto">
@@ -582,19 +581,21 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">$21.300</h1>
+												<h1 class="mt-1 mb-3" id="resolved">$21.300</h1>
 												<div class="mb-0">
-													<span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-													<span class="text-muted">Since last week</span>
+													<span class="badge badge-success-light" id="resolvedperc"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
+													<span class="text-muted">Complains Got Resolved</span>
 												</div>
 											</div>
 										</div>
+										</a>
 
+										<a href="/complain/viewcomplain.html?status=inreview" style="text-decoration: none;">
 										<div class="card">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Orders</h5>
+														<h5 class="card-title">Total Complain</h5>
 													</div>
 
 													<div class="col-auto">
@@ -603,18 +604,19 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">64</h1>
+												<h1 class="mt-1 mb-3" id="totalcomplain">64</h1>
 												<div class="mb-0">
-													<span class="badge badge-danger-light"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-													<span class="text-muted">Since last week</span>
+													<span class="badge badge-danger-light" id="rejectperc"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
+													<span class="text-muted">Complains Got Rejected</span>
 												</div>
 											</div>
 										</div>
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
 
 
 
@@ -638,7 +640,7 @@
 											</div>
 										</div>
 									</div>
-									<h5 class="card-title mb-0">Monthly Sales</h5>
+									<h5 class="card-title mb-0">Monthly Complain</h5>
 								</div>
 								<div class="card-body d-flex w-100">
 									<div class="align-self-center chart chart-lg">
@@ -669,7 +671,7 @@
 											</div>
 										</div>
 									</div>
-									<h5 class="card-title mb-0">Monthly Sales</h5>
+									<h5 class="card-title mb-0">Complain Type</h5>
 								</div>
 								<div class="card-body d-flex w-100">
 									<div class="align-self-center chart chart-lg">
