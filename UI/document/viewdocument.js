@@ -2,7 +2,7 @@ let uid;
 
 function getDocuments() {
     let table = ""
-    fetch("http://localhost:8081/api/admin/document",{
+    fetch(`${baseUrl}/api/document`,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,
@@ -30,6 +30,7 @@ function getDocuments() {
             <a  href="/document/adddocument.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            </a>
             <i onclick="deleteDocument(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
         </td>
         </tr>`
@@ -54,7 +55,8 @@ function updateDocument(){
     }; 
     console.log(newDocument);
 
-    fetch('http://localhost:8081/api/document/'+uid, {
+    
+    fetch(`${baseUrl}/api/document/${uid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +79,7 @@ function updateDocument(){
 
 function deleteDocument(id){
     
-    fetch('http://localhost:8081/api/document/'+id, {
+    fetch(`${baseUrl}/api/document/${id}`, {
             method: 'DELETE'
     }).then(()=>{
         let table = ""
@@ -102,19 +104,7 @@ function deleteDocument(id){
     }, 100);
 }
 
-function modalValue(id){
-    getArea()
-    uid = id
-    fetch("http://localhost:8081/api/document/"+id,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-    document.getElementById("url").value = data.url;
-    })
-}
+
 
 function getFilterArea() {
     let table = ""
@@ -132,7 +122,7 @@ function getFilterArea() {
             <option value="${data[i].name}">${data[i].name}</option>
         `
         }
-        document.getElementById("dropdownareafilter").innerHTML = table;
+        // document.getElementById("dropdownareafilter").innerHTML = table;
     })
 }
 function getArea() {
@@ -151,7 +141,7 @@ function getArea() {
             <option value="${data[i].id}">${data[i].name}</option>
         `
         }
-        document.getElementById("dropdownarea").innerHTML = table;
+        // document.getElementById("dropdownarea").innerHTML = table;
     })
 }
 getFilterArea()

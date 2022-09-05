@@ -9,7 +9,7 @@ setTimeout(() => {
     queryString = queryString.slice(4,queryString.length)
     console.log(queryString);
     // fetch(`http://${}/api/document/${queryString}` , {
-    fetch(`${}/api/document/${queryString}` , {
+    fetch(`${baseUrl}/api/document/${queryString}` , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -40,7 +40,7 @@ function formSubmit(){
     }; 
     console.log(newDocument);
 
-    fetch("http://localhost:8081/api/document", {
+    fetch(`${baseUrl}/api/document`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -52,14 +52,7 @@ function formSubmit(){
         console.log('Success:', data);
         let table = ""
         table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
+    <div class="alert alert-success" role="alert">
     <b> ${title} </b>  &nbsp Added In Documents Successfully
     </div>`
         document.getElementById("formSubmitted").innerHTML = table
@@ -74,7 +67,8 @@ function formSubmit(){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    // fetch(`${baseUrl}/api/area`,{
+        fetch("http://localhost:8081/api/area",{
         headers:{
             "Content-Type":"application/json",
         }
@@ -85,9 +79,9 @@ function getArea() {
         for (let i = 0; i < data.length; i++) {
 
             table += `
-            <option value="${data[i].id}">${data[i].name}</option>
-        `
+            <option value="${data[i].id}">${data[i].name}</option>`
         }
+        
         document.getElementById("dropdownarea").innerHTML = table;
         
     })
