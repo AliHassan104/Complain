@@ -14,6 +14,7 @@ import java.time.LocalDate;
 
 public class ComplainByMonth {
     private Long numberofComplains;
+
     private Integer compalinMonth;
 
 }
