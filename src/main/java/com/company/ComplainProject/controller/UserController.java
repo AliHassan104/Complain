@@ -3,6 +3,7 @@ package com.company.ComplainProject.controller;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDto;
+import com.company.ComplainProject.exportDataToExcel.UserExcelExporter;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,6 +84,19 @@ public class UserController {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/user/export")
+    public void exportUserDataToExcel(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment;filename = UserData.xlsx";
+        response.setHeader(headerKey,headerValue);
+
+        List<User> userList = userService.getAllUser();
+        UserExcelExporter userExcelExporter = new UserExcelExporter(userList);
+        userExcelExporter.exportData(response);
     }
 
 
