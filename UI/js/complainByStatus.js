@@ -52,12 +52,12 @@ function getComplain() {
 
 
         document.getElementById("totalcomplain").innerText = totalcomplain;
-        document.getElementById("rejectperc").innerText = (((totalcomplain - inprogress - resolved - inreview)/totalcomplain)*100)+"%";
+        document.getElementById("rejectperc").innerText = parseInt(((totalcomplain - inprogress - resolved - inreview)/totalcomplain)*100)+"%";
         document.getElementById("inprogress").innerText = inprogress;
-        document.getElementById("inprogressperc").innerText = ((inprogress / totalcomplain)*100) + "%";
+        document.getElementById("inprogressperc").innerText = parseInt((inprogress / totalcomplain)*100) + "%";
         document.getElementById("resolved").innerText = resolved;
-        document.getElementById("resolvedperc").innerText = ((resolved / totalcomplain)*100) + "%";
+        document.getElementById("resolvedperc").innerText = parseInt((resolved / totalcomplain)*100) + "%";
         document.getElementById("inreview").innerText = inreview;
-        document.getElementById("inreviewperc").innerText = ((inreview / totalcomplain)*100) + "%";
+        document.getElementById("inreviewperc").innerText = parseInt((inreview / totalcomplain)*100) + "%";
     })
 }

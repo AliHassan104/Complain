@@ -1,4 +1,5 @@
 
+
 function deletePollingQuestion(id){
     fetch('http://localhost:8081/api/pollingquestion/'+id, {
         method: 'DELETE'
@@ -50,8 +51,12 @@ function getPollingQuestion() {
         <td style="width: 10%;" class="datatable">${i+1}</td>
         <td style="width: 75%;" class="datatable">${data[i].question}</td>
         <td style="width: 15%;" class="datatable"> 
+
+        <a  href="/pollingquestion/addpollingquestion.html?id=${data[i].id}">
         <i onclick="modal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+        </a>
+
         <i onclick="deletePollingQuestion(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
         
         </td>
