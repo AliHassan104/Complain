@@ -122,7 +122,6 @@ public class UserExcelExporter {
             cell = row.createCell(11);
             cell.setCellValue(listOfRoles.toString());
 
-
             rowCount +=1;
         }
 
