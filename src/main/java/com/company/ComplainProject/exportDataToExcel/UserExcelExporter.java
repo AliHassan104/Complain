@@ -70,7 +70,6 @@ public class UserExcelExporter {
         cell.setCellValue("Street");
 
         cell = row.createCell(11);
-//        cell.setCellStyle();
         cell.setCellValue("Role");
 
     }

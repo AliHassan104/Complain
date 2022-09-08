@@ -8,6 +8,9 @@ import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.specification.ComplainSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -30,7 +33,13 @@ public class ComplainService {
 
     public List<Complain> getAllComplain() {
         return complainRepository.findAll();
+    }
+    public List<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Complain> complainPage = complainRepository.findAll(pageable);
+        List<Complain> complains = complainPage.getContent();
 
+        return  complains;
     }
 
     public Optional<Complain> getComplainTypeById(Long id) {

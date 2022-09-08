@@ -22,8 +22,9 @@ public class PollingQuestionController {
     PollingQuestionService pollingQuestionService;
 
     @GetMapping("/pollingquestion")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestion(){
-        List<PollingQuestion> pollingQuestion = pollingQuestionService.getAllPollingQuestion();
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber,
+                                                                    @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize){
+        List<PollingQuestion> pollingQuestion = pollingQuestionService.getAllPollingQuestionWithPagination(pageNumber,pageSize);
         if(!pollingQuestion.isEmpty()){
             return ResponseEntity.ok(pollingQuestion);
         }

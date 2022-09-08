@@ -1,5 +1,6 @@
 package com.company.ComplainProject.model;
 
+import com.company.ComplainProject.dto.statusEnum.PropertyEnum;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -28,6 +29,8 @@ public class User {
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
+//                                                      owner/tenant
+    private PropertyEnum property;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "area_id", referencedColumnName = "id")

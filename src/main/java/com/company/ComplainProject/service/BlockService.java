@@ -5,6 +5,9 @@ import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.repository.BlockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -32,8 +35,11 @@ public class BlockService {
         return BlockDto.builder().id(block.getId()).block_name(block.getBlock_name()).area(block.getArea()).build();
     }
 
-    public List<Block> getAllBlocks() {
-        return blockRepository.findAll();
+    public List<Block> getAllBlocks(Integer pageNumber,Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Block> blockPage = blockRepository.findAll(pageable);
+        List<Block> blockList = blockPage.getContent();
+        return blockList;
     }
 
     public List<Block> getBlockByArea(Long areaid) {

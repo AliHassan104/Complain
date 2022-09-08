@@ -6,6 +6,7 @@ import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.dto.SearchCriteria;
+import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.service.ComplainService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +36,9 @@ public class ComplainController {
     private String path;
 
     @GetMapping("/complain")
-    public ResponseEntity<List<Complain>> getComplain(){
-        List<Complain> complain = complainService.getAllComplain();
-
+    public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Complain> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
         if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
         }
@@ -101,6 +103,18 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
             return ResponseEntity.ok(complain);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/complain/export")
+    public void exportComplainsToExcel(HttpServletResponse response) throws IOException {
+        response.getHeader("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename = ComplianData.xlsx";
+
+        List<Complain> complains =complainService.getAllComplain();
+        ComplainExcelExporter complainExcelExporter = new ComplainExcelExporter(complains);
+        complainExcelExporter.export(response);
+
     }
 
 }

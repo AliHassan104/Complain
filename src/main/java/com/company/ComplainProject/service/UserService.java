@@ -11,6 +11,9 @@ import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getAllUserWithPagination(Integer pageNumber,Integer pageSize){
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<User> userPage = userRepository.findAll(pageable);
+        List<User> users = userPage.getContent();
+
+        return users;
+    }
+
     public Optional<User> getUserTypeById(Long id) {
         return userRepository.findById(id);
     }
@@ -40,7 +52,6 @@ public class UserService {
     }
 
     public UserDto addComplain(UserDto userDto) {
-//        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         return toDto(userRepository.save(dto(userDto)));
     }
 
@@ -59,6 +70,7 @@ public class UserService {
             updateUser.setNumberOfFamilyMembers(userDto.getNumberOfFamilyMembers());
             updateUser.setArea(updatedArea);
             updateUser.setAddress(updatedAddress);
+            updateUser.setProperty(userDto.getProperty());
         }
         return Optional.of(toDto(userRepository.save(updateUser)));
     }
@@ -75,6 +87,7 @@ public class UserService {
                 .numberOfFamilyMembers(userDto.getNumberOfFamilyMembers())
                 .area(userDto.getArea())
                 .address(userDto.getAddress())
+                .property(userDto.getProperty())
                 .roles(userDto.getRoles())
                 .build();
     }
@@ -91,6 +104,7 @@ public class UserService {
                 .numberOfFamilyMembers(user.getNumberOfFamilyMembers())
                 .area(user.getArea())
                 .address(user.getAddress())
+                .property(user.getProperty())
                 .roles(user.getRoles())
                 .build();
     }
