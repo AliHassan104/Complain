@@ -1,3 +1,34 @@
+// {
+//     "key" : "title" ,
+//     "operation" : ":",
+//     "value" : "Water"
+// }
+
+let queryString = window.location.search;
+if (queryString != "") {
+    queryString = queryString.slice(8,queryString.length)
+    console.log(queryString);
+    search = {
+        "key" : "status",
+        "operation" : ":",
+        "value" : queryString
+    }
+    console.log(search);
+    fetch(`${baseUrl}/api/complain/search`, {
+        method: 'GET',
+        // headers: {
+        //     'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify(search)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
 
 setTimeout(() => {
     getComplain()
@@ -92,24 +123,24 @@ function updateStatus(){
             });
 }
 
-function updateComplain(id){
-    fetch('http://localhost:8081/api/complain/'+id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+// function updateComplain(id){
+//     fetch('http://localhost:8081/api/complain/'+id, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             // body: JSON.stringify(data),
+//         })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log('Success:', data);
+//             })
+//             .catch((error) => {
+//                 console.error('Error:', error);
+//             });
 
     
-}
+// }
 
 function deleteComplain(id){
     

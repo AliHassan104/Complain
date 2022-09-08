@@ -13,9 +13,10 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com/">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+    
 
-	<link rel="canonical" href="index-2.html" />
+	<link rel="canonical" href="/index-2.html" />
 
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
@@ -27,7 +28,7 @@
 
 	<!-- BEGIN SETTINGS -->
 	<!-- Remove this after purchasing -->
-	<link class="js-stylesheet" href="css/light.css" rel="stylesheet">
+	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
 	<!-- <script src="js/settings.js"></script> -->
 	<style>
 		body {
@@ -55,7 +56,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
+				<a class="sidebar-brand" href="/index.html">
 					<span class="sidebar-brand-text align-middle">
 						<b>Complain</b>
 						<!-- <sup><small class="badge bg-primary text-uppercase">Pro</small></sup> -->
@@ -71,17 +72,17 @@
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+							<img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
 							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
 								Charles Hall
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
-								<a class="dropdown-item" href="/pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
+								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
 									Privacy</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
@@ -98,8 +99,8 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item active">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
+					<li class="sidebar-item">
+						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
@@ -111,22 +112,20 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain Type</span>
 						</a>
 						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="complaintype/addcomplaintype.html">Add Complain Type</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="complaintype/viewcomplaintype.html">View Complain Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/addcomplaintype.html">Add Complain Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complaintype/viewcomplaintype.html">View Complain Type</a></li>
 						</ul>
 					</li>
 
 
 
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 						<a data-bs-target="#area" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Area</span>
 						</a>
 						<ul id="area" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="area/addarea.html">Add Area</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="area/viewarea.html">View Area</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="area/addblock.html">Add Block</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="area/viewblock.html">View Block</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/addarea.html">Add Area</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewarea.html">View Area</a></li>
 						</ul>
 					</li>
 
@@ -137,8 +136,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">User</span>
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
 						</ul>
 					</li>
 
@@ -149,8 +148,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Water Timing</span>
 						</a>
 						<ul id="watertiming" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="watertiming/addwatertiming.html">Add Water Timing</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="watertiming/viewwatertiming.html">View Water Timing</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/watertiming/addwatertiming.html">Add Water Timing</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/watertiming/viewwatertiming.html">View Water Timing</a></li>
 						</ul>
 					</li>
 
@@ -161,8 +160,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Document</span>
 						</a>
 						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="document/adddocument.html">Add Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="document/viewdocument.html">View Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Add Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">View Document</a></li>
 						</ul>
 					</li>
 
@@ -171,8 +170,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain</span>
 						</a>
 						<ul id="complain" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="complain/addcomplain.html">Add Complain</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="complain/viewcomplain.html">View Complain</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complain/addcomplain.html">Add Complain</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/complain/viewcomplain.html">View Complain</a></li>
 						</ul>
 					</li>
 
@@ -181,8 +180,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="achievement/addachievement.html">Add Achievement</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="achievement/viewachievement.html">View Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Add Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
@@ -192,13 +191,10 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Polling Question</span>
 						</a>
 						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
 						</ul>
 					</li>
-
-
-
 
 			</div>
 		</nav>
@@ -372,7 +368,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
+												<img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">William Harris</div>
@@ -413,23 +409,23 @@
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-flag dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown">
-								<img src="img/flags/us.png" alt="English" />
+								<img src="/img/flags/us.png" alt="English" />
 							</a>
 							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
 								<a class="dropdown-item" href="#">
-									<img src="img/flags/us.png" alt="English" width="20" class="align-middle me-1" />
+									<img src="/img/flags/us.png" alt="English" width="20" class="align-middle me-1" />
 									<span class="align-middle">English</span>
 								</a>
 								<a class="dropdown-item" href="#">
-									<img src="img/flags/es.png" alt="Spanish" width="20" class="align-middle me-1" />
+									<img src="/img/flags/es.png" alt="Spanish" width="20" class="align-middle me-1" />
 									<span class="align-middle">Spanish</span>
 								</a>
 								<a class="dropdown-item" href="#">
-									<img src="img/flags/ru.png" alt="Russian" width="20" class="align-middle me-1" />
+									<img src="/img/flags/ru.png" alt="Russian" width="20" class="align-middle me-1" />
 									<span class="align-middle">Russian</span>
 								</a>
 								<a class="dropdown-item" href="#">
-									<img src="img/flags/de.png" alt="German" width="20" class="align-middle me-1" />
+									<img src="/img/flags/de.png" alt="German" width="20" class="align-middle me-1" />
 									<span class="align-middle">German</span>
 								</a>
 							</div>
@@ -443,13 +439,13 @@
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded" alt="Charles Hall" />
+								<img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded" alt="Charles Hall" />
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="/pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
+								<a class="dropdown-item" href="/pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
 									Privacy</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
@@ -461,250 +457,107 @@
 			</nav>
 
 
+
+
+
+
+
+
+
+            
+            
+            
+            
 			
-
-
-
-			
-
+            
 			<main class="content">
-				<div class="container-fluid p-0">
+                
+				<div class="container-fluid p-4">
 
-					<div class="row mb-2 mb-xl-3">
+                    <div class="container" id="formSubmitted" >
+                        
+                    </div>
+
+					<div class="row mb-2 mb-xxl-4" >
 						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Analytics</strong> Dashboard</h3>
+							<h3><strong>Add Area</strong> </h3>
 						</div>
 					</div>
-
-
-
+                    
 					<div class="row">
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html?status=INREVIEW"> <h5 class="card-title">In Review Complain</h5> </a>
-								  
-								  <h5 class="text-center" id="inreview">5</h5>
-								  </div>
-							  </div>
-						</div> -->
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html?status=INPROGRESS"> <h5 class="card-title">In Progress Complain</h5> </a>
-								  <h5 class="text-center" id="inprogress">5</h5>
-								  </div>
-							  </div>
-						</div> -->
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html?status=RESOLVED"> <h5 class="card-title">Resolved Complain</h5> </a>
-								  <h5 class=" text-center" id="resolved">5</h5>
-								  </div>
-							  </div>
-						</div> -->
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html"> <h5 class="card-title">Total Complain</h5> </a>
-								  <h5 class="text-center" id="totalcomplain" >5</h5>
-								  </div>
-							  </div>
-						</div>	 -->
-					</div>
 
-					<div class="row">
-						<div class="col-xl-6 col-xxl-5 d-flex">
-							<div class="w-100">
-								<div class="row">
-									<div class="col-sm-6">
-										<a href="/complain/viewcomplain.html?status=IN_REVIEW" style="text-decoration: none;">
+                        <form>
+                            <fieldset>
+                                <div class="row mb-3">
 
-											<div class="card">
-												<div class="card-body">
-													<div class="row">
-														<div class="col mt-0">
-															<h5 class="card-title">In Review</h5>
-														</div>
-														<div class="col-auto">
-															<div class="stat text-primary">
-																<i class="align-middle" data-feather="truck"></i>
-															</div>
-														</div>
-													</div>
-													<h1 class="mt-1 mb-3" id="inreview">0</h1>
-													<div class="mb-0">
-														<span class="badge badge-primary-light" id="inreviewperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0 % </span>
-														<span class="text-muted">Complains Are In Review</span>
-													</div>
-												</div>
-											</div>
-										</a>
+									<div class="row mb-3">
 
-									<a href="/complain/viewcomplain.html?status=IN_PROGRESS" style="text-decoration: none;">
-
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">In Progress</h5>
-													</div>
-
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="users"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3" id="inprogress">0</h1>
-												<div class="mb-0">
-													<span class="badge badge-success-light" id="inprogressperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
-													<span class="text-muted">Complains Are In Progress</span>
-												</div>
-											</div>
+										<label for="name" class="col-sm-2 col-form-label">Area Name</label>
+										<div class="col-sm-10">
+											<select id="dropdownarea" class="form-select">
+                                            </select>
+										  <!-- <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Area Name"> -->
 										</div>
-									</a>
+	
 									</div>
 
-									<div class="col-sm-6">
+									<div class="row mb-3">
+
+										<label for="block" class="col-sm-2 col-form-label">Add Block</label>
+										<div class="col-sm-10">
+											
+										  <input type="text" class="form-control" id="block" aria-describedby="emailHelp" placeholder="Enter Block ">
+										</div>
+	
+									</div>
+
+                                    <!-- <div class="form-group">
+
+										<label for="name" class="col-sm-2 col-form-label">Name</label>
+
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+											<input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type">
+										</div>
 										
-										<a href="/complain/viewcomplain.html?status=COMPLETED" style="text-decoration: none;">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Resolved</h5>
-													</div>
+										<br>
+									  </div> -->
+  
+									  <!-- <div class="form-group">
+										<label for="block" class="col-sm-2 col-form-label">Block</label>
+										<input type="text" class="form-control" id="block" aria-describedby="emailHelp" placeholder="Enter Block">
+										<br>
+									  </div>
+  
+									  <div class="form-group">
+										<label for="postalcode" class="col-sm-2 col-form-label">Postal Code</label>
+										<input type="text" class="form-control" id="postalcode" aria-describedby="emailHelp" placeholder="Enter Postal Code">
+										<br>
+									  </div> -->
 
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="dollar-sign"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3" id="resolved">0</h1>
-												<div class="mb-0">
-													<span class="badge badge-success-light" id="resolvedperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
-													<span class="text-muted">Complains Got Resolved</span>
-												</div>
-											</div>
-										</div>
-										</a>
+                                </div>
+                            </fieldset>
+                        </form>
 
-										<a href="/complain/viewcomplain.html" style="text-decoration: none;">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Total Complain</h5>
-													</div>
-
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="shopping-cart"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3" id="totalcomplain">0</h1>
-												<div class="mb-0">
-													<span class="badge badge-danger-light" id="rejectperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
-													<span class="text-muted">Complains Got Rejected</span>
-												</div>
-											</div>
-										</div>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
-
-
-					<div class="row">
-						<div class="col-12 col-lg-6 col-xxl-6 d-flex">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<div class="dropdown position-relative">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-horizontal"></i>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Monthly Complain</h5>
-								</div>
-								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
-										<canvas id="chartjs-dashboard-bar1"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-
-
-
-
-						<div class="col-12 col-lg-6 col-xxl-6 d-flex">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<div class="dropdown position-relative">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-horizontal"></i>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Complain Type</h5>
-								</div>
-								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
-										<canvas id="chartjs-dashboard-bar2"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
+                        <div style="width: 100%; text-align: center; justify-content: center;">
+                        <a href="/area/viewarea.html"><button style="width: 12%;" id="areabtn" type="submit" onclick="formSubmit()" class="btn btn-primary" >Add</button></a>
+						<br>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    
 				</div>
+                                        
+                </div>
 			</main>
-		</div>
-	</div>
 
-
-
-	
-	
-	
-
-	<script src="js/app.js"></script>
-	<script src="js/complainByMonth.js"></script>
-	<script src="js/complainByComplainType.js"></script>
-	<script src="js/complainByStatus.js"></script>
-
-	<script src="js/properties.js"></script>
-
+	<script src="/js/app.js"></script>
+	<script src="/js/properties.js"></script>
+	<script src="/area/addblock.js"></script>
 
 </body>
-
 
 <!-- Mirrored from demo.adminkit.io/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Aug 2022 11:49:44 GMT -->
 </html>
