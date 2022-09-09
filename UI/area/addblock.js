@@ -35,7 +35,7 @@ function formSubmit(){
 
     newArea = {area :{
         id : area
-    } , block : block
+    } , block_name : block
     }; 
     console.log(newArea);
 
