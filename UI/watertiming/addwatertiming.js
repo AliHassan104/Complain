@@ -110,8 +110,6 @@ function formSubmit(){
     console.error('Error:', error);
 });
 }
-
- 
 }
 
 function getArea() {

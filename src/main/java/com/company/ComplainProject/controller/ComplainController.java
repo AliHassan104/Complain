@@ -1,25 +1,21 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
-import com.company.ComplainProject.config.image.FileService;
-import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainDto;
-import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Complain;
+import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.service.ComplainService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -28,6 +24,8 @@ import java.util.Optional;
 public class ComplainController {
     @Autowired
     ComplainService complainService;
+    @Autowired
+    ComplainRepository complainRepository;
     @Autowired
     ComplainImageImplementation complainImageImplementation;
     @Value("${complain.image}")
@@ -51,6 +49,15 @@ public class ComplainController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+//    @GetMapping("/complain/{search}")
+//    public ResponseEntity<ArrayList<Complain>> getComplainByStatus(@PathVariable Long search){
+//        ArrayList<Complain> complain = complainRepository.findComplainByArea(search);
+//        if(complain != null){
+//            return  ResponseEntity.ok(complain);
+//        }
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//    }
 
 @PostMapping("/complain")
 public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") MultipartFile image,

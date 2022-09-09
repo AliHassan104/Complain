@@ -126,6 +126,8 @@
 						<ul id="area" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/addarea.html">Add Area</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewarea.html">View Area</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/addblock.html">Add Block</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewblock.html">View Block</a></li>
 						</ul>
 					</li>
 
@@ -503,10 +505,31 @@
                         
                     </div>
 
-					<div class="mb-3">
+					<!-- <div class="mb-3">
 						<h1 class="h3 d-inline align-middle">Complain</h1>
-						<!-- <a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a> -->
+						<a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a>
+					</div> -->
+					<div class="row">
+						<div class="col-sm-4">
+							<h1 class="h3 d-inline align-middle">User Table</h1>
+						</div>
+						<div id="dropdownarea1" class="col-sm-4">
+							<!-- <select  id="dropdownarea1" class="form-control form-control-sm"> -->
+								<!-- <option>Select Area</option> -->
+							<!-- </select> -->
+						</div>
+						<div class="col-sm-4">
+							<select onchange="filterByStatus()" id="dropdownstatusfilter" class="form-control form-control-sm">
+								<option value="ALL">Select Status</option>
+								<option value="IN_REVIEW">IN_REVIEW</option>
+								<option value="IN_PROGRESS">IN_PROGRESS</option>
+								<option value="COMPLETED">COMPLETED</option>
+								<option value="REJECTED">REJECTED</option>
+							</select>
+						</div>
 					</div>
+
+					<br>
 
 					<div class="row">
 						<div class="col-12">

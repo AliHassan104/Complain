@@ -25,6 +25,9 @@ public interface ComplainRepository extends JpaRepository<Complain,Long> , JpaSp
     @Query(value = "SELECT NEW com.company.ComplainProject.dto.DashboardData.ComplainByMonth(COUNT(c.id),MONTH(c.date)) FROM Complain c GROUP BY MONTH(c.date)" )
     public ArrayList<ComplainByMonth> findComplainByMonth();
 
+//    @Query(value = "SELECT * FROM complain where status=\"IN_REVIEW\";" , nativeQuery = true)
+//    public ArrayList<Complain> findComplainByArea(search);
+
 }
 
 

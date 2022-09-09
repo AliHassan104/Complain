@@ -134,29 +134,29 @@ function deleteAchievement(id){
 }
 
 let uid;
-function modalValue(id){
-    uid = id
-    console.log(id)
-    fetch("http://localhost:8081/api/achievement/"+id,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        console.log(data.title);
-        console.log(data.description);
-        console.log(data.date);
-        console.log(data.time);
-        console.log(data.pictureUrl);
-    document.getElementById("achievementtitle").value = data.title;
-    document.getElementById("description").value = data.description;
-    document.getElementById("date").value = data.date;
-    document.getElementById("time").value = data.time;
-    document.getElementById("inpFile") = data.pictureUrl;
-    // return data.name;
-    })
-}
+// function modalValue(id){
+//     uid = id
+//     console.log(id)
+//     fetch("http://localhost:8081/api/achievement/"+id,{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         console.log(data.title);
+//         console.log(data.description);
+//         console.log(data.date);
+//         console.log(data.time);
+//         console.log(data.pictureUrl);
+//     document.getElementById("achievementtitle").value = data.title;
+//     document.getElementById("description").value = data.description;
+//     document.getElementById("date").value = data.date;
+//     document.getElementById("time").value = data.time;
+//     document.getElementById("inpFile") = data.pictureUrl;
+//     // return data.name;
+//     })
+// }
 
 
 
