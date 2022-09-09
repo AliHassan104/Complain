@@ -1,5 +1,6 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.dto.statusEnum.PropertyEnum;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.ComplainType;
@@ -27,5 +28,6 @@ public class UserDto {
     private Integer numberOfFamilyMembers;
     private Address address;
     private Area area;
+    private PropertyEnum property;
     private Set<Roles> roles = new HashSet<>();
 }

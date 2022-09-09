@@ -49,7 +49,7 @@ public class AreaService {
     }
 
     public AreaDto toDto(Area area){
-        return  AreaDto.builder().id(area.getId()).name(area.getName()).postalCode(area.getPostalCode())
-                .build();
+        return  AreaDto.builder().id(area.getId()).name(area.getName())
+            .postalCode(area.getPostalCode()).build();
     }
 }

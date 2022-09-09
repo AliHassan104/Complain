@@ -23,12 +23,11 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserService userService;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/user")
-    public ResponseEntity<List<User>> getUser(){
-        List<User> user = userService.getAllUser();
+    public ResponseEntity<List<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
+                                              @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize){
+        List<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
         }

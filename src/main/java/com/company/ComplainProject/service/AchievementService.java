@@ -5,6 +5,9 @@ import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.repository.AchievementRepository;
         import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +27,15 @@ public class AchievementService {
     private final String imageFolderPath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
 
 
-    public List<Achievements> getAllAchievement() {
+    public List<Achievements> getAllAchievementWithPagination(Integer pageNumber,Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Achievements> achievementsPage = achievementRepository.findAll(pageable);
+        List<Achievements> achievementsList = achievementsPage.getContent();
+
+        return achievementsList;
+    }
+
+    public List<Achievements> getAllAchievement(){
         return achievementRepository.findAll();
     }
 
@@ -50,8 +61,8 @@ public class AchievementService {
             updateAchievement.setTitle(achievementsDto.getTitle());
             updateAchievement.setDescription(achievementsDto.getDescription());
             updateAchievement.setPictureUrl(achievementsDto.getPictureUrl());
-//            updateAchievement.setDate(achievementsDto.getDate());
-//            updateAchievement.setTime(achievementsDto.getTime());
+            updateAchievement.setDate(achievementsDto.getDate());
+            updateAchievement.setTime(achievementsDto.getTime());
         }
         return Optional.of(toDto(achievementRepository.save(updateAchievement)));
     }

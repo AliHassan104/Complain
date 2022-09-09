@@ -8,6 +8,9 @@ import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.specification.ComplainSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -30,7 +33,13 @@ public class ComplainService {
 
     public List<Complain> getAllComplain() {
         return complainRepository.findAll();
+    }
+    public List<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Complain> complainPage = complainRepository.findAll(pageable);
+        List<Complain> complains = complainPage.getContent();
 
+        return  complains;
     }
 
     public Optional<Complain> getComplainTypeById(Long id) {
@@ -50,8 +59,6 @@ public class ComplainService {
         if(updateComplain != null){
             updateComplain.setDescription(complainDto.getDescription());
             updateComplain.setPicture(complainDto.getPicture());
-            updateComplain.setTitle(complainDto.getTitle());
-            updateComplain.setSuggestionForImprovement(complainDto.getSuggestionForImprovement());
             updateComplain.setArea(complainDto.getArea());
             updateComplain.setUser(complainDto.getUser());
             updateComplain.setComplainType(complainDto.getComplainType());
@@ -67,8 +74,7 @@ public class ComplainService {
                 .area(complainDto.getArea())
                 .description(complainDto.getDescription())
                 .picture(complainDto.getPicture())
-                .title(complainDto.getTitle()).status(complainDto.getStatus())
-                .suggestionForImprovement(complainDto.getSuggestionForImprovement())
+                .status(complainDto.getStatus())
                 .complainType(complainDto.getComplainType())
                 .user(complainDto.getUser())
                 .date(complainDto.getDate())
@@ -82,8 +88,6 @@ public class ComplainService {
                 .area(complain.getArea())
                 .description(complain.getDescription())
                 .picture(complain.getPicture())
-                .title(complain.getTitle())
-                .suggestionForImprovement(complain.getSuggestionForImprovement())
                 .complainType(complain.getComplainType())
                 .user(complain.getUser())
                 .date(complain.getDate())

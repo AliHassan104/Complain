@@ -6,6 +6,9 @@ import com.company.ComplainProject.model.PollingQuestion;
 import com.company.ComplainProject.repository.PollingOptionRepository;
 import com.company.ComplainProject.repository.PollingQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,8 +24,16 @@ public class PollingQuestionService {
     @Autowired
     PollingOptionRepository pollingOptionRepository;
 
-    public List<PollingQuestion> getAllPollingQuestion() {
+    public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
+    }
+    public List<PollingQuestion> getAllPollingQuestionWithPagination(Integer pageNumber,Integer pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<PollingQuestion> pollingQuestionPage = pollingQuestionRepository.findAll(pageable);
+        List<PollingQuestion> pollingQuestions = pollingQuestionPage.getContent();
+
+        return pollingQuestions;
     }
 
     public Optional<PollingQuestion> getPollingQuestionById(Long id) {

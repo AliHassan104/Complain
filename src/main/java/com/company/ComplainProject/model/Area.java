@@ -23,8 +23,5 @@ public class Area {
     private Long id;
     private String name;
     private String postalCode;
-//    @OneToMany
-//    @JoinColumn(name = "area_id")
-//    @JsonIgnore
-//    private List<Block> block;
+
 }
