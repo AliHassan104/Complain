@@ -1,6 +1,7 @@
 package com.company.ComplainProject.dto;
 
 import com.company.ComplainProject.model.Area;
+import com.company.ComplainProject.model.Block;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.joda.time.DateTime;
@@ -23,4 +24,5 @@ public class WaterTimingDto {
     private LocalDate date;
     private LocalTime time;
     private Area area;
+    private Block block;
 }

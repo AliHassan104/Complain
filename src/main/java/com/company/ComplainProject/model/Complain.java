@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -25,10 +27,10 @@ public class Complain {
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;
-
-    private String title;
+    @ManyToOne
+    @JoinColumn(name = "block_id")
+    private Block block;
     private String description;
-    private String suggestionForImprovement;
     private String picture;
 
     @JsonFormat(pattern="yyyy-MM-dd")

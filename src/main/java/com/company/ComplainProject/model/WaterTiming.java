@@ -27,14 +27,15 @@ public class WaterTiming {
     @Column(name = "id")
     private Long id;
     private String day;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate date;
     @JsonFormat(pattern="HH:mm")
     private LocalTime time;
 
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;
+    @ManyToOne
+    @JoinColumn(name = "block_id")
+    private Block block;
 
 
 }

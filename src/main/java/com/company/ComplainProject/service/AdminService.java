@@ -3,6 +3,9 @@ package com.company.ComplainProject.service;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,40 +75,86 @@ public class AdminService {
         this.pollingQuestionService = pollingQuestionService;
     }
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public List<User> getAllUsers(Integer pageNumber,Integer pageSize){
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<User> userPage = userRepository.findAll(pageable);
+        List<User> userList = userPage.getContent();
+
+        return userList;
     }
 
-    public List<Achievements> getAllAchievements(){
-        return achievementRepository.findAll();
+    public List<Achievements> getAllAchievements(Integer pageNumber,Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Achievements> achievementsPage = achievementRepository.findAll(pageable);
+        List<Achievements> achievementsList = achievementsPage.getContent();
+
+        return achievementsList;
     }
 
-    public List<Address> getAllAddress(){
-        return addressRepository.findAll();
+    public List<Address> getAllAddress(Integer pageNumber,Integer pageSize){
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Address> addressPage = addressRepository.findAll(pageable);
+        List<Address> addressList = addressPage.getContent();
+
+        return addressList;
     }
 
-    public List<Area> getAllArea(){
-        return areaRepository.findAll();
+    public List<Area> getAllArea(Integer pageNumber,Integer pageSize){
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Area> areaPage = areaRepository.findAll(pageable);
+        List<Area> areaList = areaPage.getContent();
+
+        return areaList;
     }
 
-    public List<Complain> getAllComplain(){
-        return complainRepository.findAll();
+    public List<Complain> getAllComplain(Integer pageNumber,Integer pageSize){
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Complain> complainPage = complainRepository.findAll(pageable);
+        List<Complain> complainsList = complainPage.getContent();
+        return complainsList;
     }
 
-    public List<ComplainType> getAllComplainType(){return complainTypeRepository.findAll();}
+    public List<ComplainType> getAllComplainType(Integer pageNumber,Integer pageSize){
 
-    public List<Document> getAllDocument(){return documentRepository.findAll();}
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<ComplainType> complainTypePage = complainTypeRepository.findAll(pageable);
+        List<ComplainType> complainTypeList = complainTypePage.getContent();
+        return complainTypeList;
+    }
+
+    public List<Document> getAllDocument(Integer pageNumber,Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Document> documentPage = documentRepository.findAll(pageable);
+        List<Document> documentsList = documentPage.getContent();
+        return documentsList;
+    }
 
     public List<PollingAnswer> getAllPollingAnswer(){return pollingAnswerRepository.findAll();}
 
     public List<PollingOption> getAllPollingOption(){return pollingOptionRepository.findAll();}
 
-    public List<PollingQuestion> getAllPollingQuestion(){return pollingQuestionRepository.findAll();}
+    public List<PollingQuestion> getAllPollingQuestion(Integer pageNumber,Integer pageSize){
 
-    public List<WaterTiming> getAllWaterTiming(){return waterTimingRepository.findAll();}
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<PollingQuestion> pollingQuestionPage = pollingQuestionRepository.findAll(pageable);
+        List<PollingQuestion> pollingQuestionsList = pollingQuestionPage.getContent();
+        return pollingQuestionsList;
+    }
+
+    public List<WaterTiming> getAllWaterTiming(Integer pageNumber,Integer pageSize){
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<WaterTiming> waterTimingsPage = waterTimingRepository.findAll(pageable);
+        List<WaterTiming> waterTimingsList = waterTimingsPage.getContent();
+        return waterTimingsList;
+    }
 
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
-        Complain updateComplain = getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get();
+        Complain updateComplain = complainService.getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updateComplain != null){
             updateComplain.setStatus(complainDto.getStatus());
         }

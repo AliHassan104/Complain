@@ -1,16 +1,17 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.model.Area;
 import lombok.*;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @ToString
 @Builder
 
-public class AreaDto {
+public class BlockDto {
     private Long id;
-    private String name;
-    private String postalCode;
+    private String block_name;
+    private Area area;
+
 }

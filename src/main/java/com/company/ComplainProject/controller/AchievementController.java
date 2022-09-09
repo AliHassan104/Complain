@@ -3,6 +3,7 @@ package com.company.ComplainProject.controller;
 import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
+import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.service.AchievementService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,8 +30,9 @@ public class AchievementController {
     private String path;
 
     @GetMapping("/achievement")
-    public ResponseEntity<List<Achievements>> getAchievements(){
-        List<Achievements> assetBooking = achievementService.getAllAchievement();
+    public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Achievements> assetBooking = achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
         if(!assetBooking.isEmpty()){
             return ResponseEntity.ok(assetBooking);
         }
@@ -62,6 +64,9 @@ public class AchievementController {
     public ResponseEntity<Optional<AchievementsDto>> updateAchievementById(@PathVariable Long id
                                                                     ,@RequestBody AchievementsDto achievementsDto){
         try{
+//            ObjectMapper mapper = new ObjectMapper();
+//            AchievementsDto achievementsDto1 = mapper.readValue(achievementsDto,AchievementsDto.class);
+
             return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto));
         }catch (Exception e){
             System.out.println(e);

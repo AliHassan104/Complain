@@ -1,5 +1,6 @@
 package com.company.ComplainProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,6 @@ public class Area {
     @Column(name = "id")
     private Long id;
     private String name;
-    private String block;
     private String postalCode;
 
 }

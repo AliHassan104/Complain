@@ -37,9 +37,9 @@ public class WaterTimingService {
         WaterTiming updateWaterTiming = getAllWaterTiming().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updateWaterTiming != null){
             updateWaterTiming.setTime(waterTimingDto.getTime());
-            updateWaterTiming.setDate(waterTimingDto.getDate());
             updateWaterTiming.setDay(waterTimingDto.getDay());
             updateWaterTiming.setArea(waterTimingDto.getArea());
+            updateWaterTiming.setBlock(waterTimingDto.getBlock());
         }
         return Optional.of(toDto(waterTimingRepository.save(updateWaterTiming)));
     }
@@ -49,8 +49,8 @@ public class WaterTimingService {
                 .id(waterTimingDto.getId())
                 .time(waterTimingDto.getTime())
                 .day(waterTimingDto.getDay())
-                .date(waterTimingDto.getDate())
                 .area(waterTimingDto.getArea())
+                .block(waterTimingDto.getBlock())
                 .build();
     }
 
@@ -58,9 +58,9 @@ public class WaterTimingService {
         return  WaterTimingDto.builder()
                 .id(waterTiming.getId())
                 .time(waterTiming.getTime())
-                .date(waterTiming.getDate())
                 .day(waterTiming.getDay())
                 .area(waterTiming.getArea())
+                .block(waterTiming.getBlock())
                 .build();
     }
 }
