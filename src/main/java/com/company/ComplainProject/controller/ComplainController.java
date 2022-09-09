@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,7 +64,6 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
         ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
 
         String  fileName = complainImageImplementation.uploadImage(image);
-
 
         complainDto.setPicture("http://localhost:8081/api/"+path+fileName);
 

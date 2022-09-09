@@ -59,7 +59,7 @@ public class ComplainExcelExporter {
             cell.setCellValue(complain.getComplainType().getName());
 
             cell = row.createCell(2);
-            cell.setCellValue(complain.getDate());
+            cell.setCellValue(complain.getDate().toString());
 
             cell = row.createCell(3);
             cell.setCellValue(complain.getArea().getName());

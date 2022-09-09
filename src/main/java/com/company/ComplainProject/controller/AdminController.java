@@ -21,8 +21,9 @@ public class AdminController {
     }
 
     @GetMapping("/achievement")
-    public ResponseEntity<List<Achievements>> getAchievements(){
-        List<Achievements> assetBooking = adminService.getAllAchievements();
+    public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Achievements> assetBooking = adminService.getAllAchievements(pageNumber,pageSize);
         if(!assetBooking.isEmpty()){
             return ResponseEntity.ok(assetBooking);
         }
@@ -30,8 +31,9 @@ public class AdminController {
     }
 
     @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAddress(){
-        List<Address> address = adminService.getAllAddress();
+    public ResponseEntity<List<Address>> getAddress(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                    @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Address> address = adminService.getAllAddress(pageNumber,pageSize);
         if(!address.isEmpty()){
             return ResponseEntity.ok(address);
         }
@@ -39,8 +41,9 @@ public class AdminController {
     }
 
     @GetMapping("/area")
-    public ResponseEntity<List<Area>> getArea(){
-        List<Area> assetBooking = adminService.getAllArea();
+    public ResponseEntity<List<Area>> getArea(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Area> assetBooking = adminService.getAllArea(pageNumber,pageSize);
         if(!assetBooking.isEmpty()){
             return ResponseEntity.ok(assetBooking);
         }
@@ -48,8 +51,9 @@ public class AdminController {
     }
 
     @GetMapping("/complain")
-    public ResponseEntity<List<Complain>> getComplain(){
-        List<Complain> complain = adminService.getAllComplain();
+    public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
         if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
         }
@@ -57,8 +61,9 @@ public class AdminController {
     }
 
     @GetMapping("/complaintype")
-    public ResponseEntity<List<ComplainType>> getComplainType(){
-        List<ComplainType> complainType = adminService.getAllComplainType();
+    public ResponseEntity<List<ComplainType>> getComplainType(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<ComplainType> complainType = adminService.getAllComplainType(pageNumber,pageSize);
         if(!complainType.isEmpty()){
             return ResponseEntity.ok(complainType);
         }
@@ -66,8 +71,9 @@ public class AdminController {
     }
 
     @GetMapping("/document")
-    public ResponseEntity<List<Document>> getDocument(){
-        List<Document> document = adminService.getAllDocument();
+    public ResponseEntity<List<Document>> getDocument(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<Document> document = adminService.getAllDocument(pageNumber,pageSize);
         if(!document.isEmpty()){
             return ResponseEntity.ok(document);
         }
@@ -93,8 +99,9 @@ public class AdminController {
     }
 
     @GetMapping("/pollingquestion")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestion(){
-        List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion();
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                                    @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
         if(!pollingQuestion.isEmpty()){
             return ResponseEntity.ok(pollingQuestion);
         }
@@ -102,8 +109,9 @@ public class AdminController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<User>> getUser(){
-        List<User> user = adminService.getAllUsers();
+    public ResponseEntity<List<User>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<User> user = adminService.getAllUsers(pageNumber,pageSize);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
         }
@@ -111,8 +119,9 @@ public class AdminController {
     }
 
     @GetMapping("/watertiming")
-    public ResponseEntity<List<WaterTiming>> getWaterTiming(){
-        List<WaterTiming> waterTiming = adminService.getAllWaterTiming();
+    public ResponseEntity<List<WaterTiming>> getWaterTiming(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                            @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<WaterTiming> waterTiming = adminService.getAllWaterTiming(pageNumber,pageSize);
         if(!waterTiming.isEmpty()){
             return ResponseEntity.ok(waterTiming);
         }

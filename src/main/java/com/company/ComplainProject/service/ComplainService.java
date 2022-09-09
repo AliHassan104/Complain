@@ -59,8 +59,6 @@ public class ComplainService {
         if(updateComplain != null){
             updateComplain.setDescription(complainDto.getDescription());
             updateComplain.setPicture(complainDto.getPicture());
-            updateComplain.setTitle(complainDto.getTitle());
-            updateComplain.setSuggestionForImprovement(complainDto.getSuggestionForImprovement());
             updateComplain.setArea(complainDto.getArea());
             updateComplain.setUser(complainDto.getUser());
             updateComplain.setComplainType(complainDto.getComplainType());
@@ -76,8 +74,7 @@ public class ComplainService {
                 .area(complainDto.getArea())
                 .description(complainDto.getDescription())
                 .picture(complainDto.getPicture())
-                .title(complainDto.getTitle()).status(complainDto.getStatus())
-                .suggestionForImprovement(complainDto.getSuggestionForImprovement())
+                .status(complainDto.getStatus())
                 .complainType(complainDto.getComplainType())
                 .user(complainDto.getUser())
                 .date(complainDto.getDate())
@@ -91,8 +88,6 @@ public class ComplainService {
                 .area(complain.getArea())
                 .description(complain.getDescription())
                 .picture(complain.getPicture())
-                .title(complain.getTitle())
-                .suggestionForImprovement(complain.getSuggestionForImprovement())
                 .complainType(complain.getComplainType())
                 .user(complain.getUser())
                 .date(complain.getDate())
