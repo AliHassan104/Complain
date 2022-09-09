@@ -31,8 +31,12 @@ function getAchievement() {
             <td style="width: 20%;" class="datatable"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
             </td>
             <td style="width: 20%;" class="datatable"> 
+
+            <a  href="/achievement/addachievement.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            </a>
+            
             <i onclick="deleteAchievement(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
@@ -130,29 +134,29 @@ function deleteAchievement(id){
 }
 
 let uid;
-function modalValue(id){
-    uid = id
-    console.log(id)
-    fetch("http://localhost:8081/api/achievement/"+id,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        console.log(data.title);
-        console.log(data.description);
-        console.log(data.date);
-        console.log(data.time);
-        console.log(data.pictureUrl);
-    document.getElementById("achievementtitle").value = data.title;
-    document.getElementById("description").value = data.description;
-    document.getElementById("date").value = data.date;
-    document.getElementById("time").value = data.time;
-    document.getElementById("inpFile") = data.pictureUrl;
-    // return data.name;
-    })
-}
+// function modalValue(id){
+//     uid = id
+//     console.log(id)
+//     fetch("http://localhost:8081/api/achievement/"+id,{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         console.log(data.title);
+//         console.log(data.description);
+//         console.log(data.date);
+//         console.log(data.time);
+//         console.log(data.pictureUrl);
+//     document.getElementById("achievementtitle").value = data.title;
+//     document.getElementById("description").value = data.description;
+//     document.getElementById("date").value = data.date;
+//     document.getElementById("time").value = data.time;
+//     document.getElementById("inpFile") = data.pictureUrl;
+//     // return data.name;
+//     })
+// }
 
 
 

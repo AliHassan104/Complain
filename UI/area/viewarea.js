@@ -12,7 +12,7 @@ function getArea() {
 
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 40%;" class="toptable ">Name</th>
-        <th style="width: 30%;" class="toptable ">Block</th>
+        <th style="width: 30%;" class="toptable ">Postal Code</th>
         <th style="width: 30%;" class="toptable ">Action</th>
         </tr>`
 

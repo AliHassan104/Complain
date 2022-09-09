@@ -2,7 +2,7 @@ let queryString = window.location.search;
 if (queryString != "") {
     queryString = queryString.slice(4,queryString.length)
     console.log(queryString);
-    fetch(`${baseUrl}/api/area/`+queryString , {
+    fetch(`${baseUrl}/api/area/${queryString}` , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -48,7 +48,7 @@ function formSubmit(){
         console.error('Error:', error);
     });
 }else{
-    fetch(`${baseUrl}/api/area/`+queryString, {
+    fetch(`${baseUrl}/api/area/${queryString}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

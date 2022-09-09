@@ -2,9 +2,41 @@ getComplain()
 getArea()
 getUser()
 
+let queryString = window.location.search;
+if (queryString != "") {
+    queryString = queryString.slice(4,queryString.length)
+    console.log(queryString);
+    fetch(`${baseUrl}/api/complain/`+queryString , {
+})
+.then(response => response.json()).catch(()=>{})
+.then(data => {
+        console.log(data);
+
+        // document.getElementById("name").value = data.name;
+        // document.getElementById("postalcode").value = data.postalCode
+        document.getElementById("complainbtn").innerText = "Update"
+
+        // document.getElementById('dropcomplaintype'). = data.complainType.name;
+        document.getElementById('description').value = data.description;
+        // select.options[select.selectedIndex].value;
+
+        // document.getElementById('droparea').value = data.area.name;
+        // select.options[select.selectedIndex].value;
+
+        // document.getElementById('dropuser').value = data.user.firstNmae;
+        // select.options[select.selectedIndex].value;
+
+        // document.getElementById("inpFile");
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+
 function getComplain() {
     let table = ""
-    fetch("http://localhost:8081/api/complaintype",{
+    fetch(`${baseUrl}/api/complaintype`,{
         headers:{
             "Content-Type":"application/json",
             
@@ -12,7 +44,6 @@ function getComplain() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        // console.log(data);
         for (let i = 0; i < data.length; i++) {
             table += `
             <option value="${data[i].id}">${data[i].name}</option>
@@ -62,6 +93,8 @@ function getUser() {
     })
 }
 
+
+
 function formSubmit(){
 
     let title = "abc";
@@ -80,17 +113,6 @@ function formSubmit(){
     hour: 'numeric',
     minute: 'numeric',
     hour12: false});
-
-    // time = t.slice(0,2)+":"+t.slice(3,5)
-
-    // console.log(d +" "+time);
-    
-
-
-    // let date = document.getElementById("date").value;
-
-    // let time = document.getElementById("time").value;
-
     
     var select = document.getElementById('dropcomplaintype');
     var complaintype = select.options[select.selectedIndex].value;
@@ -123,7 +145,8 @@ function formSubmit(){
     }
     formData.append('data',newAchievement);
 
-    fetch("http://localhost:8081/api/complain",{
+    if (queryString) {
+        fetch("http://localhost:8081/api/complain",{
         method:"POST",
         body: formData
     
@@ -143,8 +166,31 @@ function formSubmit(){
     Your Complain Is Added  Successfully
     </div>`
     document.getElementById("formSubmitted").innerHTML = table
-    })
-
+    })   
     .catch((error)=>console.log(error))
-
+}else{
+    fetch("http://localhost:8081/api/complain"+queryString,{
+        method:"PUT",
+        body: formData
+    
+    }).then((response)=>response.json())
+    .then((data)=>{
+        // console.log(data);
+    let table = ""
+    table += `
+    <div  style=" 
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: 5vh; text-align: center; 
+    justify-content: center;
+    font-size: large" 
+    class="alert alert-success" role="alert">
+    Your Complain Is Updated Successfully
+    </div>`
+    document.getElementById("formSubmitted").innerHTML = table
+    })   
+    .catch((error)=>console.log(error))
+}
+    
 }

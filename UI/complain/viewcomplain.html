@@ -126,6 +126,8 @@
 						<ul id="area" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/addarea.html">Add Area</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewarea.html">View Area</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/addblock.html">Add Block</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewblock.html">View Block</a></li>
 						</ul>
 					</li>
 
@@ -464,6 +466,30 @@
 
 
 
+			<div class="modal fade" id="statusmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Status</h5>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <select id="updatedstatus" class="form-select" aria-label="Default select example">
+                            <option value="IN_REVIEW" selected>IN REVIEW</option>
+                            <option value="IN_PROGRESS">IN PROGRESS</option>
+                            <option value="COMPLETED">COMPLETED</option>
+                            <option value="REJECTED">REJECTED</option>
+                          </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" onclick="updateStatus()" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             
             
             
@@ -473,14 +499,37 @@
 			<main class="content">
                 <div class="container-fluid p-0">
 
+					
+
 					<div id="formSubmitted" style="height: 5vh;">
                         
                     </div>
 
-					<div class="mb-3">
+					<!-- <div class="mb-3">
 						<h1 class="h3 d-inline align-middle">Complain</h1>
-						<!-- <a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a> -->
+						<a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a>
+					</div> -->
+					<div class="row">
+						<div class="col-sm-4">
+							<h1 class="h3 d-inline align-middle">User Table</h1>
+						</div>
+						<div id="dropdownarea1" class="col-sm-4">
+							<!-- <select  id="dropdownarea1" class="form-control form-control-sm"> -->
+								<!-- <option>Select Area</option> -->
+							<!-- </select> -->
+						</div>
+						<div class="col-sm-4">
+							<select onchange="filterByStatus()" id="dropdownstatusfilter" class="form-control form-control-sm">
+								<option value="ALL">Select Status</option>
+								<option value="IN_REVIEW">IN_REVIEW</option>
+								<option value="IN_PROGRESS">IN_PROGRESS</option>
+								<option value="COMPLETED">COMPLETED</option>
+								<option value="REJECTED">REJECTED</option>
+							</select>
+						</div>
 					</div>
+
+					<br>
 
 					<div class="row">
 						<div class="col-12">
@@ -495,6 +544,7 @@
 						</div>
 					</div>
 
+					
 				</div>
 			</main>
 

@@ -100,7 +100,7 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
+						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
@@ -119,14 +119,13 @@
 
 
 
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 						<a data-bs-target="#area" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Area</span>
 						</a>
 						<ul id="area" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/addarea.html">Add Area</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewarea.html">View Area</a></li>
-							
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/addblock.html">Add Block</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewblock.html">View Block</a></li>
 						</ul>
@@ -178,7 +177,7 @@
 						</ul>
 					</li>
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a data-bs-target="#achievement" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Achievement</span>
 						</a>
@@ -477,13 +476,13 @@
                 
 				<div class="container-fluid p-4">
 
-                    <div id="formSubmitted" style="height: 5vh;">
+                    <div class="container" id="formSubmitted" >
                         
                     </div>
 
 					<div class="row mb-2 mb-xxl-4" >
 						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Add Achievement</strong> </h3>
+							<h3><strong>Add Block</strong> </h3>
 						</div>
 					</div>
                     
@@ -491,58 +490,36 @@
 
                         <form>
                             <fieldset>
-                                <!-- <div class="row mb-3">
+                                <div class="row mb-3">
 
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Add Complain Type</label>
-                                    <div class="col-sm-10">
-                                        
-                                  	<input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type">
-                                    </div>
-
-                                </div> -->
-								<div class="form-group">
-									<!-- <label for="exampleInputEmail1">Title</label>
-                                    <input type="text" class="form-control" id="achievementtitle" aria-describedby="emailHelp" placeholder="Enter Achievement Title">
-									<br> -->
 									<div class="row mb-3">
 
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Title : </label>
-                                    <div class="col-sm-10">
-                                        
-                                  	<input type="text" class="form-control" id="achievementtitle" aria-describedby="emailHelp" placeholder="Enter Achievement Type">
-                                    
-								</div>
+										<label for="name" class="col-sm-2 col-form-label">Area</label>
+										<div class="col-sm-10">
 
-                                </div>
-								  </div>
+											<select id="dropdownarea" class="form-select">
+                                            </select>
 
-								  <div class="form-outline mb-4">
-									  <label class="form-label" for="description">Description</label>
-									  <textarea class="form-control" id="description" rows="4"></textarea>
-								  </div>
-								  
-								  <div class="form-outline mb-4">
-									  <label for="date">Set Date : </label>
-									  <input type="date" id="date" name="date">
-								  </div>
-								  
-								  <div class="form-outline mb-4">
-									  <label for="time">Set Time : </label>
-									  <input type="time" id="time" name="time">
-								  </div>
-
-								  <div class="form-group">
-									  <label for="files">Achievement Picture : </label>
-									  <input class="form-control-file" type="file" id="inpFile">
+										 </div>
+	
 									</div>
 
-									
+									<div class="row mb-3">
+
+										<label for="block" class="col-sm-2 col-form-label">Add Block</label>
+										<div class="col-sm-10">
+											
+										  <input type="text" class="form-control" id="block" aria-describedby="emailHelp" placeholder="Enter Block ">
+										</div>
+	
+									</div>
+                                </div>
                             </fieldset>
                         </form>
 
-                        <div style="width: 100%;text-align: center; justify-content: center;">
-                            <button style="width: 12%;" type="submit" onclick="formSubmit()" id="achieveventbtn" class="btn btn-primary" >Add</button>
-                        <br>
+                        <div style="width: 100%; text-align: center; justify-content: center;">
+                        <a href="/area/viewblock.html"><button style="width: 12%;" id="areabtn" type="submit" onclick="formSubmit()" class="btn btn-primary" >Add</button></a>
+						<br>
                         </div>
                         
                         
@@ -556,7 +533,7 @@
 
 	<script src="/js/app.js"></script>
 	<script src="/js/properties.js"></script>
-	<script src="/achievement/addachievement.js"></script>
+	<script src="/area/addblock.js"></script>
 
 </body>
 

@@ -22,13 +22,25 @@ function getWaterTiming() {
         </tr>`
         if (data != null) {
         for (let i = 0; i < data.length; i++) {
+            hr = parseInt(data[i].time.slice(0,2));
+            // console.log(data[i].time.slice(0,2));
+            if (hr > 12) {
+                hr = hr - 12 
+                hr = hr + ":" + data[i].time.slice(3,5) + " pm"
+            }else{
+                hr = hr +  ":" + data[i].time.slice(3,5) + " am"
+            }
+            // const t = new Date().toLocaleString('en-US', {
+            //     hour: 'numeric',
+            //     minute: 'numeric',
+            //     hour12: true});
+            // console.log(hr);
             table += `
-
-        <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
+            <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 20%;" class="datatable">${data[i].area.name}</td>
             <td style="width: 20%;" class="datatable">${data[i].day}</td>
             <td style="width: 20%;" class="datatable">${data[i].date}</td>
-            <td style="width: 20%;" class="datatable">${data[i].time}</td>
+            <td style="width: 20%;" class="datatable">${hr}</td>
             <td style="width: 20%;" class="datatable">
             
             <a  href="/watertiming/addwatertiming.html?id=${data[i].id}">
@@ -228,4 +240,79 @@ function filterWaterTimingByArea() {
         document.getElementById("watertimingtable").innerHTML = table;
         console.log(table);
     })
+}
+
+getArea()
+
+function getArea() {
+    let table = ""
+    fetch("http://localhost:8081/api/area",{
+        headers:{
+            "Content-Type":"application/json",
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=> {
+        allArea = data;
+        table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
+        table +=  `<option value="ALL" selected>Select Area</option>`
+        for (let i = 0; i < data.length; i++) {
+            table += `
+            <option value="${data[i].id}">${data[i].name}</option>
+        `
+        }
+        table +=   `</select>`
+        document.getElementById("dropdownarea1").innerHTML = table;
+    })
+}
+
+function filterByArea(){
+    var select = document.getElementById('dropdownareafilter');
+    var area = select.options[select.selectedIndex].value;
+
+    console.log(area);
+    table = ""
+    if (area == "ALL") {
+        getUser()
+    }
+    else{
+        fetch("http://localhost:8081/api/user/"+area,{
+        headers:{
+            // mode: 'no-cors',
+            // "Authorization":jwtTokenBearer,
+            "Content-Type":"application/json",
+            
+        }
+    })
+    .then((response)=>response.json()).catch(()=>{})
+    .then((data)=> {
+
+        table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
+        <th style="width: 15%;" class="toptable ">Name</th>
+        <th style="width: 15%;" class="toptable ">PhoneNumber</th>
+        <th style="width: 20%;" class="toptable ">Email</th>
+        <th style="width: 20%;" class="toptable ">Cnic</th>
+        <th style="width: 15%;" class="toptable ">Area Name </th>
+        <th style="width: 15%;" class="toptable ">Action </th>
+        </tr>`
+        for (let i = 0; i < data.length; i++) {
+            table += `
+
+        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
+            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
+            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
+            <td style="width: 20%;" class="datatable">${data[i].email}</td>
+            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
+            <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
+            <td style="width: 15%;" class="datatable"> 
+            <a href="/user/adduser.html?id=${data[i].id}">
+            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
+            style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            </a>
+            <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
+    </td>
+        </tr>`
+        }
+        document.getElementById("datatables-reponsive").innerHTML = table;
+    })}
 }

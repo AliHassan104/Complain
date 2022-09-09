@@ -7,14 +7,14 @@ setTimeout(() => {
     if (queryString != "") {
     queryString = queryString.slice(4,queryString.length)
     console.log(queryString);
-    fetch("http://localhost:8081/api/watertiming/"+queryString , {
+    fetch(`${baseUrl}/api/block/${queryString}`, {
+    // fetch("http://localhost:8081/api/block/"+queryString , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
         console.log(data);
-        document.getElementById("day").value = data.day;
-        document.getElementById("date").value = data.date;
-        document.getElementById("time").value = data.time;
+        // document.getElementById("date").value = data.date;
+        document.getElementById("block").value = data.block;
     document.getElementById("formButton").innerText = "Update";
     })
     .catch((error) => {
@@ -30,20 +30,19 @@ function formSubmit(){
     var select = document.getElementById('dropdownarea');
     var area = select.options[select.selectedIndex].value;
 
-    let day = document.getElementById("day").value;
-    let date = document.getElementById("date").value;
-    let time = document.getElementById("time").value;
+    // let date = document.getElementById("date").value;
+    let block = document.getElementById("block").value;
 
     newArea = {area :{
         id : area
-    } , day : day , date : date , time : time
+    } , block_name : block
     }; 
     console.log(newArea);
 
     if (queryString == "") {
         
         
-        fetch("http://localhost:8081/api/watertiming", {
+        fetch(`${baseUrl}/api/block`, {
             method: 'POST',
             headers: {
         'Content-Type': 'application/json',
@@ -66,9 +65,7 @@ function formSubmit(){
     &nbsp  Water Timing Added In Area Successfully
     </div>` //<b> ${complaintype} </b>
     
-    document.getElementById("day").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
+    document.getElementById("block").value = "";
     
     document.getElementById("formSubmitted").innerHTML = table
 })
@@ -77,7 +74,7 @@ function formSubmit(){
 });
 
 }else{
-    fetch("http://localhost:8081/api/watertiming/"+queryString, {
+    fetch(`${baseUrl}/api/block/${queryString}`, {
             method: 'PUT',
             headers: {
         'Content-Type': 'application/json',
@@ -100,9 +97,7 @@ function formSubmit(){
     &nbsp  Water Timing Updated Successfully
     </div>` //<b> ${complaintype} </b>
     
-    document.getElementById("day").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
+    document.getElementById("block").value = "";
     
     document.getElementById("formSubmitted").innerHTML = table
 })
@@ -114,7 +109,7 @@ function formSubmit(){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -132,3 +127,4 @@ function getArea() {
     })
 }
 getArea();
+
