@@ -30,11 +30,7 @@ function getWaterTiming() {
             }else{
                 hr = hr +  ":" + data[i].time.slice(3,5) + " am"
             }
-            // const t = new Date().toLocaleString('en-US', {
-            //     hour: 'numeric',
-            //     minute: 'numeric',
-            //     hour12: true});
-            // console.log(hr);
+    
             table += `
             <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 20%;" class="datatable">${data[i].area.name}</td>

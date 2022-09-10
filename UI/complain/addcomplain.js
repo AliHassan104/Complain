@@ -123,7 +123,7 @@ function formSubmit(){
 
     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title,description : description , suggestionForImprovement : suggestion 
+    newAchievement = {description : description  
         , date : d , time : t ,
         complainType : {
            id : complaintype
@@ -145,7 +145,7 @@ function formSubmit(){
     }
     formData.append('data',newAchievement);
 
-    if (queryString) {
+    if (queryString == "") {
         fetch("http://localhost:8081/api/complain",{
         method:"POST",
         body: formData

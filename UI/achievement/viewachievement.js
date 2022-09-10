@@ -83,9 +83,6 @@ function updateAchievement(){
 
     newAchievement = {title : title, description : description , date : date , time : time}; 
 
-
-    console.log(newAchievement);
-
     newAchievement = JSON.stringify(newAchievement)
 
     var formData = new FormData();
