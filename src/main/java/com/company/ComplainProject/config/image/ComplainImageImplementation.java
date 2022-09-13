@@ -17,7 +17,6 @@ public class ComplainImageImplementation implements FileService {
 
     final String complainImagePath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
 
-
     @Override
     public String uploadImage(MultipartFile file){
 
@@ -26,9 +25,8 @@ public class ComplainImageImplementation implements FileService {
         createComplainFolder();
         imageFolderInsideComplainFolder();
             // file name
-        String randomId = UUID.randomUUID().toString();
-        String filename = file.getOriginalFilename();
-        String generatedfilename = randomId.concat(filename.substring(filename.lastIndexOf(".")));
+
+        String generatedfilename = FileService.generateRandomImageName(file);
                                     // file path
         String filePath = complainImagePath+File.separator+generatedfilename;
         // file copy
