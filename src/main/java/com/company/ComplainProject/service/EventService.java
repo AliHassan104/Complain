@@ -59,14 +59,14 @@ public class EventService {
      }
 //                                                                                          update event by id
      public EventDto updateEventById(Long id,EventDto eventDto){
-        Event getevent = getAllEvent().stream().filter(event -> event.getId().equals(eventDto.getId())).findAny().get();
+        Event getevent = getAllEvent().stream().filter(event -> event.getId().equals(id)).findAny().get();
         if(getevent != null){
             getevent.setDescription(eventDto.getDescription());
             getevent.setStartDate(eventDto.getStartDate());
             getevent.setStartTime(eventDto.getStartTime());
             getevent.setImage(eventDto.getImage());
         }
-        return todto(getevent);
+        return todto(eventRepository.save(getevent));
      }
 
      public InputStream getImageByName(String fileName) throws FileNotFoundException {
@@ -76,7 +76,7 @@ public class EventService {
             return inputStream;
         }catch (Exception e){
             System.out.println(e+" Cannot get Event image");
-            throw new FileNotFoundException("Image not exist in Complain");
+            throw new FileNotFoundException("Image not exist in Event Folder");
         }
      }
 

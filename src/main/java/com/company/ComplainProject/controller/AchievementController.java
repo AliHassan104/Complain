@@ -72,6 +72,8 @@ public class AchievementController {
             ObjectMapper mapper = new ObjectMapper();
             AchievementsDto achievementsDto1 = mapper.readValue(achievementdto,AchievementsDto.class);
 
+//           first the image should be deleted
+
             String fileName = achievementImageImplementation.uploadImage(image);
             achievementsDto1.setPictureUrl("http://localhost:8081/api/"+path+fileName);
 
