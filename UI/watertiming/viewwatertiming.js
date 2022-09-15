@@ -11,7 +11,7 @@ function getWaterTiming() {
     })
     .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-        
+        console.log(data);
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 20%;" class="toptable ">Area</th>
@@ -21,7 +21,8 @@ function getWaterTiming() {
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
         if (data != null) {
-        for (let i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
+            console.log(data[i].date);
             hr = parseInt(data[i].time.slice(0,2));
             // console.log(data[i].time.slice(0,2));
             if (hr > 12) {
@@ -30,11 +31,6 @@ function getWaterTiming() {
             }else{
                 hr = hr +  ":" + data[i].time.slice(3,5) + " am"
             }
-            // const t = new Date().toLocaleString('en-US', {
-            //     hour: 'numeric',
-            //     minute: 'numeric',
-            //     hour12: true});
-            // console.log(hr);
             table += `
             <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 20%;" class="datatable">${data[i].area.name}</td>
@@ -113,7 +109,7 @@ function deleteWaterTiming(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
+            Water Timing  Deleted Successfully
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table

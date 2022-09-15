@@ -20,6 +20,7 @@ function getDocuments() {
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
         for (let i = 0; i < data.length; i++) {
+            console.log(data[i].url);
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
             <td style="width: 30%;" class="datatable">${data[i].area.name}</td>

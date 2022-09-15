@@ -36,6 +36,7 @@ if (queryString != "") {
 
 function getComplain() {
     let table = ""
+    // fetch(`${baseUrl}/api/complaintype`,{
     fetch(`${baseUrl}/api/complaintype`,{
         headers:{
             "Content-Type":"application/json",
@@ -97,8 +98,8 @@ function getUser() {
 
 function formSubmit(){
 
-    let title = "abc";
-    let suggestion = "abc";
+    // let title = "abc";
+    // let suggestion = "abc";
     let description = document.getElementById("description").value;
 
     const date = new Date();
@@ -123,7 +124,7 @@ function formSubmit(){
 
     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title,description : description , suggestionForImprovement : suggestion 
+    newAchievement = {description : description  
         , date : d , time : t ,
         complainType : {
            id : complaintype
@@ -144,15 +145,15 @@ function formSubmit(){
         formData.append("pictureUrl",file)
     }
     formData.append('data',newAchievement);
-
-    if (queryString) {
+    console.log(queryString);
+    if (queryString == "") {
         fetch("http://localhost:8081/api/complain",{
         method:"POST",
         body: formData
     
     }).then((response)=>response.json())
     .then((data)=>{
-        // console.log(data);
+        console.log(data);
     let table = ""
     table += `
     <div  style=" 
@@ -173,9 +174,9 @@ function formSubmit(){
         method:"PUT",
         body: formData
     
-    }).then((response)=>response.json())
+    }).then((response)=>response.json()).catch(()=>{})
     .then((data)=>{
-        // console.log(data);
+        console.log(data);
     let table = ""
     table += `
     <div  style=" 
@@ -190,7 +191,7 @@ function formSubmit(){
     </div>`
     document.getElementById("formSubmitted").innerHTML = table
     })   
-    .catch((error)=>console.log(error))
+    // .catch((error)=>console.log(error))
 }
     
 }

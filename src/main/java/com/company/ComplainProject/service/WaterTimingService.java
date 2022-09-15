@@ -38,6 +38,7 @@ public class WaterTimingService {
         if(updateWaterTiming != null){
             updateWaterTiming.setTime(waterTimingDto.getTime());
             updateWaterTiming.setDay(waterTimingDto.getDay());
+            updateWaterTiming.setDate(waterTimingDto.getDate());
             updateWaterTiming.setArea(waterTimingDto.getArea());
             updateWaterTiming.setBlock(waterTimingDto.getBlock());
         }
@@ -49,6 +50,7 @@ public class WaterTimingService {
                 .id(waterTimingDto.getId())
                 .time(waterTimingDto.getTime())
                 .day(waterTimingDto.getDay())
+                .date(waterTimingDto.getDate())
                 .area(waterTimingDto.getArea())
                 .block(waterTimingDto.getBlock())
                 .build();
@@ -59,6 +61,7 @@ public class WaterTimingService {
                 .id(waterTiming.getId())
                 .time(waterTiming.getTime())
                 .day(waterTiming.getDay())
+                .date(waterTiming.getDate())
                 .area(waterTiming.getArea())
                 .block(waterTiming.getBlock())
                 .build();

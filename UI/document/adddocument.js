@@ -14,6 +14,7 @@ setTimeout(() => {
         console.log(data);
         document.getElementById("url").value = data.url;
         document.getElementById("title").value = data.title;
+        document.getElementById("title").value = "";
         document.getElementById("dropdownarea").value = data.area.name;
         document.getElementById("documentbtn").innerText = "Update";
     })
@@ -26,6 +27,7 @@ function formSubmit(){
 
     let url = document.getElementById("url").value;
     let title = document.getElementById("title").value;
+    
     var select = document.getElementById('dropdownarea');
     var area = select.options[select.selectedIndex].value;
 

@@ -15,7 +15,7 @@ if (queryString != "") {
     document.getElementById("cnic").value = data.cnic;
     document.getElementById("phonenumber").value = data.phoneNumber;
     document.getElementById("email").value = data.email;
-    document.getElementById("password").value = data.password;
+    // document.getElementById("password").value = data.password;
     document.getElementById("family").value = data.numberOfFamilyMembers;
     addressId = data.address.id
 
@@ -56,11 +56,11 @@ function addUser(){
     let cnic = document.getElementById("cnic").value;
     let phonenumber = document.getElementById("phonenumber").value;
     let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+    // let password = document.getElementById("password").value;
     let family = document.getElementById("family").value;
 
     newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
-        , email : email , password : password , numberOfFamilyMembers : family ,
+        , email : email , password : "password" , numberOfFamilyMembers : family ,
         area : {
             id : areaId
         },
@@ -138,7 +138,7 @@ function addUser(){
     document.getElementById("cnic").value = "";
     document.getElementById("phonenumber").value = "";
     document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
+    // document.getElementById("password").value = "";
     document.getElementById("family").value = "";
 }
 

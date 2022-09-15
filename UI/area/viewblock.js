@@ -25,8 +25,8 @@ function getBlock() {
             <td style="width: 33%;" class="datatable">${data[i].block_name}</td>
             <td style="width: 34%;" class="datatable">
             
-            <a  href="/block/addblock.html?id=${data[i].id}">
-            <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
+            <a  href="/area/addblock.html?id=${data[i].id}">
+            <i  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
 
