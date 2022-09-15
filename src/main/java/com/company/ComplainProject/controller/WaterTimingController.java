@@ -41,7 +41,6 @@ public class WaterTimingController {
 
     @PostMapping("/watertiming")
     public ResponseEntity<WaterTimingDto> addWaterTiming(@RequestBody WaterTimingDto waterTimingDto){
-        System.out.println(waterTimingDto);
         try{
             return ResponseEntity.ok(waterTimingService.addWaterTiming(waterTimingDto));
         }catch (Exception e){

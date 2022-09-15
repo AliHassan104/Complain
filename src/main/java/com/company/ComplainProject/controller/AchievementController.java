@@ -62,12 +62,22 @@ public class AchievementController {
 
     @PutMapping("/achievement/{id}")
     public ResponseEntity<Optional<AchievementsDto>> updateAchievementById(@PathVariable Long id
-                                                                    ,@RequestBody AchievementsDto achievementsDto){
+                                                                    ,@RequestParam("pictureUrl") MultipartFile image,
+                                                                           @RequestParam("data") String achievementdto){
         try{
-//            ObjectMapper mapper = new ObjectMapper();
-//            AchievementsDto achievementsDto1 = mapper.readValue(achievementsDto,AchievementsDto.class);
+            if(image.isEmpty()){
+                return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
 
-            return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto));
+            ObjectMapper mapper = new ObjectMapper();
+            AchievementsDto achievementsDto1 = mapper.readValue(achievementdto,AchievementsDto.class);
+
+//           first the image should be deleted
+
+            String fileName = achievementImageImplementation.uploadImage(image);
+            achievementsDto1.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+
+            return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto1));
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

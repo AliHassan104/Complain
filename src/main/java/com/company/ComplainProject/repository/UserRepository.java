@@ -14,7 +14,8 @@ import java.util.Map;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificationExecutor<User> {
 
-//    @Query("select distinct u from User u left join fetch u.roles where u.name = ?1")
-//    User findByName(String name);
+//    Because of lazyInitializationError
+    @Query("select u from User u left join fetch u.roles where u.email = ?1")
+    User findByEmail(String email);
 
 }

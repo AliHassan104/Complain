@@ -51,7 +51,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserDto addComplain(UserDto userDto) {
+    public UserDto addUser(UserDto userDto) {
         return toDto(userRepository.save(dto(userDto)));
     }
 

@@ -40,6 +40,7 @@ public class WaterTimingService {
             updateWaterTiming.setDay(waterTimingDto.getDay());
             updateWaterTiming.setArea(waterTimingDto.getArea());
             updateWaterTiming.setBlock(waterTimingDto.getBlock());
+            updateWaterTiming.setDate(waterTimingDto.getDate());
         }
         return Optional.of(toDto(waterTimingRepository.save(updateWaterTiming)));
     }
@@ -50,6 +51,7 @@ public class WaterTimingService {
                 .time(waterTimingDto.getTime())
                 .day(waterTimingDto.getDay())
                 .area(waterTimingDto.getArea())
+                .date(waterTimingDto.getDate())
                 .block(waterTimingDto.getBlock())
                 .build();
     }
@@ -60,6 +62,7 @@ public class WaterTimingService {
                 .time(waterTiming.getTime())
                 .day(waterTiming.getDay())
                 .area(waterTiming.getArea())
+                .date(waterTiming.getDate())
                 .block(waterTiming.getBlock())
                 .build();
     }

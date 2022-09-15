@@ -22,12 +22,10 @@ public class AchievementImageImplementation implements FileService {
 //                                                 create images folder in achievement folder if not exist
         imageFolderInsideAchievementFolder();
 //                                                  Generate Random name
-        String randomId = UUID.randomUUID().toString();
-        String filename = file.getOriginalFilename();
-        String generatedfilename = randomId.concat(filename.substring(filename.lastIndexOf(".")));
 
+        String generatedfilename = FileService.generateRandomImageName(file);
 
-                                                    // file path
+                                                     // file path
         String filePath = achievementImagePath+File.separator+generatedfilename;
                                                     // file copy
         try {

@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 
-//1
 @Service
 public interface FileService {
+
     String uploadImage(MultipartFile file) throws IOException; //1
 
     public static void createStaticFolder()  {
@@ -26,6 +27,13 @@ public interface FileService {
         catch (Exception e){
             System.out.println("Static Folder Exception"+e);
         }
+    }
+
+    public static String generateRandomImageName(MultipartFile file){
+        String randomId = UUID.randomUUID().toString();
+        String filename = file.getOriginalFilename();
+        String generatedfilename = randomId.concat(filename.substring(filename.lastIndexOf(".")));
+        return generatedfilename;
     }
 
 }

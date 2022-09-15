@@ -52,7 +52,6 @@ function getComplain() {
 
         <th style="width: 10%;" class="toptable ">User Name</th>
         <th style="width: 10%;" class="toptable ">Complain Type</th>
-        <th style="width: 10%;" class="toptable ">Title</th>
         <th style="width: 15%;" class="toptable ">Description</th>
         <th style="width: 10%;" class="toptable ">Status</th>
         <th style="width: 10%;" class="toptable ">Date</th>
@@ -66,7 +65,6 @@ function getComplain() {
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 10%;" class="datatable">${data[i].user.firstname+" "+data[i].user.lastname}</td>
             <td style="width: 10%;" class="datatable">${data[i].complainType.name}</td>
-            <td style="width: 10%;" class="datatable">${data[i].title}</td>
             <td style="width: 15%;" class="datatable">${data[i].description}</td>
             <td style="width: 10%;" class="datatable">${data[i].status}</td>
             <td style="width: 10%;" class="datatable">${data[i].date}</td>
