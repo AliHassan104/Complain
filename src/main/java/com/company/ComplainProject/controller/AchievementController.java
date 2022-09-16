@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ public class AchievementController {
     AchievementImageImplementation achievementImageImplementation;
     @Value("${achievement.image}")
     private String path;
+
 
     @GetMapping("/achievement")
     public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
@@ -47,7 +49,7 @@ public class AchievementController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/achievement/{id}")
     public ResponseEntity<Void> deleteAchievementById(@PathVariable Long id){
         try{

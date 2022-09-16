@@ -9,6 +9,7 @@ import com.company.ComplainProject.service.WaterTimingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class WaterTimingController {
     @Autowired
     WaterTimingService waterTimingService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/watertiming")
     public ResponseEntity<List<WaterTiming>> getWaterTiming(){
         List<WaterTiming> waterTiming = waterTimingService.getAllWaterTiming();
@@ -39,6 +41,7 @@ public class WaterTimingController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+
     @PostMapping("/watertiming")
     public ResponseEntity<WaterTimingDto> addWaterTiming(@RequestBody WaterTimingDto waterTimingDto){
         try{
@@ -49,6 +52,7 @@ public class WaterTimingController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/watertiming/{id}")
     public ResponseEntity<Void> deleteWaterTimingById(@PathVariable Long id){
         try{
@@ -68,6 +72,29 @@ public class WaterTimingController {
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+//                                  Get water timming by Area
+
+    @GetMapping("watertimingByArea/{area}")
+    public ResponseEntity<List<WaterTiming>> getWaterTimingByArea(@PathVariable("area") Long areaId){
+        try{
+            return ResponseEntity.ok(waterTimingService.getWaterTimingByArea(areaId));
+        }catch (Exception e){
+            System.out.println(e+" Exception in getting water timing by area");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("watertimingByBlock/{block}")
+    public ResponseEntity<List<WaterTiming>> getWaterTimingsByBlock(@PathVariable("block") Long blockId){
+        try {
+            return ResponseEntity.ok(waterTimingService.getWaterTimingByBlock(blockId));
+        }
+        catch (Exception e){
+            System.out.println(e+" Exception in getting water timing by block");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
