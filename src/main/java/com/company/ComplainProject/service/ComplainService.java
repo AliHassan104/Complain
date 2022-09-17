@@ -4,7 +4,10 @@ package com.company.ComplainProject.service;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.SearchCriteria;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Complain;
+import com.company.ComplainProject.model.ComplainType;
+import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.specification.ComplainSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,14 @@ import java.util.stream.Collectors;
 public class ComplainService {
     @Autowired
     ComplainRepository complainRepository;
+
     @Autowired
-    ComplainImageImplementation complainImageImplementation;
+    UserService userService;
+    @Autowired
+    AreaService areaService;
+    @Autowired
+    ComplainTypeService complainTypeService;
+
 
     private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
 
@@ -55,13 +64,16 @@ public class ComplainService {
     }
 
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
-        Complain updateComplain = getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get();
+        Complain updateComplain = getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get();
+        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(complainDto.getUser().getId())).findAny().get();
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
+        ComplainType complainType = complainTypeService.getAllComplainType().stream().filter(complainType1 -> complainType1.getId().equals(complainDto.getComplainType().getId())).findAny().get();
         if(updateComplain != null){
             updateComplain.setDescription(complainDto.getDescription());
             updateComplain.setPicture(complainDto.getPicture());
-            updateComplain.setArea(complainDto.getArea());
-            updateComplain.setUser(complainDto.getUser());
-            updateComplain.setComplainType(complainDto.getComplainType());
+            updateComplain.setArea(area);
+            updateComplain.setUser(user);
+            updateComplain.setComplainType(complainType);
 //            updateComplain.setDate(complainDto.getDate());
 //            updateComplain.setTime(complainDto.getTime());
         }

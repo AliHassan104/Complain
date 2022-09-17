@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.CannotDeleteImage;
 import com.company.ComplainProject.config.image.EventImageImplementation;
 import com.company.ComplainProject.dto.EventDto;
 import com.company.ComplainProject.model.Event;
@@ -82,8 +83,8 @@ public class EventController {
     @PutMapping("/event/{id}")
     public ResponseEntity<EventDto> updateEventById(@PathVariable Long id,@RequestParam("image") MultipartFile image,@RequestParam("data") String eventData){
         try{
-//            Delete the previous image
-//            Boolean eventImageDeleted = eventImageImplementation.deleteEventImage(id);
+//                                                                      Delete the previous image
+            Boolean eventImageDeleted = eventImageImplementation.deleteImage(id);
 
             if(image.isEmpty()){
                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -93,14 +94,14 @@ public class EventController {
             EventDto eventDto = objectMapper.readValue(eventData,EventDto.class);
 //
 //                                                                                     upload the image in the disk
-//            if(eventImageDeleted) {
+            if(eventImageDeleted) {
                 String uploadImageName = eventImageImplementation.uploadImage(image);
                 eventDto.setImage(eventImageApi+uploadImageName);
                 return ResponseEntity.ok(eventService.updateEventById(id, eventDto));
-//            }
-//            else{
-//                return ResponseEntity.status(HttpStatus.CONFLICT).build();
-//            }
+            }
+            else{
+                throw  new CannotDeleteImage("Event Image having id "+id+" Cannot be deleted");
+            }
         }catch (Exception e){
             System.out.println(e+" update Event exception");
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -110,8 +111,15 @@ public class EventController {
     @DeleteMapping("/event/{id}")
     public ResponseEntity<Void> deleteEventById(@PathVariable Long id){
         try{
-            eventService.deleteEventBuId(id);
-            return ResponseEntity.ok().build();
+//                                                          first we will delete image from disk
+            Boolean eventImageDeleted = eventImageImplementation.deleteImage(id);
+            if(eventImageDeleted){
+                eventService.deleteEventBuId(id);
+                return ResponseEntity.ok().build();
+            }
+            else{
+                throw  new CannotDeleteImage("Event Image having id "+id+" Cannot be deleted");
+            }
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.CannotDeleteImage;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
@@ -36,6 +37,8 @@ public class ComplainController {
     ComplainImageImplementation complainImageImplementation;
     @Value("${complain.image}")
     private String path;
+
+
 
     @GetMapping("/complain")
     public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
@@ -78,8 +81,15 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     @DeleteMapping("/complain/{id}")
     public ResponseEntity<Void> deleteComplainById(@PathVariable Long id){
         try{
-            complainService.deleteComplainById(id);
-            return ResponseEntity.ok().build();
+            Boolean complainImageDeleted = complainImageImplementation.deleteImage(id);
+
+            if(complainImageDeleted){
+                complainService.deleteComplainById(id);
+                return ResponseEntity.ok().build();
+            }else{
+                throw new CannotDeleteImage("Cannot Delete complain image having id "+id);
+            }
+
         }
         catch (Exception e){
             System.out.println(e);
@@ -88,9 +98,28 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     }
 
     @PutMapping("/complain/{id}")
-    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id,@RequestBody ComplainDto complainDto){
+    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id,@RequestParam("pictureUrl") MultipartFile image,
+                                                              @RequestParam("data") String complaindata){
         try{
-            return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
+            if(image.isEmpty()){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            ComplainDto complainDto = objectMapper.readValue(complaindata,ComplainDto.class);
+
+            System.out.println(complainDto);
+
+            Boolean complainImageDeleted = complainImageImplementation.deleteImage(id);
+
+            if(complainImageDeleted){
+                String complainFleName =  complainImageImplementation.uploadImage(image);
+                complainDto.setPicture("http://localhost:8081/api/"+path+complainFleName);
+                return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
+            }
+            else{
+                throw new CannotDeleteImage("Cannot Delete complain image having id "+id);
+            }
+
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

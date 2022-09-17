@@ -30,6 +30,7 @@ public class ImageController {
         InputStream inputStream = achievementService.getImageByName(fileName);
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(inputStream,response.getOutputStream());
+        inputStream.close();
     }
 
     //                                                                  Api to get Asset Image
@@ -38,6 +39,7 @@ public class ImageController {
         InputStream inputStream = complainService.getImageByName(fileName);
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(inputStream,response.getOutputStream());
+        inputStream.close();
     }
 
     @GetMapping("/event/images/{fileName}")
@@ -45,5 +47,6 @@ public class ImageController {
         InputStream inputStream = eventService.getImageByName(fileName);
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(inputStream,response.getOutputStream());
+        inputStream.close();
     }
 }

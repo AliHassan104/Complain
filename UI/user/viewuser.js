@@ -20,6 +20,7 @@ function getUser() {
         <th style="width: 15%;" class="toptable ">Name</th>
         <th style="width: 15%;" class="toptable ">PhoneNumber</th>
         <th style="width: 20%;" class="toptable ">Email</th>
+        <th style="width: 20%;" class="toptable ">Property</th>
         <th style="width: 20%;" class="toptable ">Cnic</th>
         <th style="width: 15%;" class="toptable ">Area Name </th>
         <th style="width: 15%;" class="toptable ">Action </th>
@@ -31,6 +32,7 @@ function getUser() {
             <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
             <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
             <td style="width: 20%;" class="datatable">${data[i].email}</td>
+            <td style="width: 20%;" class="datatable">${data[i].property}</td>
             <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
             <td style="width: 15%;" class="datatable"> 
@@ -148,3 +150,27 @@ function deleteArea(id){
         getUser()
     }, 200);
 }
+
+function exportDataToExcel(){
+    fetch("http://localhost:8081/api/user/export",{
+        headers:{
+            "Content-Type":"application/octet-stream",
+             
+        },
+        method:'GET'
+
+    }).then((response)=>response.blob())
+    .then(blob => URL.createObjectURL(blob))
+
+    .then(uril => {
+    var link = document.createElement("a");
+    link.href = uril;
+    link.download = "UserData" + ".xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    });
+
+   }
+

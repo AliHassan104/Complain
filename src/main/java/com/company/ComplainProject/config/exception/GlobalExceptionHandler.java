@@ -28,4 +28,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error.getMessage(),HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CannotDeleteImage.class)
+    public ResponseEntity<String> cannotDeleteImageException(CannotDeleteImage cannotDeleteImage){
+        return  new ResponseEntity<>(cannotDeleteImage.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

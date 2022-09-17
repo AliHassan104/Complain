@@ -29,8 +29,11 @@ public class User {
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
+
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
 //                                                      owner/tenant
+    @Enumerated(EnumType.STRING)
     private PropertyEnum property;
 
     @OneToOne(cascade = CascadeType.MERGE)
@@ -45,6 +48,7 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id") ,
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Set<Roles> roles = new HashSet<>();
 
 }

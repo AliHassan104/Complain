@@ -8,8 +8,7 @@ if (queryString != "") {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-    console.log(data);
-
+   
     document.getElementById("firstname").value = data.firstname;
     document.getElementById("lastname").value = data.lastname;
     document.getElementById("cnic").value = data.cnic;
@@ -17,6 +16,7 @@ if (queryString != "") {
     document.getElementById("email").value = data.email;
     document.getElementById("password").value = data.password;
     document.getElementById("family").value = data.numberOfFamilyMembers;
+  
     addressId = data.address.id
 
     document.getElementById("formButton").innerText = "Update";
@@ -58,7 +58,9 @@ function addUser(){
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let family = document.getElementById("family").value;
-
+    let property = document.getElementById("dropdownproperty");
+    let propertyValue = property.value;
+     console.log("Property Value ",propertyValue)
     newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
         , email : email , password : password , numberOfFamilyMembers : family ,
         area : {
@@ -66,12 +68,12 @@ function addUser(){
         },
         address : {
             id : addressId
-        }
+        },
+        property:propertyValue
     }; 
     
     console.log(newUser);
     if (queryString == "") {
-        
         
         fetch("http://localhost:8081/api/user", {
             method: 'POST',

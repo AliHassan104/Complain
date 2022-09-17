@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.CannotDeleteImage;
 import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
@@ -53,8 +54,16 @@ public class AchievementController {
     @DeleteMapping("/achievement/{id}")
     public ResponseEntity<Void> deleteAchievementById(@PathVariable Long id){
         try{
-            achievementService.deleteAchievementById(id);
-            return ResponseEntity.ok().build();
+//                                                  First we will delete the image
+            Boolean achievementImageDeleted = achievementImageImplementation.deleteImage(id);
+            if(achievementImageDeleted){
+                achievementService.deleteAchievementById(id);
+                return ResponseEntity.ok().build();
+            }
+            else{
+                throw new CannotDeleteImage("Cannot delete Achievement Image having id "+id);
+            }
+
         }
         catch (Exception e){
             System.out.println(e);
@@ -74,12 +83,19 @@ public class AchievementController {
             ObjectMapper mapper = new ObjectMapper();
             AchievementsDto achievementsDto1 = mapper.readValue(achievementdto,AchievementsDto.class);
 
-//           first the image should be deleted
+//                                                                                   first the image should be deleted
+            Boolean achievementImageDeleted = achievementImageImplementation.deleteImage(id);
 
-            String fileName = achievementImageImplementation.uploadImage(image);
-            achievementsDto1.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+            if(achievementImageDeleted){
+                String fileName = achievementImageImplementation.uploadImage(image);
+                achievementsDto1.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+                return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto1));
+            }
+            else{
+                throw new CannotDeleteImage("Achievement Image having id "+id+" cannot be deleted");
+            }
 
-            return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto1));
+
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
