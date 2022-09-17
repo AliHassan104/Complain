@@ -44,13 +44,7 @@
 
   gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 </script></head>
-<!--
-  HOW TO USE: 
-  data-theme: default (default), dark, light, colored
-  data-layout: fluid (default), boxed
-  data-sidebar-position: left (default), right
-  data-sidebar-layout: default (default), compact
--->
+
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
@@ -99,13 +93,11 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item ">
+					<li class="sidebar-item active">
 						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
-
-
 
 					<li class="sidebar-item">
 						<a data-bs-target="#complaintype" data-bs-toggle="collapse" class="sidebar-link collapsed">
@@ -119,7 +111,7 @@
 
 
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a data-bs-target="#area" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Area</span>
 						</a>
@@ -139,7 +131,7 @@
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">View User</a></li>
 						</ul>
 					</li>
 
@@ -483,6 +475,7 @@
 			
             
 			<main class="content">
+                
 				<div class="container-fluid p-0">
 
 					<div id="formSubmitted" style="height: 5vh;">
@@ -490,7 +483,7 @@
                     </div>
 
 					<div class="mb-3">
-						<h1 class="h3 d-inline align-middle">Block </h1>
+						<h1 class="h3 d-inline align-middle">Events </h1>
 						<!-- <a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a> -->
 					</div>
 
@@ -499,40 +492,21 @@
 							<div class="card">
 								<div class="card-body">
 									<table id="datatables-reponsive" class="table table-striped" style="width:100%">
-										<thead>
-											<tr>
-												<th>Name</th>
-												<th>Position</th>
-												<th>Office</th>
-												<th>Age</th>
-												<th>Start date</th>
-												<th>Salary</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Tiger Nixon</td>
-												<td>System Architect</td>
-												<td>Edinburgh</td>
-												<td>61</td>
-												<td>2021/04/25</td>
-												<td>$320,800</td>
-											</tr>
-										</tbody>
+										
 									</table>
+							
 								</div>
 							</div>
 						</div>
 					</div>
 
 				</div>
-                
-				
+
 			</main>
 
 	<script src="/js/app.js"></script>
 	<script src="/js/properties.js"></script>
-	<script src="/area/viewblock.js"></script>
+	<script src="/events/viewevents.js"></script>
 
 </body>
 

@@ -1,20 +1,21 @@
 getWaterTiming()
+
 let uid;
+
 function getWaterTiming() {
     let table = ""
     fetch("http://localhost:8081/api/watertiming",{
         headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
             "Content-Type":"application/json",
         }
     })
     .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-        
+         console.log("Data ",data)
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 20%;" class="toptable ">Area</th>
+        <th style="width: 20%;" class="toptable ">Block</th>
         <th style="width: 20%;" class="toptable ">Day</th>
         <th style="width: 20%;" class="toptable ">Date</th>
         <th style="width: 20%;" class="toptable ">Time</th>
@@ -23,7 +24,7 @@ function getWaterTiming() {
         if (data != null) {
         for (let i = 0; i < data.length; i++) {
             hr = parseInt(data[i].time.slice(0,2));
-            // console.log(data[i].time.slice(0,2));
+           
             if (hr > 12) {
                 hr = hr - 12 
                 hr = hr + ":" + data[i].time.slice(3,5) + " pm"
@@ -33,7 +34,8 @@ function getWaterTiming() {
     
             table += `
             <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 20%;" class="datatable">${data[i].area.name}</td>
+            <td style="width: 20%;" class="datatable">${data[i].block.area.name}</td>
+            <td style="width: 20%;" class="datatable">${data[i].block.block_name}</td>
             <td style="width: 20%;" class="datatable">${data[i].day}</td>
             <td style="width: 20%;" class="datatable">${data[i].date}</td>
             <td style="width: 20%;" class="datatable">${hr}</td>
@@ -51,7 +53,6 @@ function getWaterTiming() {
     }
     document.getElementById("datatables-reponsive").innerHTML = table;
 })
-// table += ``
 
 }
 
@@ -109,7 +110,7 @@ function deleteWaterTiming(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
+            Water Timing Deleted Successfully
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
@@ -301,7 +302,7 @@ function filterByArea(){
             <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
             <td style="width: 15%;" class="datatable"> 
-            <a href="/user/adduser.html?id=${data[i].id}">
+            <a href="/watertiming/addwatertiming.html?id=${data[i].id}">
             <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>

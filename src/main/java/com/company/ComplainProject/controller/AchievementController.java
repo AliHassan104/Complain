@@ -49,7 +49,7 @@ public class AchievementController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/achievement/{id}")
     public ResponseEntity<Void> deleteAchievementById(@PathVariable Long id){
         try{

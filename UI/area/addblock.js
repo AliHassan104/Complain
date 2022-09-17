@@ -13,9 +13,8 @@ setTimeout(() => {
 .then(response => response.json()).catch(()=>{})
 .then(data => {
         console.log(data);
-        // document.getElementById("date").value = data.date;
-        document.getElementById("block").value = data.block;
-    document.getElementById("formButton").innerText = "Update";
+        document.getElementById("blockbtn").innerText = "Update";
+        document.getElementById("block").value = data.block_name;
     })
     .catch((error) => {
         console.error('Error:', error);

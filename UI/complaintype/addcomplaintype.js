@@ -27,7 +27,7 @@ function formSubmit(){
     let complaintype = document.getElementById("addcomplaintype").value;
     
     newComplainType = {name : complaintype}; 
-    console.log(newComplainType);
+    
 if (queryString == "") {
     fetch("http://localhost:8081/api/complaintype", {
         method: 'POST',

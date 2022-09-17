@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface BlockRepository extends JpaRepository<Block,Long> {
 
-    @Query("SELECT NEW com.company.ComplainProject.model.Block(b.block_name) FROM Block b WHERE b.area = :id ")
+    @Query("SELECT NEW com.company.ComplainProject.model.Block(b.id,b.block_name) FROM Block b WHERE b.area = :id ")
     List<Block>  getAllBlockByArea(@Param("id") Area areaId);
 
 }

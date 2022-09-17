@@ -1,8 +1,8 @@
 package com.company.ComplainProject.model;
 
-import com.company.ComplainProject.dto.statusEnum.PropertyEnum;
+import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
+import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.*;
@@ -29,6 +29,7 @@ public class User {
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
+    private UserStatus status;
 //                                                      owner/tenant
     private PropertyEnum property;
 

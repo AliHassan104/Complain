@@ -63,7 +63,6 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        // console.log(data);
         for (let i = 0; i < data.length; i++) {
             table += `
             <option value="${data[i].id}">${data[i].name}</option>

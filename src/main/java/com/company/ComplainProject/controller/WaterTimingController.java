@@ -1,10 +1,8 @@
 package com.company.ComplainProject.controller;
 
-import com.company.ComplainProject.dto.DocumentDto;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.WaterTimingDto;
-import com.company.ComplainProject.model.Document;
 import com.company.ComplainProject.model.WaterTiming;
-import com.company.ComplainProject.service.DocumentService;
 import com.company.ComplainProject.service.WaterTimingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +17,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class WaterTimingController {
+
     @Autowired
     WaterTimingService waterTimingService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/watertiming")
     public ResponseEntity<List<WaterTiming>> getWaterTiming(){
         List<WaterTiming> waterTiming = waterTimingService.getAllWaterTiming();
@@ -31,6 +30,7 @@ public class WaterTimingController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
 
     @GetMapping("/watertiming/{id}")
     public ResponseEntity<Optional<WaterTiming>> getWaterTimingById(@PathVariable Long id){
@@ -42,6 +42,7 @@ public class WaterTimingController {
     }
 
 
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/watertiming")
     public ResponseEntity<WaterTimingDto> addWaterTiming(@RequestBody WaterTimingDto waterTimingDto){
         try{
@@ -52,7 +53,7 @@ public class WaterTimingController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/watertiming/{id}")
     public ResponseEntity<Void> deleteWaterTimingById(@PathVariable Long id){
         try{
@@ -66,8 +67,10 @@ public class WaterTimingController {
     }
 
     @PutMapping("/watertiming/{id}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Optional<WaterTimingDto>> updateAchievementById(@PathVariable Long id,@RequestBody WaterTimingDto waterTimingDto){
         try{
+            System.out.println("Water timing dto object "+waterTimingDto);
             return ResponseEntity.ok(waterTimingService.updateWaterTimingById(id,waterTimingDto));
         }catch (Exception e){
             System.out.println(e);
@@ -75,18 +78,18 @@ public class WaterTimingController {
         }
     }
 
-//                                  Get water timming by Area
+//                                                  Get water timing by Area
 
     @GetMapping("watertimingByArea/{area}")
     public ResponseEntity<List<WaterTiming>> getWaterTimingByArea(@PathVariable("area") Long areaId){
         try{
             return ResponseEntity.ok(waterTimingService.getWaterTimingByArea(areaId));
         }catch (Exception e){
-            System.out.println(e+" Exception in getting water timing by area");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            System.out.println(e);
+            throw new ContentNotFoundException("Water timing having area id "+areaId+" not exist");
         }
     }
-
+//                                                  get water timing by block
     @GetMapping("watertimingByBlock/{block}")
     public ResponseEntity<List<WaterTiming>> getWaterTimingsByBlock(@PathVariable("block") Long blockId){
         try {
@@ -94,7 +97,8 @@ public class WaterTimingController {
         }
         catch (Exception e){
             System.out.println(e+" Exception in getting water timing by block");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ContentNotFoundException("Water timing having block id "+blockId+" not exist");
         }
     }
+
 }

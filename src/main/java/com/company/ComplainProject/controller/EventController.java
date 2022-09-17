@@ -13,14 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.CompletableFuture;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/api")
 public class EventController {
@@ -86,7 +83,7 @@ public class EventController {
     public ResponseEntity<EventDto> updateEventById(@PathVariable Long id,@RequestParam("image") MultipartFile image,@RequestParam("data") String eventData){
         try{
 //            Delete the previous image
-            Boolean eventImageDeleted = eventImageImplementation.deleteEventImage(id);
+//            Boolean eventImageDeleted = eventImageImplementation.deleteEventImage(id);
 
             if(image.isEmpty()){
                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -96,14 +93,14 @@ public class EventController {
             EventDto eventDto = objectMapper.readValue(eventData,EventDto.class);
 //
 //                                                                                     upload the image in the disk
-            if(eventImageDeleted) {
+//            if(eventImageDeleted) {
                 String uploadImageName = eventImageImplementation.uploadImage(image);
                 eventDto.setImage(eventImageApi+uploadImageName);
                 return ResponseEntity.ok(eventService.updateEventById(id, eventDto));
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.CONFLICT).build();
-            }
+//            }
+//            else{
+//                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+//            }
         }catch (Exception e){
             System.out.println(e+" update Event exception");
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

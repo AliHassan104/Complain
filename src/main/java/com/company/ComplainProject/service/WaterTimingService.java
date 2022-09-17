@@ -1,12 +1,9 @@
 package com.company.ComplainProject.service;
 
-import com.company.ComplainProject.dto.DocumentDto;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.WaterTimingDto;
-import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Block;
-import com.company.ComplainProject.model.Document;
 import com.company.ComplainProject.model.WaterTiming;
-import com.company.ComplainProject.repository.DocumentRepository;
 import com.company.ComplainProject.repository.WaterTimingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +20,19 @@ public class WaterTimingService {
     BlockService blockService;
 
     public List<WaterTiming> getAllWaterTiming() {
-        return waterTimingRepository.findAll();
+        List<WaterTiming> waterTimings = waterTimingRepository.findAll();
+        if(waterTimings.isEmpty()){
+            throw new ContentNotFoundException("No water Timing Exist");
+        }
+        return waterTimings;
     }
 
     public Optional<WaterTiming> getWaterTimingById(Long id) {
-        return waterTimingRepository.findById(id);
+        Optional<WaterTiming> waterTiming = waterTimingRepository.findById(id);
+        if(waterTiming.isPresent()){
+            return waterTiming;
+        }
+        throw new ContentNotFoundException("No water timing exist having id "+id);
     }
 
     public void deleteWaterTimingById(Long id) {
@@ -36,7 +41,6 @@ public class WaterTimingService {
 
     public WaterTimingDto addWaterTiming(WaterTimingDto waterTimingDto) {
         Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
-        waterTimingDto.setArea(block.getArea());
         waterTimingDto.setBlock(block);
 
         return toDto(waterTimingRepository.save(dto(waterTimingDto)));
@@ -44,13 +48,16 @@ public class WaterTimingService {
 
     public Optional<WaterTimingDto> updateWaterTimingById(Long id, WaterTimingDto waterTimingDto) {
         WaterTiming updateWaterTiming = getAllWaterTiming().stream().filter(el->el.getId().equals(id)).findAny().get();
+//                                    get all data of block from waterTimingDto
+        Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
+
         if(updateWaterTiming != null){
             updateWaterTiming.setTime(waterTimingDto.getTime());
             updateWaterTiming.setDay(waterTimingDto.getDay());
-            updateWaterTiming.setArea(waterTimingDto.getArea());
-            updateWaterTiming.setBlock(waterTimingDto.getBlock());
+            updateWaterTiming.setBlock(block);
             updateWaterTiming.setDate(waterTimingDto.getDate());
         }
+        System.out.println("After update "+updateWaterTiming);
         return Optional.of(toDto(waterTimingRepository.save(updateWaterTiming)));
     }
 
@@ -59,7 +66,6 @@ public class WaterTimingService {
                 .id(waterTimingDto.getId())
                 .time(waterTimingDto.getTime())
                 .day(waterTimingDto.getDay())
-                .area(waterTimingDto.getArea())
                 .date(waterTimingDto.getDate())
                 .block(waterTimingDto.getBlock())
                 .build();
@@ -70,19 +76,24 @@ public class WaterTimingService {
                 .id(waterTiming.getId())
                 .time(waterTiming.getTime())
                 .day(waterTiming.getDay())
-                .area(waterTiming.getArea())
                 .date(waterTiming.getDate())
                 .block(waterTiming.getBlock())
                 .build();
     }
 
     public List<WaterTiming> getWaterTimingByArea(Long areaId) {
-        List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getArea().getId().equals(areaId)).collect(Collectors.toList());
+        List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getArea().getId().equals(areaId)).collect(Collectors.toList());
+        if(waterTimings.isEmpty()){
+            throw new ContentNotFoundException("Water timing having area id "+areaId+" not exist");
+        }
         return  waterTimings;
     }
 
     public List<WaterTiming> getWaterTimingByBlock(Long blockId) {
         List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getId().equals(blockId)).collect(Collectors.toList());
+        if(waterTimings.isEmpty()){
+            throw new ContentNotFoundException("Water timing having block id "+blockId+" not exist");
+        }
         return waterTimings;
     }
 }
