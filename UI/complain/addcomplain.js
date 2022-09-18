@@ -14,25 +14,25 @@ if (queryString != "") {
 .then(data => {
         console.log(data);
 
-        // document.getElementById("name").value = data.name;
-        // document.getElementById("postalcode").value = data.postalCode
-        document.getElementById("complainbtn").innerText = "Update"
+            // document.getElementById("name").value = data.name;
+            // document.getElementById("postalcode").value = data.postalCode
+            document.getElementById("complainbtn").innerText = "Update"
 
-        // document.getElementById('dropcomplaintype'). = data.complainType.name;
-        document.getElementById('description').value = data.description;
-        // select.options[select.selectedIndex].value;
+            // document.getElementById('dropcomplaintype'). = data.complainType.name;
+            document.getElementById('description').value = data.description;
+            // select.options[select.selectedIndex].value;
 
-        // document.getElementById('droparea').value = data.area.name;
-        // select.options[select.selectedIndex].value;
+            // document.getElementById('droparea').value = data.area.name;
+            // select.options[select.selectedIndex].value;
 
-        // document.getElementById('dropuser').value = data.user.firstNmae;
-        // select.options[select.selectedIndex].value;
+            // document.getElementById('dropuser').value = data.user.firstNmae;
+            // select.options[select.selectedIndex].value;
 
-        // document.getElementById("inpFile");
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+            // document.getElementById("inpFile");
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 
@@ -45,15 +45,15 @@ function getComplain() {
             
         }
     })
-    .then((response)=>response.json())
-    .then((data)=> {
-        for (let i = 0; i < data.length; i++) {
-            table += `
+        .then((response) => response.json())
+        .then((data) => {
+            for (let i = 0; i < data.length; i++) {
+                table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `
-        }
-        document.getElementById("dropcomplaintype").innerHTML = table;
-    })
+            }
+            document.getElementById("dropcomplaintype").innerHTML = table;
+        })
 }
 
 function getArea() {
@@ -64,16 +64,15 @@ function getArea() {
             
         }
     })
-    .then((response)=>response.json())
-    .then((data)=> {
-        // console.log(data);
-        for (let i = 0; i < data.length; i++) {
-            table += `
+        .then((response) => response.json())
+        .then((data) => {
+            for (let i = 0; i < data.length; i++) {
+                table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `
-        }
-        document.getElementById("droparea").innerHTML = table;
-    })
+            }
+            document.getElementById("droparea").innerHTML = table;
+        })
 }
 let username;
 function getUser() {
@@ -84,21 +83,21 @@ function getUser() {
             
         }
     })
-    .then((response)=>response.json())
-    .then((data)=> {
-        // console.log(data);
-        for (let i = 0; i < data.length; i++) {
-            table += `
-            <option value="${data[i].id}">${data[i].firstname +" " + data[i].lastname}</option>
+        .then((response) => response.json())
+        .then((data) => {
+            // console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                table += `
+            <option value="${data[i].id}">${data[i].firstname + " " + data[i].lastname}</option>
         `
-        }
-        document.getElementById("dropuser").innerHTML = table;
-    })
+            }
+            document.getElementById("dropuser").innerHTML = table;
+        })
 }
 
 
 
-function formSubmit(){
+function formSubmit() {
 
     // let title = "abc";
     // let suggestion = "abc";
@@ -108,25 +107,25 @@ function formSubmit(){
     // [2022, 8, 30]
     // let d =  date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
     // let d = "["+date.getFullYear()+","+(date.getMonth()+1)+","+date.getDate()+"]";
-    let d = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+    let d = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     // let d =  date.getFullYear()+date.getDate()+"/"+(date.getMonth()+1)+"/";
 
     // [15, 30]
     const t = new Date().toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false});
-    
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false
+    });
+
     var select = document.getElementById('dropcomplaintype');
     var complaintype = select.options[select.selectedIndex].value;
     var select = document.getElementById('droparea');
     var area = select.options[select.selectedIndex].value;
     var select = document.getElementById('dropuser');
     var user = select.options[select.selectedIndex].value;
-
     let image = document.getElementById("inpFile");
 
-    newAchievement = {description : description  
+    newAchievement = {description : description
         , date : d , time : t ,
         complainType : {
            id : complaintype
@@ -137,14 +136,14 @@ function formSubmit(){
         user : {
            id : user
         }
-       }; 
+    };
 
     newAchievement = JSON.stringify(newAchievement)
 
     var formData = new FormData();
 
     for (const file of image.files) {
-        formData.append("pictureUrl",file)
+        formData.append("pictureUrl", file)
     }
     formData.append('data',newAchievement);
     console.log(queryString);
@@ -152,13 +151,25 @@ function formSubmit(){
         fetch(`${baseUrl}/api/complain`,{
         method:"POST",
         body: formData
-    
+
     }).then((response)=>response.json())
     .then((data)=>{
         console.log(data);
     let table = ""
     table += `
-    <div  style=" 
+    formData.append('data', newAchievement);
+
+    if (queryString == "") {
+        fetch("http://localhost:8081/api/complain", {
+            method: "POST",
+            body: formData
+
+        }).then((response) => response.json())
+            .then((data) => {
+
+                let table = ""
+                table += `
+    <div  style="
     margin: auto;
     text-align: center;
     width: 50%;
@@ -172,10 +183,10 @@ function formSubmit(){
     })   
     .catch((error)=>console.log(error))
 }else{
-    fetch(`${baseUrl}/api/complain`+queryString,{
+    fetch(`${baseUrl}/api/complain/`+queryString,{
         method:"PUT",
         body: formData
-    
+
     }).then((response)=>response.json()).catch(()=>{})
     .then((data)=>{
         console.log(data);
@@ -191,9 +202,9 @@ function formSubmit(){
     class="alert alert-success" role="alert">
     Your Complain Is Updated Successfully
     </div>`
-    document.getElementById("formSubmitted").innerHTML = table
-    })   
-    // .catch((error)=>console.log(error))
-}
-    
+                document.getElementById("formSubmitted").innerHTML = table
+            })
+            .catch((error) => console.log(error))
+    }
+
 }

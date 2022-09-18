@@ -1,5 +1,9 @@
 package com.company.ComplainProject.config.image;
 
+import com.company.ComplainProject.model.Achievements;
+import com.company.ComplainProject.model.Event;
+import com.company.ComplainProject.service.AchievementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +15,9 @@ import java.util.UUID;
 
 @Service
 public class AchievementImageImplementation implements FileService {
+    @Autowired
+    AchievementService achievementService;
+
 
     final String achievementImagePath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
     @Override
@@ -22,12 +29,10 @@ public class AchievementImageImplementation implements FileService {
 //                                                 create images folder in achievement folder if not exist
         imageFolderInsideAchievementFolder();
 //                                                  Generate Random name
-        String randomId = UUID.randomUUID().toString();
-        String filename = file.getOriginalFilename();
-        String generatedfilename = randomId.concat(filename.substring(filename.lastIndexOf(".")));
 
+        String generatedfilename = FileService.generateRandomImageName(file);
 
-                                                    // file path
+                                                     // file path
         String filePath = achievementImagePath+File.separator+generatedfilename;
                                                     // file copy
         try {
@@ -37,6 +42,24 @@ public class AchievementImageImplementation implements FileService {
             System.out.println(e);
         }
         return generatedfilename;
+
+    }
+
+    @Override
+    public Boolean deleteImage(Long id) {
+
+        try{
+            Achievements achievements =achievementService.getAllAchievement().stream().filter(achievements1 -> achievements1.getId().equals(id)).findAny().get();
+            String getImageName = achievements.getPictureUrl().substring((achievements.getPictureUrl().lastIndexOf("/"))+1);
+            String imagePath =achievementImagePath+File.separator+getImageName;
+
+            Files.deleteIfExists(Paths.get(imagePath));
+            return true;
+
+        }catch (Exception e){
+            System.out.println(e+" Exception deleting achievement image for update");
+            return false;
+        }
 
     }
 

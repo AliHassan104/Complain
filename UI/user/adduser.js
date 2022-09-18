@@ -17,7 +17,7 @@ if (queryString != "") {
     document.getElementById("cnic").value = data.cnic;
     document.getElementById("phonenumber").value = data.phoneNumber;
     document.getElementById("email").value = data.email;
-    // document.getElementById("password").value = data.password;
+    document.getElementById("password").value = data.password;
     document.getElementById("family").value = data.numberOfFamilyMembers;
     addressId = data.address.id
 
@@ -60,7 +60,9 @@ function addUser(){
     let email = document.getElementById("email").value;
     // let password = document.getElementById("password").value;
     let family = document.getElementById("family").value;
-
+    let property = document.getElementById("dropdownproperty");
+    let propertyValue = property.value;
+     console.log("Property Value ",propertyValue)
     newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
         , email : email , password : "password" , numberOfFamilyMembers : family ,
         area : {
@@ -68,7 +70,8 @@ function addUser(){
         },
         address : {
             id : addressId
-        }
+        },
+        property:propertyValue
     }; 
     
     console.log(newUser);

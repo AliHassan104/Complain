@@ -29,7 +29,7 @@ public class Achievements {
     private String pictureUrl;
     @JsonFormat(pattern="yyyy-MM-dd")
     private String date;
-    @JsonFormat(pattern="HH:mm:ss")
-    private String time;
+//    @JsonFormat(pattern="HH:mm:ss")
+//    private String time;
 
 }

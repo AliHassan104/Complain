@@ -23,6 +23,5 @@ public class WaterTimingDto {
     private String day;
     private LocalDate date;
     private LocalTime time;
-    private Area area;
     private Block block;
 }

@@ -12,37 +12,36 @@ if (queryString != "") {
 .then(data => {
         console.log(data);
 
-        document.getElementById("pollingquestionbtn").innerText = "Update"
-
-        document.getElementById('addpollingquestion').value = data.question;
-
-
-        for (let i = 0; i < data.pollingOptions.length-1; i++) {
-            arr.push(i+1)
-        }       
-
-        setTimeout(() => {
-            option()
-        }, 200);
+            document.getElementById("pollingquestionbtn").innerText = "Update"
+            document.getElementById('addpollingquestion').value = data.question;
 
 
-        setTimeout(() => {
-            for (let i = 0; i < arr.length; i++) {
-                console.log(data.pollingOptions[i].option);
-                document.getElementById("pollingoption"+i).value = data.pollingOptions[i].option;
+            for (let i = 0; i < data.pollingOptions.length - 1; i++) {
+                arr.push(i + 1)
             }
-        }, 200);
-            
-    })
+
+            setTimeout(() => {
+                option()
+            }, 200);
+
+
+            setTimeout(() => {
+                for (let i = 0; i < arr.length; i++) {
+                    console.log(data.pollingOptions[i].option);
+                    document.getElementById("pollingoption" + i).value = data.pollingOptions[i].option;
+                }
+            }, 200);
+
+        })
 
 }
 
-function option(){ 
+function option() {
 
-table = ""
-for (let i = 0; i < arr.length; i++) {
-    if (arr.length == 1) {
-        table += `
+    table = ""
+    for (let i = 0; i < arr.length; i++) {
+        if (arr.length == 1) {
+            table += `
     <tr>
     <td>
     <input style="margin-top: 10px;" type="text" class="form-control" id="pollingoption${i}" aria-describedby="emailHelp" placeholder="Enter Option">
@@ -52,9 +51,9 @@ for (let i = 0; i < arr.length; i++) {
     style="padding-right: 15px; margin-right: 15px;padding-left: 15px; margin-left: 15px;"  class="fa fa-plus"></i>
     </td>
     </tr>`
-}else{
-    console.log(i);
-    table += `
+        } else {
+            console.log(i);
+            table += `
     <tr>
     <td>
     <input style="margin-top: 10px;" type="text" class="form-control" id="pollingoption${i}" aria-describedby="emailHelp" placeholder="Enter Option">
@@ -66,70 +65,66 @@ for (let i = 0; i < arr.length; i++) {
     class="fa fa-minus"></i>
     </td>
     </tr>    `
-}
-}
-document.getElementById("dynamicoption").innerHTML = table;
+        }
+    }
+    document.getElementById("dynamicoption").innerHTML = table;
 }
 
 option();
 
-function addOption(id){
+function addOption(id) {
 
     let pollingOption = []
-
     for (let i = 0; i < arr.length; i++) {
-        let option = document.getElementById("pollingoption"+i).value;
+        let option = document.getElementById("pollingoption" + i).value;
         pollingOption.push(option);
     }
-
-    arr.push(id) 
+    arr.push(id)
 
     option()
 
     for (let i = 0; i < pollingOption.length; i++) {
-        document.getElementById("pollingoption"+i).value = pollingOption[i];
+        document.getElementById("pollingoption" + i).value = pollingOption[i];
     }
-    
+
 }
 
 
-function subtractOption(id){
-    
+function subtractOption(id) {
+
     console.log(id);
-
-    arr.splice(id,1)
-
+    arr.splice(id, 1)
     let pollingOption = []
-    
+
     for (let i = 0; i < arr.length; i++) {
         console.log(i);
         if (i != id) {
-            let option = document.getElementById("pollingoption"+i).value;
+            let option = document.getElementById("pollingoption" + i).value;
             pollingOption.push(option);
         }
     }
-    
     option()
-
     for (let i = 0; i < pollingOption.length; i++) {
         // console.log( pollingOption[i]);
-        document.getElementById("pollingoption"+i).value = pollingOption[i];
+        document.getElementById("pollingoption" + i).value = pollingOption[i];
 
     }
 }
 
-function formSubmit(){
+function formSubmit() {
     let pollingQuestion = document.getElementById("addpollingquestion").value;
     let pollingOption = []
 
     for (let i = 0; i < arr.length; i++) {
-        let option = document.getElementById("pollingoption"+i).value;
-        options = {option}
+        let option = document.getElementById("pollingoption" + i).value;
+        options = { option }
         pollingOption.push(options);
     }
 
-    newPollingQuestion = {question : pollingQuestion ,
-        pollingOptions : pollingOption}
+    newPollingQuestion = {
+        question: pollingQuestion,
+        pollingOptions: pollingOption
+    }
 
     console.log(newPollingQuestion);
 
@@ -157,15 +152,16 @@ function formSubmit(){
             },
             body: JSON.stringify(newPollingQuestion)
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("addpollingquestion").value = "";
+                console.log('Success');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 }
-    
+
 
 

@@ -2,6 +2,7 @@ package com.company.ComplainProject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -29,17 +30,14 @@ public class WaterTiming {
     private String day;
     @JsonFormat(pattern="HH:mm")
     private LocalTime time;
-
-    @JsonFormat(pattern="YYYY-MM-dd")
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate date;
-
-
-    @ManyToOne
-    @JoinColumn(name = "area_id")
-    private Area area;
     @ManyToOne
     @JoinColumn(name = "block_id")
     private Block block;
+    //    @ManyToOne
+//    @JoinColumn(name = "area_id")
+//    private Area area;
 
 
 }

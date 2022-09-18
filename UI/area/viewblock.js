@@ -26,7 +26,7 @@ function getBlock() {
             <td style="width: 34%;" class="datatable">
             
             <a  href="/area/addblock.html?id=${data[i].id}">
-            <i  
+            <i
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
 
@@ -41,12 +41,10 @@ function getBlock() {
 
 }
 
-function updateWaterTiming(){
+function updateblock(){
 
     var select = document.getElementById('dropdownarea');
     var area = select.options[select.selectedIndex].value;
-
-    console.log(area);
 
     let block = document.getElementById("block").value;
 
@@ -93,7 +91,7 @@ function deleteBlock(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
+            Block  Deleted Successfully
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table

@@ -1,6 +1,9 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.dto.EventDto;
+import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.*;
 import org.springframework.data.domain.Page;
@@ -38,6 +41,7 @@ public class AdminService {
     private PollingAnswerService pollingAnswerService;
     private PollingOptionService pollingOptionService;
     private PollingQuestionService pollingQuestionService;
+    private EventService eventService;
 
     public AdminService(UserRepository userRepository, AddressRepository addressRepository
             , AchievementRepository achievementRepository, AreaRepository areaRepository
@@ -49,7 +53,9 @@ public class AdminService {
             , AddressService addressService, ComplainService complainService, ComplainTypeService complainTypeService
             , DocumentService documentService, WaterTimingService waterTimingService
             , PollingAnswerService pollingAnswerService, PollingOptionService pollingOptionService
-            , PollingQuestionService pollingQuestionService) {
+            , PollingQuestionService pollingQuestionService
+            , EventService eventService  ) {
+        this.eventService = eventService;
         this.userRepository = userRepository;
         this.addressRepository = addressRepository;
         this.achievementRepository = achievementRepository;
@@ -133,6 +139,14 @@ public class AdminService {
         return documentsList;
     }
 
+    public List<EventDto> getAllEvents(Integer pageNumber, Integer pageSize) {
+        List<EventDto> eventDtos =  eventService.getAllEventWithPagination(pageNumber,pageSize);
+        if(eventDtos.isEmpty()){
+            throw new ContentNotFoundException("No Events Exist");
+        }
+        return  eventDtos;
+    }
+
     public List<PollingAnswer> getAllPollingAnswer(){return pollingAnswerRepository.findAll();}
 
     public List<PollingOption> getAllPollingOption(){return pollingOptionRepository.findAll();}
@@ -161,6 +175,14 @@ public class AdminService {
         return complainService.toDto(complainRepository.save(updateComplain));
     }
 
+    public UserDto updateUserStatusById(Long id, UserDto userDto){
+        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(id)).findAny().get();
+        if(user != null){
+            System.out.println(user.getStatus());
+            user.setStatus(userDto.getStatus());
+        }
+        return userService.toDto(userRepository.save(user));
+    }
 
 
 

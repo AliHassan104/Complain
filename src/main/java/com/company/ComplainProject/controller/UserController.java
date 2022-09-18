@@ -47,7 +47,7 @@ public class UserController {
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
         System.out.println(userDto);
         try{
-            return ResponseEntity.ok(userService.addComplain(userDto));
+            return ResponseEntity.ok(userService.addUser(userDto));
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -97,7 +97,5 @@ public class UserController {
         UserExcelExporter userExcelExporter = new UserExcelExporter(userList);
         userExcelExporter.exportData(response);
     }
-
-
 
 }

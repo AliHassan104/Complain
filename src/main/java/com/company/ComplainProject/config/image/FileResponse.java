@@ -13,10 +13,9 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 
-//@Entity
+
 public class FileResponse {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
     String name;
     String fileName;

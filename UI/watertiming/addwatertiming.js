@@ -14,11 +14,11 @@ setTimeout(() => {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-        console.log(data);
+
         document.getElementById("day").value = data.day;
         document.getElementById("date").value = data.date;
         document.getElementById("time").value = data.time;
-    document.getElementById("formButton").innerText = "Update";
+        document.getElementById("formButton").innerText = "Update";
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -29,16 +29,21 @@ setTimeout(() => {
 
 function formSubmit(){
 
-    var select = document.getElementById('dropdownarea');
-    var area = select.options[select.selectedIndex].value;
+    // var selectforArea = document.getElementById('dropdownarea');
+    // var area = selectforArea.options[selectforArea.selectedIndex].value;
+
+    var selectforBlock = document.getElementById('dropdownblock');
+    var block = selectforBlock.options[selectforBlock.selectedIndex].value;
 
     let day = document.getElementById("day").value;
     let date = document.getElementById("date").value;
     let time = document.getElementById("time").value;
 
-    newArea = {area :{
-        id : area
-    } , day : day , date : date , time : time
+    newArea = {
+        block :{
+             id : block
+        }
+    ,day : day , date : date , time : time
     }; 
     console.log(newArea);
 
@@ -114,6 +119,8 @@ function formSubmit(){
 }
 }
 
+var getareaId;
+
 function getArea() {
     let table = ""
     fetch(`${baseUrl}/api/area`,{
@@ -123,9 +130,10 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
 
+        getareaId = data[0].id
+
+        for (let i = 0; i < data.length; i++) {
             table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `
@@ -133,4 +141,32 @@ function getArea() {
         document.getElementById("dropdownarea").innerHTML = table;
     })
 }
+//                                                                                  get value from the area drop down when the value change
+document.getElementById('dropdownarea').addEventListener('change', function() {
+    getBlock(this.value);
+});
+
+function getBlock(areaId){
+
+    let table = ""
+    fetch("http://localhost:8081/api/blockByArea/"+areaId,{
+        headers:{
+            "Content-Type":"application/json",
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=>{
+         for (let i = 0; i < data.length; i++) {
+            table += `
+            <option value="${data[i].id}">${data[i].block_name}</option>
+        `
+        }
+        document.getElementById("dropdownblock").innerHTML = table;
+    })
+
+}
+
 getArea();
+setTimeout(()=>{
+    getBlock(getareaId)
+},400)

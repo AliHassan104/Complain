@@ -29,7 +29,7 @@ function formSubmit(){
     let complaintype = document.getElementById("addcomplaintype").value;
     
     newComplainType = {name : complaintype}; 
-    console.log(newComplainType);
+    
 if (queryString == "") {
     fetch(`${baseUrl}/api/complaintype`, {
         method: 'POST',

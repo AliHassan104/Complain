@@ -1,9 +1,9 @@
 package com.company.ComplainProject.dto;
 
-import com.company.ComplainProject.dto.statusEnum.PropertyEnum;
+import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
+import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
-import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.model.Roles;
 import lombok.*;
 
@@ -30,4 +30,6 @@ public class UserDto {
     private Area area;
     private PropertyEnum property;
     private Set<Roles> roles = new HashSet<>();
+//                                                          Enums for user Status
+    private UserStatus status;
 }

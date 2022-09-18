@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.BlockDto;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Block;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BlockService {
@@ -20,6 +22,7 @@ public class BlockService {
     BlockRepository blockRepository;
     @Autowired
     AreaService areaService;
+
 
     public BlockDto addBlockInRecord(BlockDto blockDto) {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(blockDto.getArea().getId())).findAny().get();
@@ -34,20 +37,52 @@ public class BlockService {
     public BlockDto todto(Block block){
         return BlockDto.builder().id(block.getId()).block_name(block.getBlock_name()).area(block.getArea()).build();
     }
+    public List<Block> getAllBlocks(){
+        List<Block> block = blockRepository.findAll();
+        if(!block.isEmpty()){
+            return block;
+        }
+        //         return exception if the block not exist
+        return null;
+    }
 
-    public List<Block> getAllBlocks(Integer pageNumber,Integer pageSize) {
+    public List<Block> getAllBlocksWithPagination(Integer pageNumber,Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Block> blockPage = blockRepository.findAll(pageable);
         List<Block> blockList = blockPage.getContent();
         return blockList;
     }
 
+    public Optional<Block> getBlockById(Long id){
+        Optional<Block> block = blockRepository.findById(id);
+        if(block.isPresent()){
+            return block;
+        }
+//         return exception if the block not exist
+        return null;
+    }
+
+    public BlockDto updateBlockById(Long id,BlockDto blockDto){
+        Block block = getAllBlocks().stream().filter(block1 -> block1.getId().equals(id)).findAny().get();
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(blockDto.getArea().getId())).findAny().get();
+
+        if(block != null){
+            block.setBlock_name(blockDto.getBlock_name());
+            block.setArea(area);
+        }
+        return todto(blockRepository.save(block));
+    }
+
+    public void deleteBlockById(Long id){
+        blockRepository.deleteById(id);
+    }
+
+//                                                                                  get Block By Area
     public List<Block> getBlockByArea(Long areaid) {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
         List<Block> getBlockByArea = blockRepository.getAllBlockByArea(area);
         if(getBlockByArea.isEmpty()){
-//            return exception no block exist with this id
-            return null;
+            throw new ContentNotFoundException("No Blocks exist having area id : "+areaid);
         }
         return getBlockByArea;
     }
