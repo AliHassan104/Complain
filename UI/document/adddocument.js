@@ -1,19 +1,21 @@
+getArea();
+
 let queryString;
 setTimeout(() => {
     queryString = window.location.search;
-    console.log(queryString);
     
     if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    // fetch(`http://${}/api/document/${queryString}` , {
-    fetch(`${baseUrl}/api/document/${queryString}` , {
+        const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    fetch(`${baseUrl}/api/document/${urlId}`, {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
         console.log(data);
         document.getElementById("url").value = data.url;
         document.getElementById("title").value = data.title;
+        document.getElementById("title").value = "";
         document.getElementById("dropdownarea").value = data.area.name;
         document.getElementById("documentbtn").innerText = "Update";
     })
@@ -26,6 +28,7 @@ function formSubmit(){
 
     let url = document.getElementById("url").value;
     let title = document.getElementById("title").value;
+    
     var select = document.getElementById('dropdownarea');
     var area = select.options[select.selectedIndex].value;
 
@@ -89,7 +92,7 @@ function formSubmit(){
 function getArea() {
     let table = ""
     // fetch(`${baseUrl}/api/area`,{
-        fetch("http://localhost:8081/api/area",{
+        fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -102,10 +105,6 @@ function getArea() {
             table += `
             <option value="${data[i].id}">${data[i].name}</option>`
         }
-        
         document.getElementById("dropdownarea").innerHTML = table;
-        
     })
 }
-
-getArea();

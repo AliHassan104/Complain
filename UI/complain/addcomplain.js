@@ -4,13 +4,15 @@ getUser()
 
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4, queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/complain/` + queryString, {
-    })
-        .then(response => response.json()).catch(() => { })
-        .then(data => {
-            console.log(data);
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    fetch(`${baseUrl}/api/complain/`+urlId , {
+})
+.then(response => response.json()).catch(()=>{})
+.then(data => {
+        console.log(data);
 
             // document.getElementById("name").value = data.name;
             // document.getElementById("postalcode").value = data.postalCode
@@ -36,10 +38,11 @@ if (queryString != "") {
 
 function getComplain() {
     let table = ""
-    fetch(`${baseUrl}/api/complaintype`, {
-        headers: {
-            "Content-Type": "application/json",
-
+    // fetch(`${baseUrl}/api/complaintype`,{
+    fetch(`${baseUrl}/api/complaintype`,{
+        headers:{
+            "Content-Type":"application/json",
+            
         }
     })
         .then((response) => response.json())
@@ -55,10 +58,10 @@ function getComplain() {
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area", {
-        headers: {
-            "Content-Type": "application/json",
-
+    fetch(`${baseUrl}/api/area`,{
+        headers:{
+            "Content-Type":"application/json",
+            
         }
     })
         .then((response) => response.json())
@@ -74,10 +77,10 @@ function getArea() {
 let username;
 function getUser() {
     let table = ""
-    fetch("http://localhost:8081/api/user", {
-        headers: {
-            "Content-Type": "application/json",
-
+    fetch(`${baseUrl}/api/user`,{
+        headers:{
+            "Content-Type":"application/json",
+            
         }
     })
         .then((response) => response.json())
@@ -96,8 +99,8 @@ function getUser() {
 
 function formSubmit() {
 
-    let title = "abc";
-    let suggestion = "abc";
+    // let title = "abc";
+    // let suggestion = "abc";
     let description = document.getElementById("description").value;
 
     const date = new Date();
@@ -122,17 +125,16 @@ function formSubmit() {
     var user = select.options[select.selectedIndex].value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {
-        description: description
-        , date: d, time: t,
-        complainType: {
-            id: complaintype
-        },
-        area: {
-            id: area
-        },
-        user: {
-            id: user
+    newAchievement = {description : description
+        , date : d , time : t ,
+        complainType : {
+           id : complaintype
+        } ,
+        area : {
+           id : area
+        } , 
+        user : {
+           id : user
         }
     };
 
@@ -143,6 +145,18 @@ function formSubmit() {
     for (const file of image.files) {
         formData.append("pictureUrl", file)
     }
+    formData.append('data',newAchievement);
+    console.log(queryString);
+    if (queryString == "") {
+        fetch(`${baseUrl}/api/complain`,{
+        method:"POST",
+        body: formData
+
+    }).then((response)=>response.json())
+    .then((data)=>{
+        console.log(data);
+    let table = ""
+    table += `
     formData.append('data', newAchievement);
 
     if (queryString == "") {
@@ -155,7 +169,7 @@ function formSubmit() {
 
                 let table = ""
                 table += `
-    <div  style=" 
+    <div  style="
     margin: auto;
     text-align: center;
     width: 50%;
@@ -165,18 +179,19 @@ function formSubmit() {
     class="alert alert-success" role="alert">
     Your Complain Is Added  Successfully
     </div>`
-                document.getElementById("formSubmitted").innerHTML = table
-            })
-            .catch((error) => console.log(error))
-    } else {
-        fetch("http://localhost:8081/api/complain/" + queryString, {
-            method: "PUT",
-            body: formData
+    document.getElementById("formSubmitted").innerHTML = table
+    })   
+    .catch((error)=>console.log(error))
+}else{
+    fetch(`${baseUrl}/api/complain/`+queryString,{
+        method:"PUT",
+        body: formData
 
-        }).then((response) => response.json())
-            .then((data) => {
-                let table = ""
-                table += `
+    }).then((response)=>response.json()).catch(()=>{})
+    .then((data)=>{
+        console.log(data);
+    let table = ""
+    table += `
     <div  style=" 
     margin: auto;
     text-align: center;

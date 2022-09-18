@@ -2,7 +2,7 @@ getBlock()
 let uid;
 function getBlock() {
     let table = ""
-    fetch("http://localhost:8081/api/block",{
+    fetch(`${baseUrl}/api/block`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -26,7 +26,7 @@ function getBlock() {
             <td style="width: 34%;" class="datatable">
             
             <a  href="/area/addblock.html?id=${data[i].id}">
-            <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
+            <i
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
 
@@ -53,7 +53,9 @@ function updateblock(){
     } , block : block
     }; 
     
-    fetch('http://localhost:8081/api/block/'+uid, {
+    console.log(newArea);
+    
+    fetch(`${baseUrl}/api/watertiming/`+uid, {
         method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,9 +76,8 @@ function updateblock(){
         }
     
         
-function deleteBlock(id){
-     console.log("Delete Block")
-    fetch('http://localhost:8081/api/block/'+id, {
+function deleteBlock(id){  
+    fetch(`${baseUrl}/api/watertiming/`+id, {
         method: 'DELETE'
     }).then(()=>{
         let table = ""
@@ -104,7 +105,7 @@ function deleteBlock(id){
 function modalValue(id){
     uid = id
     getArea()
-    fetch("http://localhost:8081/api/watertiming/"+id,{
+    fetch(`${baseUrl}/api/watertiming/`+id,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -121,7 +122,7 @@ function modalValue(id){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }

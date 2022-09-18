@@ -1,6 +1,6 @@
 function getAchievement() {
     let table = ""
-    fetch("http://localhost:8081/api/admin/achievement",{
+    fetch(`${baseUrl}/api/admin/achievement`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -63,7 +63,7 @@ function updateAchievement(){
     }
     formData.append('data',newAchievement);
 
-    fetch("http://localhost:8081/api/achievement/"+uid,{
+    fetch(`${baseUrl}/api/achievement/`+uid,{
         method:"PUT",
         body: formData
     
@@ -75,7 +75,7 @@ function updateAchievement(){
 }
 
 function deleteAchievement(id){
-    fetch('http://localhost:8081/api/achievement/'+id, {
+    fetch(`${baseUrl}/api/achievement/`+id, {
             method: 'DELETE'
     }).then(()=>{
         let table = ""

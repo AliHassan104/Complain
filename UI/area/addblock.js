@@ -2,12 +2,14 @@ let queryString;
 setTimeout(() => {
     
     queryString = window.location.search;
-    console.log(queryString);
+    // console.log(queryString);
     
     if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/block/${queryString}`, {
+        const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    fetch(`${baseUrl}/api/block/${urlId}`, {
     // fetch("http://localhost:8081/api/block/"+queryString , {
 })
 .then(response => response.json()).catch(()=>{})
@@ -20,7 +22,6 @@ setTimeout(() => {
         console.error('Error:', error);
     });
 }
-
 }, 200);
 
 
@@ -115,7 +116,7 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
-        console.log(data);
+        // console.log(data);
         for (let i = 0; i < data.length; i++) {
 
             table += `

@@ -1,8 +1,10 @@
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/achievement/`+queryString , {
+    const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    fetch(`${baseUrl}/api/achievement/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -28,7 +30,7 @@ function formSubmit(){
     // let time = document.getElementById("time").value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title, description : description , date : date}; 
+    newAchievement = {title : title, description : description , date : date};
 
     newAchievement = JSON.stringify(newAchievement)
 
@@ -42,7 +44,7 @@ function formSubmit(){
 
     if (queryString == "") {
         
-        fetch("http://localhost:8081/api/achievement",{
+        fetch(`${baseUrl}/api/achievement`,{
             method:"POST",
             body: formData
             
@@ -73,7 +75,7 @@ function formSubmit(){
 
     }else{
         
-        fetch("http://localhost:8081/api/achievement/"+queryString,{
+        fetch(`${baseUrl}/api/achievement/`+queryString,{
             method:"PUT",
             body: formData
             

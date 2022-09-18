@@ -20,6 +20,7 @@ function getDocuments() {
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
         for (let i = 0; i < data.length; i++) {
+            console.log(data[i].url);
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
             <td style="width: 30%;" class="datatable">${data[i].area.name}</td>
@@ -201,7 +202,7 @@ getArea()
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -231,7 +232,7 @@ function filterByArea(){
         getUser()
     }
     else{
-        fetch("http://localhost:8081/api/user/"+area,{
+        fetch(`${baseUrl}/api/user/`+area,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,

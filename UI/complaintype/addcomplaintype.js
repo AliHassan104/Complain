@@ -5,9 +5,11 @@ setTimeout(() => {
     console.log(queryString);
     
     if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/complaintype/`+queryString , {
+        const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    fetch(`${baseUrl}/api/complaintype/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -29,7 +31,7 @@ function formSubmit(){
     newComplainType = {name : complaintype}; 
     
 if (queryString == "") {
-    fetch("http://localhost:8081/api/complaintype", {
+    fetch(`${baseUrl}/api/complaintype`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -59,7 +61,7 @@ if (queryString == "") {
     });
 }else{
 
-    fetch('http://localhost:8081/api/complaintype/'+queryString, {
+    fetch(`${baseUrl}/api/complaintype/`+queryString, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

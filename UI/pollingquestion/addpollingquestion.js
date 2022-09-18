@@ -2,11 +2,15 @@ let arr = [0];
 
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4, queryString.length)
-    fetch(`${baseUrl}/api/pollingquestion/` + queryString, {
-    })
-        .then(response => response.json()).catch(() => { })
-        .then(data => {
+    const urlParams = new URLSearchParams(queryString)
+    const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    fetch(`${baseUrl}/api/pollingquestion/`+urlId , {
+})
+.then(response => response.json()).catch(()=>{})
+.then(data => {
+        console.log(data);
 
             document.getElementById("pollingquestionbtn").innerText = "Update"
             document.getElementById('addpollingquestion').value = data.question;
@@ -124,27 +128,24 @@ function formSubmit() {
 
     console.log(newPollingQuestion);
 
-    if (queryString == "") {
-
-        fetch("http://localhost:8081/api/pollingquestion", {
+    if (queryString == "" ) {
+        
+        fetch(`${baseUrl}/api/pollingquestion`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(newPollingQuestion)
         })
-            .then(response => response.json())
-            .then(data => {
-               document.getElementById("addpollingquestion").value = "";
-             
-
-                console.log('Success:');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    } else {
-        fetch("http://localhost:8081/api/pollingquestion/" + queryString, {
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }else{
+        fetch(`${baseUrl}/api/pollingquestion/`+queryString, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

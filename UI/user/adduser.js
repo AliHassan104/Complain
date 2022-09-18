@@ -2,13 +2,16 @@ let queryString;
 setTimeout(() => {
  queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch("http://localhost:8081/api/user/"+queryString , {
+    const urlParams = new URLSearchParams(queryString)
+    const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    fetch(`${baseUrl}/api/user/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-   
+    console.log(data);
+
     document.getElementById("firstname").value = data.firstname;
     document.getElementById("lastname").value = data.lastname;
     document.getElementById("cnic").value = data.cnic;
@@ -16,12 +19,11 @@ if (queryString != "") {
     document.getElementById("email").value = data.email;
     document.getElementById("password").value = data.password;
     document.getElementById("family").value = data.numberOfFamilyMembers;
-  
     addressId = data.address.id
 
     document.getElementById("formButton").innerText = "Update";
 
-    fetch("http://localhost:8081/api/address/"+data.address.id ,{
+    fetch(`${baseUrl}/api/address/`+data.address.id ,{
 
     }).then(response => response.json()).catch(()=>{})
     .then(address => {
@@ -56,13 +58,13 @@ function addUser(){
     let cnic = document.getElementById("cnic").value;
     let phonenumber = document.getElementById("phonenumber").value;
     let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+    // let password = document.getElementById("password").value;
     let family = document.getElementById("family").value;
     let property = document.getElementById("dropdownproperty");
     let propertyValue = property.value;
      console.log("Property Value ",propertyValue)
     newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
-        , email : email , password : password , numberOfFamilyMembers : family ,
+        , email : email , password : "password" , numberOfFamilyMembers : family ,
         area : {
             id : areaId
         },
@@ -75,7 +77,8 @@ function addUser(){
     console.log(newUser);
     if (queryString == "") {
         
-        fetch("http://localhost:8081/api/user", {
+        
+        fetch(`${baseUrl}/api/user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +108,7 @@ function addUser(){
 //     console.error('Error:', error);
 // });
 }else{
-    fetch("http://localhost:8081/api/user/"+queryString, {
+    fetch(`${baseUrl}/api/user/`+queryString, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -140,7 +143,7 @@ function addUser(){
     document.getElementById("cnic").value = "";
     document.getElementById("phonenumber").value = "";
     document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
+    // document.getElementById("password").value = "";
     document.getElementById("family").value = "";
 }
 
@@ -155,7 +158,7 @@ function addAddress(){
 
     console.log(newAddress);
     if (queryString == "") {       
-        fetch("http://localhost:8081/api/address", {
+        fetch(`${baseUrl}/api/address`, {
             method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -176,7 +179,7 @@ function addAddress(){
         console.error('Error:', error);
     })
 }else{
-    fetch("http://localhost:8081/api/address/"+addressId, {
+    fetch(`${baseUrl}/api/address/`+addressId, {
             method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -204,7 +207,7 @@ function addAddress(){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/admin/area",{
+    fetch(`${baseUrl}/api/admin/area`,{
         headers:{
             "Content-Type":"application/json",
         }
