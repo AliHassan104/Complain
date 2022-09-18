@@ -74,8 +74,8 @@ public class ComplainService {
             updateComplain.setArea(area);
             updateComplain.setUser(user);
             updateComplain.setComplainType(complainType);
-//            updateComplain.setDate(complainDto.getDate());
-//            updateComplain.setTime(complainDto.getTime());
+            updateComplain.setDate(complainDto.getDate());
+            updateComplain.setTime(complainDto.getTime());
         }
         return toDto(complainRepository.save(updateComplain));
     }

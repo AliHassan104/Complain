@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.CannotDeleteImage;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
@@ -39,7 +40,7 @@ public class AchievementController {
         if(!assetBooking.isEmpty()){
             return ResponseEntity.ok(assetBooking);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        throw new ContentNotFoundException("No Achievement Exist ");
     }
 
     @GetMapping("/achievement/{id}")
@@ -48,7 +49,7 @@ public class AchievementController {
         if(asset.isPresent()){
             return  ResponseEntity.ok(asset);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        throw new ContentNotFoundException("No Achievement Exist having id "+id);
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/achievement/{id}")
@@ -67,7 +68,7 @@ public class AchievementController {
         }
         catch (Exception e){
             System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new ContentNotFoundException("No Achievement Exist having id "+id);
         }
     }
 
@@ -95,10 +96,9 @@ public class AchievementController {
                 throw new CannotDeleteImage("Achievement Image having id "+id+" cannot be deleted");
             }
 
-
         }catch (Exception e){
             System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new ContentNotFoundException("Cannot update No Achievement Exist having id "+id);
         }
     }
 
