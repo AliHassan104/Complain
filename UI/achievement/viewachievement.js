@@ -13,7 +13,6 @@ function getAchievement() {
         <th style="width: 15%;" class="toptable ">Title</th>
         <th style="width: 20%;" class="toptable ">Description</th>
         <th style="width: 15%;" class="toptable ">Date</th>
-        <th style="width: 10%;" class="toptable ">Time</th>
         <th style="width: 20%;" class="toptable ">Picture</th>
         <th style="width: 20%; " class="toptable ">Action</th>
         </tr>`
@@ -25,7 +24,6 @@ function getAchievement() {
             <td style="width: 15%;" class="datatable">${data[i].title}</td>
             <td style="width: 20%;" class="datatable">${data[i].description}</td>
             <td style="width: 15%;" class="datatable">${data[i].date}</td>
-            <td style="width: 10%;" class="datatable">${data[i].time}</td>
             <td style="width: 20%;" class="datatable"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
             </td>
             <td style="width: 20%;" class="datatable"> 
@@ -51,10 +49,10 @@ function updateAchievement(){
     let title = document.getElementById("achievementtitle").value;
     let description = document.getElementById("description").value;
     let date = document.getElementById("date").value;
-    let time = document.getElementById("time").value;
+    // let time = document.getElementById("time").value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title, description : description , date : date , time : time}; 
+    newAchievement = {title : title, description : description , date : date}; 
 
     newAchievement = JSON.stringify(newAchievement)
 

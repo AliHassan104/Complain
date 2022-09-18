@@ -62,7 +62,7 @@ public class AchievementService {
             updateAchievement.setDescription(achievementsDto.getDescription());
             updateAchievement.setPictureUrl(achievementsDto.getPictureUrl());
             updateAchievement.setDate(achievementsDto.getDate());
-            updateAchievement.setTime(achievementsDto.getTime());
+//            updateAchievement.setTime(achievementsDto.getTime());
         }
         return Optional.of(toDto(achievementRepository.save(updateAchievement)));
     }
@@ -71,7 +71,7 @@ public class AchievementService {
         return Achievements.builder().id(achievementsDto.getId()).title(achievementsDto.getTitle())
                 .description(achievementsDto.getDescription()).pictureUrl(achievementsDto.getPictureUrl())
                 .date(achievementsDto.getDate())
-                .time(achievementsDto.getTime())
+//                .time(achievementsDto.getTime())
                 .build();
     }
 
@@ -79,7 +79,7 @@ public class AchievementService {
         return  AchievementsDto.builder().id(achievements.getId()).title(achievements.getTitle())
                 .description(achievements.getDescription()).pictureUrl(achievements.getPictureUrl())
                 .date(achievements.getDate())
-                .time(achievements.getTime())
+//                .time(achievements.getTime())
                 .build();
     }
 //                                                                                                 get Achievement Image

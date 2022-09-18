@@ -12,7 +12,7 @@ if (queryString != "") {
         document.getElementById('achievementtitle').value = data.title;
         document.getElementById('description').value = data.description;
         document.getElementById('date').value = data.date;
-        document.getElementById('time').value = data.time;
+        // document.getElementById('time').value = data.time;
       
     })
     .catch((error) => {
@@ -25,10 +25,10 @@ function formSubmit(){
     let title = document.getElementById("achievementtitle").value;
     let description = document.getElementById("description").value;
     let date = document.getElementById("date").value;
-    let time = document.getElementById("time").value;
+    // let time = document.getElementById("time").value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title, description : description , date : date , time : time}; 
+    newAchievement = {title : title, description : description , date : date}; 
 
     newAchievement = JSON.stringify(newAchievement)
 
@@ -66,7 +66,7 @@ function formSubmit(){
     document.getElementById("achievementtitle").value = "";
     document.getElementById("description").value = "";
     document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
+    // document.getElementById("time").value = "";
     document.getElementById("inpFile").value.files = "";
 })
 .catch((error)=>console.log(error))
