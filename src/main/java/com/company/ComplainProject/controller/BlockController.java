@@ -22,7 +22,7 @@ public class BlockController {
 
     @GetMapping("/block")
     public ResponseEntity<List<Block>> viewAllBlocks(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
-                                                     @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+                                                     @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
             return ResponseEntity.ok(blockService.getAllBlocksWithPagination(pageNumber,pageSize));
         }catch (Exception e){
