@@ -29,7 +29,7 @@ function formSubmit(){
     newComplainType = {name : complaintype}; 
     console.log(newComplainType);
 if (queryString == "") {
-    fetch("http://localhost:8081/api/complaintype", {
+    fetch(`${baseUrl}/api/complaintype`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ if (queryString == "") {
     });
 }else{
 
-    fetch('http://localhost:8081/api/complaintype/'+queryString, {
+    fetch(`${baseUrl}/api/complaintype/`+queryString, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

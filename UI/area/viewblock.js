@@ -2,7 +2,7 @@ getBlock()
 let uid;
 function getBlock() {
     let table = ""
-    fetch("http://localhost:8081/api/block",{
+    fetch(`${baseUrl}/api/block`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -57,7 +57,7 @@ function updateWaterTiming(){
     
     console.log(newArea);
     
-    fetch('http://localhost:8081/api/watertiming/'+uid, {
+    fetch(`${baseUrl}/api/watertiming/`+uid, {
         method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ function updateWaterTiming(){
     
         
 function deleteBlock(id){  
-    fetch('http://localhost:8081/api/watertiming/'+id, {
+    fetch(`${baseUrl}/api/watertiming/`+id, {
         method: 'DELETE'
     }).then(()=>{
         let table = ""
@@ -107,7 +107,7 @@ function deleteBlock(id){
 function modalValue(id){
     uid = id
     getArea()
-    fetch("http://localhost:8081/api/watertiming/"+id,{
+    fetch(`${baseUrl}/api/watertiming/`+id,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -124,7 +124,7 @@ function modalValue(id){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }

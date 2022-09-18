@@ -22,7 +22,6 @@ setTimeout(() => {
         console.error('Error:', error);
     });
 }
-
 }, 200);
 
 

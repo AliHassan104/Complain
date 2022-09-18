@@ -95,7 +95,7 @@ function updateWaterTiming(){
     
         
 function deleteWaterTiming(id){  
-    fetch('http://localhost:8081/api/watertiming/'+id, {
+    fetch(`${baseUrl}/api/watertiming/`+id, {
         method: 'DELETE'
     }).then(()=>{
         let table = ""
@@ -123,7 +123,7 @@ function deleteWaterTiming(id){
 function modalValue(id){
     uid = id
     getArea()
-    fetch("http://localhost:8081/api/watertiming/"+id,{
+    fetch(`${baseUrl}/api/watertiming/ `+id,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -142,7 +142,7 @@ function modalValue(id){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -191,7 +191,7 @@ function filterWaterTimingByArea() {
     var select = document.getElementById('dropdownareafilter');
     var area = select.options[select.selectedIndex].value;
 
-    fetch("http://localhost:8081/api/admin/watertiming",{
+    fetch(`${baseUrl}/api/admin/watertiming`,{
         headers:{
             "Content-Type":"application/json",
             
@@ -242,7 +242,7 @@ getArea()
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -262,53 +262,53 @@ function getArea() {
     })
 }
 
-function filterByArea(){
-    var select = document.getElementById('dropdownareafilter');
-    var area = select.options[select.selectedIndex].value;
+// function filterByArea(){
+//     var select = document.getElementById('dropdownareafilter');
+//     var area = select.options[select.selectedIndex].value;
 
-    console.log(area);
-    table = ""
-    if (area == "ALL") {
-        getUser()
-    }
-    else{
-        fetch("http://localhost:8081/api/user/"+area,{
-        headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
-            "Content-Type":"application/json",
+//     console.log(area);
+//     table = ""
+//     if (area == "ALL") {
+//         getUser()
+//     }
+//     else{
+//         fetch("http://localhost:8081/api/user/"+area,{
+//         headers:{
+//             // mode: 'no-cors',
+//             // "Authorization":jwtTokenBearer,
+//             "Content-Type":"application/json",
             
-        }
-    })
-    .then((response)=>response.json()).catch(()=>{})
-    .then((data)=> {
+//         }
+//     })
+//     .then((response)=>response.json()).catch(()=>{})
+//     .then((data)=> {
 
-        table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-        <th style="width: 15%;" class="toptable ">Name</th>
-        <th style="width: 15%;" class="toptable ">PhoneNumber</th>
-        <th style="width: 20%;" class="toptable ">Email</th>
-        <th style="width: 20%;" class="toptable ">Cnic</th>
-        <th style="width: 15%;" class="toptable ">Area Name </th>
-        <th style="width: 15%;" class="toptable ">Action </th>
-        </tr>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
+//         table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
+//         <th style="width: 15%;" class="toptable ">Name</th>
+//         <th style="width: 15%;" class="toptable ">PhoneNumber</th>
+//         <th style="width: 20%;" class="toptable ">Email</th>
+//         <th style="width: 20%;" class="toptable ">Cnic</th>
+//         <th style="width: 15%;" class="toptable ">Area Name </th>
+//         <th style="width: 15%;" class="toptable ">Action </th>
+//         </tr>`
+//         for (let i = 0; i < data.length; i++) {
+//             table += `
 
-        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 20%;" class="datatable">${data[i].email}</td>
-            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
-            <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 15%;" class="datatable"> 
-            <a href="/user/adduser.html?id=${data[i].id}">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
-            style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
-            </a>
-            <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
-    </td>
-        </tr>`
-        }
-        document.getElementById("datatables-reponsive").innerHTML = table;
-    })}
-}
+//         <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
+//             <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
+//             <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
+//             <td style="width: 20%;" class="datatable">${data[i].email}</td>
+//             <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
+//             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
+//             <td style="width: 15%;" class="datatable"> 
+//             <a href="/user/adduser.html?id=${data[i].id}">
+//             <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
+//             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+//             </a>
+//             <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
+//     </td>
+//         </tr>`
+//         }
+//         document.getElementById("datatables-reponsive").innerHTML = table;
+//     })}
+// }

@@ -42,7 +42,7 @@ function formSubmit(){
 
     if (queryString == "") {
         
-        fetch("http://localhost:8081/api/achievement",{
+        fetch(`${baseUrl}/api/achievement`,{
             method:"POST",
             body: formData
             
@@ -73,7 +73,7 @@ function formSubmit(){
 
     }else{
         
-        fetch("http://localhost:8081/api/achievement"+queryString,{
+        fetch(`${baseUrl}/api/achievement`+queryString,{
             method:"PUT",
             body: formData
             

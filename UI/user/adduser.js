@@ -4,7 +4,7 @@ setTimeout(() => {
 if (queryString != "") {
     queryString = queryString.slice(4,queryString.length)
     console.log(queryString);
-    fetch("http://localhost:8081/api/user/"+queryString , {
+    fetch(`${baseUrl}/api/user/`+queryString , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -21,7 +21,7 @@ if (queryString != "") {
 
     document.getElementById("formButton").innerText = "Update";
 
-    fetch("http://localhost:8081/api/address/"+data.address.id ,{
+    fetch(`${baseUrl}/api/address/`+data.address.id ,{
 
     }).then(response => response.json()).catch(()=>{})
     .then(address => {
@@ -73,7 +73,7 @@ function addUser(){
     if (queryString == "") {
         
         
-        fetch("http://localhost:8081/api/user", {
+        fetch(`${baseUrl}/api/user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ function addUser(){
 //     console.error('Error:', error);
 // });
 }else{
-    fetch("http://localhost:8081/api/user/"+queryString, {
+    fetch(`${baseUrl}/api/user/`+queryString, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ function addAddress(){
 
     console.log(newAddress);
     if (queryString == "") {       
-        fetch("http://localhost:8081/api/address", {
+        fetch(`${baseUrl}/api/address`, {
             method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ function addAddress(){
         console.error('Error:', error);
     })
 }else{
-    fetch("http://localhost:8081/api/address/"+addressId, {
+    fetch(`${baseUrl}/api/address/`+addressId, {
             method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ function addAddress(){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/admin/area",{
+    fetch(`${baseUrl}/api/admin/area`,{
         headers:{
             "Content-Type":"application/json",
         }

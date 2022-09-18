@@ -102,7 +102,7 @@ function updateStatus(){
         status: updatedstatus
     }
 
-    fetch('http://localhost:8081/api/admin/complain/'+uid, {
+    fetch(`${baseUrl}/api/admin/complain/`+uid, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function updateStatus(){
 
 function deleteComplain(id){
     
-    fetch('http://localhost:8081/api/complain/'+id, {
+    fetch(`${baseUrl}/api/complain/`+id, {
             method: 'DELETE'
     }).catch(()=>{
         let table = ""
@@ -154,7 +154,7 @@ getArea()
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -184,7 +184,7 @@ function filterByArea(){
         getUser()
     }
     else{
-        fetch("http://localhost:8081/api/complain/"+area,{
+        fetch(`${baseUrl}/api/complain/`+area,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,
@@ -240,7 +240,7 @@ function filterByStatus(){
         getComplain()
     }
     else{
-        fetch("http://localhost:8081/api/complain/"+status,{
+        fetch(`${baseUrl}/api/complain/`+status,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,

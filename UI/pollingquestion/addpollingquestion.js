@@ -133,7 +133,7 @@ function formSubmit(){
 
     if (queryString == "" ) {
         
-        fetch("http://localhost:8081/api/pollingquestion", {
+        fetch(`${baseUrl}/api/pollingquestion`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ function formSubmit(){
             console.error('Error:', error);
         });
     }else{
-        fetch("http://localhost:8081/api/pollingquestion/"+queryString, {
+        fetch(`${baseUrl}/api/pollingquestion/`+queryString, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

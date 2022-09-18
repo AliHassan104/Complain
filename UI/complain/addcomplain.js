@@ -56,7 +56,7 @@ function getComplain() {
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
             
@@ -76,7 +76,7 @@ function getArea() {
 let username;
 function getUser() {
     let table = ""
-    fetch("http://localhost:8081/api/user",{
+    fetch(`${baseUrl}/api/user`,{
         headers:{
             "Content-Type":"application/json",
             
@@ -147,7 +147,7 @@ function formSubmit(){
     formData.append('data',newAchievement);
     console.log(queryString);
     if (queryString == "") {
-        fetch("http://localhost:8081/api/complain",{
+        fetch(`${baseUrl}/api/complain`,{
         method:"POST",
         body: formData
     
@@ -170,7 +170,7 @@ function formSubmit(){
     })   
     .catch((error)=>console.log(error))
 }else{
-    fetch("http://localhost:8081/api/complain"+queryString,{
+    fetch(`${baseUrl}/api/complain`+queryString,{
         method:"PUT",
         body: formData
     

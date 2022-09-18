@@ -1,12 +1,9 @@
 let queryString;
 setTimeout(() => {
     queryString = window.location.search;
-    console.log(queryString);
     
     if (queryString != "") {
     queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    // fetch(`http://${}/api/document/${queryString}` , {
     fetch(`${baseUrl}/api/document/${queryString}` , {
 })
 .then(response => response.json()).catch(()=>{})
@@ -91,7 +88,7 @@ function formSubmit(){
 function getArea() {
     let table = ""
     // fetch(`${baseUrl}/api/area`,{
-        fetch("http://localhost:8081/api/area",{
+        fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }

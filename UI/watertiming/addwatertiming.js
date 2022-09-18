@@ -7,7 +7,7 @@ setTimeout(() => {
     if (queryString != "") {
     queryString = queryString.slice(4,queryString.length)
     console.log(queryString);
-    fetch("http://localhost:8081/api/watertiming/"+queryString , {
+    fetch(`${baseUrl}/api/watertiming/`+queryString , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -43,7 +43,7 @@ function formSubmit(){
     if (queryString == "") {
         
         
-        fetch("http://localhost:8081/api/watertiming", {
+        fetch(`${baseUrl}/api/watertiming`, {
             method: 'POST',
             headers: {
         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function formSubmit(){
 });
 
 }else{
-    fetch("http://localhost:8081/api/watertiming/"+queryString, {
+    fetch(`${baseUrl}/api/watertiming/`+queryString, {
             method: 'PUT',
             headers: {
         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function formSubmit(){
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
