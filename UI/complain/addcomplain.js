@@ -4,9 +4,11 @@ getUser()
 
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/complain/`+queryString , {
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    fetch(`${baseUrl}/api/complain/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {

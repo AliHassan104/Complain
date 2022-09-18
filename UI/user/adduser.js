@@ -2,9 +2,11 @@ let queryString;
 setTimeout(() => {
  queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/user/`+queryString , {
+    const urlParams = new URLSearchParams(queryString)
+    const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    // console.log(queryString);
+    fetch(`${baseUrl}/api/user/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {

@@ -1,10 +1,14 @@
+getArea();
+
 let queryString;
 setTimeout(() => {
     queryString = window.location.search;
     
     if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    fetch(`${baseUrl}/api/document/${queryString}` , {
+        const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
+    fetch(`${baseUrl}/api/document/${urlId}`, {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -101,10 +105,6 @@ function getArea() {
             table += `
             <option value="${data[i].id}">${data[i].name}</option>`
         }
-        
         document.getElementById("dropdownarea").innerHTML = table;
-        
     })
 }
-
-getArea();

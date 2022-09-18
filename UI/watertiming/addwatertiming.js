@@ -5,9 +5,12 @@ setTimeout(() => {
     console.log(queryString);
     
     if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    console.log(queryString);
-    fetch(`${baseUrl}/api/watertiming/`+queryString , {
+        const urlParams = new URLSearchParams(queryString)
+        const urlId = urlParams.get("id")
+        // const urlName = urlParams.get("name")
+        // queryString = queryString.slice(4,queryString.length)
+        // console.log(queryString);
+    fetch(`${baseUrl}/api/watertiming/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
@@ -21,7 +24,6 @@ setTimeout(() => {
         console.error('Error:', error);
     });
 }
-
 }, 200);
 
 

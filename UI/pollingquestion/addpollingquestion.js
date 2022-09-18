@@ -2,9 +2,11 @@ let arr = [0];
 
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
+    const urlParams = new URLSearchParams(queryString)
+    const urlId = urlParams.get("id")
+    // queryString = queryString.slice(4,queryString.length)
     // console.log(queryString);
-    fetch(`${baseUrl}/api/pollingquestion/`+queryString , {
+    fetch(`${baseUrl}/api/pollingquestion/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
