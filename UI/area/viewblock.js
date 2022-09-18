@@ -25,7 +25,7 @@ function getBlock() {
             <td style="width: 33%;" class="datatable">${data[i].block_name}</td>
             <td style="width: 34%;" class="datatable">
             
-            <a  href="/block/addblock.html?id=${data[i].id}">
+            <a  href="/area/addblock.html?id=${data[i].id}">
             <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
@@ -41,12 +41,10 @@ function getBlock() {
 
 }
 
-function updateWaterTiming(){
+function updateblock(){
 
     var select = document.getElementById('dropdownarea');
     var area = select.options[select.selectedIndex].value;
-
-    console.log(area);
 
     let block = document.getElementById("block").value;
 
@@ -55,9 +53,7 @@ function updateWaterTiming(){
     } , block : block
     }; 
     
-    console.log(newArea);
-    
-    fetch('http://localhost:8081/api/watertiming/'+uid, {
+    fetch('http://localhost:8081/api/block/'+uid, {
         method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,8 +74,9 @@ function updateWaterTiming(){
         }
     
         
-function deleteBlock(id){  
-    fetch('http://localhost:8081/api/watertiming/'+id, {
+function deleteBlock(id){
+     console.log("Delete Block")
+    fetch('http://localhost:8081/api/block/'+id, {
         method: 'DELETE'
     }).then(()=>{
         let table = ""
@@ -93,7 +90,7 @@ function deleteBlock(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
+            Block  Deleted Successfully
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table

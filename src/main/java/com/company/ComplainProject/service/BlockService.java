@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.BlockDto;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Block;
@@ -81,8 +82,7 @@ public class BlockService {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
         List<Block> getBlockByArea = blockRepository.getAllBlockByArea(area);
         if(getBlockByArea.isEmpty()){
-//            return exception no block exist with this id
-            return null;
+            throw new ContentNotFoundException("No Blocks exist having area id : "+areaid);
         }
         return getBlockByArea;
     }

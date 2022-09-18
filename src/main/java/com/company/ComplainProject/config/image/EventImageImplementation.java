@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -31,23 +30,29 @@ public class EventImageImplementation implements FileService{
 
         String generatedRandomFileName = FileService.generateRandomImageName(file);
         String filePath = eventImagePath+File.separator+generatedRandomFileName;
+
+        InputStream input = null;
+
         try {
-            Files.copy(file.getInputStream(),Paths.get(filePath));
+            input = file.getInputStream();
+            Files.copy(input,Paths.get(filePath));
+
         }catch (Exception e){
             System.out.println(e+" Exception in uploading event image");
+        }
+        finally {
+            input.close();
         }
         return generatedRandomFileName;
     }
 
-    public Boolean deleteEventImage(Long id){
+    public Boolean deleteImage(Long id){
         try{
             Event event = eventService.getAllEvent().stream().filter(event1 -> event1.getId().equals(id)).findAny().get();
-
             String getImageName = event.getImage().substring((event.getImage().lastIndexOf("/"))+1);
-
             String imagePath =eventImagePath+File.separator+getImageName;
-            Files.deleteIfExists(Paths.get(imagePath));
 
+            Files.deleteIfExists(Paths.get(imagePath));
             return true;
 
         }catch (Exception e){

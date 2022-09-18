@@ -99,8 +99,8 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
+					<li class="sidebar-item active">
+						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
@@ -198,6 +198,17 @@
 							<li class="sidebar-item"><a class="sidebar-link" href="/pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
 						</ul>
 					</li>
+
+					<li class="sidebar-item">
+						<a data-bs-target="#events" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Events</span>
+						</a>
+						<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/addevents.html">Add Events</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/viewevents.html">View Events</a></li>
+						</ul>
+					</li>
+
 
 			</div>
 		</nav>

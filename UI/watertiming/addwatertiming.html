@@ -99,8 +99,8 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item ">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
+					<li class="sidebar-item active">
+						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
 					</li>
@@ -182,8 +182,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Achievement</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/viewachievement.html">Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Add Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
@@ -195,6 +195,16 @@
 						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
+						</ul>
+					</li>
+
+					<li class="sidebar-item">
+						<a data-bs-target="#events" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Events</span>
+						</a>
+						<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/addevents.html">Add Events</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/viewevents.html">View Events</a></li>
 						</ul>
 					</li>
 
@@ -491,6 +501,13 @@
                         <form>
                             <fieldset>
 								<select id="dropdownarea" class="form-select">
+
+								</select>
+
+								<br>
+
+								<select class="form-select" id="dropdownblock" >
+									
 								</select>
 
 								<br>

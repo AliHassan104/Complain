@@ -89,6 +89,7 @@ public class UserService {
                 .address(userDto.getAddress())
                 .property(userDto.getProperty())
                 .roles(userDto.getRoles())
+                .status(userDto.getStatus())
                 .build();
     }
 
@@ -106,6 +107,7 @@ public class UserService {
                 .address(user.getAddress())
                 .property(user.getProperty())
                 .roles(user.getRoles())
+                .status(user.getStatus())
                 .build();
     }
 

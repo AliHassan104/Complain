@@ -1,14 +1,11 @@
 package com.company.ComplainProject.dto;
 
-import com.company.ComplainProject.dto.statusEnum.Status;
+import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.model.User;
 import lombok.*;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor

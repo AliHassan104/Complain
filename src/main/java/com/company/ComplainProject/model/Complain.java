@@ -1,12 +1,10 @@
 package com.company.ComplainProject.model;
 
-import com.company.ComplainProject.dto.statusEnum.Status;
+import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
