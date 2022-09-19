@@ -42,8 +42,7 @@ public class BlockService {
         if(!block.isEmpty()){
             return block;
         }
-        //         return exception if the block not exist
-        return null;
+        throw new ContentNotFoundException("No Block Exist");
     }
 
     public List<Block> getAllBlocksWithPagination(Integer pageNumber,Integer pageSize) {

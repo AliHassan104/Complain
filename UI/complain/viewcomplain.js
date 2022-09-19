@@ -1,52 +1,41 @@
-// {
-//     "key" : "title" ,
-//     "operation" : ":",
-//     "value" : "Water"
-// }
 
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(8,queryString.length)
+    queryString = queryString.slice(8, queryString.length)
     console.log(queryString);
     search = {
-        "key" : "status",
-        "operation" : ":",
-        "value" : queryString
+        "key": "status",
+        "operation": ":",
+        "value": queryString
     }
     console.log(search);
     fetch(`${baseUrl}/api/complain/search`, {
         method: 'GET',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
-        // body: JSON.stringify(search)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
-setTimeout(() => {
-    getComplain()
-}, 1000);
+// setTimeout(() => {
+getComplain()
+// }, 1000);
 
 function getComplain() {
+    debugger;
     let table = ""
-    fetch(`${baseUrl}/api/complain`,{
-        headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
-            "Content-Type":"application/json",
-            
+    fetch(`${baseUrl}/api/admin/complain`, {
+        headers: {
+            "Content-Type": "application/json",
         }
     })
-    .then((response)=>response.json())
-    .then((data)=> {
-
+        .then((response) => response.json()).catch(() => { })
+        .then((data) => { 
+        
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
 
@@ -59,11 +48,12 @@ function getComplain() {
         <th style="width: 20%;" class="toptable ">picture</th>
         <th style="width: 15%;" class="toptable ">Action</th>
         </tr>`
+
         for (let i = 0; i < data.length; i++) {
-            table += `
+                    table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 10%;" class="datatable">${data[i].user.firstname+" "+data[i].user.lastname}</td>
+            <td style="width: 10%;" class="datatable">${data[i].user.firstname + " " + data[i].user.lastname}</td>
             <td style="width: 10%;" class="datatable">${data[i].complainType.name}</td>
             <td style="width: 15%;" class="datatable">${data[i].description}</td>
             <td style="width: 10%;" class="datatable">${data[i].status}</td>
@@ -82,51 +72,63 @@ function getComplain() {
             <i onclick="deleteComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;" class="fa fa-close"></i>
     </td>
         </tr>`
-        }
-        document.getElementById("datatables-reponsive").innerHTML = table;
-    })
+                }
+                document.getElementById("datatables-reponsive").innerHTML = table;
+            
+           if(data.length === 0){
+                noComplainFound = ""
+                noComplainFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+                class="alert alert-danger" role="alert" >No Complain Found</span> `
+                document.getElementById("noRecordFound").innerHTML = noComplainFound
+           }
+            
+        })
+
 }
 
 let uid;
-function updatedStatusModal(id){
+function updatedStatusModal(id) {
     uid = id
 }
 
-function updateStatus(){
+function updateStatus() {
     console.log(uid);
     let updatedstatus = document.getElementById("updatedstatus").value;
 
-    console.log(updatedstatus);
-
-    let updatedataus =  {
+    let updatedataus = {
         status: updatedstatus
     }
 
-    fetch(`${baseUrl}/api/admin/complain/`+uid, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedataus),
+    fetch(`${baseUrl}/api/admin/complain/` + uid, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedataus),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            setTimeout(() => {
+                getComplain()
+            }, 100);
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                setTimeout(() => {
-                    getComplain()
-                }, 100);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 
-function deleteComplain(id){
-    
-    fetch(`${baseUrl}/api/complain/`+id, {
-            method: 'DELETE'
-    }).catch(()=>{
+function deleteComplain(id) {
+debugger;
+    fetch(`${baseUrl}/api/complain/`+ id, {
+        method: 'DELETE'
+    }).finally(()=>{
+        // window.location.reload()
+       
+    })
+    .catch(() => {
+        
         let table = ""
 
         table += `
@@ -145,7 +147,7 @@ function deleteComplain(id){
     })
 
     setTimeout(() => {
-        getComplain()
+     getComplain()
     }, 100);
 
 }
@@ -154,27 +156,27 @@ getArea()
 
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/area`,{
-        headers:{
-            "Content-Type":"application/json",
+    fetch(`${baseUrl}/api/area`, {
+        headers: {
+            "Content-Type": "application/json",
         }
     })
-    .then((response)=>response.json())
-    .then((data)=> {
-        allArea = data;
-        table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
-        table +=  `<option value="ALL" selected>Select Area</option>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
+        .then((response) => response.json())
+        .then((data) => {
+            allArea = data;
+            table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
+            table += `<option value="ALL" selected>Select Area</option>`
+            for (let i = 0; i < data.length; i++) {
+                table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `
-        }
-        table +=   `</select>`
-        document.getElementById("dropdownarea1").innerHTML = table;
-    })
+            }
+            table += `</select>`
+            document.getElementById("dropdownarea1").innerHTML = table;
+        })
 }
 
-function filterByArea(){
+function filterByArea() {
     var select = document.getElementById('dropdownareafilter');
     var area = select.options[select.selectedIndex].value;
 
@@ -183,21 +185,21 @@ function filterByArea(){
     if (area == "ALL") {
         getUser()
     }
-    else{
-        fetch(`${baseUrl}/api/complain/`+area,{
-        headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
-            "Content-Type":"application/json",
-            
-        }
-    })
-    .then((response)=>response.json()).catch(()=>{})
-    .then((data)=> {
-        console.log(data);
-        if (data != undefined) {
-            
-            table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
+    else {
+        fetch(`${baseUrl}/api/complain/` + area, {
+            headers: {
+                // mode: 'no-cors',
+                // "Authorization":jwtTokenBearer,
+                "Content-Type": "application/json",
+
+            }
+        })
+            .then((response) => response.json()).catch(() => { })
+            .then((data) => {
+                console.log(data);
+                if (data != undefined) {
+
+                    table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
             <th style="width: 15%;" class="toptable ">Name</th>
         <th style="width: 15%;" class="toptable ">PhoneNumber</th>
         <th style="width: 20%;" class="toptable ">Email</th>
@@ -205,8 +207,8 @@ function filterByArea(){
         <th style="width: 15%;" class="toptable ">Area Name </th>
         <th style="width: 15%;" class="toptable ">Action </th>
         </tr>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
+                    for (let i = 0; i < data.length; i++) {
+                        table += `
 
         <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
@@ -222,15 +224,16 @@ function filterByArea(){
             <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
-        }
-        document.getElementById("datatables-reponsive").innerHTML = table;
+                    }
+                    document.getElementById("datatables-reponsive").innerHTML = table;
+                }
+            })
     }
-    })}
 }
 
 
 
-function filterByStatus(){
+function filterByStatus() {
     var select = document.getElementById('dropdownstatusfilter');
     var status = select.options[select.selectedIndex].value;
 
@@ -239,19 +242,19 @@ function filterByStatus(){
     if (status == "ALL") {
         getComplain()
     }
-    else{
-        fetch(`${baseUrl}/api/complain/`+status,{
-        headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
-            "Content-Type":"application/json",
-            
-        }
-    })
-    .then((response)=>response.json()).catch(()=>{})
-    .then((data)=> {
+    else {
+        fetch(`${baseUrl}/api/complain/` + status, {
+            headers: {
+                // mode: 'no-cors',
+                // "Authorization":jwtTokenBearer,
+                "Content-Type": "application/json",
 
-        table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
+            }
+        })
+            .then((response) => response.json()).catch(() => { })
+            .then((data) => {
+
+                table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 15%;" class="toptable ">Name</th>
         <th style="width: 15%;" class="toptable ">PhoneNumber</th>
         <th style="width: 20%;" class="toptable ">Email</th>
@@ -259,8 +262,8 @@ function filterByStatus(){
         <th style="width: 15%;" class="toptable ">Area Name </th>
         <th style="width: 15%;" class="toptable ">Action </th>
         </tr>`
-        for (let i = 0; i < data.length; i++) {
-            table += `
+                for (let i = 0; i < data.length; i++) {
+                    table += `
 
         <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
@@ -276,7 +279,8 @@ function filterByStatus(){
             <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     </td>
         </tr>`
-        }
-        document.getElementById("datatables-reponsive").innerHTML = table;
-    })}
+                }
+                document.getElementById("datatables-reponsive").innerHTML = table;
+            })
+    }
 }

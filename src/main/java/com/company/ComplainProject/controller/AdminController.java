@@ -58,10 +58,7 @@ public class AdminController {
     public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
-        if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complaintype")

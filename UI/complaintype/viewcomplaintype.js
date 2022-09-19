@@ -4,7 +4,6 @@ let uid ;
 
 function getComplain() {
     let table = ""
-    // fetch("http://localhost:8081/api/complaintype",{
     fetch(`${baseUrl}/api/complaintype`,{
         headers:{
             // mode: 'no-cors',
@@ -15,7 +14,7 @@ function getComplain() {
     })
     .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-
+        
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 10%;" class="toptable ">S. NO</th>
@@ -49,23 +48,32 @@ function getComplain() {
 }
 
 function deleteComplainType(id){
-    // fetch('http://localhost:8081/api/complaintype/'+id, {
     fetch(`${baseUrl}/api/complaintype/`+id, {
             method: 'DELETE' ,
     }).then(()=>{
         let table = ""
 
         table += `
-            <div class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
-            </div>`
+        <div  style=" 
+        margin: auto;
+        text-align: center;
+        width: 50%;
+        height: 5vh; text-align: center; 
+        justify-content: center;
+        font-size: large" 
+        class="alert alert-danger" role="alert">
+         Complain Type Deleted Successfully
+        </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000)
     })
 
     setTimeout(() => {
         getComplain()
-        
     }, 300);
 }
 

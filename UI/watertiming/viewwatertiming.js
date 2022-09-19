@@ -296,21 +296,21 @@ function getArea() {
 //         for (let i = 0; i < data.length; i++) {
 //             table += `
 
-        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 20%;" class="datatable">${data[i].email}</td>
-            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
-            <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 15%;" class="datatable"> 
-            <a href="/watertiming/addwatertiming.html?id=${data[i].id}">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
-            style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
-            </a>
-            <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
-    </td>
-        </tr>`
-        }
-        document.getElementById("datatables-reponsive").innerHTML = table;
-    })}
-}
+//         <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
+//             <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
+//             <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
+//             <td style="width: 20%;" class="datatable">${data[i].email}</td>
+//             <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
+//             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
+//             <td style="width: 15%;" class="datatable"> 
+//             <a href="/watertiming/addwatertiming.html?id=${data[i].id}">
+//             <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
+//             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+//             </a>
+//             <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
+//     </td>
+//         </tr>`
+//         }
+//         document.getElementById("datatables-reponsive").innerHTML = table;
+//     })}
+// }

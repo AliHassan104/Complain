@@ -9,7 +9,6 @@ function getBlock() {
     })
     .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-        console.log(data);
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 33%;" class="toptable ">Area</th>
@@ -37,7 +36,7 @@ function getBlock() {
     }
     document.getElementById("datatables-reponsive").innerHTML = table;
 })
-// table += ``
+
 
 }
 
@@ -52,8 +51,6 @@ function updateblock(){
         id : area
     } , block : block
     }; 
-    
-    console.log(newArea);
     
     fetch(`${baseUrl}/api/watertiming/`+uid, {
         method: 'PUT',
@@ -77,11 +74,35 @@ function updateblock(){
     
         
 function deleteBlock(id){  
-    fetch(`${baseUrl}/api/watertiming/`+id, {
-        method: 'DELETE'
-    }).then(()=>{
-        let table = ""
+    var table = ""
+    var responseStatus = ""
 
+    fetch(`${baseUrl}/api/block/`+id, {
+        method: 'DELETE'
+    }).then((response)=>{
+        responseStatus = response.status;
+    })
+    .then(()=>{
+      if(responseStatus == 200){
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-success" role="alert">
+            Block  Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000)
+
+    }
+    else{
         table += `
             <div  style=" 
             margin: auto;
@@ -91,10 +112,15 @@ function deleteBlock(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Block  Deleted Successfully
+            SomeThing Went Wrong Cannot Delete Block 
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000) 
+    }
+
     })
 
     setTimeout(() => {
@@ -102,22 +128,22 @@ function deleteBlock(id){
     }, 100);
 }
 
-function modalValue(id){
-    uid = id
-    getArea()
-    fetch(`${baseUrl}/api/watertiming/`+id,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-    console.log(data.area.name);
+// function modalValue(id){
+//     uid = id
+//     getArea()
+//     fetch(`${baseUrl}/api/watertiming/`+id,{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//     console.log(data.area.name);
      
-    document.getElementById("block").value = data.block;
+//     document.getElementById("block").value = data.block;
 
-    })
-}
+//     })
+// }
 
 
 function getArea() {
@@ -131,8 +157,6 @@ function getArea() {
     .then((data)=> {
         console.log(data);
         for (let i = 0; i < data.length; i++) {
-
-
             table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `

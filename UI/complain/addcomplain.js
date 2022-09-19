@@ -4,41 +4,36 @@ getUser()
 
 let queryString = window.location.search;
 if (queryString != "") {
-    // queryString = queryString.slice(4,queryString.length)
-    // console.log(queryString);
+ 
     const urlParams = new URLSearchParams(queryString)
-        const urlId = urlParams.get("id")
+    var urlId = urlParams.get("id")
     fetch(`${baseUrl}/api/complain/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-        console.log(data);
+      
 
-            // document.getElementById("name").value = data.name;
-            // document.getElementById("postalcode").value = data.postalCode
             document.getElementById("complainbtn").innerText = "Update"
-
-            // document.getElementById('dropcomplaintype'). = data.complainType.name;
             document.getElementById('description').value = data.description;
-            // select.options[select.selectedIndex].value;
 
-            // document.getElementById('droparea').value = data.area.name;
-            // select.options[select.selectedIndex].value;
-
-            // document.getElementById('dropuser').value = data.user.firstNmae;
-            // select.options[select.selectedIndex].value;
-
-            // document.getElementById("inpFile");
+            getselectedDropDownElement('droparea',data.area.id)
+            getselectedDropDownElement('dropcomplaintype',data.complainType.id)
+        
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 }
 
+//                                                                  used to get the selected drop down value
+function getselectedDropDownElement(id, valueToSelect) {    
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+}
+
 
 function getComplain() {
     let table = ""
-    // fetch(`${baseUrl}/api/complaintype`,{
     fetch(`${baseUrl}/api/complaintype`,{
         headers:{
             "Content-Type":"application/json",
@@ -80,12 +75,10 @@ function getUser() {
     fetch(`${baseUrl}/api/user`,{
         headers:{
             "Content-Type":"application/json",
-            
         }
     })
         .then((response) => response.json())
         .then((data) => {
-            // console.log(data);
             for (let i = 0; i < data.length; i++) {
                 table += `
             <option value="${data[i].id}">${data[i].firstname + " " + data[i].lastname}</option>
@@ -99,18 +92,13 @@ function getUser() {
 
 function formSubmit() {
 
-    // let title = "abc";
-    // let suggestion = "abc";
+
     let description = document.getElementById("description").value;
 
     const date = new Date();
-    // [2022, 8, 30]
-    // let d =  date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
-    // let d = "["+date.getFullYear()+","+(date.getMonth()+1)+","+date.getDate()+"]";
+ 
     let d = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    // let d =  date.getFullYear()+date.getDate()+"/"+(date.getMonth()+1)+"/";
-
-    // [15, 30]
+ 
     const t = new Date().toLocaleString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
@@ -125,7 +113,7 @@ function formSubmit() {
     var user = select.options[select.selectedIndex].value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {description : description
+    newComplain = {description : description
         , date : d , time : t ,
         complainType : {
            id : complaintype
@@ -138,15 +126,15 @@ function formSubmit() {
         }
     };
 
-    newAchievement = JSON.stringify(newAchievement)
+    newComplain  = JSON.stringify(newComplain)
 
     var formData = new FormData();
 
     for (const file of image.files) {
         formData.append("pictureUrl", file)
     }
-    formData.append('data',newAchievement);
-    console.log(queryString);
+    formData.append('data',newComplain);
+   
     if (queryString == "") {
         fetch(`${baseUrl}/api/complain`,{
         method:"POST",
@@ -154,42 +142,39 @@ function formSubmit() {
 
     }).then((response)=>response.json())
     .then((data)=>{
-        console.log(data);
+       
     let table = ""
     table += `
-    formData.append('data', newAchievement);
+        <div  style="
+        margin: auto;
+        text-align: center;
+        width: 50%;
+        height: 5vh; text-align: center; 
+        justify-content: center;
+        font-size: large" 
+        class="alert alert-success" role="alert">
+        Your Complain Is Added  Successfully
+        </div>`
 
-    if (queryString == "") {
-        fetch("http://localhost:8081/api/complain", {
-            method: "POST",
-            body: formData
 
-        }).then((response) => response.json())
-            .then((data) => {
-
-                let table = ""
-                table += `
-    <div  style="
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    Your Complain Is Added  Successfully
-    </div>`
+    document.getElementById("description").value = "";
+    document.getElementById("inpFile").value = "";
     document.getElementById("formSubmitted").innerHTML = table
+
+    setTimeout(() => {
+        document.getElementById("formSubmitted").innerHTML = ""
+    }, 2000)
+    
     })   
     .catch((error)=>console.log(error))
 }else{
-    fetch(`${baseUrl}/api/complain/`+queryString,{
+    fetch(`${baseUrl}/api/complain/`+urlId,{
         method:"PUT",
         body: formData
 
     }).then((response)=>response.json()).catch(()=>{})
     .then((data)=>{
-        console.log(data);
+        
     let table = ""
     table += `
     <div  style=" 
@@ -202,7 +187,14 @@ function formSubmit() {
     class="alert alert-success" role="alert">
     Your Complain Is Updated Successfully
     </div>`
-                document.getElementById("formSubmitted").innerHTML = table
+
+    document.getElementById("description").value = "";
+    document.getElementById("inpFile").value = "";
+    document.getElementById("formSubmitted").innerHTML = table
+
+                setTimeout(() => {
+                    document.getElementById("formSubmitted").innerHTML = ""
+                }, 2000)
             })
             .catch((error) => console.log(error))
     }

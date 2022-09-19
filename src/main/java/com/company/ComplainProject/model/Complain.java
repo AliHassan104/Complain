@@ -25,9 +25,11 @@ public class Complain {
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;
+
     @ManyToOne
     @JoinColumn(name = "block_id")
     private Block block;
+
     private String description;
     private String picture;
 

@@ -1,47 +1,48 @@
 let queryString;
-setTimeout(() => {
-    
-    queryString = window.location.search;
-    console.log(queryString);
-    
-    if (queryString != "") {
-        const urlParams = new URLSearchParams(queryString)
-        const urlId = urlParams.get("id")
-    // queryString = queryString.slice(4,queryString.length)
-    // console.log(queryString);
-    fetch(`${baseUrl}/api/complaintype/`+urlId , {
-})
-.then(response => response.json()).catch(()=>{})
-.then(data => {
-        console.log(data);
-        document.getElementById("addcomplaintype").value = data.name;
-        document.getElementById("complaintypebtn").innerText = "Update";
+
+queryString = window.location.search;
+
+if (queryString != "") {
+    const urlParams = new URLSearchParams(queryString)
+    var urlId = urlParams.get("id")
+
+    fetch(`${baseUrl}/api/complaintype/` + urlId, {
     })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json()).catch(() => { })
+        .then(data => {
+
+            document.getElementById("addcomplaintype").value = data.name;
+            document.getElementById("complaintypebtn").innerText = "Update";
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
-}, 200);
 
 
-function formSubmit(){
+function formSubmit() {
+
     let complaintype = document.getElementById("addcomplaintype").value;
-    
-    newComplainType = {name : complaintype}; 
-    
-if (queryString == "") {
-    fetch(`${baseUrl}/api/complaintype`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newComplainType)
-    })
-    .then(response => response.json())
-    .then(data => {
-        let table = ""
-        table += `
+    //                                                                          table variable is used to render data to template
+    var table = ""
+
+    if (complaintype != "") {
+        newComplainType = { name: complaintype };
+
+        if (queryString == "") {
+
+            fetch(`${baseUrl}/api/complaintype`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newComplainType)
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    table += `
         <div  style=" 
         margin: auto;
         text-align: center;
@@ -51,28 +52,32 @@ if (queryString == "") {
         font-size: large" 
         class="alert alert-success" role="alert">
         <b> ${complaintype} </b>  &nbsp Complain Type  Added Successfully
-        </div>` //<b> ${complaintype} </b>
-        // console.log('Success:', data);
-        document.getElementById("formSubmitted").innerHTML = table
-        document.getElementById("addcomplaintype").value = "";
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}else{
+        </div>`
+                    document.getElementById("formSubmitted").innerHTML = table
+                    document.getElementById("addcomplaintype").value = "";
 
-    fetch(`${baseUrl}/api/complaintype/`+queryString, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newComplainType)
-        })
-            .then(response => response.json()).catch(()=>{})
-            .then(data => {
-                // console.log('Success:', data);
-                let table = ""
-        table += `
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+
+        } else {
+            console.log(urlId);
+            fetch(`${baseUrl}/api/complaintype/` + urlId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newComplainType)
+            })
+                .then(response => response.json()).catch(() => { })
+                .then(data => {
+
+
+                    table += `
         <div  style=" 
         margin: auto;
         text-align: center;
@@ -82,18 +87,40 @@ if (queryString == "") {
         font-size: large" 
         class="alert alert-success" role="alert">
         <b> ${complaintype} </b>  &nbsp Complain Type  Updated Successfully
-        </div>` //<b> ${complaintype} </b>
-        // console.log('Success:', data);
+        </div>`
+                    document.getElementById("formSubmitted").innerHTML = table
+                    document.getElementById("addcomplaintype").value = "";
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+    else {
+        table += `
+    <div  style=" 
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: 5vh; text-align: center; 
+    justify-content: center;
+    font-size: large" 
+    class="alert alert-danger" role="alert">
+    <b> Complain Type </b> &nbsp Cannot be Empty
+    </div>`
         document.getElementById("formSubmitted").innerHTML = table
 
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-}
-
-
-
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000)
+    }
+    
 }
 
 

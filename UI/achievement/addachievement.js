@@ -1,21 +1,15 @@
 let queryString = window.location.search;
 if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
-        const urlId = urlParams.get("id")
-    // queryString = queryString.slice(4,queryString.length)
-    // console.log(queryString);
+    var urlId = urlParams.get("id")
     fetch(`${baseUrl}/api/achievement/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-        console.log(data);
         document.getElementById("achieveventbtn").innerText = "Update"
-
         document.getElementById('achievementtitle').value = data.title;
         document.getElementById('description').value = data.description;
         document.getElementById('date').value = data.date;
-        // document.getElementById('time').value = data.time;
-      
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -27,11 +21,11 @@ function formSubmit(){
     let title = document.getElementById("achievementtitle").value;
     let description = document.getElementById("description").value;
     let date = document.getElementById("date").value;
-    // let time = document.getElementById("time").value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title, description : description , date : date};
+    if(title != "" && description != "" && date != "" && image.value != ""){
 
+    newAchievement = {title : title, description : description , date : date};
     newAchievement = JSON.stringify(newAchievement)
 
     var formData = new FormData();
@@ -43,14 +37,14 @@ function formSubmit(){
 
 
     if (queryString == "") {
-        
         fetch(`${baseUrl}/api/achievement`,{
             method:"POST",
             body: formData
             
         }).then((response)=>response.json())
+
     .then((data)=> {
-    // console.log(data);
+
     let table = ""
     table += `
     <div  style=" 
@@ -63,25 +57,29 @@ function formSubmit(){
     class="alert alert-success" role="alert">
     Achievement Is Added  Successfully
     </div>`
+
     document.getElementById("formSubmitted").innerHTML = table
-    
+
+    setTimeout(()=>{
+        document.getElementById("formSubmitted").innerHTML = ""
+    },2000)
+
     document.getElementById("achievementtitle").value = "";
     document.getElementById("description").value = "";
     document.getElementById("date").value = "";
-    // document.getElementById("time").value = "";
-    document.getElementById("inpFile").value.files = "";
+    document.getElementById("inpFile").value = null;
+
 })
 .catch((error)=>console.log(error))
 
     }else{
         
-        fetch(`${baseUrl}/api/achievement/`+queryString,{
+        fetch(`${baseUrl}/api/achievement/`+urlId,{
             method:"PUT",
             body: formData
             
         }).then((response)=>response.json())
     .then((data)=> {
-    console.log(data);
     let table = ""
     table += `
     <div  style=" 
@@ -96,12 +94,36 @@ function formSubmit(){
     </div>`
     document.getElementById("formSubmitted").innerHTML = table
     
+    setTimeout(()=>{
+        document.getElementById("formSubmitted").innerHTML = ""
+    },2000)
+
     document.getElementById("achievementtitle").value = "";
     document.getElementById("description").value = "";
     document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
     document.getElementById("inpFile").value.files = "";
 })
 .catch((error)=>console.log(error))
 }
+    }
+    else{
+        
+        let table = ""
+        table += `
+        <div  style=" 
+        margin: auto;
+        text-align: center;
+        width: 50%;
+        height: 5vh; text-align: center; 
+        justify-content: center;
+        font-size: large" 
+        class="alert alert-success" role="alert">
+        Invalid Data
+        </div>`
+        document.getElementById("formSubmitted").innerHTML = table
+        
+        setTimeout(()=>{
+            document.getElementById("formSubmitted").innerHTML = ""
+        },2000)
+    }
 }

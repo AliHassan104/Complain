@@ -5,10 +5,11 @@ function getAchievement() {
             "Content-Type":"application/json",
         }
     })
+    .catch((error)=>{})
     .then((response)=>
-            response.json())   
+            response.json())
     .then((data)=> {
-   
+        if(data != null ){
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 15%;" class="toptable ">Title</th>
         <th style="width: 20%;" class="toptable ">Description</th>
@@ -38,41 +39,39 @@ function getAchievement() {
         </tr>`
         }
         document.getElementById("datatables-reponsive").innerHTML = table;
-    
+    }
     })
 }
 getAchievement();
 
 
-function updateAchievement(){
+// function updateAchievement(){
 
-    let title = document.getElementById("achievementtitle").value;
-    let description = document.getElementById("description").value;
-    let date = document.getElementById("date").value;
-    // let time = document.getElementById("time").value;
-    let image = document.getElementById("inpFile");
+//     let title = document.getElementById("achievementtitle").value;
+//     let description = document.getElementById("description").value;
+//     let date = document.getElementById("date").value;
+//     let image = document.getElementById("inpFile");
 
-    newAchievement = {title : title, description : description , date : date}; 
+//     newAchievement = {title : title, description : description , date : date}; 
 
-    newAchievement = JSON.stringify(newAchievement)
+//     newAchievement = JSON.stringify(newAchievement)
 
-    var formData = new FormData();
+//     var formData = new FormData();
 
-    for (const file of image.files) {
-        formData.append("pictureUrl",file)
-    }
-    formData.append('data',newAchievement);
+//     for (const file of image.files) {
+//         formData.append("pictureUrl",file)
+//     }
+//     formData.append('data',newAchievement);
 
-    fetch(`${baseUrl}/api/achievement/`+uid,{
-        method:"PUT",
-        body: formData
+//     fetch(`${baseUrl}/api/achievement/`+uid,{
+//         method:"PUT",
+//         body: formData
     
-    }).then((response)=>response.json())
-    .then((data)=> console.log(data))
-    .catch((error)=>console.log(error))
+//     }).then((response)=>response.json())
+//     .then((data)=> console.log(data))
+//     .catch((error)=>console.log(error))
 
-
-}
+// }
 
 function deleteAchievement(id){
     fetch(`${baseUrl}/api/achievement/`+id, {
@@ -93,38 +92,20 @@ function deleteAchievement(id){
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
-    })
 
+        setTimeout(()=>{
+            document.getElementById("formSubmitted").innerHTML = ""
+        },2000)
+
+    })
+ 
     setTimeout(() => {
         getAchievement()
     }, 100);
 
 }
 
-let uid;
-// function modalValue(id){
-//     uid = id
-//     console.log(id)
-//     fetch("http://localhost:8081/api/achievement/"+id,{
-//         headers:{
-//             "Content-Type":"application/json",
-//         }
-//     })
-//     .then((response)=>response.json())
-//     .then((data)=> {
-//         console.log(data.title);
-//         console.log(data.description);
-//         console.log(data.date);
-//         console.log(data.time);
-//         console.log(data.pictureUrl);
-//     document.getElementById("achievementtitle").value = data.title;
-//     document.getElementById("description").value = data.description;
-//     document.getElementById("date").value = data.date;
-//     document.getElementById("time").value = data.time;
-//     document.getElementById("inpFile") = data.pictureUrl;
-//     // return data.name;
-//     })
-// }
+
 
 
 

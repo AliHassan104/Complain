@@ -31,7 +31,7 @@ public class User {
     private Integer numberOfFamilyMembers;
 
     @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private UserStatus status = UserStatus.IN_REVIEW;
 //                                                      owner/tenant
     @Enumerated(EnumType.STRING)
     private PropertyEnum property;
@@ -39,6 +39,10 @@ public class User {
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area area;
+
+    @OneToOne
+    @JoinColumn(name = "block_id",referencedColumnName = "id")
+    private Block block;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -50,5 +54,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
 
     private Set<Roles> roles = new HashSet<>();
+
+
 
 }
