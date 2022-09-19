@@ -2,14 +2,13 @@ getBlock()
 let uid;
 function getBlock() {
     let table = ""
-    fetch("http://localhost:8081/api/block",{
+    fetch(`${baseUrl}/api/block`,{
         headers:{
             "Content-Type":"application/json",
         }
     })
     .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-        console.log(data);
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 33%;" class="toptable ">Area</th>
@@ -26,7 +25,7 @@ function getBlock() {
             <td style="width: 34%;" class="datatable">
             
             <a  href="/area/addblock.html?id=${data[i].id}">
-            <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
+            <i
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
 
@@ -37,7 +36,7 @@ function getBlock() {
     }
     document.getElementById("datatables-reponsive").innerHTML = table;
 })
-// table += ``
+
 
 }
 
@@ -53,7 +52,7 @@ function updateblock(){
     } , block : block
     }; 
     
-    fetch('http://localhost:8081/api/block/'+uid, {
+    fetch(`${baseUrl}/api/watertiming/`+uid, {
         method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,13 +73,36 @@ function updateblock(){
         }
     
         
-function deleteBlock(id){
-     console.log("Delete Block")
-    fetch('http://localhost:8081/api/block/'+id, {
-        method: 'DELETE'
-    }).then(()=>{
-        let table = ""
+function deleteBlock(id){  
+    var table = ""
+    var responseStatus = ""
 
+    fetch(`${baseUrl}/api/block/`+id, {
+        method: 'DELETE'
+    }).then((response)=>{
+        responseStatus = response.status;
+    })
+    .then(()=>{
+      if(responseStatus == 200){
+        table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-success" role="alert">
+            Block  Deleted Successfully
+            </div>`
+
+        document.getElementById("formSubmitted").innerHTML = table
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000)
+
+    }
+    else{
         table += `
             <div  style=" 
             margin: auto;
@@ -90,10 +112,15 @@ function deleteBlock(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Block  Deleted Successfully
+            SomeThing Went Wrong Cannot Delete Block 
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000) 
+    }
+
     })
 
     setTimeout(() => {
@@ -101,27 +128,27 @@ function deleteBlock(id){
     }, 100);
 }
 
-function modalValue(id){
-    uid = id
-    getArea()
-    fetch("http://localhost:8081/api/watertiming/"+id,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-    console.log(data.area.name);
+// function modalValue(id){
+//     uid = id
+//     getArea()
+//     fetch(`${baseUrl}/api/watertiming/`+id,{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//     console.log(data.area.name);
      
-    document.getElementById("block").value = data.block;
+//     document.getElementById("block").value = data.block;
 
-    })
-}
+//     })
+// }
 
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -130,8 +157,6 @@ function getArea() {
     .then((data)=> {
         console.log(data);
         for (let i = 0; i < data.length; i++) {
-
-
             table += `
             <option value="${data[i].id}">${data[i].name}</option>
         `

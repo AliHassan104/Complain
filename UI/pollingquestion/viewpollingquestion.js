@@ -1,7 +1,7 @@
 
 
 function deletePollingQuestion(id){
-    fetch('http://localhost:8081/api/pollingquestion/'+id, {
+    fetch(`${baseUrl}/api/pollingquestion/`+id, {
         method: 'DELETE'
     }).then(()=>{
         let table = ""
@@ -29,7 +29,7 @@ getPollingQuestion()
 
 function getPollingQuestion() {
     let table = ""
-    fetch("http://localhost:8081/api/pollingquestion",{
+    fetch(`${baseUrl}/api/pollingquestion`,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,
@@ -73,16 +73,7 @@ function getPollingQuestion() {
              </tr>`;
 
              count += 1;
-            })
-        // table += `<tr>`
-        // data[i].pollingOptions.forEach((item) => {
-        //     console.log(item);
-        //     `<td> <span style="padding-left: 6%; margin-left: 6%;"  >${count}</span> - ${item.option} </td>`
-        //     count++
-        // })
-        // table += `</tr>`
-        
-            
+            })    
         }
         
         document.getElementById("datatables-reponsive").innerHTML = table;
@@ -90,91 +81,91 @@ function getPollingQuestion() {
 }
 
 
-let data1 = []
-function modal(id){
-    uid = id
-    count1 = 0
-    table = ""
-    fetch("http://localhost:8081/api/pollingquestion/"+id,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        data1 = data
-        setTimeout(() => {
-            modalContent(data)
-        },250);        
-})
-}
+// let data1 = []
+// function modal(id){
+//     uid = id
+//     count1 = 0
+//     table = ""
+//     fetch("http://localhost:8081/api/pollingquestion/"+id,{
+//         headers:{
+//             "Content-Type":"application/json",
+//         }
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=> {
+//         data1 = data
+//         setTimeout(() => {
+//             modalContent(data)
+//         },250);        
+// })
+// }
 
-let arr = [] ;
-let count1 = 0
-let uid;
+// let arr = [] ;
+// let count1 = 0
+// let uid;
 
-function modalContent(data){
-    arr = []
-    for (let i = 0; i < data.pollingOptions.length; i++) {
-        if (sid == i) {
-        console.log(i);
-        }else{
-            arr.push(data.pollingOptions[i].option);
-        }
-    }
+// function modalContent(data){
+//     arr = []
+//     for (let i = 0; i < data.pollingOptions.length; i++) {
+//         if (sid == i) {
+//         console.log(i);
+//         }else{
+//             arr.push(data.pollingOptions[i].option);
+//         }
+//     }
     
-    for (let i = 0; i < count1; i++) {
-        arr.push("");
-    }
+//     for (let i = 0; i < count1; i++) {
+//         arr.push("");
+//     }
 
-table = ""
-for (let i = 0; i < arr.length; i++) {
-    if (data.pollingOptions.length == 1) {
-        table += `
-    <tr>
-    <td>
-    <input style="margin-top: 10px;" type="text" class="form-control" id="pollingoption${i}" aria-describedby="emailHelp" placeholder="Enter Option">
-    </td>
-    <td> 
-    <i onclick="addOption(${i})"  
-    style="padding-right: 15px; margin-right: 15px;padding-left: 15px; margin-left: 15px;"  class="fa fa-plus"></i>
-    </td>
-    </tr>`
-}else{
-    table += `
-    <tr>
-    <td>
-    <input style="margin-top: 10px;" type="text" class="form-control" id="pollingoption${i}" aria-describedby="emailHelp" placeholder="Enter Option">
-    </td>
-    <td> 
-    <i onclick="addOption(${i})"  
-    style="padding-right: 15px; margin-right: 15px;padding-left: 15px; margin-left: 15px;"  class="fa fa-plus"></i>
-    <i onclick="subtractOption(${i})"  style="padding-right: 15px; margin-right: 15px;" 
-    class="fa fa-minus"></i>
-    </td>
-    </tr>    `
-}
-}
-document.getElementById("dynamicoption").innerHTML = table;
-document.getElementById("pollingquestion").value = data.question;
-for (let i = 0; i < arr.length; i++) {
-document.getElementById("pollingoption"+i).value = arr[i];
+// table = ""
+// for (let i = 0; i < arr.length; i++) {
+//     if (data.pollingOptions.length == 1) {
+//         table += `
+//     <tr>
+//     <td>
+//     <input style="margin-top: 10px;" type="text" class="form-control" id="pollingoption${i}" aria-describedby="emailHelp" placeholder="Enter Option">
+//     </td>
+//     <td> 
+//     <i onclick="addOption(${i})"  
+//     style="padding-right: 15px; margin-right: 15px;padding-left: 15px; margin-left: 15px;"  class="fa fa-plus"></i>
+//     </td>
+//     </tr>`
+// }else{
+//     table += `
+//     <tr>
+//     <td>
+//     <input style="margin-top: 10px;" type="text" class="form-control" id="pollingoption${i}" aria-describedby="emailHelp" placeholder="Enter Option">
+//     </td>
+//     <td> 
+//     <i onclick="addOption(${i})"  
+//     style="padding-right: 15px; margin-right: 15px;padding-left: 15px; margin-left: 15px;"  class="fa fa-plus"></i>
+//     <i onclick="subtractOption(${i})"  style="padding-right: 15px; margin-right: 15px;" 
+//     class="fa fa-minus"></i>
+//     </td>
+//     </tr>    `
+// }
+// }
+// document.getElementById("dynamicoption").innerHTML = table;
+// document.getElementById("pollingquestion").value = data.question;
+// for (let i = 0; i < arr.length; i++) {
+// document.getElementById("pollingoption"+i).value = arr[i];
 
-}
-}
+// }
+// }
 
-function addOption(id){
-    count1 ++;
-    modalContent(data1)
-}
+// function addOption(id){
+//     count1 ++;
+//     modalContent(data1)
+// }
 
-let sid = null;
+// let sid = null;
 
-function subtractOption(id){
+// function subtractOption(id){
     
-    count1 -- ;
-    console.log(id);
-    sid = id
+//     count1 -- ;
+//     console.log(id);
+//     sid = id
     
     // arr.splice(id,1)
     
@@ -188,7 +179,7 @@ function subtractOption(id){
     //     }
     // }
     
-    modalContent(data1)
+    // modalContent(data1)
     // option()
     
     // for (let i = 0; i < pollingOption.length; i++) {
@@ -196,43 +187,43 @@ function subtractOption(id){
     //     document.getElementById("pollingoption"+i).value = pollingOption[i];
 
     // }
-}
+// }
 
 
-    function updatePollingQuetion(){
+    // function updatePollingQuetion(){
     
-        let pollingQuestion = document.getElementById("pollingquestion").value;
-        let pollingOption = []
+    //     let pollingQuestion = document.getElementById("pollingquestion").value;
+    //     let pollingOption = []
     
-        console.log(arr);
+    //     console.log(arr);
     
-        for (let i = 0; i < arr.length; i++) {
-            let option = document.getElementById("pollingoption"+i).value;
-            options = {option}
-            pollingOption.push(options);
-        }
+    //     for (let i = 0; i < arr.length; i++) {
+    //         let option = document.getElementById("pollingoption"+i).value;
+    //         options = {option}
+    //         pollingOption.push(options);
+    //     }
     
-        newPollingQuestion = {question : pollingQuestion ,
-            pollingOptions : pollingOption}
+    //     newPollingQuestion = {question : pollingQuestion ,
+    //         pollingOptions : pollingOption}
     
-        console.log(newPollingQuestion);
+    //     console.log(newPollingQuestion);
     
-        fetch('http://localhost:8081/api/pollingquestion/'+uid, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newPollingQuestion),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-                setTimeout(() => {
-                    getPollingQuestion()
-                }, 1000);
+    //     fetch('http://localhost:8081/api/pollingquestion/'+uid, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(newPollingQuestion),
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log('Success:', data);
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error:', error);
+    //             });
+    //             setTimeout(() => {
+    //                 getPollingQuestion()
+    //             }, 1000);
     
-    }
+    // }

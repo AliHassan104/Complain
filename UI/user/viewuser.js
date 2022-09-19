@@ -5,7 +5,7 @@ var allArea = []
 
 function getUser() {
     let table = ""
-    fetch("http://localhost:8081/api/admin/user",{
+    fetch(`${baseUrl}/api/admin/user`,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,
@@ -53,7 +53,7 @@ getArea()
 
 function getArea() {
     let table = ""
-    fetch("http://localhost:8081/api/area",{
+    fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -83,7 +83,7 @@ function filterByArea(){
         getUser()
     }
     else{
-        fetch("http://localhost:8081/api/user/"+area,{
+        fetch(`${baseUrl}/api/user/`+area,{
         headers:{
             // mode: 'no-cors',
             // "Authorization":jwtTokenBearer,
@@ -126,7 +126,7 @@ function filterByArea(){
 
 function deleteArea(id){
     
-    fetch('http://localhost:8081/api/user/'+id, {
+    fetch(`${baseUrl}/api/user/`+id, {
             method: 'DELETE'
     }).then(()=>{
         let table = ""

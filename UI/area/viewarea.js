@@ -55,11 +55,17 @@ function deleteArea(id){
             height: 5vh; text-align: center; 
             justify-content: center;
             font-size: large" 
-            class="alert alert-danger" role="alert">
+            class="alert alert-success" role="alert">
             Area  Deleted Successfully
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+
+        
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000)
+        
     })
 
     setTimeout(() => {
