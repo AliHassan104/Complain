@@ -2,8 +2,7 @@ let queryString;
 setTimeout(() => {
 
     queryString = window.location.search;
-    console.log(queryString);
-
+ 
     if (queryString != "") {
         const urlParams = new URLSearchParams(queryString)
         var urlId = urlParams.get("id")

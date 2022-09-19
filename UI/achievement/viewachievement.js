@@ -1,3 +1,4 @@
+
 function getAchievement() {
     let table = ""
     fetch(`${baseUrl}/api/admin/achievement`,{
@@ -5,11 +6,10 @@ function getAchievement() {
             "Content-Type":"application/json",
         }
     })
-    .catch((error)=>{})
-    .then((response)=>
-            response.json())
+    .then((response)=>response.json()).catch((error)=>{})
     .then((data)=> {
-        if(data != null ){
+
+        console.log("Data ",data)
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 15%;" class="toptable ">Title</th>
         <th style="width: 20%;" class="toptable ">Description</th>
@@ -39,7 +39,14 @@ function getAchievement() {
         </tr>`
         }
         document.getElementById("datatables-reponsive").innerHTML = table;
-    }
+
+        if(data.length === 0){
+            noAchievementFound = ""
+                noAchievementFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+                class="alert alert-danger" role="alert" >No Achievement Found</span> `
+                document.getElementById("noRecordFound").innerHTML = noAchievementFound
+        }
+    
     })
 }
 getAchievement();

@@ -57,8 +57,7 @@ public class BlockService {
         if(block.isPresent()){
             return block;
         }
-//         return exception if the block not exist
-        return null;
+        throw new ContentNotFoundException("No Block Exist Having id "+id);
     }
 
     public BlockDto updateBlockById(Long id,BlockDto blockDto){
@@ -80,9 +79,6 @@ public class BlockService {
     public List<Block> getBlockByArea(Long areaid) {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
         List<Block> getBlockByArea = blockRepository.getAllBlockByArea(area);
-        if(getBlockByArea.isEmpty()){
-            throw new ContentNotFoundException("No Blocks exist having area id : "+areaid);
-        }
         return getBlockByArea;
     }
 }

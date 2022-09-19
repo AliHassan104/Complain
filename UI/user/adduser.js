@@ -3,9 +3,8 @@ setTimeout(() => {
  queryString = window.location.search;
 if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
-    const urlId = urlParams.get("id")
-    // queryString = queryString.slice(4,queryString.length)
-    // console.log(queryString);
+    var urlId = urlParams.get("id")
+    
     fetch(`${baseUrl}/api/user/`+urlId , {
 })
 .then(response => response.json()).catch(()=>{})
@@ -38,12 +37,16 @@ if (queryString != "") {
 
 let addressId;
 let areaId;
+var blockId;
 
 
 function formSubmit(){
     var select = document.getElementById('dropdownarea');
     var value = select.options[select.selectedIndex].value;
     areaId = value
+
+    var selectBlock  = document.getElementById("dropdownblock");
+    blockId = selectBlock.options[selectBlock.selectedIndex].value;  
 
     setTimeout(() => {
         addAddress()
@@ -62,7 +65,8 @@ function addUser(){
     let family = document.getElementById("family").value;
     let property = document.getElementById("dropdownproperty");
     let propertyValue = property.value;
-     console.log("Property Value ",propertyValue)
+    
+    
     newUser = {firstname : firstname , lastname : lastname , cnic : cnic, phoneNumber : phonenumber
         , email : email , password : "password" , numberOfFamilyMembers : family ,
         area : {
@@ -71,10 +75,13 @@ function addUser(){
         address : {
             id : addressId
         },
+        block:{
+            id:blockId
+        },
         property:propertyValue
     }; 
     
-    console.log(newUser);
+    
     if (queryString == "") {
         
         
@@ -87,7 +94,7 @@ function addUser(){
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-        console.log('Success:', data);
+       
         let table = ""
         table += `
     <div  style=" 
@@ -99,14 +106,12 @@ function addUser(){
     font-size: large" 
     class="alert alert-success" role="alert">
     <b> ${newUser.firstname +" "+ newUser.lastname} </b> &nbsp   Added In User Successfully
-    </div>` //<b> ${complaintype} </b>
+    </div>` 
        
     document.getElementById("formSubmitted").innerHTML = table
     
 })
-// .catch((error) => {
-//     console.error('Error:', error);
-// });
+
 }else{
     fetch(`${baseUrl}/api/user/`+queryString, {
             method: 'PUT',
@@ -117,7 +122,7 @@ function addUser(){
 })
 .then(response => response.json()).catch(()=>{})
 .then(data => {
-        console.log('Success:', data);
+     
         let table = ""
         table += `
     <div  style=" 
@@ -129,14 +134,12 @@ function addUser(){
     font-size: large" 
     class="alert alert-success" role="alert">
     <b> ${newUser.firstname +" "+ newUser.lastname} </b> &nbsp   Updated In User Successfully
-    </div>` //<b> ${complaintype} </b>
+    </div>` 
        
     document.getElementById("formSubmitted").innerHTML = table
     
 })
-// .catch((error) => {
-//     console.error('Error:', error);
-// });
+
 }
     document.getElementById("firstname").value = "";
     document.getElementById("lastname").value = "";
@@ -149,14 +152,14 @@ function addUser(){
 
 function addAddress(){
 
-    // let city = document.getElementById("city").value;
+   
     let housenumber = document.getElementById("housenumber").value;
     let floornumber = document.getElementById("floornumber").value;
     let street = document.getElementById("street").value;
 
     newAddress = {city : "karachi" , houseNumber : housenumber , floorNumber : floornumber , street : street}; 
 
-    console.log(newAddress);
+    
     if (queryString == "") {       
         fetch(`${baseUrl}/api/address`, {
             method: 'POST',
@@ -167,10 +170,10 @@ function addAddress(){
 })
     .then(response => response.json()).catch(()=>{})
     .then(data => {
-        console.log(data.id);
+      
         addressId = data.id
         addUser()
-        // document.getElementById("city").value = "";
+    
         document.getElementById("housenumber").value = "";
         document.getElementById("floornumber").value = "";
         document.getElementById("street").value = "";
@@ -188,10 +191,10 @@ function addAddress(){
 })
     .then(response => response.json())
     .then(data => {
-        // console.log(data.id);
+   
         addressId = data.id
         addUser()
-        // document.getElementById("city").value = "";
+
         document.getElementById("housenumber").value = "";
         document.getElementById("floornumber").value = "";
         document.getElementById("street").value = "";
@@ -201,9 +204,9 @@ function addAddress(){
     })
 }
 
-    
-    
 }
+var areaIdToGetBlock;
+
 
 function getArea() {
     let table = ""
@@ -214,6 +217,9 @@ function getArea() {
     })
     .then((response)=>response.json())
     .then((data)=> {
+
+        areaIdToGetBlock = data[0].id;
+
         for (let i = 0; i < data.length; i++) {
             table += `
             <option value="${data[i].id}">${data[i].name}</option>
@@ -223,3 +229,40 @@ function getArea() {
     })
 }
 getArea();
+
+document.getElementById('dropdownarea').addEventListener('change', function () {
+    getBlock(this.value);
+});
+
+function getBlock(areaId){
+    let renderData= ""
+    fetch(`${baseUrl}/api/blockByArea/${areaId}`,{
+        headers:{
+            "Content-Type":"application/json",
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=>{
+        console.log(data);
+        if(data.length !== 0){
+            for (let i = 0; i < data.length; i++) {
+                renderData += `
+                <option value="${data[i].id}">${data[i].block_name}</option>
+            `
+            }
+        }
+        else{
+            renderData += `
+                <option value="" disabled selected>Sorry No Block Available</option>
+            `
+        }
+        
+        document.getElementById("dropdownblock").innerHTML = renderData;
+    })
+
+}
+
+
+setTimeout(()=>{
+    getBlock(areaIdToGetBlock)
+},400)

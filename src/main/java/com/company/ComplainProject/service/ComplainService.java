@@ -1,8 +1,10 @@
 package com.company.ComplainProject.service;
 
 //import com.company.ComplainProject.config.image.ComplainImageImplementation;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Complain;
@@ -111,6 +113,32 @@ public class ComplainService {
         ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
         List<Complain> complains = complainRepository.findAll(complainSpecification);
         return complains.stream().map(el->toDto(el)).collect(Collectors.toList());
+    }
+
+    public List<ComplainDto> getFilteredComplainByStatus(SearchCriteria searchCriteria) {
+
+        if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_REVIEW")){
+            searchCriteria.setValue(Status.IN_REVIEW);
+        }
+        else if(searchCriteria.getValue().toString().equalsIgnoreCase("COMPLETED")){
+            searchCriteria.setValue(Status.COMPLETED);
+        }
+        else if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_PROGRESS")){
+            searchCriteria.setValue(Status.IN_PROGRESS);
+        }
+        else if(searchCriteria.getValue().toString().equalsIgnoreCase("REJECTED")){
+            searchCriteria.setValue(Status.REJECTED);
+        }
+        try{
+            ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
+            List<Complain> complains = complainRepository.findAll(complainSpecification);
+            return complains.stream().map(el->toDto(el)).collect(Collectors.toList());
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No data Exist having "+searchCriteria.getKey()+" = "+searchCriteria.getValue());
+        }
+
+
     }
 
     public InputStream getImageByName(String filename) throws FileNotFoundException {

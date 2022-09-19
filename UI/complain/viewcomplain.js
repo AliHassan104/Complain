@@ -8,7 +8,7 @@ if (queryString != "") {
         "operation": ":",
         "value": queryString
     }
-    console.log(search);
+    
     fetch(`${baseUrl}/api/complain/search`, {
         method: 'GET',
     })
@@ -21,9 +21,9 @@ if (queryString != "") {
         });
 }
 
-// setTimeout(() => {
+
 getComplain()
-// }, 1000);
+
 
 function getComplain() {
     debugger;
@@ -50,7 +50,7 @@ function getComplain() {
         </tr>`
 
         for (let i = 0; i < data.length; i++) {
-                    table += `
+        table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 10%;" class="datatable">${data[i].user.firstname + " " + data[i].user.lastname}</td>
@@ -121,13 +121,10 @@ function updateStatus() {
 
 function deleteComplain(id) {
 debugger;
-    fetch(`${baseUrl}/api/complain/`+ id, {
+    fetch(`${baseUrl}/api/complain/`+id, {
         method: 'DELETE'
-    }).finally(()=>{
-        // window.location.reload()
-       
     })
-    .catch(() => {
+    .then(() => {
         
         let table = ""
 
@@ -140,10 +137,14 @@ debugger;
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
+            Complain Deleted Successfully
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+
+        setTimeout(()=>{
+            document.getElementById("formSubmitted").innerHTML = ""
+        },2000)
     })
 
     setTimeout(() => {
@@ -188,8 +189,7 @@ function filterByArea() {
     else {
         fetch(`${baseUrl}/api/complain/` + area, {
             headers: {
-                // mode: 'no-cors',
-                // "Authorization":jwtTokenBearer,
+                
                 "Content-Type": "application/json",
 
             }

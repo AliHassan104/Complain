@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.EventDto;
 import com.company.ComplainProject.dto.UserDto;
@@ -27,11 +28,13 @@ public class AdminController {
     @GetMapping("/achievement")
     public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<Achievements> assetBooking = adminService.getAllAchievements(pageNumber,pageSize);
-        if(!assetBooking.isEmpty()){
-            return ResponseEntity.ok(assetBooking);
+        try{
+            List<Achievements> achievements = adminService.getAllAchievements(pageNumber,pageSize);
+            return ResponseEntity.ok(achievements);
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Achievements Exist");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/address")

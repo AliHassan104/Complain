@@ -49,9 +49,4 @@ public class Complain {
     @JoinColumn(name = "complain_type_id", referencedColumnName = "id")
     private ComplainType complainType;
 
-
-
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.dto.ProjectEnums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

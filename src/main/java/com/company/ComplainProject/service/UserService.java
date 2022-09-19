@@ -71,6 +71,7 @@ public class UserService {
             updateUser.setArea(updatedArea);
             updateUser.setAddress(updatedAddress);
             updateUser.setProperty(userDto.getProperty());
+            updateUser.setBlock(userDto.getBlock());
         }
         return Optional.of(toDto(userRepository.save(updateUser)));
     }
@@ -90,6 +91,7 @@ public class UserService {
                 .property(userDto.getProperty())
                 .roles(userDto.getRoles())
                 .status(userDto.getStatus())
+                .block(userDto.getBlock())
                 .build();
     }
 
@@ -108,6 +110,7 @@ public class UserService {
                 .property(user.getProperty())
                 .roles(user.getRoles())
                 .status(user.getStatus())
+                .block(user.getBlock())
                 .build();
     }
 

@@ -6,6 +6,7 @@ import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
+import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
 import com.company.ComplainProject.model.Complain;
@@ -107,7 +108,6 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
             ObjectMapper objectMapper = new ObjectMapper();
             ComplainDto complainDto = objectMapper.readValue(complaindata,ComplainDto.class);
 
-            System.out.println(complainDto);
 
             Boolean complainImageDeleted = complainImageImplementation.deleteImage(id);
 
@@ -127,8 +127,17 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     }
 
     @GetMapping("/complain/search")
-    public ResponseEntity<List<ComplainDto>>  filteredAssetBooking(@RequestBody SearchCriteria searchCriteria){
+    public ResponseEntity<List<ComplainDto>>  filteredComplain(@RequestBody SearchCriteria searchCriteria){
         List<ComplainDto> complain = complainService.getFilteredComplain(searchCriteria);
+        if(!complain.isEmpty()){
+            return ResponseEntity.ok(complain);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/complain/searchByStatus")
+    public ResponseEntity<List<ComplainDto>>  filteredComplainByStatus(@RequestBody SearchCriteria searchCriteria){
+        List<ComplainDto> complain = complainService.getFilteredComplainByStatus(searchCriteria);
         if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
         }

@@ -126,5 +126,11 @@ public class EventController {
         }
     }
 
+//    @GetMapping("/eventByArea/{area}")
+//    public ResponseEntity<List<Event>> getEventByArea(@PathVariable("area") Long areaId){
+//
+//    }
+
+
 
 }
