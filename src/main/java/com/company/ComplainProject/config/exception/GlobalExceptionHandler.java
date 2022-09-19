@@ -1,7 +1,6 @@
 package com.company.ComplainProject.config.exception;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.sun.javafx.iio.ImageStorageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
