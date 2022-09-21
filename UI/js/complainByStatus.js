@@ -20,16 +20,14 @@ function getComplain() {
     .then((response)=>response.json())
     .then((data)=> {
 
-        // console.log(123);
+     
 
         for (const property in data) {
             complainStatus.push(data[property].status)
             numberOfStatus.push(data[property].numberOfComplains)
           }
 
-        //   console.log(complainStatus);
-        //   console.log(numberOfStatus);
-
+    
         
         for (let i = 0; i < data.length; i++) {
 
@@ -52,12 +50,41 @@ function getComplain() {
 
 
         document.getElementById("totalcomplain").innerText = totalcomplain;
-        document.getElementById("rejectperc").innerText = parseInt(((totalcomplain - inprogress - resolved - inreview)/totalcomplain)*100)+"%";
+        if(totalcomplain != 0){
+            document.getElementById("rejectperc").innerText = parseInt(((totalcomplain - inprogress - resolved - inreview)/totalcomplain)*100)+"%"
+        }
+        else{
+            document.getElementById("rejectperc").innerText = 0+"%"
+        }
+        
+
         document.getElementById("inprogress").innerText = inprogress;
-        document.getElementById("inprogressperc").innerText = parseInt((inprogress / totalcomplain)*100) + "%";
+        if(inprogress != 0){
+            document.getElementById("inprogressperc").innerText = parseInt((inprogress / totalcomplain)*100)+"%";
+        }
+        else{
+            document.getElementById("inprogressperc").innerText = 0+"%";
+        }
+
         document.getElementById("resolved").innerText = resolved;
-        document.getElementById("resolvedperc").innerText = parseInt((resolved / totalcomplain)*100) + "%";
+        if(resolved != 0){
+            document.getElementById("resolvedperc").innerText = parseInt((resolved / totalcomplain)*100) + "%";
+        }
+        else{
+            document.getElementById("resolvedperc").innerText = 0+"%";
+        }
+        
+        
         document.getElementById("inreview").innerText = inreview;
-        document.getElementById("inreviewperc").innerText = parseInt((inreview / totalcomplain)*100) + "%";
+        if(inreview != 0){
+            document.getElementById("inreviewperc").innerText = parseInt((inreview / totalcomplain)*100) + "%";
+        }
+        else{
+            document.getElementById("inreviewperc").innerText = 0+"%"
+        }
+       
+        
     })
 }
+
+
