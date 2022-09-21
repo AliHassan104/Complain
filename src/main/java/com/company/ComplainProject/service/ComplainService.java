@@ -137,7 +137,6 @@ public class ComplainService {
             throw new ContentNotFoundException("No data Exist having "+searchCriteria.getKey()+" = "+searchCriteria.getValue());
         }
 
-
     }
 
     public InputStream getImageByName(String filename) throws IOException {

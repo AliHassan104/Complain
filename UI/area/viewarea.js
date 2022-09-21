@@ -1,15 +1,15 @@
 let uid ;
 
+
+
+
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/admin/area`,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-
+ 
+    let url = "admin/area";
+    //                                                  getData Method to get Data
+    getData(url).then((data)=> {
+        
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 40%;" class="toptable ">Name</th>
         <th style="width: 30%;" class="toptable ">Postal Code</th>

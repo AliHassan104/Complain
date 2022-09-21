@@ -7,9 +7,7 @@ else {
     getComplain()
 }
 
-// filterByStatus
-
-
+                                                        // filterByStatus
 
 function filterComplainByStatus() {
 
