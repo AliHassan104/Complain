@@ -33,7 +33,7 @@ getPollingQuestion()
 
 function getPollingQuestion() {
     let table = ""
-    fetch(`${baseUrl}/api/pollingquestion`,{
+    fetch(`${baseUrl}/api/admin/pollingquestion`,{
         headers:{
             "Content-Type":"application/json",   
         }

@@ -3,39 +3,52 @@ let queryString = window.location.search;
 if (queryString != "") {
     filterComplainByStatus()
 }
-else{
+else {
     getComplain()
 }
 
+// filterByStatus
 
-function filterComplainByStatus(){
 
-    let queryString = window.location.search;
-    let parameters = new URLSearchParams(queryString);
-    let status = parameters.get("status")
-    
+
+function filterComplainByStatus() {
+
+    let status;
+
+    if (queryString != "") {
+        let parameters = new URLSearchParams(queryString);
+        status = parameters.get("status")
+    }
+    else {
+        status = document.getElementById("filterByStatus").value;
+    }
+
     search = {
         "key": "status",
         "operation": ":",
         "value": status
     }
 
+    if (status !== "All") {
+        fetch(`${baseUrl}/api/complain/searchByStatus`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(search)
 
-    fetch(`${baseUrl}/api/complain/searchByStatus`,{
-        method:"POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body:JSON.stringify(search)
-
-    }).then((response)=>response.json()).catch(()=>{})
-    .then((data)=>{
-         console.log("Data",data)
-        renderComplainData(data)
-    })
+        }).then((response) => response.json()).catch(() => { })
+            .then((data) => {
+                renderComplainData(data)
+            })
+    }
+    else{
+        getComplain()
+    }
 }
 
-function renderComplainData(data){
+function renderComplainData(data) {
+   
     let table = ""
     table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
@@ -50,7 +63,7 @@ function renderComplainData(data){
         <th style="width: 15%;" class="toptable ">Action</th>
         </tr>`
 
-        for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
@@ -76,32 +89,35 @@ function renderComplainData(data){
 
             </td>
         </tr>`
-                }
-                document.getElementById("datatables-reponsive").innerHTML = table;
-            
-           if(data.length === 0){
-                noComplainFound = ""
-                noComplainFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+    }
+    document.getElementById("datatables-reponsive").innerHTML = table;
+    
+    if (data.length === 0) {
+        noComplainFound = ""
+        noComplainFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
                 class="alert alert-danger" role="alert" >No Complain Found</span> `
-                document.getElementById("noRecordFound").innerHTML = noComplainFound
-           }
-            
+        document.getElementById("noRecordFound").innerHTML = noComplainFound
+    }
+    else{
+        document.getElementById("noRecordFound").innerHTML = ""
+    }
+
 }
 
-function showComplainDetails(id){
-        location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
+function showComplainDetails(id) {
+    location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
 }
 
 
 function getComplain() {
-    
+
     fetch(`${baseUrl}/api/admin/complain`, {
         headers: {
             "Content-Type": "application/json",
         }
     })
         .then((response) => response.json()).catch(() => { })
-        .then((data) => { 
+        .then((data) => {
             renderComplainData(data)
         })
 
@@ -141,14 +157,14 @@ function updateStatus() {
 
 function deleteComplain(id) {
 
-    fetch(`${baseUrl}/api/complain/`+id, {
+    fetch(`${baseUrl}/api/complain/` + id, {
         method: 'DELETE'
     })
-    .then(() => {
-        
-        let table = ""
+        .then(() => {
 
-        table += `
+            let table = ""
+
+            table += `
             <div  style=" 
             margin: auto;
             text-align: center;
@@ -160,15 +176,15 @@ function deleteComplain(id) {
             Complain Deleted Successfully
             </div>`
 
-        document.getElementById("formSubmitted").innerHTML = table
+            document.getElementById("formSubmitted").innerHTML = table
 
-        setTimeout(()=>{
-            document.getElementById("formSubmitted").innerHTML = ""
-        },2000)
-    })
+            setTimeout(() => {
+                document.getElementById("formSubmitted").innerHTML = ""
+            }, 2000)
+        })
 
     setTimeout(() => {
-     getComplain()
+        getComplain()
     }, 100);
 
 }
@@ -209,7 +225,7 @@ function filterByArea() {
     else {
         fetch(`${baseUrl}/api/complain/` + area, {
             headers: {
-                
+
                 "Content-Type": "application/json",
 
             }
@@ -250,6 +266,7 @@ function filterByArea() {
             })
     }
 }
+
 
 
 
