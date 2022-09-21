@@ -36,79 +36,96 @@ function formSubmit() {
         }, block_name: block
     };
 
-    if (queryString == "") {
+    if (area != "" && block != "") {
+        if (queryString == "") {
 
-
-        fetch(`${baseUrl}/api/block`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newArea)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                let table = ""
-                table += `
-        <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    &nbsp  ${block} Added  Successfully
-    </div>`
-
-                document.getElementById("block").value = "";
-                document.getElementById("formSubmitted").innerHTML = table
-
-                setTimeout(() => {
-                    document.getElementById("formSubmitted").innerHTML = ""
-                }, 2000)
-
+            fetch(`${baseUrl}/api/block`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newArea)
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    let table = ""
+                    table += `
+                            <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        &nbsp <B> ${block} Added  Successfully <b>
+                        </div>`
 
-    } else {
-        fetch(`${baseUrl}/api/block/${urlId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newArea)
-        })
-            .then(response => response.json())
-            .then(data => {
-                
-                let table = ""
-                table += `
-        <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    &nbsp  Block Updated Successfully
-    </div>` 
+                    document.getElementById("block").value = "";
+                    document.getElementById("formSubmitted").innerHTML = table
 
-                document.getElementById("block").value = "";
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
 
-                document.getElementById("formSubmitted").innerHTML = table
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
 
-                setTimeout(() => {
-                    document.getElementById("formSubmitted").innerHTML = ""
-                }, 2000)
+        } else {
+            fetch(`${baseUrl}/api/block/${urlId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newArea)
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+
+                    let table = ""
+                    table += `
+                            <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        &nbsp <b> Block Updated Successfully <b>
+                        </div>`
+
+                    document.getElementById("block").value = "";
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+    else {
+        let invalidData = ""
+        invalidData += `
+                            <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-danger" role="alert">
+                        <b> Cannot Add &nbsp Block Name Cannot Be Empty <b>
+                        </div>`
+
+        document.getElementById("formSubmitted").innerHTML = invalidData
     }
 }
 
@@ -121,7 +138,7 @@ function getArea() {
     })
         .then((response) => response.json())
         .then((data) => {
-            
+
             for (let i = 0; i < data.length; i++) {
 
                 table += `

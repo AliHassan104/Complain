@@ -1,42 +1,43 @@
 
 let queryString = window.location.search;
 if (queryString != "") {
-    queryString = queryString.slice(8, queryString.length)
-    console.log(queryString);
-    search = {
-        "key": "status",
-        "operation": ":",
-        "value": queryString
-    }
-    
-    fetch(`${baseUrl}/api/complain/search`, {
-        method: 'GET',
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    filterComplainByStatus()
+}
+else{
+    getComplain()
 }
 
 
-getComplain()
+function filterComplainByStatus(){
+
+    let queryString = window.location.search;
+    let parameters = new URLSearchParams(queryString);
+    let status = parameters.get("status")
+    
+    search = {
+        "key": "status",
+        "operation": ":",
+        "value": status
+    }
 
 
-function getComplain() {
-    debugger;
-    let table = ""
-    fetch(`${baseUrl}/api/admin/complain`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
+    fetch(`${baseUrl}/api/complain/searchByStatus`,{
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(search)
+
+    }).then((response)=>response.json()).catch(()=>{})
+    .then((data)=>{
+         console.log("Data",data)
+        renderComplainData(data)
     })
-        .then((response) => response.json()).catch(() => { })
-        .then((data) => { 
-        
-        table += `
+}
+
+function renderComplainData(data){
+    let table = ""
+    table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
 
         <th style="width: 10%;" class="toptable ">User Name</th>
@@ -53,24 +54,27 @@ function getComplain() {
         table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 10%;" class="datatable">${data[i].user.firstname + " " + data[i].user.lastname}</td>
-            <td style="width: 10%;" class="datatable">${data[i].complainType.name}</td>
-            <td style="width: 15%;" class="datatable">${data[i].description}</td>
-            <td style="width: 10%;" class="datatable">${data[i].status}</td>
-            <td style="width: 10%;" class="datatable">${data[i].date}</td>
-            <td style="width: 10%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 20%;" class="datatable"><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px"> 
+            
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id}) >${data[i].user.firstname + " " + data[i].user.lastname}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].complainType.name}</td>
+            <td style="width: 15%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].description}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].status}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].date}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].area.name}</td>
+            <td style="width: 20%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px"> 
+           
             <td style="width: 15%;" class="datatable"> 
-
             <a  href="/complain/addcomplain.html?id=${data[i].id}">
             <i onclick="updateComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;"  
             class="fa fa-pencil"></i>
             </a>
 
-            <i onclick="updatedStatusModal(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#statusmodal"  
+            <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
             style="padding-right: 5px; margin-right: 5px;"  class="fa fa-file"></i>
+
             <i onclick="deleteComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;" class="fa fa-close"></i>
-    </td>
+
+            </td>
         </tr>`
                 }
                 document.getElementById("datatables-reponsive").innerHTML = table;
@@ -82,6 +86,23 @@ function getComplain() {
                 document.getElementById("noRecordFound").innerHTML = noComplainFound
            }
             
+}
+
+function showComplainDetails(id){
+        location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
+}
+
+
+function getComplain() {
+    
+    fetch(`${baseUrl}/api/admin/complain`, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+        .then((response) => response.json()).catch(() => { })
+        .then((data) => { 
+            renderComplainData(data)
         })
 
 }
@@ -92,7 +113,6 @@ function updatedStatusModal(id) {
 }
 
 function updateStatus() {
-    console.log(uid);
     let updatedstatus = document.getElementById("updatedstatus").value;
 
     let updatedataus = {
@@ -120,7 +140,7 @@ function updateStatus() {
 
 
 function deleteComplain(id) {
-debugger;
+
     fetch(`${baseUrl}/api/complain/`+id, {
         method: 'DELETE'
     })

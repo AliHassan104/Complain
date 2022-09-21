@@ -59,7 +59,7 @@
 				<a class="sidebar-brand" href="/index.html">
 					<span class="sidebar-brand-text align-middle">
 						<b>Complain</b>
-						<!-- <sup><small class="badge bg-primary text-uppercase">Pro</small></sup> -->
+						
 					</span>
 					<svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"
 						stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
@@ -99,7 +99,7 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item ">
 						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
@@ -117,7 +117,6 @@
 					</li>
 
 
-
 					<li class="sidebar-item">
 						<a data-bs-target="#area" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Area</span>
@@ -129,7 +128,6 @@
 							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewblock.html">View Block</a></li>
 						</ul>
 					</li>
-
 
 
 					<li class="sidebar-item">
@@ -225,7 +223,7 @@
 					</div>
 				</form>
 
-				<ul class="navbar-nav d-none d-lg-flex">
+				<!-- <ul class="navbar-nav d-none d-lg-flex">
 					<li class="nav-item px-2 dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
@@ -282,7 +280,7 @@
 									data-feather="edit"></i> Changelog</a>
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 
 				<div class="navbar-collapse collapse"> 
 					<ul class="navbar-nav navbar-align">
@@ -290,7 +288,7 @@
 							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
 								<div class="position-relative">
 									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
+									<span class="indicator">5</span>
 								</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
@@ -499,29 +497,29 @@
 
                         <form>
                             <fieldset>
+								<label for="name" class="col-sm-2 col-form-label"><b>Select Area</b></label>
+								<div class="row mb-3">
+								
+									<div class="col-sm-10">
+										<select id="dropdownarea" class="form-select">
+											
+										</select>
+									 </div>
+
+								</div>
+
                                 <div class="row mb-3">
-
-                                    <label style="margin-top: 10px;" for="pollingquestion" class="col-sm-2 col-form-label">Add Polling Question
-
-
-									</label>
+                                    <label style="margin-top: 10px;" for="pollingquestion" class="col-sm-4 col-form-label"><b>Add Polling Question</b></label>
                                     <div class="col-sm-10">
-                                        <input style="margin-top: 10px;" type="text" class="form-control" id="addpollingquestion" aria-describedby="emailHelp" placeholder="Enter Question">
-									
-                                  	<!-- <input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type"> -->
+										<textarea class="form-control" id="addpollingquestion" rows="2" placeholder="Enter Question"></textarea>
                                     </div>
-
                                 </div>
-
-
+								
 								  <div class="form-group">
-
-									<label for="pollingoption">Polling Option</label>
-
+									<label for="pollingoption"><b>Polling Option</b></label>
 									<table id="dynamicoption">
-										
+								
 									</table>
-
 								  <br>
 
 								  </div>

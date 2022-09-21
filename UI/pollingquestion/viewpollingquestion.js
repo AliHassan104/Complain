@@ -19,6 +19,10 @@ function deletePollingQuestion(id){
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+
+        setTimeout(()=>{
+            document.getElementById("formSubmitted").innerHTML = ""
+        },2000)
     })
     setTimeout(() => {
         getPollingQuestion()
@@ -31,8 +35,6 @@ function getPollingQuestion() {
     let table = ""
     fetch(`${baseUrl}/api/pollingquestion`,{
         headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
             "Content-Type":"application/json",   
         }
     })
@@ -42,14 +44,16 @@ function getPollingQuestion() {
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 10%;" class="toptable ">Q .NO</th>
         <th style="width: 75%;" class="toptable ">Question</th>
+        <th style="width: 75%;" class="toptable ">Area</th>
         <th style="width: 15%;" class="toptable ">Action</th>
         </tr>`
         for (let i = 0; i < data.length; i++) {
-            // console.log(data);
+            
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
         <td style="width: 10%;" class="datatable">${i+1}</td>
         <td style="width: 75%;" class="datatable">${data[i].question}</td>
+        <td style="width: 75%;" class="datatable">${data[i].area.name}</td>
         <td style="width: 15%;" class="datatable"> 
 
         <a  href="/pollingquestion/addpollingquestion.html?id=${data[i].id}">

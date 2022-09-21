@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.CannotDeleteImage;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
@@ -11,6 +12,7 @@ import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.service.ComplainService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -108,7 +110,6 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
             ObjectMapper objectMapper = new ObjectMapper();
             ComplainDto complainDto = objectMapper.readValue(complaindata,ComplainDto.class);
 
-
             Boolean complainImageDeleted = complainImageImplementation.deleteImage(id);
 
             if(complainImageDeleted){
@@ -135,13 +136,17 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @GetMapping("/complain/searchByStatus")
-    public ResponseEntity<List<ComplainDto>>  filteredComplainByStatus(@RequestBody SearchCriteria searchCriteria){
-        List<ComplainDto> complain = complainService.getFilteredComplainByStatus(searchCriteria);
-        if(!complain.isEmpty()){
+    @PostMapping("/complain/searchByStatus")
+    public ResponseEntity<List<ComplainDto>> filteredComplainByStatus(@RequestBody SearchCriteria searchCriteria)  {
+
+        try{
+            List<ComplainDto> complain = complainService.getFilteredComplainByStatus(searchCriteria);
             return ResponseEntity.ok(complain);
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("Complain Having Status = "+searchCriteria.getValue()+" Not Exist");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
     }
 
     @GetMapping("/complain/export")

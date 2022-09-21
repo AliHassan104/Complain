@@ -50,11 +50,15 @@ public class AdminController {
     @GetMapping("/area")
     public ResponseEntity<List<Area>> getArea(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<Area> assetBooking = adminService.getAllArea(pageNumber,pageSize);
-        if(!assetBooking.isEmpty()){
+        try{
+            List<Area> assetBooking = adminService.getAllArea(pageNumber,pageSize);
             return ResponseEntity.ok(assetBooking);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Area Exist");
+        }
+
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complain")
@@ -160,7 +164,7 @@ public class AdminController {
             return ResponseEntity.ok(adminService.getAllEvents(pageNumber,pageSize));
         }catch (Exception e){
             System.out.println(e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ContentNotFoundException("No Events Exist");
         }
     }
 }

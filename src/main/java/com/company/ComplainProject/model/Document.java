@@ -23,7 +23,6 @@ public class Document {
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;
-
     private String url;
 
 }

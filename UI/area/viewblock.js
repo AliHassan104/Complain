@@ -1,5 +1,6 @@
 getBlock()
 let uid;
+
 function getBlock() {
     let table = ""
     fetch(`${baseUrl}/api/block`,{
@@ -15,7 +16,7 @@ function getBlock() {
         <th style="width: 33%;" class="toptable ">Block</th>
         <th style="width: 34%;" class="toptable ">Action</th>
         </tr>`
-        if (data != null) {
+    
         for (let i = 0; i < data.length; i++) {
             table += `
 
@@ -33,8 +34,17 @@ function getBlock() {
     </td>
         </tr>`
         }
-    }
+    
     document.getElementById("datatables-reponsive").innerHTML = table;
+
+    if(data.length === 0){
+        noBlockFound = ""
+        noBlockFound+= `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+        class="alert alert-danger" role="alert" >No Block Found</span> `
+
+        document.getElementById("noRecordFound").innerHTML = noBlockFound
+   }
+
 })
 
 
@@ -93,7 +103,7 @@ function deleteBlock(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-success" role="alert">
-            Block  Deleted Successfully
+            <b> Block  Deleted Successfully <b>
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
@@ -112,7 +122,8 @@ function deleteBlock(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            SomeThing Went Wrong Cannot Delete Block 
+            <b> SomeThing Went Wrong Cannot Delete Block  <b>
+            
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table

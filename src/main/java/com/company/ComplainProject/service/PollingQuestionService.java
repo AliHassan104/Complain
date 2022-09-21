@@ -1,6 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.dto.PollingQuestionDto;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.PollingOption;
 import com.company.ComplainProject.model.PollingQuestion;
 import com.company.ComplainProject.repository.PollingOptionRepository;
@@ -23,6 +24,8 @@ public class PollingQuestionService {
     PollingQuestionRepository pollingQuestionRepository;
     @Autowired
     PollingOptionRepository pollingOptionRepository;
+    @Autowired
+    AreaService areaService;
 
     public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
@@ -50,23 +53,31 @@ public class PollingQuestionService {
 
     public Optional<PollingQuestionDto> updatePollingQuestionById(Long id, PollingQuestionDto pollingQuestionDto) {
         PollingQuestion updatePollingQuestion = getAllPollingQuestion().stream().filter(el->el.getId().equals(id)).findAny().get();
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(pollingQuestionDto.getArea().getId())).findAny().get();
+
         if(updatePollingQuestion != null){
 //                                                                                           first we will delete the previous options
-                pollingOptionRepository.deleteOptionByid(updatePollingQuestion.getId());
+            pollingOptionRepository.deleteOptionByid(updatePollingQuestion.getId());
 
             updatePollingQuestion.setQuestion(pollingQuestionDto.getQuestion());
             updatePollingQuestion.setPollingOptions(pollingQuestionDto.getPollingOptions());
+            updatePollingQuestion.setArea(area);
         }
         return Optional.of(toDto(pollingQuestionRepository.save(updatePollingQuestion)));
     }
 
     public PollingQuestion dto(PollingQuestionDto pollingQuestionDto){
-        return PollingQuestion.builder().id(pollingQuestionDto.getId()).question(pollingQuestionDto.getQuestion())
+        return PollingQuestion.builder().id(pollingQuestionDto.getId()).question(pollingQuestionDto.getQuestion()).area(pollingQuestionDto.getArea())
                 .pollingOptions(pollingQuestionDto.getPollingOptions()).build();
     }
 
     public PollingQuestionDto toDto(PollingQuestion pollingQuestion){
-        return  PollingQuestionDto.builder().id(pollingQuestion.getId()).question(pollingQuestion.getQuestion())
+        return  PollingQuestionDto.builder().id(pollingQuestion.getId()).question(pollingQuestion.getQuestion()).area(pollingQuestion.getArea())
                 .pollingOptions(pollingQuestion.getPollingOptions()).build();
+    }
+
+    public List<PollingQuestion> getPollingQuestionByArea(Area areaId) {
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId)).findAny().get();
+        return pollingQuestionRepository.findPollingQuestionByArea(area);
     }
 }

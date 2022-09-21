@@ -1,7 +1,9 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.dto.PollingQuestionDto;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.model.PollingQuestion;
 import com.company.ComplainProject.service.ComplainTypeService;
@@ -70,6 +72,16 @@ public class PollingQuestionController {
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/pollingquestionByArea/{area}")
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestionArea(@PathVariable Area areaId){
+        try{
+            return ResponseEntity.ok(pollingQuestionService.getPollingQuestionByArea(areaId));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Polling Question Having Area id "+areaId);
         }
     }
 

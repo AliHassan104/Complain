@@ -21,6 +21,10 @@ public class PollingQuestion {
     private Long id;
     private String question;
 
+    @ManyToOne
+    @JoinColumn(name = "area_id")
+    private Area area;
+
     @OneToMany
     @JoinColumn(name = "pollingQuestion_id")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

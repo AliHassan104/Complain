@@ -2,7 +2,7 @@ let uid ;
 
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/area`,{
+    fetch(`${baseUrl}/api/admin/area`,{
         headers:{
             "Content-Type":"application/json",
         }
@@ -34,14 +34,21 @@ function getArea() {
         </tr>`
         }
         document.getElementById("datatables-reponsive").innerHTML = table;
+
+            
+        if(data.length === 0){
+            noAreaFound = ""
+            noAreaFound  += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+            class="alert alert-danger" role="alert" >No Area Found</span> `
+            document.getElementById("noRecordFound").innerHTML =   noAreaFound 
+       }
     })
 }
 getArea()
 
 
 function deleteArea(id){
-    console.log(id);
-
+   
     fetch(`${baseUrl}/api/area/`+id, {
             method: 'DELETE'
     }).then(()=>{

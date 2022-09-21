@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.CannotDeleteImage;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.EventImageImplementation;
 import com.company.ComplainProject.dto.EventDto;
 import com.company.ComplainProject.model.Event;
@@ -126,10 +127,15 @@ public class EventController {
         }
     }
 
-//    @GetMapping("/eventByArea/{area}")
-//    public ResponseEntity<List<Event>> getEventByArea(@PathVariable("area") Long areaId){
-//
-//    }
+    @GetMapping("/eventByArea/{area}")
+    public ResponseEntity<List<Event>> getEventByArea(@PathVariable("area") Long areaId){
+        try{
+            return ResponseEntity.ok(eventService.getEventByArea(areaId));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Even Exist");
+        }
+    }
 
 
 

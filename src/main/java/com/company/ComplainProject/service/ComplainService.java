@@ -18,10 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
@@ -106,6 +103,8 @@ public class ComplainService {
                 .user(complain.getUser())
                 .date(complain.getDate())
                 .time(complain.getTime())
+                .status(complain.getStatus())
+
                 .build();
     }
 
@@ -141,17 +140,17 @@ public class ComplainService {
 
     }
 
-    public InputStream getImageByName(String filename) throws FileNotFoundException {
+    public InputStream getImageByName(String filename) throws IOException {
+        InputStream inputStream = null;
         try{
             String assetImagePath = imageFolderPath+ File.separator+filename;
-            InputStream inputStream = new FileInputStream(assetImagePath);
+            inputStream = new FileInputStream(assetImagePath);
             return inputStream;
         }
         catch (Exception e){
             System.out.println("Image not exist in Complain "+e);
             throw new FileNotFoundException("Image not exist in Complain");
         }
-
     }
 
 }

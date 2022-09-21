@@ -8,6 +8,11 @@ import com.company.ComplainProject.repository.WaterTimingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,6 +45,7 @@ public class WaterTimingService {
     }
 
     public WaterTimingDto addWaterTiming(WaterTimingDto waterTimingDto) {
+
         Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
         waterTimingDto.setBlock(block);
 
