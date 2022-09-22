@@ -1,4 +1,6 @@
+var userDetails = "";
 tokenNotExist();
+
 
 function getToken() {
     let token = localStorage.getItem("jwtToken")
@@ -72,7 +74,6 @@ function deleteData(url) {
 
 function tokenNotExist() {
     let token = getToken()
-    let userDetails = "";
     if(token != null){
         userDetails = decodeJwtToken(token.substring(7))
     }
@@ -80,8 +81,15 @@ function tokenNotExist() {
 
         window.open(`${loginUrl}/loginPage/loginpage.html`,"_self")
         // document.getElementById("notAllowed").innerText = 'Only Admin Allowed'
-    }
-    
-   
+    }  
+}
+
+function getUserData(){
+    let email = userDetails.sub 
+    return getData(`userbyemail/${email}`)
+    .then((data)=>{
+        return data
+    } 
+)
 }
 

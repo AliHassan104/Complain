@@ -2,14 +2,14 @@ let TypeOfComplain = [];
 let NumberOfComplains = [];
 let maxNumberOfComplain = 0
 function getComplain() {
-    fetch("http://localhost:8081/api/complainbycomplaintype",{
+    fetch(`${baseUrl}/api/complainbycomplaintype`,{
       headers:{
             "Content-Type":"application/json",
           }
         })
         .then((response)=>response.json())
         .then((data)=> {
-            console.log(data);
+        
             
         for (const property in data) {
             TypeOfComplain.push(data[property].complainType)

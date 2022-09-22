@@ -38,3 +38,5 @@ function loginData() {
         console.log("Email And Password Cannot be Null");
     }
 }
+
+

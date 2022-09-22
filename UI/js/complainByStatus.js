@@ -12,7 +12,7 @@ function getComplain() {
     complainStatus = []
     numberOfStatus = []
 
-    fetch("http://localhost:8081/api/complainbystatus",{
+    fetch(`${baseUrl}/api/complainbystatus`,{
         headers:{
             "Content-Type":"application/json",   
         }

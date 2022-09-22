@@ -66,12 +66,12 @@
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
+							<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded me-1"
 								alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
-							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								Charles Hall
+							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" id="username">
+								
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
 								<a class="dropdown-item" href="/pages-profile.html"><i class="align-middle me-1"
@@ -255,16 +255,10 @@
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 					
-						<!-- <li class="nav-item">
-							<a class="nav-icon js-fullscreen d-none d-lg-block" href="#">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="maximize"></i>
-								</div>
-							</a>
-						</li> -->
+		
 						<li class="nav-item dropdown">
 							<a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded" alt="Charles Hall" />
+								<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded" alt="Charles Hall" /> 
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -308,11 +302,11 @@
 					</div>
 
 					<div class="row">
-						<div class="col-xl-6 col-xxl-5 d-flex">
+						<div class="col-xl-12 col-xxl-5 d-flex">
 							<div class="w-100">
 								<div class="row">
 
-									<div class="col-sm-6">
+									<div class="col-sm-4">
 										<a href="/complain/viewcomplain.html?status=IN_REVIEW"
 											style="text-decoration: none;">
 
@@ -372,7 +366,7 @@
 
 									
 
-									<div class="col-sm-6">
+									<div class="col-sm-4">
 										<a href="/complain/viewcomplain.html?status=COMPLETED"
 											style="text-decoration: none;">
 											<div class="card">
@@ -419,6 +413,59 @@
 																class="mdi mdi-arrow-bottom-right"></i>
 														</span>
 														<span class="text-muted">Complains Got Rejected</span>
+													</div>
+												</div>
+											</div>
+										</a>
+
+									</div>
+									<div class="col-sm-4">
+										<a href="/user/pendingRequest.html"
+											style="text-decoration: none;">
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">Pending Users</h5>
+														</div>
+
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="user"></i>
+															</div>
+														</div>
+													</div>
+													<h1 class="mt-1 mb-3" id="resolved">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-success-light" id="resolvedperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Pending Users</span>
+													</div>
+												</div>
+											</div>
+										</a>
+
+										<a href="/user/viewuser.html" style="text-decoration: none;">
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">Total Users</h5>
+														</div>
+
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="users"></i>
+															</div>
+														</div>
+													</div>
+													<h1 class="mt-1 mb-3" id="totalcomplain">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-danger-light" id="rejectperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Total Users</span>
 													</div>
 												</div>
 											</div>
@@ -500,9 +547,8 @@
 
 
 
-
-
 	<script src="js/app.js"></script>
+	<script src="/js/dashboard.js"></script>
 	<script src="js/complainByMonth.js"></script>
 	<script src="js/complainByComplainType.js"></script>
 	<script src="js/complainByStatus.js"></script>

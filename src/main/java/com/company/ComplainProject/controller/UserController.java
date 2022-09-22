@@ -1,7 +1,9 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.SearchCriteria;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.exportDataToExcel.UserExcelExporter;
 import com.company.ComplainProject.model.User;
@@ -96,6 +98,16 @@ public class UserController {
         List<User> userList = userService.getAllUser();
         UserExcelExporter userExcelExporter = new UserExcelExporter(userList);
         userExcelExporter.exportData(response);
+    }
+
+    @GetMapping("/userbyemail/{email}")
+    public ResponseEntity<UserDetailsResponse> getUserByEmail(@PathVariable("email") String email){
+        try{
+            return  ResponseEntity.ok(userService.getUserByEmail(email));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No user Exist having email "+email);
+        }
     }
 
 }
