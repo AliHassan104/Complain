@@ -16,6 +16,7 @@ public class Block {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String block_name;
+
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;

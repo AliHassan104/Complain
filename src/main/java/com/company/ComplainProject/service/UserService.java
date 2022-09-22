@@ -2,6 +2,7 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.SearchCriteria;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
@@ -71,6 +72,7 @@ public class UserService {
             updateUser.setArea(updatedArea);
             updateUser.setAddress(updatedAddress);
             updateUser.setProperty(userDto.getProperty());
+            updateUser.setBlock(userDto.getBlock());
         }
         return Optional.of(toDto(userRepository.save(updateUser)));
     }
@@ -90,6 +92,8 @@ public class UserService {
                 .property(userDto.getProperty())
                 .roles(userDto.getRoles())
                 .status(userDto.getStatus())
+                .block(userDto.getBlock())
+                .userTypeEnum(userDto.getUserTypeEnum())
                 .build();
     }
 
@@ -108,6 +112,8 @@ public class UserService {
                 .property(user.getProperty())
                 .roles(user.getRoles())
                 .status(user.getStatus())
+                .block(user.getBlock())
+                .userTypeEnum(user.getUserTypeEnum())
                 .build();
     }
 
@@ -117,5 +123,28 @@ public class UserService {
         return users.stream().map(el->toDto(el)).collect(Collectors.toList());
     }
 
+    public UserDetailsResponse getUserByEmail(String email) {
+        UserDetailsResponse userDetailsResponse = userToUserDetailsResponse(userRepository.findUserByEmail(email));
+        return userDetailsResponse;
+    }
+
+
+    public UserDetailsResponse userToUserDetailsResponse(User user){
+        return UserDetailsResponse.builder().id(user.getId())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .cnic(user.getCnic())
+                .numberOfFamilyMembers(user.getNumberOfFamilyMembers())
+                .area(user.getArea())
+                .address(user.getAddress())
+                .property(user.getProperty())
+                .roles(user.getRoles())
+                .status(user.getStatus())
+                .block(user.getBlock())
+                .userTypeEnum(user.getUserTypeEnum())
+                .build();
+    }
 }
 

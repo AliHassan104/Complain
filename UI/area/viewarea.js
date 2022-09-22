@@ -1,15 +1,16 @@
 let uid ;
 
-function getArea() {
-    let table = ""
-    fetch(`${baseUrl}/api/area`,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
 
+
+
+function getArea() {
+
+    let table = ""
+ 
+    let url = "admin/area";
+    //                                                  getData Method to get Data
+    getData(url).then((data)=> {
+        
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 40%;" class="toptable ">Name</th>
         <th style="width: 30%;" class="toptable ">Postal Code</th>
@@ -34,17 +35,23 @@ function getArea() {
         </tr>`
         }
         document.getElementById("datatables-reponsive").innerHTML = table;
+
+            
+        if(data.length === 0){
+            noAreaFound = ""
+            noAreaFound  += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+            class="alert alert-danger" role="alert" >No Area Found</span> `
+            document.getElementById("noRecordFound").innerHTML =   noAreaFound 
+       }
     })
 }
 getArea()
 
 
 function deleteArea(id){
-    console.log(id);
-
-    fetch(`${baseUrl}/api/area/`+id, {
-            method: 'DELETE'
-    }).then(()=>{
+    
+    let url = `area/${id}`
+    deleteData(url).then(()=>{
         let table = ""
 
         table += `

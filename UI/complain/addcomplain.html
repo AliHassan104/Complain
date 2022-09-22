@@ -21,13 +21,6 @@
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
-
-	<!-- Choose your prefered color scheme -->
-	<!-- <link href="css/light.css" rel="stylesheet"> -->
-	<!-- <link href="css/dark.css" rel="stylesheet"> -->
-
-	<!-- BEGIN SETTINGS -->
-	<!-- Remove this after purchasing -->
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
 	<!-- <script src="js/settings.js"></script> -->
 	<style>
@@ -35,7 +28,9 @@
 			opacity: 0;
 		}
 	</style>
-	<!-- END SETTINGS -->
+	
+<script src="/js/properties.js"></script>
+<script src="/js/customFetch.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -44,13 +39,7 @@
 
   gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 </script></head>
-<!--
-  HOW TO USE: 
-  data-theme: default (default), dark, light, colored
-  data-layout: fluid (default), boxed
-  data-sidebar-position: left (default), right
-  data-sidebar-layout: default (default), compact
--->
+
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
@@ -99,7 +88,7 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a href="/index.html" data-bs-target="#dashboards"  class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
 						</a>
@@ -140,6 +129,7 @@
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
 						</ul>
 					</li>
 
@@ -536,66 +526,20 @@
 											<select id="dropcomplaintype" class="form-select">
 											
 											</select>
-											
-										  <!-- <input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type"> -->
+
 										</div>
 	
 									</div>
 									
-									<!-- <div class="form-group">
-									  <select id="dropuser" class="form-select">
-											
-									  </select>
-									</div> -->
-								  
-								  <!-- <br>
+	
+									<br> 
 
-								  <div class="form-group">
-									<select id="droparea" class="form-select">
-										  
-									</select>
-								  </div>
-
-								  <br>
-
-									<div class="form-group">
-									  <select id="dropcomplaintype" class="form-select">
-											
-									  </select>
-									</div>
-				
-									<br> -->
-
-									<!-- <label for="exampleInputEmail1">Title</label>
-									<input type="email" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter Title Of Complain"> -->
-									<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-									<!-- <br> -->
 								  </div>
 
 								  <div class="form-outline mb-4">
 									  <label class="form-label" for="description">Description</label>
 									  <textarea class="form-control" id="description" rows="4"></textarea>
 									</div>
-
-								  <!-- <div class="form-outline mb-4">
-									  <label class="form-label" for="suggestion">Suggestion For Improvement</label>
-									  <textarea class="form-control" id="suggestion" rows="4"></textarea>
-									</div> -->
-						  
-
-
-
-								  <!-- <label for="birthday">Date:</label>
-								  <input type="date" id="date" name="birthday">
-
-								  <br>
-								  <br>
-
-								  <label for="appt">Select a time:</label>
-								  <input type="time" id="time" name="appt">
-								  
-									<br>
-									<br> -->
 
 								  <div class="form-group">
 									  <label for="exampleFormControlFile1">complain file input</label>

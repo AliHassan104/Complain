@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.EventDto;
 import com.company.ComplainProject.dto.UserDto;
@@ -27,11 +28,13 @@ public class AdminController {
     @GetMapping("/achievement")
     public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<Achievements> assetBooking = adminService.getAllAchievements(pageNumber,pageSize);
-        if(!assetBooking.isEmpty()){
-            return ResponseEntity.ok(assetBooking);
+        try{
+            List<Achievements> achievements = adminService.getAllAchievements(pageNumber,pageSize);
+            return ResponseEntity.ok(achievements);
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Achievements Exist");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/address")
@@ -47,38 +50,55 @@ public class AdminController {
     @GetMapping("/area")
     public ResponseEntity<List<Area>> getArea(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<Area> assetBooking = adminService.getAllArea(pageNumber,pageSize);
-        if(!assetBooking.isEmpty()){
+        try{
+            List<Area> assetBooking = adminService.getAllArea(pageNumber,pageSize);
             return ResponseEntity.ok(assetBooking);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Area Exist");
+        }
+
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complain")
     public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
+
+        try{
+            List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
             return ResponseEntity.ok(complain);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            throw  new ContentNotFoundException("No Complain Found");
+        }
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complaintype")
     public ResponseEntity<List<ComplainType>> getComplainType(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<ComplainType> complainType = adminService.getAllComplainType(pageNumber,pageSize);
-        if(!complainType.isEmpty()){
+        try{
+            List<ComplainType> complainType = adminService.getAllComplainType(pageNumber,pageSize);
             return ResponseEntity.ok(complainType);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw  new ContentNotFoundException("No Complain Type Found");
+        }
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/document")
     public ResponseEntity<List<Document>> getDocument(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<Document> document = adminService.getAllDocument(pageNumber,pageSize);
-        if(!document.isEmpty()){
+        try{
+            List<Document> document = adminService.getAllDocument(pageNumber,pageSize);
             return ResponseEntity.ok(document);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw  new ContentNotFoundException("No Document Found");
+        }
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollinganswer")
@@ -102,32 +122,43 @@ public class AdminController {
     @GetMapping("/pollingquestion")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                                     @RequestParam(value = "pageSize",defaultValue = "3",required = false) Integer pageSize){
-        List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
-        if(!pollingQuestion.isEmpty()){
+        try{
+            List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
             return ResponseEntity.ok(pollingQuestion);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Polling Question Available");
+        }
     }
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user")
     public ResponseEntity<List<User>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<User> user = adminService.getAllUsers(pageNumber,pageSize);
-        if(!user.isEmpty()){
+        try{
+            List<User> user = adminService.getAllUsers(pageNumber,pageSize);
             return ResponseEntity.ok(user);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No User Available");
+        }
     }
+
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/watertiming")
     public ResponseEntity<List<WaterTiming>> getWaterTiming(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                             @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<WaterTiming> waterTiming = adminService.getAllWaterTiming(pageNumber,pageSize);
-        if(!waterTiming.isEmpty()){
+        try{
+            List<WaterTiming> waterTiming = adminService.getAllWaterTiming(pageNumber,pageSize);
             return ResponseEntity.ok(waterTiming);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Water timing Available");
+        }
     }
+
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/complain/{id}")
     public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id, @RequestBody ComplainDto complainDto){
@@ -157,7 +188,7 @@ public class AdminController {
             return ResponseEntity.ok(adminService.getAllEvents(pageNumber,pageSize));
         }catch (Exception e){
             System.out.println(e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ContentNotFoundException("No Events Exist");
         }
     }
 }

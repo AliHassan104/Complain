@@ -3,14 +3,17 @@
 
 
 <!-- Mirrored from demo.adminkit.io/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Aug 2022 11:49:38 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+	<meta name="keywords"
+		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com/">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
@@ -21,35 +24,25 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 
-	<!-- Choose your prefered color scheme -->
-	<!-- <link href="css/light.css" rel="stylesheet"> -->
-	<!-- <link href="css/dark.css" rel="stylesheet"> -->
 
-	<!-- BEGIN SETTINGS -->
-	<!-- Remove this after purchasing -->
 	<link class="js-stylesheet" href="css/light.css" rel="stylesheet">
-	<!-- <script src="js/settings.js"></script> -->
+
 	<style>
 		body {
 			opacity: 0;
 		}
 	</style>
-	<!-- END SETTINGS -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	<script src="/js/properties.js"></script>
+	<script src="/js/customFetch.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
-  gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
-</script></head>
-<!--
-  HOW TO USE: 
-  data-theme: default (default), dark, light, colored
-  data-layout: fluid (default), boxed
-  data-sidebar-position: left (default), right
-  data-sidebar-layout: default (default), compact
--->
+		gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
+	</script>
+</head>
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
@@ -61,8 +54,9 @@
 						<b>Faisal Ward 2</b>
 						<!-- <sup><small class="badge bg-primary text-uppercase">Ward 2</small></sup> -->
 					</span>
-					<svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"
-						stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
+					<svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24"
+						fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"
+						color="#FFFFFF" style="margin-left: -3px">
 						<path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
 						<path d="M20 12L12 16L4 12"></path>
 						<path d="M20 16L12 20L4 16"></path>
@@ -72,19 +66,24 @@
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+							<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded me-1"
+								alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
-							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								Charles Hall
+							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" id="username">
+								
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
-								<a class="dropdown-item" href="/pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+								<a class="dropdown-item" href="/pages-profile.html"><i class="align-middle me-1"
+										data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
+								<a class="dropdown-item" href="/pages-settings.html"><i class="align-middle me-1"
+										data-feather="settings"></i> Settings &
 									Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#">Log out</a>
 							</div>
@@ -100,8 +99,8 @@
 					</li>
 
 					<li class="sidebar-item active">
-						<a data-bs-target="#dashboards"  class="sidebar-link">
-							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
+						<a data-bs-target="#dashboards" class="sidebar-link">
+							<i class="align-middle" data-feather="home"></i><span class="align-middle">Dashboards</span>
 						</a>
 					</li>
 
@@ -109,11 +108,15 @@
 
 					<li class="sidebar-item">
 						<a data-bs-target="#complaintype" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain Type</span>
+							<i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Complain
+								Type</span>
 						</a>
-						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="complaintype/addcomplaintype.html">Add Complain Type</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="complaintype/viewcomplaintype.html">View Complain Type</a></li>
+						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse "
+							data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link"
+									href="complaintype/addcomplaintype.html">Add Complain Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link"
+									href="complaintype/viewcomplaintype.html">View Complain Type</a></li>
 						</ul>
 					</li>
 
@@ -121,13 +124,16 @@
 
 					<li class="sidebar-item">
 						<a data-bs-target="#area" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Area</span>
+							<i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Area</span>
 						</a>
 						<ul id="area" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="area/addarea.html">Add Area</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="area/viewarea.html">View Area</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="area/addblock.html">Add Block</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="area/viewblock.html">View Block</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="area/viewarea.html">View Area</a>
+							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="area/addblock.html">Add Block</a>
+							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="area/viewblock.html">View Block</a>
+							</li>
 						</ul>
 					</li>
 
@@ -135,11 +141,13 @@
 
 					<li class="sidebar-item">
 						<a data-bs-target="#user" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">User</span>
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">User</span>
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="user/viewuser.html">View User</a>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
+							</li>
 						</ul>
 					</li>
 
@@ -147,11 +155,14 @@
 
 					<li class="sidebar-item">
 						<a data-bs-target="#watertiming" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Water Timing</span>
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Water
+								Timing</span>
 						</a>
 						<ul id="watertiming" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="watertiming/addwatertiming.html">Add Water Timing</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="watertiming/viewwatertiming.html">View Water Timing</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="watertiming/addwatertiming.html">Add
+									Water Timing</a></li>
+							<li class="sidebar-item"><a class="sidebar-link"
+									href="watertiming/viewwatertiming.html">View Water Timing</a></li>
 						</ul>
 					</li>
 
@@ -159,55 +170,69 @@
 
 					<li class="sidebar-item">
 						<a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Document</span>
+							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Document</span>
 						</a>
 						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="document/adddocument.html">Add Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="document/viewdocument.html">View Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="document/adddocument.html">Add
+									Document</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="document/viewdocument.html">View
+									Document</a></li>
 						</ul>
 					</li>
 
 					<li class="sidebar-item">
 						<a data-bs-target="#complain" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain</span>
+							<i class="align-middle" data-feather="layout"></i> <span
+								class="align-middle">Complain</span>
 						</a>
 						<ul id="complain" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="complain/addcomplain.html">Add Complain</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="complain/viewcomplain.html">View Complain</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="complain/addcomplain.html">Add
+									Complain</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="complain/viewcomplain.html">View
+									Complain</a></li>
 						</ul>
 					</li>
 
 					<li class="sidebar-item">
 						<a data-bs-target="#achievement" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Achievement</span>
+							<i class="align-middle" data-feather="award"></i> <span
+								class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="achievement/addachievement.html">Add Achievement</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="achievement/viewachievement.html">View Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="achievement/addachievement.html">Add
+									Achievement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link"
+									href="achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
 
 					<li class="sidebar-item">
 						<a data-bs-target="#pollingquestion" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Polling Question</span>
+							<i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">Polling
+								Question</span>
 						</a>
-						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
+						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse "
+							data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link"
+									href="pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
+							<li class="sidebar-item"><a class="sidebar-link"
+									href="pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
 						</ul>
 					</li>
 					<li class="sidebar-item">
 						<a data-bs-target="#events" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Events</span>
+							<i class="align-middle" data-feather="target"></i> <span class="align-middle">Events</span>
 						</a>
 						<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/events/addevents.html">Add Events</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/events/viewevents.html">View Events</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/addevents.html">Add
+									Events</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/viewevents.html">View
+									Events</a></li>
 						</ul>
 					</li>
 
-
+				</ul>
 
 			</div>
 		</nav>
@@ -227,242 +252,27 @@
 					</div>
 				</form>
 
-				<ul class="navbar-nav d-none d-lg-flex">
-					<li class="nav-item px-2 dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							Mega Menu
-						</a>
-						<div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="megaDropdown">
-							<div class="d-md-flex align-items-start justify-content-start">
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">UI Elements</div>
-									<a class="dropdown-item" href="#">Alerts</a>
-									<a class="dropdown-item" href="#">Buttons</a>
-									<a class="dropdown-item" href="#">Cards</a>
-									<a class="dropdown-item" href="#">Carousel</a>
-									<a class="dropdown-item" href="#">General</a>
-									<a class="dropdown-item" href="#">Grid</a>
-									<a class="dropdown-item" href="#">Modals</a>
-									<a class="dropdown-item" href="#">Tabs</a>
-									<a class="dropdown-item" href="#">Typography</a>
-								</div>
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">Forms</div>
-									<a class="dropdown-item" href="#">Layouts</a>
-									<a class="dropdown-item" href="#">Basic Inputs</a>
-									<a class="dropdown-item" href="#">Input Groups</a>
-									<a class="dropdown-item" href="#">Advanced Inputs</a>
-									<a class="dropdown-item" href="#">Editors</a>
-									<a class="dropdown-item" href="#">Validation</a>
-									<a class="dropdown-item" href="#">Wizard</a>
-								</div>
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">Tables</div>
-									<a class="dropdown-item" href="#">Basic Tables</a>
-									<a class="dropdown-item" href="#">Responsive Table</a>
-									<a class="dropdown-item" href="#">Table with Buttons</a>
-									<a class="dropdown-item" href="#">Column Search</a>
-									<a class="dropdown-item" href="#">Muulti Selection</a>
-									<a class="dropdown-item" href="#">Ajax Sourced Data</a>
-								</div>
-							</div>
-						</div>
-					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							Resources
-						</a>
-						<div class="dropdown-menu" aria-labelledby="resourcesDropdown">
-							<a class="dropdown-item" href="https://adminkit.io/" target="_blank"><i class="align-middle me-1" data-feather="home"></i>
-								Homepage</a>
-							<a class="dropdown-item" href="https://adminkit.io/docs/" target="_blank"><i class="align-middle me-1" data-feather="book-open"></i>
-								Documentation</a>
-							<a class="dropdown-item" href="https://adminkit.io/docs/getting-started/changelog/" target="_blank"><i class="align-middle me-1"
-									data-feather="edit"></i> Changelog</a>
-						</div>
-					</li>
-				</ul>
-
-				<div class="navbar-collapse collapse"> 
+				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
-								<div class="dropdown-menu-header">
-									4 New Notifications
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Update completed</div>
-												<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-												<div class="text-muted small mt-1">30m ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Lorem ipsum</div>
-												<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Login from 192.186.1.8</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">New connection</div>
-												<div class="text-muted small mt-1">Christina accepted your request.</div>
-												<div class="text-muted small mt-1">14h ago</div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Vanessa Tucker</div>
-												<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
-												<div class="text-muted small mt-1">15m ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">William Harris</div>
-												<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Christina Mason</div>
-												<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-												<div class="text-muted small mt-1">4h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Sharon Lessman</div>
-												<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-flag dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown">
-								<img src="img/flags/us.png" alt="English" />
-							</a>
-							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-								<a class="dropdown-item" href="#">
-									<img src="img/flags/us.png" alt="English" width="20" class="align-middle me-1" />
-									<span class="align-middle">English</span>
-								</a>
-								<a class="dropdown-item" href="#">
-									<img src="img/flags/es.png" alt="Spanish" width="20" class="align-middle me-1" />
-									<span class="align-middle">Spanish</span>
-								</a>
-								<a class="dropdown-item" href="#">
-									<img src="img/flags/ru.png" alt="Russian" width="20" class="align-middle me-1" />
-									<span class="align-middle">Russian</span>
-								</a>
-								<a class="dropdown-item" href="#">
-									<img src="img/flags/de.png" alt="German" width="20" class="align-middle me-1" />
-									<span class="align-middle">German</span>
-								</a>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-icon js-fullscreen d-none d-lg-block" href="#">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="maximize"></i>
-								</div>
-							</a>
-						</li>
+					
+		
 						<li class="nav-item dropdown">
 							<a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded" alt="Charles Hall" />
+								<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded" alt="Charles Hall" /> 
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+										data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
+								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1"
+										data-feather="settings"></i> Settings &
 									Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Log out</a>
+								<a class="dropdown-item"  onclick="logOut()">Log out</a>
 							</div>
 						</li>
 					</ul>
@@ -470,65 +280,35 @@
 			</nav>
 
 
-			
 
 
 
-			
+
+
 
 			<main class="content">
 				<div class="container-fluid p-0">
 
 					<div class="row mb-2 mb-xl-3">
 						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Analytics</strong> Dashboard</h3>
+							<h3><strong>Dashboard</strong></h3>
 						</div>
 					</div>
 
 
 
 					<div class="row">
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html?status=INREVIEW"> <h5 class="card-title">In Review Complain</h5> </a>
-								  
-								  <h5 class="text-center" id="inreview">5</h5>
-								  </div>
-							  </div>
-						</div> -->
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html?status=INPROGRESS"> <h5 class="card-title">In Progress Complain</h5> </a>
-								  <h5 class="text-center" id="inprogress">5</h5>
-								  </div>
-							  </div>
-						</div> -->
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html?status=RESOLVED"> <h5 class="card-title">Resolved Complain</h5> </a>
-								  <h5 class=" text-center" id="resolved">5</h5>
-								  </div>
-							  </div>
-						</div> -->
-						<!-- <div class="col-3">
-							<div class="card border-dark mb-3" style="max-width: 18rem;">
-								<div class="card-body text-dark">
-								  <a href="complain/viewcomplain.html"> <h5 class="card-title">Total Complain</h5> </a>
-								  <h5 class="text-center" id="totalcomplain" >5</h5>
-								  </div>
-							  </div>
-						</div>	 -->
+
 					</div>
 
 					<div class="row">
-						<div class="col-xl-6 col-xxl-5 d-flex">
+						<div class="col-xl-12 col-xxl-5 d-flex">
 							<div class="w-100">
 								<div class="row">
-									<div class="col-sm-6">
-										<a href="/complain/viewcomplain.html?status=IN_REVIEW" style="text-decoration: none;">
+
+									<div class="col-sm-4">
+										<a href="/complain/viewcomplain.html?status=IN_REVIEW"
+											style="text-decoration: none;">
 
 											<div class="card">
 												<div class="card-body">
@@ -538,102 +318,167 @@
 														</div>
 														<div class="col-auto">
 															<div class="stat text-primary">
-																<i class="align-middle" data-feather="truck"></i>
+																<i class="align-middle" data-feather="file-text"></i>
 															</div>
 														</div>
 													</div>
 													<h1 class="mt-1 mb-3" id="inreview">0</h1>
 													<div class="mb-0">
-														<span class="badge badge-primary-light" id="inreviewperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0 % </span>
+														<span class="badge badge-primary-light" id="inreviewperc">
+															<i class="mdi mdi-arrow-bottom-right">
+
+															</i></span>
+
 														<span class="text-muted">Complains Are In Review</span>
 													</div>
 												</div>
 											</div>
 										</a>
 
-									<a href="/complain/viewcomplain.html?status=IN_PROGRESS" style="text-decoration: none;">
+										
+										<a href="/complain/viewcomplain.html?status=IN_PROGRESS"
+											style="text-decoration: none;">
 
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">In Progress</h5>
-													</div>
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">In Progress</h5>
+														</div>
 
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="users"></i>
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="loader"></i>
+															</div>
 														</div>
 													</div>
-												</div>
-												<h1 class="mt-1 mb-3" id="inprogress">0</h1>
-												<div class="mb-0">
-													<span class="badge badge-success-light" id="inprogressperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
-													<span class="text-muted">Complains Are In Progress</span>
+													<h1 class="mt-1 mb-3" id="inprogress">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-success-light" id="inprogressperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Complains Are In Progress</span>
+													</div>
 												</div>
 											</div>
-										</div>
-									</a>
+										</a>
 									</div>
 
-									<div class="col-sm-6">
-										
-										<a href="/complain/viewcomplain.html?status=COMPLETED" style="text-decoration: none;">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Resolved</h5>
-													</div>
+									
 
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="dollar-sign"></i>
+									<div class="col-sm-4">
+										<a href="/complain/viewcomplain.html?status=COMPLETED"
+											style="text-decoration: none;">
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">Resolved</h5>
+														</div>
+
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="globe"></i>
+															</div>
 														</div>
 													</div>
-												</div>
-												<h1 class="mt-1 mb-3" id="resolved">0</h1>
-												<div class="mb-0">
-													<span class="badge badge-success-light" id="resolvedperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
-													<span class="text-muted">Complains Got Resolved</span>
+													<h1 class="mt-1 mb-3" id="resolved">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-success-light" id="resolvedperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Complains Got Resolved</span>
+													</div>
 												</div>
 											</div>
-										</div>
 										</a>
 
 										<a href="/complain/viewcomplain.html" style="text-decoration: none;">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Total Complain</h5>
-													</div>
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">Total Complain</h5>
+														</div>
 
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="shopping-cart"></i>
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="database"></i>
+															</div>
 														</div>
 													</div>
-												</div>
-												<h1 class="mt-1 mb-3" id="totalcomplain">0</h1>
-												<div class="mb-0">
-													<span class="badge badge-danger-light" id="rejectperc"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
-													<span class="text-muted">Complains Got Rejected</span>
+													<h1 class="mt-1 mb-3" id="totalcomplain">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-danger-light" id="rejectperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Complains Got Rejected</span>
+													</div>
 												</div>
 											</div>
-										</div>
 										</a>
+
 									</div>
+									<div class="col-sm-4">
+										<a href="/user/pendingRequest.html"
+											style="text-decoration: none;">
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">Pending Users</h5>
+														</div>
+
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="user"></i>
+															</div>
+														</div>
+													</div>
+													<h1 class="mt-1 mb-3" id="resolved">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-success-light" id="resolvedperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Pending Users</span>
+													</div>
+												</div>
+											</div>
+										</a>
+
+										<a href="/user/viewuser.html" style="text-decoration: none;">
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col mt-0">
+															<h5 class="card-title">Total Users</h5>
+														</div>
+
+														<div class="col-auto">
+															<div class="stat text-primary">
+																<i class="align-middle" data-feather="users"></i>
+															</div>
+														</div>
+													</div>
+													<h1 class="mt-1 mb-3" id="totalcomplain">0</h1>
+													<div class="mb-0">
+														<span class="badge badge-danger-light" id="rejectperc"> <i
+																class="mdi mdi-arrow-bottom-right"></i>
+														</span>
+														<span class="text-muted">Total Users</span>
+													</div>
+												</div>
+											</div>
+										</a>
+
+									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
 
-
-
-
-
-
+				
 					<div class="row">
 						<div class="col-12 col-lg-6 col-xxl-6 d-flex">
 							<div class="card flex-fill w-100">
@@ -700,20 +545,18 @@
 
 
 
-	
-	
-	
+
 
 	<script src="js/app.js"></script>
+	<script src="/js/dashboard.js"></script>
 	<script src="js/complainByMonth.js"></script>
 	<script src="js/complainByComplainType.js"></script>
 	<script src="js/complainByStatus.js"></script>
-
-	<script src="js/properties.js"></script>
 
 
 </body>
 
 
 <!-- Mirrored from demo.adminkit.io/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Aug 2022 11:49:44 GMT -->
+
 </html>

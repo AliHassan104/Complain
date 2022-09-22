@@ -2,6 +2,7 @@ package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
+import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.service.AchievementService;
@@ -72,4 +73,9 @@ public class ComplainTypeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+//    @GetMapping("/complaintype/search")
+//    public ResponseEntity<List<ComplainType>> filterComplainType(@RequestBody SearchCriteria searchCriteria){
+//
+//    }
 }

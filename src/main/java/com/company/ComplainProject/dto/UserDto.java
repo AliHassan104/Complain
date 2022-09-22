@@ -2,11 +2,15 @@ package com.company.ComplainProject.dto;
 
 import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
+import com.company.ComplainProject.dto.ProjectEnums.UserTypeEnum;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Roles;
+import com.company.ComplainProject.model.Block;
 import lombok.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,8 +32,11 @@ public class UserDto {
     private Integer numberOfFamilyMembers;
     private Address address;
     private Area area;
+    private Block block;
     private PropertyEnum property;
+    private UserTypeEnum userTypeEnum;
     private Set<Roles> roles = new HashSet<>();
 //                                                          Enums for user Status
-    private UserStatus status;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status = UserStatus.IN_REVIEW;
 }

@@ -2,10 +2,9 @@ let uid;
 
 function getDocuments() {
     let table = ""
-    fetch(`${baseUrl}/api/document`,{
+    fetch(`${baseUrl}/api/admin/document`,{
         headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
+            
             "Content-Type":"application/json",
             
         }
@@ -15,14 +14,16 @@ function getDocuments() {
         
 
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
+        <th style="width: 30%;" class="toptable ">Title</th>
         <th style="width: 30%;" class="toptable ">Area</th>
         <th style="width: 50%;" class="toptable ">URL</th>
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
         for (let i = 0; i < data.length; i++) {
-            console.log(data[i].url);
+
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
+            <td style="width: 30%;" class="datatable">${data[i].title}</td>
             <td style="width: 30%;" class="datatable">${data[i].area.name}</td>
             
         <td style="width: 50%;" class="datatable"><a target="_blank" href="${data[i].url}">${data[i].url}</a></td>
