@@ -2,7 +2,7 @@ let queryString;
 setTimeout(() => {
 
     queryString = window.location.search;
- 
+
     if (queryString != "") {
         const urlParams = new URLSearchParams(queryString)
         var urlId = urlParams.get("id")
@@ -32,7 +32,7 @@ function formSubmit() {
 
     var getDate = new Date(date);
     var dayName = days[getDate.getDay()];
-   
+
 
     let time = document.getElementById("time").value;
 
@@ -40,7 +40,7 @@ function formSubmit() {
         block: {
             id: block
         }
-        , day:dayName, date: date, time: time
+        , day: dayName, date: date, time: time
     };
 
 
@@ -73,9 +73,9 @@ function formSubmit() {
 
                 document.getElementById("formSubmitted").innerHTML = table
 
-                setTimeout(()=>{
+                setTimeout(() => {
                     document.getElementById("formSubmitted").innerHTML = ""
-                },2000)
+                }, 2000)
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -157,12 +157,21 @@ function getBlock(areaId) {
     })
         .then((response) => response.json())
         .then((data) => {
-            for (let i = 0; i < data.length; i++) {
-                table += `
-            <option value="${data[i].id}">${data[i].block_name}</option>
-        `
+            if (data.length !== 0) {
+                for (let i = 0; i < data.length; i++) {
+                    table += `
+                    <option value="${data[i].id}">${data[i].block_name}</option>
+                    `
+                }
+                document.getElementById("dropdownblock").innerHTML = table;
             }
-            document.getElementById("dropdownblock").innerHTML = table;
+            else {
+                table += `
+                    <option value="" disabled selected>Sorry No block Available</option>
+                    `
+                    document.getElementById("dropdownblock").innerHTML = table;
+            }
+
         })
 
 }

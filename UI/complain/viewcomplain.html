@@ -35,7 +35,8 @@
 			opacity: 0;
 		}
 	</style>
-
+<script src="/js/properties.js"></script>
+<script src="/js/customFetch.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
 
 
@@ -136,6 +137,7 @@
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
 						</ul>
 					</li>
 
@@ -452,11 +454,12 @@
 						<div class="col-sm-4">
 							<h1 class="h3 d-inline align-middle heading">Complains</h1>
 						</div>
+
 						<div id="dropdownarea1" class="col-sm-4">
 
 						</div>
 						
-						<select onchange="filterComplainByStatus()" onclick="filterComplainByStatus()" class="selectpicker show-tick" data-style="btn-secondary" id="filterByStatus">
+						<select  class="selectpicker show-tick" data-style="btn-secondary" id="filterByStatus">
 							<option  disabled selected>Filter By Status</option>
 							<option value="IN_REVIEW">In Review</option>
 							<option value="IN_PROGRESS">In Progress</option>
@@ -465,7 +468,6 @@
 							<option value="All">All</option>
 						</select>
 						  
-
 					</div>	
 
 					<br>

@@ -20,6 +20,11 @@ function getEvent() {
         </tr>`
 
         for (let i = 0; i < data.length; i++) {
+        
+            if(data[i].description.length >= 8){
+                data[i].description = data[i].description.substring(0,8)+`<a style="color:blue">...more</a>`
+            }   
+            
             table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >

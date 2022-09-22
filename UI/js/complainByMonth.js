@@ -1,7 +1,15 @@
 let month = ["January", "February", "March", "April", "May", "June","July","August","September","October","November","December"]
 let max = 0;
 let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
-  
+
+
+function logOut(){
+    localStorage.clear();
+
+    location.href = `${loginUrl}/loginPage/loginpage.html`
+}
+
+
 function getComplain() {
     fetch("http://localhost:8081/api/complianbymonth",{
       headers:{

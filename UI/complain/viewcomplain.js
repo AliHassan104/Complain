@@ -1,33 +1,32 @@
 
 let queryString = window.location.search;
+var complainStatus;
+
 if (queryString != "") {
+    let parameters = new URLSearchParams(queryString);
+    complainStatus= parameters.get("status")
     filterComplainByStatus()
 }
 else {
     getComplain()
 }
 
+document.getElementById('filterByStatus').addEventListener('change', function() {
+    complainStatus = this.value
+    filterComplainByStatus()
+  });
                                                         // filterByStatus
 
 function filterComplainByStatus() {
 
-    let status;
-
-    if (queryString != "") {
-        let parameters = new URLSearchParams(queryString);
-        status = parameters.get("status")
-    }
-    else {
-        status = document.getElementById("filterByStatus").value;
-    }
 
     search = {
         "key": "status",
         "operation": ":",
-        "value": status
+        "value": complainStatus
     }
 
-    if (status !== "All") {
+    if (complainStatus !== "All") {
         fetch(`${baseUrl}/api/complain/searchByStatus`, {
             method: "POST",
             headers: {

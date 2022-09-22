@@ -3,10 +3,20 @@ tokenNotExist();
 function getToken() {
     let token = localStorage.getItem("jwtToken")
     if(token != null){
-        return `Bearer ${token}`
+        return "Bearer "+token
     }
     return null;
 }
+
+function decodeJwtToken(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
 
 
 function getData(url) {
@@ -14,7 +24,7 @@ function getData(url) {
         method: "GET",
         headers: {
             "Content-type": "application/json",
-            "Authorization": getToken()
+            // "Authorization": getToken()
         }
     })
         .then((response) => {
@@ -26,13 +36,13 @@ function getData(url) {
         });
 }
 
-function sendData(url, data) {
+function sendData(url,data) {
 
     return fetch(`${baseUrl}/api/${url}`, {
         method: "POST",
         headers: {
             "Content-type": "application/json",
-            "Authorization": getToken()
+            // "Authorization": getToken()
         },
         body: JSON.stringify(data)
     })
@@ -46,14 +56,14 @@ function sendData(url, data) {
 }
 
 function deleteData(url) {
-    fetch(`${baseUrl}/api/${url}`, {
+    return fetch(`${baseUrl}/api/${url}`, {
         method: 'DELETE',
         headers: {
             "Authorization": getToken()
         }
     })
         .then((data) => {
-
+           
         })
         .catch((error) => {
             console.log(error);
@@ -62,8 +72,16 @@ function deleteData(url) {
 
 function tokenNotExist() {
     let token = getToken()
-    if(token == null){
-    window.open(`${loginUrl}/loginPage/loginpage.html`,"_self")  
+    let userDetails = "";
+    if(token != null){
+        userDetails = decodeJwtToken(token.substring(7))
     }
+    if(token == null || userDetails.ROLES != "[ROLE_ADMIN]"){
+
+        window.open(`${loginUrl}/loginPage/loginpage.html`,"_self")
+        // document.getElementById("notAllowed").innerText = 'Only Admin Allowed'
+    }
+    
+   
 }
 

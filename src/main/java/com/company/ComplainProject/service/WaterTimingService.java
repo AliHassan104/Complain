@@ -1,6 +1,8 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.dto.WaterTimingByBlockDto;
+import com.company.ComplainProject.dto.WaterTimingDetails;
 import com.company.ComplainProject.dto.WaterTimingDto;
 import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.model.WaterTiming;
@@ -12,9 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,4 +102,24 @@ public class WaterTimingService {
         }
         return waterTimings;
     }
+
+
+    public List<WaterTimingByBlockDto> getAllWaterTimngByBlock() {
+        List<Block> blocks = blockService.getAllBlocks().stream().collect(Collectors.toList());
+        List<WaterTimingByBlockDto>  blockDtos =new ArrayList<>();
+        List<WaterTiming> waterTimings;
+        List<WaterTimingDetails> waterTimingDetails;
+
+        for (Block block:blocks) {
+            waterTimings= waterTimingRepository.getAllWaterTimingByBlock(block);
+            waterTimingDetails = waterTimings.stream().map(waterTiming -> waterTimingToWaterTimingDetails(waterTiming)).collect(Collectors.toList());
+            blockDtos.add(new WaterTimingByBlockDto(block.getArea().getId(),block.getArea().getName(),block.getId(),block.getBlock_name(),waterTimingDetails));
+        }
+        return blockDtos;
+    }
+
+    public WaterTimingDetails waterTimingToWaterTimingDetails(WaterTiming waterTiming){
+        return WaterTimingDetails.builder().time(waterTiming.getTime()).day(waterTiming.getDay()).date(waterTiming.getDate()).build();
+    }
 }
+

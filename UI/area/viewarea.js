@@ -4,6 +4,7 @@ let uid ;
 
 
 function getArea() {
+
     let table = ""
  
     let url = "admin/area";
@@ -48,10 +49,9 @@ getArea()
 
 
 function deleteArea(id){
-   
-    fetch(`${baseUrl}/api/area/`+id, {
-            method: 'DELETE'
-    }).then(()=>{
+    
+    let url = `area/${id}`
+    deleteData(url).then(()=>{
         let table = ""
 
         table += `

@@ -22,7 +22,7 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 
-
+	
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
 
 	<style>
@@ -130,14 +130,14 @@
 
 
 
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 						<a data-bs-target="#user" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">User</span>
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">View User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
 						</ul>
 					</li>
 
@@ -186,7 +186,7 @@
 					</li>
 
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a data-bs-target="#pollingquestion" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Polling Question</span>
 						</a>
@@ -224,64 +224,7 @@
 					</div>
 				</form>
 
-				<ul class="navbar-nav d-none d-lg-flex">
-					<li class="nav-item px-2 dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							Mega Menu
-						</a>
-						<div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="megaDropdown">
-							<div class="d-md-flex align-items-start justify-content-start">
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">UI Elements</div>
-									<a class="dropdown-item" href="#">Alerts</a>
-									<a class="dropdown-item" href="#">Buttons</a>
-									<a class="dropdown-item" href="#">Cards</a>
-									<a class="dropdown-item" href="#">Carousel</a>
-									<a class="dropdown-item" href="#">General</a>
-									<a class="dropdown-item" href="#">Grid</a>
-									<a class="dropdown-item" href="#">Modals</a>
-									<a class="dropdown-item" href="#">Tabs</a>
-									<a class="dropdown-item" href="#">Typography</a>
-								</div>
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">Forms</div>
-									<a class="dropdown-item" href="#">Layouts</a>
-									<a class="dropdown-item" href="#">Basic Inputs</a>
-									<a class="dropdown-item" href="#">Input Groups</a>
-									<a class="dropdown-item" href="#">Advanced Inputs</a>
-									<a class="dropdown-item" href="#">Editors</a>
-									<a class="dropdown-item" href="#">Validation</a>
-									<a class="dropdown-item" href="#">Wizard</a>
-								</div>
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">Tables</div>
-									<a class="dropdown-item" href="#">Basic Tables</a>
-									<a class="dropdown-item" href="#">Responsive Table</a>
-									<a class="dropdown-item" href="#">Table with Buttons</a>
-									<a class="dropdown-item" href="#">Column Search</a>
-									<a class="dropdown-item" href="#">Muulti Selection</a>
-									<a class="dropdown-item" href="#">Ajax Sourced Data</a>
-								</div>
-							</div>
-						</div>
-					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							Resources
-						</a>
-						<div class="dropdown-menu" aria-labelledby="resourcesDropdown">
-							<a class="dropdown-item" href="https://adminkit.io/" target="_blank"><i class="align-middle me-1" data-feather="home"></i>
-								Homepage</a>
-							<a class="dropdown-item" href="https://adminkit.io/docs/" target="_blank"><i class="align-middle me-1" data-feather="book-open"></i>
-								Documentation</a>
-							<a class="dropdown-item" href="https://adminkit.io/docs/getting-started/changelog/" target="_blank"><i class="align-middle me-1"
-									data-feather="edit"></i> Changelog</a>
-						</div>
-					</li>
-				</ul>
+				
 
 				<div class="navbar-collapse collapse"> 
 					<ul class="navbar-nav navbar-align">
@@ -481,16 +424,29 @@
 			
             
 			<main class="content">
-                <div class="container-fluid p-0">
+                
+				<div class="container-fluid p-0">
 
 					<div id="formSubmitted" style="height: 5vh;">
                         
                     </div>
 
-					<div class="mb-3">
-						<h1 class="h3 d-inline align-middle">Polling Question</h1>
-						<!-- <a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a> -->
+
+					<div class="row">
+						<div class="col-sm-4">
+							<h1 class="h3 d-inline align-middle">Pending User Requests</h1>
+						</div>
+						
+						<div id="dropdownarea1" class="col-sm-4">
+
+						</div>
+						<div class="col-sm-4">
+							<button onclick="exportDataToExcel()" class="btn btn-secondary">Export to Excel</button>
+						</div>
 					</div>
+					
+					<br>
+
 
 					<div class="row">
 						<div class="col-12">
@@ -505,12 +461,13 @@
 					</div>
 
 				</div>
+
 			</main>
 
 	<script src="/js/app.js"></script>
 	<script src="/js/properties.js"></script>
-	<script src="/pollingquestion/viewpollingquestion.js"></script>
-
+	<script src="/user/viewuser.js"></script>
+	
 </body>
 
 <!-- Mirrored from demo.adminkit.io/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Aug 2022 11:49:44 GMT -->

@@ -22,10 +22,10 @@ function getAchievement() {
             table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
-            <td style="width: 15%;" class="datatable">${data[i].title}</td>
-            <td style="width: 20%;" class="datatable">${data[i].description}</td>
-            <td style="width: 15%;" class="datatable">${data[i].date}</td>
-            <td style="width: 20%;" class="datatable"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
+            <td style="width: 15%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].title}</td>
+            <td style="width: 20%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].description}</td>
+            <td style="width: 15%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].date}</td>
+            <td style="width: 20%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
             </td>
             <td style="width: 20%;" class="datatable"> 
 
@@ -52,33 +52,9 @@ function getAchievement() {
 getAchievement();
 
 
-// function updateAchievement(){
-
-//     let title = document.getElementById("achievementtitle").value;
-//     let description = document.getElementById("description").value;
-//     let date = document.getElementById("date").value;
-//     let image = document.getElementById("inpFile");
-
-//     newAchievement = {title : title, description : description , date : date}; 
-
-//     newAchievement = JSON.stringify(newAchievement)
-
-//     var formData = new FormData();
-
-//     for (const file of image.files) {
-//         formData.append("pictureUrl",file)
-//     }
-//     formData.append('data',newAchievement);
-
-//     fetch(`${baseUrl}/api/achievement/`+uid,{
-//         method:"PUT",
-//         body: formData
-    
-//     }).then((response)=>response.json())
-//     .then((data)=> console.log(data))
-//     .catch((error)=>console.log(error))
-
-// }
+function showAchievementDetails(id){
+    location.href = `${loginUrl}/achievement/achievementdetails.html?a_id=${id}`
+}
 
 function deleteAchievement(id){
     fetch(`${baseUrl}/api/achievement/`+id, {
