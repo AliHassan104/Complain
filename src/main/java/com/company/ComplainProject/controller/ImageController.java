@@ -48,5 +48,6 @@ public class ImageController {
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(inputStream,response.getOutputStream());
         inputStream.close();
+        response.getOutputStream().close();
     }
 }

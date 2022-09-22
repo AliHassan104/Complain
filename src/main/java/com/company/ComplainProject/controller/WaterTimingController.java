@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.dto.WaterTimingByBlockDto;
 import com.company.ComplainProject.dto.WaterTimingDto;
 import com.company.ComplainProject.model.WaterTiming;
 import com.company.ComplainProject.service.WaterTimingService;
@@ -11,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -89,7 +91,7 @@ public class WaterTimingController {
             throw new ContentNotFoundException("Water timing having area id "+areaId+" not exist");
         }
     }
-//                                                  get water timing by block
+//                                                          get water timing by block
     @GetMapping("watertimingByBlock/{block}")
     public ResponseEntity<List<WaterTiming>> getWaterTimingsByBlock(@PathVariable("block") Long blockId){
         try {
@@ -99,6 +101,11 @@ public class WaterTimingController {
             System.out.println(e+" Exception in getting water timing by block");
             throw new ContentNotFoundException("Water timing having block id "+blockId+" not exist");
         }
+    }
+
+    @GetMapping("allWatertimingByBlock")
+    public ResponseEntity<List<WaterTimingByBlockDto>> getAllWaterTimingByBlock(){
+        return ResponseEntity.ok(waterTimingService.getAllWaterTimngByBlock());
     }
 
 }

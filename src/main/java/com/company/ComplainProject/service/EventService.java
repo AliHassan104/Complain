@@ -1,6 +1,8 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.EventDto;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class EventService {
 
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    AreaService areaService;
 
     final String eventImageFolderPath = Paths.get("src/main/resources/static/event/images").toAbsolutePath().toString();
 //                                                                                          get all events
@@ -48,8 +52,7 @@ public class EventService {
      public Optional<Event> getEventById(Long id){
         Optional<Event> event = eventRepository.findById(id);
         if(!event.isPresent()){
-//            Exception no content Found
-            return null;
+            throw new ContentNotFoundException("No Event Exist Having id "+id);
         }
         return event;
      }
@@ -60,11 +63,15 @@ public class EventService {
 //                                                                                          update event by id
      public EventDto updateEventById(Long id,EventDto eventDto){
         Event getevent = getAllEvent().stream().filter(event -> event.getId().equals(id)).findAny().get();
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(eventDto.getArea().getId())).findAny().get();
+
         if(getevent != null){
+            getevent.setTitle(eventDto.getTitle());
             getevent.setDescription(eventDto.getDescription());
             getevent.setStartDate(eventDto.getStartDate());
             getevent.setStartTime(eventDto.getStartTime());
             getevent.setImage(eventDto.getImage());
+            getevent.setArea(area);
         }
         return todto(eventRepository.save(getevent));
      }
@@ -83,14 +90,19 @@ public class EventService {
 
     public EventDto todto(Event event)
     {
-        return  EventDto.builder().id(event.getId()).description(event.getDescription())
-                .image(event.getImage()).startDate(event.getStartDate()).startTime(event.getStartTime())
+        return  EventDto.builder().id(event.getId()).title(event.getTitle()).description(event.getDescription())
+                .image(event.getImage()).startDate(event.getStartDate()).startTime(event.getStartTime()).area(event.getArea())
                 .build();
     }
 
     public Event dto(EventDto eventDto){
-        return Event.builder().id(eventDto.getId()).description(eventDto.getDescription())
-                .image(eventDto.getImage()).startDate(eventDto.getStartDate()).startTime(eventDto.getStartTime()).build();
+        return Event.builder().id(eventDto.getId()).title(eventDto.getTitle()).description(eventDto.getDescription())
+                .image(eventDto.getImage()).startDate(eventDto.getStartDate()).startTime(eventDto.getStartTime()).area(eventDto.getArea()).build();
+    }
+
+    public List<Event> getEventByArea(Long areaId) {
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId)).findAny().get();
+        return eventRepository.findEventByArea(area);
     }
 
 }

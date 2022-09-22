@@ -22,20 +22,17 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 
-	<!-- Choose your prefered color scheme -->
-	<!-- <link href="css/light.css" rel="stylesheet"> -->
-	<!-- <link href="css/dark.css" rel="stylesheet"> -->
-
-	<!-- BEGIN SETTINGS -->
-	<!-- Remove this after purchasing -->
+	
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
-	<!-- <script src="js/settings.js"></script> -->
+	
 	<style>
 		body {
 			opacity: 0;
 		}
 	</style>
-	<!-- END SETTINGS -->
+	
+<script src="/js/properties.js"></script>
+<script src="/js/customFetch.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -44,13 +41,6 @@
 
   gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 </script></head>
-<!--
-  HOW TO USE: 
-  data-theme: default (default), dark, light, colored
-  data-layout: fluid (default), boxed
-  data-sidebar-position: left (default), right
-  data-sidebar-layout: default (default), compact
--->
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
@@ -140,6 +130,7 @@
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
 						</ul>
 					</li>
 

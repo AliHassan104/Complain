@@ -6,8 +6,8 @@ setTimeout(() => {
     
     if (queryString != "") {
         const urlParams = new URLSearchParams(queryString)
-        const urlId = urlParams.get("id")
-    // queryString = queryString.slice(4,queryString.length)
+        var urlId = urlParams.get("id")
+    
     fetch(`${baseUrl}/api/document/${urlId}`, {
 })
 .then(response => response.json()).catch(()=>{})
@@ -28,17 +28,15 @@ function formSubmit(){
 
     let url = document.getElementById("url").value;
     let title = document.getElementById("title").value;
-    
     var select = document.getElementById('dropdownarea');
     var area = select.options[select.selectedIndex].value;
 
 
-    newDocument = {url : url,
+    newDocument = {title:title,url : url,
         area : {
             id : area
         }
     }; 
-    console.log(newDocument);
 
     if (queryString == "") {
         fetch(`${baseUrl}/api/document`, {
@@ -62,8 +60,9 @@ function formSubmit(){
         console.error('Error:', error);
     });
 
-} else {
-    fetch(`${baseUrl}/api/document/${queryString}`, {
+} 
+else {
+    fetch(`${baseUrl}/api/document/${urlId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -85,13 +84,11 @@ function formSubmit(){
         });
 }
     
-    
     document.getElementById("url").value = "";
 }
 
 function getArea() {
     let table = ""
-    // fetch(`${baseUrl}/api/area`,{
         fetch(`${baseUrl}/api/area`,{
         headers:{
             "Content-Type":"application/json",

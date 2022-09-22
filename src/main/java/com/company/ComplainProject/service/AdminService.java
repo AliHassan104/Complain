@@ -141,9 +141,6 @@ public class AdminService {
 
     public List<EventDto> getAllEvents(Integer pageNumber, Integer pageSize) {
         List<EventDto> eventDtos =  eventService.getAllEventWithPagination(pageNumber,pageSize);
-        if(eventDtos.isEmpty()){
-            throw new ContentNotFoundException("No Events Exist");
-        }
         return  eventDtos;
     }
 

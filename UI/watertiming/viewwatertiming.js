@@ -4,14 +4,13 @@ let uid;
 
 function getWaterTiming() {
     let table = ""
-    fetch(`${baseUrl}/api/watertiming`,{
+    fetch(`${baseUrl}/api/admin/watertiming`,{
         headers:{
             "Content-Type":"application/json",
         }
     })
     .then((response)=>response.json()).catch(()=>{})
     .then((data)=> {
-         console.log("Data ",data)
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 20%;" class="toptable ">Area</th>

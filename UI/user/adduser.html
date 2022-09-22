@@ -25,20 +25,17 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 
-	<!-- Choose your prefered color scheme -->
-	<!-- <link href="css/light.css" rel="stylesheet"> -->
-	<!-- <link href="css/dark.css" rel="stylesheet"> -->
 
-	<!-- BEGIN SETTINGS -->
-	<!-- Remove this after purchasing -->
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
-	<!-- <script src="js/settings.js"></script> -->
+
 	<style>
 		body {
 			opacity: 0;
 		}
 	</style>
-	<!-- END SETTINGS -->
+	
+	<script src="/js/properties.js"></script>
+	<script src="/js/customFetch.js"></script>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -157,8 +154,8 @@
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a>
-							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
 						</ul>
 					</li>
 
@@ -559,15 +556,7 @@
 
 						<form>
 							<fieldset>
-								<!-- <div class="row mb-3">
-
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Add Complain Type</label>
-                                    <div class="col-sm-10">
-                                        
-                                  	<input type="text" class="form-control" id="addcomplaintype" aria-describedby="emailHelp" placeholder="Enter Complain Type">
-                                    </div>
-
-                                </div> -->
+								
 								<div class="card-body">
 									<div class="row">
 										<div class="col">
@@ -635,17 +624,34 @@
 									<select id="dropdownarea" class="form-select">
 									</select>
 									<br>
-									<label for="exampleInputPassword1">Select Property</label>
-									<select id="dropdownproperty" class="form-select">
-										<option value="Owner">Owner</option>
-										<option value="Tenant">Tenant</option>
-									</select>
+									
+
+									<div class="row">
+										<div class="col-4">
+											<label for="exampleInputPassword1">Select Property</label>
+											<select id="dropdownproperty" class="form-select" >
+												<option value="Owner">Owner</option>
+												<option value="Tenant">Tenant</option>
+											</select>
+										</div>
+										<div class="col-4">
+											<label for="exampleInputPassword1">Select Type</label>
+											<select id="dropdownproperty" class="form-select" >
+												<option value="Customer">Customer</option>
+												<option value="Worker">Worker</option>
+												<option value="Admin">Admin</option>
+											</select>
+										</div>
+										<div class="col-4">
+											<label for="exampleInputPassword1">Select Block</label>
+											<select id="dropdownblock" class="form-select" >
+											</select>
+										</div>
+									</div>
+
 									<br>
 									<div class="row">
-										<!-- <div class="col">
-										<label for="validationDefault03">City</label>
-										<input type="text" class="form-control" id="city" placeholder="City" required>
-									  </div> -->
+							
 										<div class="col">
 											<label for="validationDefault04">Floor Number</label>
 											<input type="number" class="form-control" id="floornumber"

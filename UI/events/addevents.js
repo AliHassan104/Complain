@@ -1,103 +1,159 @@
 let queryString = window.location.search;
 
 if (queryString != "") {
-    queryString = queryString.slice(4,queryString.length)
-    fetch(`${baseUrl}/api/event/`+queryString , {
-})
-.then(response => response.json()).catch(()=>{})
-.then(data => {
-        document.getElementById("achieveventbtn").innerText = "Update"
-        // document.getElementById('achievementtitle').value = data.title;
-        document.getElementById('description').value = data.description;
-        document.getElementById('start_date').value = data.startDate;
-        document.getElementById('start_time').value = data.startTime;
-      
+    const urlparams = new URLSearchParams(queryString);
+    var eventId = urlparams.get("id")
+
+    fetch(`${baseUrl}/api/event/` + eventId, {
     })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json()).catch(() => { })
+        .then(data => {
+            document.getElementById("achieveventbtn").innerText = "Update"
+            document.getElementById('eventtitle').value = data.title;
+            document.getElementById('description').value = data.description;
+            document.getElementById('start_date').value = data.startDate;
+            document.getElementById('start_time').value = data.startTime;
+
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
-function formSubmit(){
+function formSubmit() {
 
-    // let title = document.getElementById("achievementtitle").value;
+    let title = document.getElementById("eventtitle").value;
     let description = document.getElementById("description").value;
     let date = document.getElementById("start_date").value;
     let time = document.getElementById("start_time").value;
     let image = document.getElementById("inpFile");
 
-    newAchievement = {description : description , startDate : date , startTime : time}; 
-
-    newAchievement = JSON.stringify(newAchievement)
-
-    var formData = new FormData();
-
-    for (const file of image.files) {
-        formData.append("image",file)
-    }
-    formData.append('data',newAchievement);
+    let selectArea = document.getElementById("dropdownarea");
+    let areaid = selectArea.value;
 
 
-    if (queryString == "") {
-        
-        fetch("http://localhost:8081/api/event",{
-            method:"POST",
-            body: formData
+    if (title != "" && description != "" && date != "" && time != "" && image.value != "") {
+
+        newAchievement = { title: title, description: description, startDate: date, startTime: time, area: { id: areaid } };
+
+        newAchievement = JSON.stringify(newAchievement)
+        var formData = new FormData();
+
+        for (const file of image.files) {
+            formData.append("image", file)
+        }
+        formData.append('data', newAchievement);
+
+
+        if (queryString == "") {
             
-        }).then((response)=>response.json())
-    .then((data)=> {
-    let table = ""
-    table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    Event Is Added  Successfully
-    </div>`
-    document.getElementById("formSubmitted").innerHTML = table
-    
-    // document.getElementById("achievementtitle").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("start_date").value = "";
-    document.getElementById("start_time").value = "";
-    document.getElementById("inpFile").value.files = "";
-})
-.catch((error)=>console.log(error))
+            fetch("http://localhost:8081/api/event", {
+                method: "POST",
+                body: formData
 
+            }).then((response) => response.json())
+                .then((data) => {
+                    let table = ""
+                    table += `
+                    <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-success" role="alert">
+                    <b> Event Is Added  Successfully <b>
+                    </div>`
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    document.getElementById("eventtitle").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("start_date").value = "";
+                    document.getElementById("start_time").value = "";
+                    document.getElementById("inpFile").value.files = "";
+                })
+                .catch((error) => console.log(error))
+
+        }
+        else {
+          
+            fetch("http://localhost:8081/api/event/" + eventId, {
+                method: "PUT",
+                body: formData
+
+            }).then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    let table = ""
+                    table += `
+                    <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-success" role="alert">
+                    <b> Event Is Updated  Successfully <b>
+                    </div>`
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    document.getElementById("eventtitle").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("start_date").value = "";
+                    document.getElementById("start_time").value = "";
+                    document.getElementById("inpFile").value.files = "";
+                })
+                .catch((error) => console.log(error))
+        }
     }
     else{
-         console.log("Iam query String",queryString)
-        fetch("http://localhost:8081/api/event/"+queryString,{
-            method:"PUT",
-            body: formData
-            
-        }).then((response)=>response.json())
-    .then((data)=> {
-    console.log(data);
-    let table = ""
-    table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    Event Is Updated  Successfully
-    </div>`
-    document.getElementById("formSubmitted").innerHTML = table
-    
-    // document.getElementById("achievementtitle").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("start_date").value = "";
-    document.getElementById("start_time").value = "";
-    document.getElementById("inpFile").value.files = "";
-})
-.catch((error)=>console.log(error))
+        let addDataOrUpdate;
+        if(queryString == ""){
+            addDataOrUpdate = "Add Event"
+        }
+        else{
+            addDataOrUpdate = "Update Event"
+        }
+
+        let invalidData = ""
+        invalidData += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-success" role="alert">
+            <b>Invalid Data ! Cannot ${addDataOrUpdate} <b>
+            </div>`
+
+            document.getElementById("formSubmitted").innerHTML = invalidData
+    }
 }
+
+function getArea() {
+    let dataRender = ""
+
+    fetch(`${baseUrl}/api/admin/area`, {
+        'Content-Type': 'application/json',
+    })
+        .then((response) => response.json()).catch(() => { })
+        .then((data) => {
+
+            if (data.length !== 0) {
+                for (let i = 0; i < data.length; i++) {
+                    dataRender += `<option value="${data[i].id}">${data[i].name}</option>`
+                }
+            }
+            else {
+                dataRender += `<option value="" selected disabled>Sorry No Area Available</option>`
+            }
+            document.getElementById("dropdownarea").innerHTML = dataRender
+
+        })
 }
+
+getArea()

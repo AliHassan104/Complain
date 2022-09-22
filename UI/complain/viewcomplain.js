@@ -1,42 +1,53 @@
 
 let queryString = window.location.search;
+var complainStatus;
+
 if (queryString != "") {
-    queryString = queryString.slice(8, queryString.length)
-    console.log(queryString);
+    let parameters = new URLSearchParams(queryString);
+    complainStatus= parameters.get("status")
+    filterComplainByStatus()
+}
+else {
+    getComplain()
+}
+
+document.getElementById('filterByStatus').addEventListener('change', function() {
+    complainStatus = this.value
+    filterComplainByStatus()
+  });
+                                                        // filterByStatus
+
+function filterComplainByStatus() {
+
+
     search = {
         "key": "status",
         "operation": ":",
-        "value": queryString
+        "value": complainStatus
     }
-    console.log(search);
-    fetch(`${baseUrl}/api/complain/search`, {
-        method: 'GET',
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+
+    if (complainStatus !== "All") {
+        fetch(`${baseUrl}/api/complain/searchByStatus`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(search)
+
+        }).then((response) => response.json()).catch(() => { })
+            .then((data) => {
+                renderComplainData(data)
+            })
+    }
+    else{
+        getComplain()
+    }
 }
 
-// setTimeout(() => {
-getComplain()
-// }, 1000);
-
-function getComplain() {
-    debugger;
+function renderComplainData(data) {
+   
     let table = ""
-    fetch(`${baseUrl}/api/admin/complain`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json()).catch(() => { })
-        .then((data) => { 
-        
-        table += `
+    table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
 
         <th style="width: 10%;" class="toptable ">User Name</th>
@@ -49,39 +60,62 @@ function getComplain() {
         <th style="width: 15%;" class="toptable ">Action</th>
         </tr>`
 
-        for (let i = 0; i < data.length; i++) {
-                    table += `
+    for (let i = 0; i < data.length; i++) {
+        table += `
 
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 10%;" class="datatable">${data[i].user.firstname + " " + data[i].user.lastname}</td>
-            <td style="width: 10%;" class="datatable">${data[i].complainType.name}</td>
-            <td style="width: 15%;" class="datatable">${data[i].description}</td>
-            <td style="width: 10%;" class="datatable">${data[i].status}</td>
-            <td style="width: 10%;" class="datatable">${data[i].date}</td>
-            <td style="width: 10%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 20%;" class="datatable"><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px"> 
+            
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id}) >${data[i].user.firstname + " " + data[i].user.lastname}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].complainType.name}</td>
+            <td style="width: 15%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].description}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].status}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].date}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].area.name}</td>
+            <td style="width: 20%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px"> 
+           
             <td style="width: 15%;" class="datatable"> 
-
             <a  href="/complain/addcomplain.html?id=${data[i].id}">
             <i onclick="updateComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;"  
             class="fa fa-pencil"></i>
             </a>
 
-            <i onclick="updatedStatusModal(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#statusmodal"  
+            <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
             style="padding-right: 5px; margin-right: 5px;"  class="fa fa-file"></i>
+
             <i onclick="deleteComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;" class="fa fa-close"></i>
-    </td>
+
+            </td>
         </tr>`
-                }
-                document.getElementById("datatables-reponsive").innerHTML = table;
-            
-           if(data.length === 0){
-                noComplainFound = ""
-                noComplainFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+    }
+    document.getElementById("datatables-reponsive").innerHTML = table;
+    
+    if (data.length === 0) {
+        noComplainFound = ""
+        noComplainFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
                 class="alert alert-danger" role="alert" >No Complain Found</span> `
-                document.getElementById("noRecordFound").innerHTML = noComplainFound
-           }
-            
+        document.getElementById("noRecordFound").innerHTML = noComplainFound
+    }
+    else{
+        document.getElementById("noRecordFound").innerHTML = ""
+    }
+
+}
+
+function showComplainDetails(id) {
+    location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
+}
+
+
+function getComplain() {
+
+    fetch(`${baseUrl}/api/admin/complain`, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+        .then((response) => response.json()).catch(() => { })
+        .then((data) => {
+            renderComplainData(data)
         })
 
 }
@@ -92,7 +126,6 @@ function updatedStatusModal(id) {
 }
 
 function updateStatus() {
-    console.log(uid);
     let updatedstatus = document.getElementById("updatedstatus").value;
 
     let updatedataus = {
@@ -120,18 +153,15 @@ function updateStatus() {
 
 
 function deleteComplain(id) {
-debugger;
-    fetch(`${baseUrl}/api/complain/`+ id, {
-        method: 'DELETE'
-    }).finally(()=>{
-        // window.location.reload()
-       
-    })
-    .catch(() => {
-        
-        let table = ""
 
-        table += `
+    fetch(`${baseUrl}/api/complain/` + id, {
+        method: 'DELETE'
+    })
+        .then(() => {
+
+            let table = ""
+
+            table += `
             <div  style=" 
             margin: auto;
             text-align: center;
@@ -140,14 +170,18 @@ debugger;
             justify-content: center;
             font-size: large" 
             class="alert alert-danger" role="alert">
-            Complain Type  Deleted Successfully
+            Complain Deleted Successfully
             </div>`
 
-        document.getElementById("formSubmitted").innerHTML = table
-    })
+            document.getElementById("formSubmitted").innerHTML = table
+
+            setTimeout(() => {
+                document.getElementById("formSubmitted").innerHTML = ""
+            }, 2000)
+        })
 
     setTimeout(() => {
-     getComplain()
+        getComplain()
     }, 100);
 
 }
@@ -188,8 +222,7 @@ function filterByArea() {
     else {
         fetch(`${baseUrl}/api/complain/` + area, {
             headers: {
-                // mode: 'no-cors',
-                // "Authorization":jwtTokenBearer,
+
                 "Content-Type": "application/json",
 
             }
@@ -230,6 +263,7 @@ function filterByArea() {
             })
     }
 }
+
 
 
 

@@ -19,11 +19,11 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;
-
     private String url;
 
 }

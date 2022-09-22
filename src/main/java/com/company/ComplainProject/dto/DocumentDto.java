@@ -12,6 +12,7 @@ import lombok.*;
 
 public class DocumentDto {
     private Long id;
+    private String title;
     private String url;
     private Area area;
 }

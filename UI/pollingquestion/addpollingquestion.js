@@ -3,14 +3,13 @@ let arr = [0];
 let queryString = window.location.search;
 if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
-    const urlId = urlParams.get("id")
-    // queryString = queryString.slice(4,queryString.length)
-    // console.log(queryString);
-    fetch(`${baseUrl}/api/pollingquestion/`+urlId , {
-})
-.then(response => response.json()).catch(()=>{})
-.then(data => {
-        console.log(data);
+    var urlId = urlParams.get("id")
+
+    fetch(`${baseUrl}/api/pollingquestion/` + urlId, {
+    })
+        .then(response => response.json()).catch(() => { })
+        .then(data => {
+
 
             document.getElementById("pollingquestionbtn").innerText = "Update"
             document.getElementById('addpollingquestion').value = data.question;
@@ -92,7 +91,6 @@ function addOption(id) {
 
 function subtractOption(id) {
 
-    console.log(id);
     arr.splice(id, 1)
     let pollingOption = []
 
@@ -105,7 +103,7 @@ function subtractOption(id) {
     }
     option()
     for (let i = 0; i < pollingOption.length; i++) {
-        // console.log( pollingOption[i]);
+
         document.getElementById("pollingoption" + i).value = pollingOption[i];
 
     }
@@ -114,6 +112,11 @@ function subtractOption(id) {
 function formSubmit() {
     let pollingQuestion = document.getElementById("addpollingquestion").value;
     let pollingOption = []
+    let messageRender = ""
+
+    let Selectarea = document.getElementById("dropdownarea");
+    let area = Selectarea.value;
+    
 
     for (let i = 0; i < arr.length; i++) {
         let option = document.getElementById("pollingoption" + i).value;
@@ -123,13 +126,14 @@ function formSubmit() {
 
     newPollingQuestion = {
         question: pollingQuestion,
-        pollingOptions: pollingOption
+        pollingOptions: pollingOption,
+        area:{
+            id:area
+        }
     }
 
-    console.log(newPollingQuestion);
+    if (queryString == "") {
 
-    if (queryString == "" ) {
-        
         fetch(`${baseUrl}/api/pollingquestion`, {
             method: 'POST',
             headers: {
@@ -137,15 +141,27 @@ function formSubmit() {
             },
             body: JSON.stringify(newPollingQuestion)
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }else{
-        fetch(`${baseUrl}/api/pollingquestion/`+queryString, {
+            .then(response => response.json())
+            .then(data => {
+            
+                messageRender += `
+                    <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
+                    justify-content: center;font-size: large" class="alert alert-success" role="alert">
+                    <b> Polling Question Added Successfully </b>
+                    </div>`
+
+                document.getElementById("addpollingquestion").value = "";
+                document.getElementById("formSubmitted").innerHTML = messageRender
+
+                setTimeout(() => {
+                    document.getElementById("formSubmitted").innerHTML = ""
+                }, 2000)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    } else {
+        fetch(`${baseUrl}/api/pollingquestion/` + urlId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -154,8 +170,21 @@ function formSubmit() {
         })
             .then(response => response.json())
             .then(data => {
+
+                messageRender += `
+                    <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
+                    justify-content: center;font-size: large" class="alert alert-success" role="alert">
+                    <b>  Polling Question Updated Successfully </b>
+                    </div>`
+
                 document.getElementById("addpollingquestion").value = "";
-                console.log('Success');
+                document.getElementById("formSubmitted").innerHTML = messageRender
+
+                setTimeout(() => {
+                    document.getElementById("formSubmitted").innerHTML = ""
+                }, 2000)
+
+
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -163,5 +192,26 @@ function formSubmit() {
     }
 }
 
+function getArea(){
+    let renderData = ""
+    fetch(`${baseUrl}/api/admin/area`,{
+        headers:{
+            "Content-type":"application/json",
+        }
+    }).then((response)=>response.json())
+    .then((data)=>{
+        if(data.length !== 0){
+            for (let i = 0; i < data.length; i++) {
+                renderData += `<option value="${data[i].id}">${data[i].name}</option>`
+            }
+        }
+        else{
+            renderData += `<option value="" selected disabled>Sorry No Area Available</option>`
+        }
+        document.getElementById("dropdownarea").innerHTML = renderData;
+    })
+}
+
+getArea()
 
 

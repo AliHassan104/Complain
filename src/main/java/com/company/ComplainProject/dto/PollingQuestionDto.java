@@ -1,5 +1,6 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.PollingOption;
 import lombok.*;
 
@@ -16,5 +17,6 @@ import java.util.List;
 public class PollingQuestionDto {
     private Long id;
     private String question;
+    private Area area;
     private List<PollingOption> pollingOptions;
 }

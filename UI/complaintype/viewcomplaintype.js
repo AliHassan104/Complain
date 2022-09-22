@@ -4,10 +4,8 @@ let uid ;
 
 function getComplain() {
     let table = ""
-    fetch(`${baseUrl}/api/complaintype`,{
+    fetch(`${baseUrl}/api/admin/complaintype`,{
         headers:{
-            // mode: 'no-cors',
-            // "Authorization":jwtTokenBearer,
             "Content-Type":"application/json",
             
         }
