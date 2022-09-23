@@ -1,21 +1,19 @@
 package com.company.ComplainProject.service;
 
-import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
-import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.User;
-import com.company.ComplainProject.repository.ComplainRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -93,7 +91,7 @@ public class UserService {
                 .roles(userDto.getRoles())
                 .status(userDto.getStatus())
                 .block(userDto.getBlock())
-                .userTypeEnum(userDto.getUserTypeEnum())
+                .userType(userDto.getUserType())
                 .build();
     }
 
@@ -113,7 +111,7 @@ public class UserService {
                 .roles(user.getRoles())
                 .status(user.getStatus())
                 .block(user.getBlock())
-                .userTypeEnum(user.getUserTypeEnum())
+                .userType(user.getUserType())
                 .build();
     }
 
@@ -143,8 +141,32 @@ public class UserService {
                 .roles(user.getRoles())
                 .status(user.getStatus())
                 .block(user.getBlock())
-                .userTypeEnum(user.getUserTypeEnum())
+                .userType(user.getUserType())
                 .build();
+    }
+
+    public List<UserDto> getUserByStatus(String status) {
+
+        List<UserDto> userbyStatus;
+        if(status.equalsIgnoreCase("IN_REVIEW")){
+            userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.IN_REVIEW));
+        }
+        else if(status.equalsIgnoreCase("PUBLISHED")){
+            userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.PUBLISHED));
+        }
+        else if(status.equalsIgnoreCase("REJECTED")){
+            userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.REJECTED));
+        }
+        else{
+            throw new ContentNotFoundException("No User Exist Having Status "+status);
+        }
+        return userbyStatus;
+    }
+
+
+    public List<UserDto> userListToUserDtoList(List<User> users){
+        List<UserDto> userDtoList = users.stream().map(user -> toDto(user)).collect(Collectors.toList());
+        return userDtoList;
     }
 }
 

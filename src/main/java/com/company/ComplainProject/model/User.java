@@ -2,7 +2,7 @@ package com.company.ComplainProject.model;
 
 import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
-import com.company.ComplainProject.dto.ProjectEnums.UserTypeEnum;
+import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ import java.util.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     private String firstname;
@@ -30,7 +30,8 @@ public class User {
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
-    private UserTypeEnum userTypeEnum;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.IN_REVIEW;

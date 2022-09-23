@@ -110,4 +110,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/userbystatus/{status}")
+    public ResponseEntity<List<UserDto>> getUserByStatus(@PathVariable("status") String status){
+        try{
+            return ResponseEntity.ok(userService.getUserByStatus(status));
+        }
+        catch (Exception e){
+            System.out.println(e);
+            throw  new ContentNotFoundException("No User Found Having Status "+status);
+        }
+    }
+
+
 }

@@ -58,7 +58,8 @@ public class WaterTimingService {
         Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
 
         if(updateWaterTiming != null){
-            updateWaterTiming.setTime(waterTimingDto.getTime());
+            updateWaterTiming.setStart_time(waterTimingDto.getStart_time());
+            updateWaterTiming.setEnd_time(waterTimingDto.getEnd_time());
             updateWaterTiming.setDay(waterTimingDto.getDay());
             updateWaterTiming.setBlock(block);
             updateWaterTiming.setDate(waterTimingDto.getDate());
@@ -70,7 +71,8 @@ public class WaterTimingService {
     public WaterTiming dto(WaterTimingDto waterTimingDto){
         return WaterTiming.builder()
                 .id(waterTimingDto.getId())
-                .time(waterTimingDto.getTime())
+                .start_time(waterTimingDto.getStart_time())
+                .end_time(waterTimingDto.getEnd_time())
                 .day(waterTimingDto.getDay())
                 .date(waterTimingDto.getDate())
                 .block(waterTimingDto.getBlock())
@@ -80,7 +82,8 @@ public class WaterTimingService {
     public WaterTimingDto toDto(WaterTiming waterTiming){
         return  WaterTimingDto.builder()
                 .id(waterTiming.getId())
-                .time(waterTiming.getTime())
+                .start_time(waterTiming.getStart_time())
+                .end_time(waterTiming.getEnd_time())
                 .day(waterTiming.getDay())
                 .date(waterTiming.getDate())
                 .block(waterTiming.getBlock())
@@ -119,7 +122,7 @@ public class WaterTimingService {
     }
 
     public WaterTimingDetails waterTimingToWaterTimingDetails(WaterTiming waterTiming){
-        return WaterTimingDetails.builder().time(waterTiming.getTime()).day(waterTiming.getDay()).date(waterTiming.getDate()).build();
+        return WaterTimingDetails.builder().start_time(waterTiming.getStart_time()).end_time(waterTiming.getEnd_time()).day(waterTiming.getDay()).date(waterTiming.getDate()).build();
     }
 }
 

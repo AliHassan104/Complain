@@ -59,6 +59,8 @@ public class PollingQuestionService {
 //                                                                                           first we will delete the previous options
             pollingOptionRepository.deleteOptionByid(updatePollingQuestion.getId());
 
+            updatePollingQuestion.setEnd_date(pollingQuestionDto.getEnd_date());
+            updatePollingQuestion.setEnd_time(pollingQuestionDto.getEnd_time());
             updatePollingQuestion.setQuestion(pollingQuestionDto.getQuestion());
             updatePollingQuestion.setPollingOptions(pollingQuestionDto.getPollingOptions());
             updatePollingQuestion.setArea(area);
@@ -68,12 +70,12 @@ public class PollingQuestionService {
 
     public PollingQuestion dto(PollingQuestionDto pollingQuestionDto){
         return PollingQuestion.builder().id(pollingQuestionDto.getId()).question(pollingQuestionDto.getQuestion()).area(pollingQuestionDto.getArea())
-                .pollingOptions(pollingQuestionDto.getPollingOptions()).build();
+                .end_date(pollingQuestionDto.getEnd_date()).end_time(pollingQuestionDto.getEnd_time()).pollingOptions(pollingQuestionDto.getPollingOptions()).build();
     }
 
     public PollingQuestionDto toDto(PollingQuestion pollingQuestion){
         return  PollingQuestionDto.builder().id(pollingQuestion.getId()).question(pollingQuestion.getQuestion()).area(pollingQuestion.getArea())
-                .pollingOptions(pollingQuestion.getPollingOptions()).build();
+                .end_date(pollingQuestion.getEnd_date()).end_time(pollingQuestion.getEnd_time()).pollingOptions(pollingQuestion.getPollingOptions()).build();
     }
 
     public List<PollingQuestion> getPollingQuestionByArea(Area areaId) {

@@ -21,15 +21,16 @@ import java.util.Date;
 @Table(name = "achievements")
 public class Achievements {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     private String title;
+    @Lob
+    @Column
     private String description;
     private String pictureUrl;
     @JsonFormat(pattern="yyyy-MM-dd")
     private String date;
-//    @JsonFormat(pattern="HH:mm:ss")
-//    private String time;
+
 
 }

@@ -1,5 +1,6 @@
 package com.company.ComplainProject.repository;
 
+import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.specification.UserSpecification;
@@ -22,4 +23,7 @@ public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificati
 
     @Query("SELECT u from User u where u.email = :email")
     User findUserByEmail(@Param("email") String email);
+
+    @Query("SELECT u from User u WHERE u.status = :status")
+    List<User> findUserByStatus(@Param("status") UserStatus userStatus);
 }

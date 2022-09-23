@@ -1,7 +1,9 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.PollingAnswerDto;
 import com.company.ComplainProject.dto.PollingOptionDto;
+import com.company.ComplainProject.dto.PollingQuestionResult;
 import com.company.ComplainProject.model.PollingAnswer;
 import com.company.ComplainProject.model.PollingOption;
 import com.company.ComplainProject.service.PollingAnswerService;
@@ -41,7 +43,7 @@ public class PollingAnswerController {
 
     @PostMapping("/pollinganswer")
     public ResponseEntity<PollingAnswerDto> addPollingAnswer(@RequestBody PollingAnswerDto pollingAnswerDto){
-        System.out.println(pollingAnswerDto);
+
         try{
             return ResponseEntity.ok(pollingAnswerService.addPollingAnswer(pollingAnswerDto));
         }catch (Exception e){
@@ -69,6 +71,16 @@ public class PollingAnswerController {
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/pollinganswer/getpollingoptionper/{id}")
+    public ResponseEntity<List<PollingQuestionResult>> getPollingOptionPercent(@PathVariable("id") Long id){
+        try{
+            return ResponseEntity.ok(pollingAnswerService.getPollingOptionPercent(id));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("Nu polling question");
         }
     }
 }
