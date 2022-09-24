@@ -1,6 +1,7 @@
 var queryString = window.location.search
 
 function getPollingQuestionDetails() {
+    
     var parameter = new URLSearchParams(queryString)
     var pollingQuestionId = parameter.get("p_id")
     var renderQuestion = ""
