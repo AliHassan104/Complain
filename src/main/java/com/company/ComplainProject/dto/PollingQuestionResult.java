@@ -16,5 +16,8 @@ import java.util.Map;
 @Setter
 
 public class PollingQuestionResult {
-    private Map<String,Long> getPollingQuestionResult;
+    private Long id;
+    @Lob
+    private String pollingQuestion;
+    private List<Map<String,Long>> getPollingQuestionResult;
 }

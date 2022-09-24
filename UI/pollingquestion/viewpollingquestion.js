@@ -87,7 +87,7 @@ function getPollingQuestion() {
 }
 
 function showPollingQuestionDetails(id){
-    alert(id)
+    location.href = `${loginUrl}/pollingquestion/pollingquestiondetails.html?p_id=${id}`
 }   
 // let data1 = []
 // function modal(id){

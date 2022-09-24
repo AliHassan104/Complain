@@ -75,7 +75,7 @@ public class PollingAnswerController {
     }
 
     @GetMapping("/pollinganswer/getpollingoptionper/{id}")
-    public ResponseEntity<List<PollingQuestionResult>> getPollingOptionPercent(@PathVariable("id") Long id){
+    public ResponseEntity<PollingQuestionResult> getPollingOptionPercent(@PathVariable("id") Long id){
         try{
             return ResponseEntity.ok(pollingAnswerService.getPollingOptionPercent(id));
         }catch (Exception e){

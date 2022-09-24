@@ -68,20 +68,23 @@ public class PollingAnswerService {
                 .build();
     }
 
-    public List<PollingQuestionResult> getPollingOptionPercent(Long id) {
+    public PollingQuestionResult getPollingOptionPercent(Long id) {
         PollingQuestion pollingQuestion = pollingQuestionService.getAllPollingQuestion().stream().filter(pollingQuestion1 -> pollingQuestion1.getId().equals(id)).findAny().get();
-        List<PollingQuestionResult> pollingQuestionResults = new ArrayList<>();
+//        List<PollingQuestionResult> pollingQuestionResults = new ArrayList<>();
+        List<Map<String,Long>> optionResult = new ArrayList<>();
 
         for (PollingOption pollingOption:pollingQuestion.getPollingOptions()) {
             Map<String,Long> pollingResult = new HashMap<>();
             pollingResult.put(pollingOption.getOption(),pollingAnswerRepository.countUsersFromPollingOption(pollingOption));
-            pollingQuestionResults.add(new PollingQuestionResult(pollingResult));
-
+//            pollingQuestionResults.add(new PollingQuestionResult(pollingResult));
+            optionResult.add(pollingResult);
         }
 //                                                  Sort the HashMap with largest value (Descending Order)
-         Collections.sort(pollingQuestionResults,new filterPollingOptionResults());
+         Collections.sort(optionResult,new filterPollingOptionResults());
+        System.out.println(optionResult);
 
-        return pollingQuestionResults;
+
+        return new PollingQuestionResult(pollingQuestion.getId(),pollingQuestion.getQuestion(),optionResult);
     }
 }
 
