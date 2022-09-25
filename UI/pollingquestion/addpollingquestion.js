@@ -116,7 +116,8 @@ function formSubmit() {
 
     let Selectarea = document.getElementById("dropdownarea");
     let area = Selectarea.value;
-    
+    let end_date = document.getElementById("end_date").value
+    let end_time = document.getElementById("end_time").value  
 
     for (let i = 0; i < arr.length; i++) {
         let option = document.getElementById("pollingoption" + i).value;
@@ -127,6 +128,8 @@ function formSubmit() {
     newPollingQuestion = {
         question: pollingQuestion,
         pollingOptions: pollingOption,
+        end_date:end_date,
+        end_time:end_time,
         area:{
             id:area
         }
@@ -150,6 +153,8 @@ function formSubmit() {
                     <b> Polling Question Added Successfully </b>
                     </div>`
 
+                document.getElementById("end_date").value = ""
+                document.getElementById("end_time").value  = ""
                 document.getElementById("addpollingquestion").value = "";
                 document.getElementById("formSubmitted").innerHTML = messageRender
 
@@ -177,6 +182,8 @@ function formSubmit() {
                     <b>  Polling Question Updated Successfully </b>
                     </div>`
 
+                document.getElementById("end_date").value = ""
+                document.getElementById("end_time").value  = ""
                 document.getElementById("addpollingquestion").value = "";
                 document.getElementById("formSubmitted").innerHTML = messageRender
 

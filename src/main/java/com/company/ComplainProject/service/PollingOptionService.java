@@ -37,7 +37,6 @@ public class PollingOptionService {
         PollingOption updatePollingOption = getAllPollingOption().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updatePollingOption != null){
             updatePollingOption.setOption(pollingOptionDto.getOption());
-//            updatePollingOption.setPollingQuestion(pollingOptionDto.getPollingQuestion());
         }
         return Optional.of(toDto(pollingOptionRepository.save(updatePollingOption)));
     }

@@ -15,7 +15,8 @@ import java.time.LocalTime;
 public class WaterTimingDetails {
 
     private String day;
-    private LocalTime time;
+    private LocalTime start_time;
+    private LocalTime end_time;
     private LocalDate date;
 
 }

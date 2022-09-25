@@ -2,7 +2,7 @@ package com.company.ComplainProject.dto;
 
 import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
-import com.company.ComplainProject.dto.ProjectEnums.UserTypeEnum;
+import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Block;
@@ -33,7 +33,7 @@ public class UserDetailsResponse {
     private Area area;
     private Block block;
     private PropertyEnum property;
-    private UserTypeEnum userTypeEnum;
+    private UserType userType;
     private Set<Roles> roles = new HashSet<>();
     //                                                          Enums for user Status
     @Enumerated(EnumType.STRING)

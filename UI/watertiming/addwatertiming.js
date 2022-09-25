@@ -34,13 +34,15 @@ function formSubmit() {
     var dayName = days[getDate.getDay()];
 
 
-    let time = document.getElementById("time").value;
+    let start_time = document.getElementById("start_time").value;
+    let end_time = document.getElementById("end_time").value;
 
     newArea = {
         block: {
             id: block
         }
-        , day: dayName, date: date, time: time
+        , day: dayName, date: date, start_time: start_time
+        ,end_time:end_time
     };
 
 
@@ -69,7 +71,8 @@ function formSubmit() {
     </div>`
 
                 document.getElementById("date").value = "";
-                document.getElementById("time").value = "";
+                document.getElementById("start_time").value = "";
+                document.getElementById("end_time").value = "";
 
                 document.getElementById("formSubmitted").innerHTML = table
 
@@ -106,7 +109,8 @@ function formSubmit() {
     </div>`
 
                 document.getElementById("date").value = "";
-                document.getElementById("time").value = "";
+                document.getElementById("start_time").value = "";
+                document.getElementById("end_time").value = "";
 
                 document.getElementById("formSubmitted").innerHTML = table
 

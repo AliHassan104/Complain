@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentService {
@@ -60,5 +61,11 @@ public class DocumentService {
                 .id(document.getId()).title(document.getTitle()).url(document.getUrl())
                 .area(document.getArea())
                 .build();
+    }
+
+    public List<DocumentDto> getDocumentByArea(Long id) {
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(id)).findAny().get();
+        List<Document> documents = documentRepository.getDocumentByArea(area);
+        return documents.stream().map(document -> toDto(document)).collect(Collectors.toList());
     }
 }

@@ -21,6 +21,8 @@ public class Event {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Lob
+    @Column
     private String description;
     private String image;
 

@@ -2,7 +2,7 @@ package com.company.ComplainProject.dto;
 
 import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
-import com.company.ComplainProject.dto.ProjectEnums.UserTypeEnum;
+import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Roles;
@@ -21,7 +21,7 @@ import java.util.Set;
 @ToString
 @Builder
 
-public class UserDto {
+public class UserDto{
     private Long id;
     private String firstname;
     private String lastname;
@@ -33,8 +33,12 @@ public class UserDto {
     private Address address;
     private Area area;
     private Block block;
+    @Enumerated(EnumType.STRING)
     private PropertyEnum property;
-    private UserTypeEnum userTypeEnum;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
     private Set<Roles> roles = new HashSet<>();
 //                                                          Enums for user Status
     @Enumerated(EnumType.STRING)

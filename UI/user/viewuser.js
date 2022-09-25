@@ -19,8 +19,8 @@ function getUser() {
         table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 15%;" class="toptable ">Name</th>
         <th style="width: 15%;" class="toptable ">PhoneNumber</th>
-        <th style="width: 20%;" class="toptable ">Email</th>
-        <th style="width: 20%;" class="toptable ">Property</th>
+        <th style="width: 23%;" class="toptable ">Email</th>
+        <th style="width: 10%;" class="toptable ">Property</th>
         <th style="width: 20%;" class="toptable ">Cnic</th>
         <th style="width: 15%;" class="toptable ">Area Name </th>
         <th style="width: 15%;" class="toptable ">Action </th>
@@ -31,8 +31,8 @@ function getUser() {
         <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
             <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
             <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 20%;" class="datatable">${data[i].email}</td>
-            <td style="width: 20%;" class="datatable">${data[i].property}</td>
+            <td style="width: 23%;" class="datatable">${data[i].email}</td>
+            <td style="width: 10%;" class="datatable">${data[i].property}</td>
             <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
             <td style="width: 15%;" class="datatable"> 

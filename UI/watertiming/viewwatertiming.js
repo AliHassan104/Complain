@@ -17,20 +17,25 @@ function getWaterTiming() {
         <th style="width: 20%;" class="toptable ">Block</th>
         <th style="width: 20%;" class="toptable ">Day</th>
         <th style="width: 20%;" class="toptable ">Date</th>
-        <th style="width: 20%;" class="toptable ">Time</th>
+        <th style="width: 20%;" class="toptable ">Start Time</th>
+        <th style="width: 20%;" class="toptable ">End Time</th>
         <th style="width: 20%;" class="toptable ">Action</th>
         </tr>`
         if (data != null) {
             for (let i = 0; i < data.length; i++) {
-            console.log(data[i].date);
-            hr = parseInt(data[i].time.slice(0,2));
+            
+            startTime = parseInt(data[i].start_time.slice(0,2));
+            startTimeToHr = convertTimeTo12hrs(startTime,data[i].start_time.slice(3,5))
 
-            if (hr > 12) {
-                hr = hr - 12 
-                hr = hr + ":" + data[i].time.slice(3,5) + " pm"
-            }else{
-                hr = hr +  ":" + data[i].time.slice(3,5) + " am"
-            }
+            endTime = parseInt(data[i].end_time.slice(0,2));
+            endTimeToHr = convertTimeTo12hrs(endTime,data[i].end_time.slice(3,5))
+
+            // if (hr > 12) {
+            //     hr = hr - 12 
+            //     hr = hr + ":" + data[i].time.slice(3,5) + " pm"
+            // }else{
+            //     hr = hr +  ":" + data[i].time.slice(3,5) + " am"
+            // }
 
             table += `
             <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
@@ -38,7 +43,8 @@ function getWaterTiming() {
             <td style="width: 20%;" class="datatable">${data[i].block.block_name}</td>
             <td style="width: 20%;" class="datatable">${data[i].day}</td>
             <td style="width: 20%;" class="datatable">${data[i].date}</td>
-            <td style="width: 20%;" class="datatable">${hr}</td>
+            <td style="width: 20%;" class="datatable">${startTimeToHr}</td>
+            <td style="width: 20%;" class="datatable">${endTimeToHr}</td>
             <td style="width: 20%;" class="datatable">
             
             <a  href="/watertiming/addwatertiming.html?id=${data[i].id}">
@@ -53,8 +59,19 @@ function getWaterTiming() {
     }
     document.getElementById("datatables-reponsive").innerHTML = table;
 })
-
 }
+
+function convertTimeTo12hrs(hr,data){
+   
+    if (hr > 12) {
+        hr = hr - 12
+        hr = hr + ":" + data + " pm"
+    } else {
+        hr = hr + ":" + data + " am"
+    }
+    return hr;
+}
+
 
 function updateWaterTiming(){
 

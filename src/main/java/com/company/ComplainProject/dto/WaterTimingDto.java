@@ -22,6 +22,7 @@ public class WaterTimingDto {
     private Long id;
     private String day;
     private LocalDate date;
-    private LocalTime time;
+    private LocalTime start_time;
+    private LocalTime end_time;
     private Block block;
 }

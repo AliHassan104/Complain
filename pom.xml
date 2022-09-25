@@ -185,6 +185,21 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>9.0.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
+
+
+
+
+
+
+
 
 	</dependencies>
 
@@ -193,6 +208,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+<!--				<version>${project.parent.version}</version>-->
 				<configuration>
 					<excludes>
 						<exclude>
