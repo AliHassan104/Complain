@@ -103,9 +103,14 @@ public class WaterTimingController {
         }
     }
 
-    @GetMapping("allWatertimingByBlock")
+    @GetMapping("watertiming/allWatertimingByBlock")
     public ResponseEntity<List<WaterTimingByBlockDto>> getAllWaterTimingByBlock(){
-        return ResponseEntity.ok(waterTimingService.getAllWaterTimngByBlock());
+        try{
+            return ResponseEntity.ok(waterTimingService.getAllWaterTimingByBlock());
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No water timing available");
+        }
     }
 
 }

@@ -39,7 +39,7 @@ public class ComplainController {
     @Autowired
     ComplainImageImplementation complainImageImplementation;
     @Value("${complain.image}")
-    private String path;
+    private String complainImagePath;
 
 
 
@@ -71,7 +71,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
         String  fileName = complainImageImplementation.uploadImage(image);
 
-        complainDto.setPicture("http://localhost:8081/api/"+path+fileName);
+        complainDto.setPicture("http://localhost:8081/api/"+complainImagePath+fileName);
 
         return ResponseEntity.ok(complainService.addComplain(complainDto));
 
@@ -114,7 +114,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
             if(complainImageDeleted){
                 String complainFleName =  complainImageImplementation.uploadImage(image);
-                complainDto.setPicture("http://localhost:8081/api/"+path+complainFleName);
+                complainDto.setPicture("http://localhost:8081/api/"+complainImagePath+complainFleName);
                 return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
             }
             else{
@@ -160,5 +160,28 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
         complainExcelExporter.export(response);
 
     }
+
+    @GetMapping("complain/complainbyuser/{email}")
+    public ResponseEntity<List<ComplainDto>> getComplainByUserEmail(@PathVariable("email") String email){
+        try{
+            return ResponseEntity.ok(complainService.getComplainByUserEmail(email));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No complain Found with user email "+email);
+        }
+    }
+
+//    The api for this method will be http://localhost:8081/api/complain/usercomplainbystatus?email=fahdkhan@gmail.com&status=in_review
+
+    @GetMapping("/complain/usercomplainbystatus")
+    public ResponseEntity<List<ComplainDto>> getComplainByUserAndStatus(@RequestParam(name ="email") String email,@RequestParam(name = "status") String status){
+        try{
+            return ResponseEntity.ok(complainService.getComplainByUserAndStatus(email,status));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Complain Found having status "+status);
+        }
+    }
+
 
 }

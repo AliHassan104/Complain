@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "address")
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     private String houseNumber;
@@ -25,6 +25,4 @@ public class Address {
     private String floorNumber;
     private String city;
 
-//    @OneToOne(mappedBy = "area")
-//    private User user;
 }

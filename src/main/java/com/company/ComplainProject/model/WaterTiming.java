@@ -24,13 +24,15 @@ import java.util.List;
 @Table(name = "water_timing")
 public class WaterTiming {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     private String day;
 
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime time;
+    private LocalTime start_time;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime end_time;
 
     @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate date;

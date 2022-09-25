@@ -44,16 +44,18 @@ function getPollingQuestion() {
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 10%;" class="toptable ">Q .NO</th>
         <th style="width: 75%;" class="toptable ">Question</th>
-        <th style="width: 75%;" class="toptable ">Area</th>
+        <th style="width: 20%;" class="toptable ">Area</th>
         <th style="width: 15%;" class="toptable ">Action</th>
         </tr>`
         for (let i = 0; i < data.length; i++) {
-            
+            if(data[i].question.length > 13){
+                data[i].question = data[i].question.slice(0,15)+`<a>...more</a>`
+            }
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
         <td style="width: 10%;" class="datatable">${i+1}</td>
-        <td style="width: 75%;" class="datatable">${data[i].question}</td>
-        <td style="width: 75%;" class="datatable">${data[i].area.name}</td>
+        <td style="width: 75%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].question}</td>
+        <td style="width: 20%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].area.name}</td>
         <td style="width: 15%;" class="datatable"> 
 
         <a  href="/pollingquestion/addpollingquestion.html?id=${data[i].id}">
@@ -65,26 +67,28 @@ function getPollingQuestion() {
         
         </td>
     </tr>`
-        count = 1
-        table +=  `<tr>
-        <td><span style="padding-left: 5.5%; margin-left: 5.5%;"  ></span><b>Options :</b> </td>
-        </tr>`
+        // count = 1
+        // table +=  `<tr>
+        // <td><span style="padding-left: 5.5%; margin-left: 5.5%;"  ></span><b>Options :</b> </td>
+        // </tr>`
 
-        data[i].pollingOptions.forEach((item) => {
-            table+=
-            ` <tr >
-                 <td> <span style="padding-left: 6%; margin-left: 6%;"  >${count}</span> - ${item.option} </td>
-             </tr>`;
+        // data[i].pollingOptions.forEach((item) => {
+        //     table+=
+        //     ` <tr >
+        //          <td> <span style="padding-left: 6%; margin-left: 6%;"  >${count}</span> - ${item.option} </td>
+        //      </tr>`;
 
-             count += 1;
-            })    
+        //      count += 1;
+        //     })    
         }
         
         document.getElementById("datatables-reponsive").innerHTML = table;
     })
 }
 
-
+function showPollingQuestionDetails(id){
+    location.href = `${loginUrl}/pollingquestion/pollingquestiondetails.html?p_id=${id}`
+}   
 // let data1 = []
 // function modal(id){
 //     uid = id

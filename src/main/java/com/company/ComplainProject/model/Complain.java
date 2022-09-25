@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Table(name = "complain")
 public class Complain {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -30,6 +30,8 @@ public class Complain {
     @JoinColumn(name = "block_id")
     private Block block;
 
+    @Lob
+    @Column
     private String description;
     private String picture;
 
