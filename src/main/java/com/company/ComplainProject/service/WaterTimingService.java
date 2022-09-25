@@ -107,7 +107,7 @@ public class WaterTimingService {
     }
 
 
-    public List<WaterTimingByBlockDto> getAllWaterTimngByBlock() {
+    public List<WaterTimingByBlockDto> getAllWaterTimingByBlock() {
         List<Block> blocks = blockService.getAllBlocks().stream().collect(Collectors.toList());
         List<WaterTimingByBlockDto>  blockDtos =new ArrayList<>();
         List<WaterTiming> waterTimings;

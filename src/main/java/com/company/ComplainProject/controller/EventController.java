@@ -39,6 +39,7 @@ public class EventController {
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
     @GetMapping("/paginatedEvents")
     public ResponseEntity<List<EventDto>> getAllEventsWithPagination(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber,
                                                                      @RequestParam(value = "pageSize" , defaultValue = "10",required = false) Integer pageSize){
@@ -49,6 +50,7 @@ public class EventController {
             return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
+
     @GetMapping("/event/{id}")
     public  ResponseEntity<Optional<Event>> getEventWithId(@PathVariable Long id){
         try{
@@ -127,6 +129,7 @@ public class EventController {
         }
     }
 
+//                                                      get event by area
     @GetMapping("/eventByArea/{area}")
     public ResponseEntity<List<Event>> getEventByArea(@PathVariable("area") Long areaId){
         try{

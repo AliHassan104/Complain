@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.DocumentDto;
 import com.company.ComplainProject.model.Achievements;
@@ -69,6 +70,18 @@ public class DocumentController {
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+//    Get document by area
+
+    @GetMapping("/document/documentbyarea/{a_id}")
+    public ResponseEntity<List<DocumentDto>> getDocumentByArea(@PathVariable("a_id") Long id){
+        try{
+            return ResponseEntity.ok(documentService.getDocumentByArea(id));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No Document Found Having Area id "+id);
         }
     }
 }

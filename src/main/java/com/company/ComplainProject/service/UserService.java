@@ -2,11 +2,13 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
+import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
+import com.company.ComplainProject.model.Roles;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
@@ -16,8 +18,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,7 +55,31 @@ public class UserService {
     }
 
     public UserDto addUser(UserDto userDto) {
+        if(userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)){
+            userDto.setStatus(UserStatus.PUBLISHED);
+        }
+        userDto.setRoles(assignRolesToUser(userDto));
         return toDto(userRepository.save(dto(userDto)));
+    }
+
+    public Set<Roles> assignRolesToUser(UserDto userDto){
+        Set<Roles> rolesSet = new HashSet<>();
+
+        if(userDto.getUserType().equals(UserType.Customer)){
+            rolesSet.add(new Roles(1l,"ROLE_CUSTOMER"));
+            userDto.setRoles(rolesSet);
+        }
+        else if(userDto.getUserType().equals(UserType.Worker)){
+            rolesSet.add(new Roles(1l,"ROLE_CUSTOMER"));
+            rolesSet.add(new Roles(2l,"ROLE_WORKER"));
+            userDto.setRoles(rolesSet);
+        }
+        else{
+            rolesSet.add(new Roles(1l,"ROLE_CUSTOMER"));
+            rolesSet.add(new Roles(3l,"ROLE_ADMIN"));
+            userDto.setRoles(rolesSet);
+        }
+        return rolesSet;
     }
 
     public Optional<UserDto> updateUserById(Long id, UserDto userDto) {
@@ -168,5 +196,20 @@ public class UserService {
         List<UserDto> userDtoList = users.stream().map(user -> toDto(user)).collect(Collectors.toList());
         return userDtoList;
     }
+
+    public Long countUserByStatus(String status){
+        Long countByStatus;
+        if(status.equalsIgnoreCase("IN_REVIEW")){
+            countByStatus = userRepository.countUserByStatus(UserStatus.IN_REVIEW);
+        }
+        else if(status.equalsIgnoreCase("PUBLISHED")){
+            countByStatus = userRepository.countUserByStatus(UserStatus.PUBLISHED);
+        }
+        else{
+            countByStatus = userRepository.countUserByStatus(UserStatus.REJECTED);
+        }
+        return countByStatus;
+    }
+
 }
 

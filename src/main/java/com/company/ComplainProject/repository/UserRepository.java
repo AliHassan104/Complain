@@ -26,4 +26,12 @@ public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificati
 
     @Query("SELECT u from User u WHERE u.status = :status")
     List<User> findUserByStatus(@Param("status") UserStatus userStatus);
+
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.status=:status")
+    Long countUserByStatus(@Param("status") UserStatus userStatus);
+
+
+
+
 }

@@ -29,6 +29,7 @@ public class WaterTiming {
     private Long id;
     private String day;
 
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime start_time;
     @JsonFormat(pattern = "HH:mm")
     private LocalTime end_time;

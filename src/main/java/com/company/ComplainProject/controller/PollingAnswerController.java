@@ -74,6 +74,8 @@ public class PollingAnswerController {
         }
     }
 
+//     get polling option result (which will be given by user)
+    
     @GetMapping("/pollinganswer/getpollingoptionper/{id}")
     public ResponseEntity<PollingQuestionResult> getPollingOptionPercent(@PathVariable("id") Long id){
         try{

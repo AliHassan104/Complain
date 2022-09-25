@@ -5,6 +5,7 @@ import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
+import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Complain;
@@ -152,4 +153,32 @@ public class ComplainService {
         }
     }
 
+    public List<ComplainDto> getComplainByUserEmail(String email) {
+        User user = userService.getAllUser().stream().filter(user1 -> user1.getEmail().equalsIgnoreCase(email)).findAny().get();
+        List<Complain> complains = complainRepository.getComplainByUser(user);
+        return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
+    }
+
+    public List<ComplainDto> getComplainByUserAndStatus(String email,String status){
+        User user = userService.getAllUser().stream().filter(user1 -> user1.getEmail().equalsIgnoreCase(email)).findAny().get();
+        List<Complain> complains;
+
+        if(status.equalsIgnoreCase("IN_REVIEW")){
+            complains = complainRepository.getComplainByUserAndStatus(user,Status.IN_REVIEW);
+        }
+        else if(status.equalsIgnoreCase("COMPLETED")){
+            complains = complainRepository.getComplainByUserAndStatus(user,Status.COMPLETED);
+        }
+        else if(status.equalsIgnoreCase("REJECTED")){
+            complains =  complainRepository.getComplainByUserAndStatus(user,Status.REJECTED);
+        }
+        else if(status.equalsIgnoreCase("IN_PROGRESS")){
+            complains = complainRepository.getComplainByUserAndStatus(user,Status.IN_PROGRESS);
+        }
+        else{
+            throw new ContentNotFoundException("No Complain found of user having status "+status);
+        }
+
+        return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
+    }
 }

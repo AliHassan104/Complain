@@ -47,7 +47,6 @@ public class UserController {
 
     @PostMapping("/user")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
-        System.out.println(userDto);
         try{
             return ResponseEntity.ok(userService.addUser(userDto));
         }catch (Exception e){
@@ -110,7 +109,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/userbystatus/{status}")
+    @GetMapping("/user/userbystatus/{status}")
     public ResponseEntity<List<UserDto>> getUserByStatus(@PathVariable("status") String status){
         try{
             return ResponseEntity.ok(userService.getUserByStatus(status));
@@ -121,5 +120,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/countuserbystatus/{status}")
+    public ResponseEntity<Long> countUserByUserStatus(@PathVariable("status") String status){
+        try{
+            return ResponseEntity.ok(userService.countUserByStatus(status));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No user found having status "+status);
+        }
+    }
 
 }
