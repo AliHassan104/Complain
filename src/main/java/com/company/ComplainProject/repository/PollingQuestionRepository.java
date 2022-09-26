@@ -14,4 +14,7 @@ public interface PollingQuestionRepository extends JpaRepository<PollingQuestion
 
     @Query("SELECT p FROM PollingQuestion p WHERE p.area = :id ")
     List<PollingQuestion> findPollingQuestionByArea(@Param("id") Area area);
+
+    @Query("SELECT p FROM PollingQuestion p WHERE p.id = :id")
+    PollingQuestion findPollingQuestionById(@Param("id") Long id);
 }

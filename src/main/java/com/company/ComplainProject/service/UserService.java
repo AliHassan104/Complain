@@ -10,6 +10,7 @@ import com.company.ComplainProject.model.Address;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Roles;
 import com.company.ComplainProject.model.User;
+import com.company.ComplainProject.repository.RolesRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class UserService {
     AreaService areaService;
     @Autowired
     AddressService addressService;
+    @Autowired
+    RolesRepository rolesRepository;
 
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -66,18 +69,14 @@ public class UserService {
         Set<Roles> rolesSet = new HashSet<>();
 
         if(userDto.getUserType().equals(UserType.Customer)){
-            rolesSet.add(new Roles(1l,"ROLE_CUSTOMER"));
-            userDto.setRoles(rolesSet);
+            rolesSet.add(rolesRepository.getRoleByName("ROLE_CUSTOMER"));
         }
         else if(userDto.getUserType().equals(UserType.Worker)){
-            rolesSet.add(new Roles(1l,"ROLE_CUSTOMER"));
-            rolesSet.add(new Roles(2l,"ROLE_WORKER"));
-            userDto.setRoles(rolesSet);
+            rolesSet.add(rolesRepository.getRoleByName("ROLE_CUSTOMER"));
+            rolesSet.add(rolesRepository.getRoleByName("ROLE_WORKER"));
         }
         else{
-            rolesSet.add(new Roles(1l,"ROLE_CUSTOMER"));
-            rolesSet.add(new Roles(3l,"ROLE_ADMIN"));
-            userDto.setRoles(rolesSet);
+            rolesSet.add(rolesRepository.getRoleByName("ROLE_ADMIN"));
         }
         return rolesSet;
     }

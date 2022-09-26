@@ -122,7 +122,7 @@ public class AdminController {
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollingquestion")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                                    @RequestParam(value = "pageSize",defaultValue = "3",required = false) Integer pageSize){
+                                                                    @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
             List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
             return ResponseEntity.ok(pollingQuestion);

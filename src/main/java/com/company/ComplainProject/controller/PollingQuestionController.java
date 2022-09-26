@@ -85,6 +85,16 @@ public class PollingQuestionController {
         }
     }
 
+    @GetMapping("/pollingquestion/notansweredbyuser/{user_id}")
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(@PathVariable("user_id") Long id){
+        try{
+            return ResponseEntity.ok(pollingQuestionService.getPollingQuestionsNotAnsweredByUserService(id));
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No questions for user id "+id);
+        }
+    }
+
 
 
 }
