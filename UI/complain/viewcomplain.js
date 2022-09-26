@@ -25,7 +25,7 @@ function filterComplainByStatus() {
         "operation": ":",
         "value": complainStatus
     }
-
+    console.log(complainStatus);
     if (complainStatus !== "All") {
         fetch(`${baseUrl}/api/complain/searchByStatus`, {
             method: "POST",
@@ -159,11 +159,11 @@ function updateStatus() {
 
 function deleteComplain(id) {
 
-    fetch(`${baseUrl}/api/complain/` + id, {
+    fetch(`${baseUrl}/api/complain/`+id, {
         method: 'DELETE'
     })
         .then(() => {
-
+            getComplain()
             let table = ""
 
             table += `
@@ -185,9 +185,9 @@ function deleteComplain(id) {
             }, 2000)
         })
 
-    setTimeout(() => {
-        getComplain()
-    }, 100);
+    // setTimeout(() => {
+       
+    // }, 100);
 
 }
 
