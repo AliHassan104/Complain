@@ -25,12 +25,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class AchievementController {
+
     @Autowired
     AchievementService achievementService;
     @Autowired
     AchievementImageImplementation achievementImageImplementation;
     @Value("${achievement.image}")
-    private String path;
+    private String achievementPath;
+    @Value("${image.path.url}")
+    private String imagePathUrl;
 
 
     @GetMapping("/achievement")
@@ -89,7 +92,7 @@ public class AchievementController {
 
             if(achievementImageDeleted){
                 String fileName = achievementImageImplementation.uploadImage(image);
-                achievementsDto1.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+                achievementsDto1.setPictureUrl(imagePathUrl+"api/"+achievementPath+fileName);
                 return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto1));
             }
             else{
@@ -112,7 +115,7 @@ public class AchievementController {
 //                                                                                              Save Image in Database
             String fileName = achievementImageImplementation.uploadImage(image);
 
-            achievementsDto.setPictureUrl("http://localhost:8081/api/"+path+fileName);
+            achievementsDto.setPictureUrl(imagePathUrl+"api/"+achievementPath+fileName);
 
             return ResponseEntity.ok(achievementService.addAchievement(achievementsDto));
         }catch (Exception e){

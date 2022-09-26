@@ -24,7 +24,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/achievement")
     public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
@@ -60,7 +60,7 @@ public class AdminController {
         }
 
     }
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complain")
     public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
@@ -87,7 +87,7 @@ public class AdminController {
             throw  new ContentNotFoundException("No Complain Type Found");
         }
     }
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/document")
     public ResponseEntity<List<Document>> getDocument(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
@@ -100,7 +100,7 @@ public class AdminController {
             throw  new ContentNotFoundException("No Document Found");
         }
     }
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollinganswer")
     public ResponseEntity<List<PollingAnswer>> getPollingAnswer(){
         List<PollingAnswer> pollingAnswer = adminService.getAllPollingAnswer();
@@ -109,7 +109,7 @@ public class AdminController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollingoption")
     public ResponseEntity<List<PollingOption>> getPollingOption(){
         List<PollingOption> pollingOption = adminService.getAllPollingOption();
@@ -118,7 +118,7 @@ public class AdminController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollingquestion")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                                     @RequestParam(value = "pageSize",defaultValue = "3",required = false) Integer pageSize){
@@ -170,7 +170,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/userstatus/{id}")
     public ResponseEntity<UserDto> updateUserStatusById(@PathVariable("id") Long id,@RequestBody UserDto userDto){
         try{

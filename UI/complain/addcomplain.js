@@ -2,6 +2,7 @@ getComplain()
 getArea()
 getUser()
 
+
 let queryString = window.location.search;
 if (queryString != "") {
 
@@ -51,6 +52,8 @@ function getComplain() {
         })
 }
 
+var getBlockFromAreaId = 0;
+
 function getArea() {
     let table = ""
     fetch(`${baseUrl}/api/area`, {
@@ -61,6 +64,10 @@ function getArea() {
     })
         .then((response) => response.json())
         .then((data) => {
+            getBlockFromAreaId = data[0].id;
+                                                        //  Show blocks of first area in drop down
+            getBlock(getBlockFromAreaId)
+
             for (let i = 0; i < data.length; i++) {
                 table += `
             <option value="${data[i].id}">${data[i].name}</option>
@@ -69,6 +76,7 @@ function getArea() {
             document.getElementById("droparea").innerHTML = table;
         })
 }
+
 let username;
 function getUser() {
     let table = ""
@@ -88,6 +96,10 @@ function getUser() {
         })
 }
 
+                                                    //  to get area on change of drop down value
+document.getElementById('droparea').addEventListener('change', function () {
+    getBlock(this.value);
+});
 
 
 function formSubmit() {
@@ -112,6 +124,10 @@ function formSubmit() {
     var select = document.getElementById('dropuser');
     var user = select.options[select.selectedIndex].value;
     let image = document.getElementById("inpFile");
+    var selectBlock = document.getElementById("dropdownblock");
+    var block_id = selectBlock.value;
+
+     console.log("Block_id",block_id)
 
     newComplain = {
         description: description
@@ -124,6 +140,9 @@ function formSubmit() {
         },
         user: {
             id: user
+        },
+        block: {
+            id:block_id
         }
     };
 
@@ -224,4 +243,21 @@ function formSubmit() {
             document.getElementById("formSubmitted").innerHTML = ""
         }, 3000)
     }
+}
+
+function getBlock(id){
+    let renderBlock = ''
+    getData(`blockByArea/${id}`)
+    .then((data)=>{
+        if(data != null){
+         for (let i = 0; i < data.length; i++) {
+            renderBlock += `<option value=${data[i].id}>${data[i].block_name}</option>`
+         }
+        }
+        else{
+            renderBlock += `<option value="">"Sorry No Block Available"</option>`
+        }
+
+         document.getElementById("dropdownblock").innerHTML = renderBlock
+    })
 }
