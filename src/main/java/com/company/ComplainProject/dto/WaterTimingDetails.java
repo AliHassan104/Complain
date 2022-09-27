@@ -15,7 +15,9 @@ import java.time.LocalTime;
 public class WaterTimingDetails {
 
     private String day;
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime start_time;
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime end_time;
     private LocalDate date;
 

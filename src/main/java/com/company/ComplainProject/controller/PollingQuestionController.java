@@ -76,7 +76,7 @@ public class PollingQuestionController {
     }
 
     @GetMapping("/pollingquestionByArea/{area}")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestionArea(@PathVariable Area areaId){
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestionArea(@PathVariable("area") Long areaId){
         try{
             return ResponseEntity.ok(pollingQuestionService.getPollingQuestionByArea(areaId));
         }catch (Exception e){

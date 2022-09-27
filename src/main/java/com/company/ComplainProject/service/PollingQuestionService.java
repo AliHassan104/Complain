@@ -78,7 +78,7 @@ public class PollingQuestionService {
                 .end_date(pollingQuestion.getEnd_date()).end_time(pollingQuestion.getEnd_time()).pollingOptions(pollingQuestion.getPollingOptions()).build();
     }
 
-    public List<PollingQuestion> getPollingQuestionByArea(Area areaId) {
+    public List<PollingQuestion> getPollingQuestionByArea(Long areaId) {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId)).findAny().get();
         return pollingQuestionRepository.findPollingQuestionByArea(area);
     }
