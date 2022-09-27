@@ -43,22 +43,33 @@ function filterComplainByStatus() {
         getComplain()
     }
 }
+{/* <th style="width: 20%;" class="toptable ">picture</th> */}
+{/* <td style="width: 20%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px">  */}
+
+{/* <tr  class="tablepoint">
+
+<th  class="toptable ">User Name</th>
+<th  class="toptable ">Complain Type</th>
+<th class="toptable ">Description</th>
+<th  class="toptable ">Status</th>
+<th  class="toptable ">Date</th>
+<th  class="toptable ">Area</th>
+<th class="toptable ">Action</th>
+</tr> */}
 
 function renderComplainData(data) {
    
     let table = ""
     table += `
-        <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-
-        <th style="width: 10%;" class="toptable ">User Name</th>
-        <th style="width: 10%;" class="toptable ">Complain Type</th>
-        <th style="width: 13%;" class="toptable ">Description</th>
-        <th style="width: 11%;" class="toptable ">Status</th>
-        <th style="width: 11%;" class="toptable ">Date</th>
-        <th style="width: 9%;" class="toptable ">Area</th>
-        <th style="width: 20%;" class="toptable ">picture</th>
-        <th style="width: 15%;" class="toptable ">Action</th>
-        </tr>`
+    <tr  class="tablepoint">
+    <th  class="toptable ">User Name</th>
+    <th  class="toptable ">Complain Type</th>
+    <th class="toptable ">Description</th>
+    <th  class="toptable ">Status</th>
+    <th  class="toptable ">Date</th>
+    <th  class="toptable ">Area</th>
+    <th class="toptable ">Action</th>
+    </tr>`
 
     for (let i = 0; i < data.length; i++) {
 
@@ -68,17 +79,16 @@ function renderComplainData(data) {
 
         table += `
 
-        <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
+        <tr class="tablepoint "  >
             
-            <td style="width: 11%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id}) >${data[i].user.firstname + " " + data[i].user.lastname}</td>
-            <td style="width: 10%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].complainType.name}</td>
-            <td style="width: 13%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].description}</td>
-            <td style="width: 11%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].status}</td>
-            <td style="width: 11%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].date}</td>
-            <td style="width: 9%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].area.name}</td>
-            <td style="width: 20%;" class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})><img src="${data[i].picture}" alt="abc" style="width: 80%; height : 100px"> 
+            <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id}) >${data[i].user.firstname + " " + data[i].user.lastname}</td>
+            <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].complainType.name}</td>
+            <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].description}</td>
+            <td class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].status}</td>
+            <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].date}</td>
+            <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].area.name}</td>
            
-            <td style="width: 15%;" class="datatable"> 
+            <td class="datatable"> 
             <a  href="/complain/addcomplain.html?id=${data[i].id}">
             <i onclick="updateComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;"  
             class="fa fa-pencil"></i>
