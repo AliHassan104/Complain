@@ -91,6 +91,7 @@ public class ComplainService {
                 .user(complainDto.getUser())
                 .date(complainDto.getDate())
                 .time(complainDto.getTime())
+                .block(complainDto.getBlock())
                 .build();
     }
 
@@ -105,7 +106,7 @@ public class ComplainService {
                 .date(complain.getDate())
                 .time(complain.getTime())
                 .status(complain.getStatus())
-
+                .block(complain.getBlock())
                 .build();
     }
 
@@ -114,7 +115,7 @@ public class ComplainService {
         List<Complain> complains = complainRepository.findAll(complainSpecification);
         return complains.stream().map(el->toDto(el)).collect(Collectors.toList());
     }
-
+//                                                                                              filter complain by status
     public List<ComplainDto> getFilteredComplainByStatus(SearchCriteria searchCriteria) {
 
         if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_REVIEW")){
@@ -159,6 +160,7 @@ public class ComplainService {
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
 
+//                                                                                      complain user by status
     public List<ComplainDto> getComplainByUserAndStatus(String email,String status){
         User user = userService.getAllUser().stream().filter(user1 -> user1.getEmail().equalsIgnoreCase(email)).findAny().get();
         List<Complain> complains;
@@ -178,7 +180,6 @@ public class ComplainService {
         else{
             throw new ContentNotFoundException("No Complain found of user having status "+status);
         }
-
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
 }

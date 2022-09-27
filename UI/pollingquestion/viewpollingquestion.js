@@ -43,7 +43,9 @@ function getPollingQuestion() {
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
         <th style="width: 10%;" class="toptable ">Q .NO</th>
-        <th style="width: 75%;" class="toptable ">Question</th>
+        <th style="width: 30%;" class="toptable ">Question</th>
+        <th style="width: 15%;" class="toptable ">End Date</th>
+        <th style="width: 15%;" class="toptable ">End Time</th>
         <th style="width: 20%;" class="toptable ">Area</th>
         <th style="width: 15%;" class="toptable ">Action</th>
         </tr>`
@@ -54,7 +56,9 @@ function getPollingQuestion() {
             table += `
         <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
         <td style="width: 10%;" class="datatable">${i+1}</td>
-        <td style="width: 75%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].question}</td>
+        <td style="width: 30%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].question}</td>
+        <td style="width: 15%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].end_date}</td>
+        <td style="width: 15%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].end_time}</td>
         <td style="width: 20%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].area.name}</td>
         <td style="width: 15%;" class="datatable"> 
 

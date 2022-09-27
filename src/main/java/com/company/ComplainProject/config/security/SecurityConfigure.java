@@ -43,12 +43,11 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/user").permitAll()
                 .antMatchers("/**").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/api/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
 
         http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
     }

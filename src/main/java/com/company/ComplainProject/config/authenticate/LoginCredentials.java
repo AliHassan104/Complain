@@ -1,10 +1,13 @@
 package com.company.ComplainProject.config.authenticate;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Getter
+@Setter
+@Builder
 
 public class LoginCredentials {
 

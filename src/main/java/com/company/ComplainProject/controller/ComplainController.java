@@ -40,6 +40,8 @@ public class ComplainController {
     ComplainImageImplementation complainImageImplementation;
     @Value("${complain.image}")
     private String complainImagePath;
+    @Value("${image.path.url}")
+    private String imagePathUrl;
 
 
 
@@ -71,7 +73,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
         String  fileName = complainImageImplementation.uploadImage(image);
 
-        complainDto.setPicture("http://localhost:8081/api/"+complainImagePath+fileName);
+        complainDto.setPicture(imagePathUrl+"api/"+complainImagePath+fileName);
 
         return ResponseEntity.ok(complainService.addComplain(complainDto));
 
@@ -114,7 +116,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
             if(complainImageDeleted){
                 String complainFleName =  complainImageImplementation.uploadImage(image);
-                complainDto.setPicture("http://localhost:8081/api/"+complainImagePath+complainFleName);
+                complainDto.setPicture(imagePathUrl+"api/"+complainImagePath+complainFleName);
                 return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
             }
             else{
