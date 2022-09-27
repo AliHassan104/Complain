@@ -34,6 +34,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ComplainController {
+
     @Autowired
     ComplainService complainService;
     @Autowired
@@ -116,7 +117,9 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
             if(complainImageDeleted){
                 String complainFleName =  complainImageImplementation.uploadImage(image);
+
                 complainDto.setPicture(imagePathUrl+"api/"+complainImagePath+complainFleName);
+
                 return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
             }
             else{

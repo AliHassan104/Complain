@@ -39,6 +39,9 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
         if(jwtUtil.validateToken(jwt,userDetails)){
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
             usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+//            System.out.println(usernamePasswordAuthenticationToken.getPrincipal());
+
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
     }

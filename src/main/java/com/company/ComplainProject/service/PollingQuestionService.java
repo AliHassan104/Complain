@@ -81,29 +81,35 @@ public class PollingQuestionService {
                 .end_date(pollingQuestion.getEnd_date()).end_time(pollingQuestion.getEnd_time()).pollingOptions(pollingQuestion.getPollingOptions()).build();
     }
 
-    public List<PollingQuestion> getPollingQuestionByArea(Long areaId) {
-        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId)).findAny().get();
+    public List<PollingQuestion> getPollingQuestionByArea(Area areaId) {
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId.getId())).findAny().get();
         return pollingQuestionRepository.findPollingQuestionByArea(area);
     }
 
     public List<PollingQuestion> getPollingQuestionsNotAnsweredByUserService(Long user_id) {
+        List<PollingQuestion> showPollingQuestions = new ArrayList<>();
+
         User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(user_id)).findAny().get();
         List<PollingQuestion> attemptedQuestions = pollingAnswerRepository.getAttemptedPollingQuestionsByUser(user);
 
-        List<PollingQuestion> showPollingQuestions = new ArrayList<>();
-
 //                                                                      Attempted Polling Questions
-        List<Long> attemptedPollingQuestion = new ArrayList<>();
-        attemptedQuestions.stream().forEach(pollingAnswer -> attemptedPollingQuestion.add(pollingAnswer.getId()));
-
-//                                                                      All Polling Questions
+        List<Long> attemptedPollingQuestionsId = new ArrayList<>();
+        if(!attemptedQuestions.isEmpty()) {
+            attemptedQuestions.stream().forEach(pollingAnswer -> attemptedPollingQuestionsId.add(pollingAnswer.getId()));
+        }
+//                                                                      All Polling Questions by area
         List<Long> getPollingQuestionId = new ArrayList<>();
-        getAllPollingQuestion().stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
+        List<PollingQuestion> pollingQuestionsByArea = getPollingQuestionByArea(user.getArea());
+        if(!pollingQuestionsByArea.isEmpty()) {
+            pollingQuestionsByArea.stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
+        }
 
-        getPollingQuestionId.removeAll(attemptedPollingQuestion);
+        getPollingQuestionId.removeAll(attemptedPollingQuestionsId);
 
-        for (Long pollingQuestionId:getPollingQuestionId) {
-            showPollingQuestions.add(pollingQuestionRepository.findPollingQuestionById(pollingQuestionId));
+        if(!getPollingQuestionId.isEmpty()) {
+            for (Long pollingQuestionId : getPollingQuestionId) {
+                showPollingQuestions.add(pollingQuestionRepository.findPollingQuestionById(pollingQuestionId));
+            }
         }
 
         return showPollingQuestions;
