@@ -1,9 +1,8 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.dto.PollingQuestionDto;
-import com.company.ComplainProject.model.Area;
-import com.company.ComplainProject.model.PollingOption;
-import com.company.ComplainProject.model.PollingQuestion;
+import com.company.ComplainProject.model.*;
+import com.company.ComplainProject.repository.PollingAnswerRepository;
 import com.company.ComplainProject.repository.PollingOptionRepository;
 import com.company.ComplainProject.repository.PollingQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,10 @@ public class PollingQuestionService {
     PollingOptionRepository pollingOptionRepository;
     @Autowired
     AreaService areaService;
+    @Autowired
+    PollingAnswerRepository pollingAnswerRepository;
+    @Autowired
+    UserService userService;
 
     public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
@@ -81,5 +84,28 @@ public class PollingQuestionService {
     public List<PollingQuestion> getPollingQuestionByArea(Long areaId) {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId)).findAny().get();
         return pollingQuestionRepository.findPollingQuestionByArea(area);
+    }
+
+    public List<PollingQuestion> getPollingQuestionsNotAnsweredByUserService(Long user_id) {
+        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(user_id)).findAny().get();
+        List<PollingQuestion> attemptedQuestions = pollingAnswerRepository.getAttemptedPollingQuestionsByUser(user);
+
+        List<PollingQuestion> showPollingQuestions = new ArrayList<>();
+
+//                                                                      Attempted Polling Questions
+        List<Long> attemptedPollingQuestion = new ArrayList<>();
+        attemptedQuestions.stream().forEach(pollingAnswer -> attemptedPollingQuestion.add(pollingAnswer.getId()));
+
+//                                                                      All Polling Questions
+        List<Long> getPollingQuestionId = new ArrayList<>();
+        getAllPollingQuestion().stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
+
+        getPollingQuestionId.removeAll(attemptedPollingQuestion);
+
+        for (Long pollingQuestionId:getPollingQuestionId) {
+            showPollingQuestions.add(pollingQuestionRepository.findPollingQuestionById(pollingQuestionId));
+        }
+
+        return showPollingQuestions;
     }
 }

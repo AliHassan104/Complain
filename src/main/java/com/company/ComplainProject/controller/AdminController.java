@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @CrossOrigin
@@ -121,7 +122,7 @@ public class AdminController {
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollingquestion")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                                    @RequestParam(value = "pageSize",defaultValue = "3",required = false) Integer pageSize){
+                                                                    @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
             List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
             return ResponseEntity.ok(pollingQuestion);
@@ -134,7 +135,7 @@ public class AdminController {
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user")
     public ResponseEntity<List<User>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
             List<User> user = adminService.getAllUsers(pageNumber,pageSize);
             return ResponseEntity.ok(user);
@@ -170,7 +171,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/userstatus/{id}")
     public ResponseEntity<UserDto> updateUserStatusById(@PathVariable("id") Long id,@RequestBody UserDto userDto){
         try{

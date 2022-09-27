@@ -3,6 +3,7 @@ package com.company.ComplainProject.service;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.EventDto;
+import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.*;
@@ -84,10 +85,11 @@ public class AdminService {
     public List<User> getAllUsers(Integer pageNumber,Integer pageSize){
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<User> userPage = userRepository.findAll(pageable);
+        Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
         List<User> userList = userPage.getContent();
-
+        System.out.println(userList);
         return userList;
+
     }
 
     public List<Achievements> getAllAchievements(Integer pageNumber,Integer pageSize){

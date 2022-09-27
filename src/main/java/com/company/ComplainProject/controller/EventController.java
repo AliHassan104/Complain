@@ -9,6 +9,7 @@ import com.company.ComplainProject.service.EventService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,8 +29,10 @@ public class EventController {
     EventService eventService;
     @Autowired
     EventImageImplementation eventImageImplementation;
+    @Value("${image.path.url}")
+    private String imagePathUrl;
 
-    final String eventImageApi = "http://localhost:8081/api/event/images/";
+    final String eventImageApi = "api/event/images/";
 
     @GetMapping("/event")
     public ResponseEntity<List<Event>> getAllEvent(){
@@ -70,7 +73,7 @@ public class EventController {
 //                                                                      Save image in the disk
             String imageName = eventImageImplementation.uploadImage(image);
 
-            String eventImagePath = eventImageApi+imageName;
+            String eventImagePath = imagePathUrl+eventImageApi+imageName;
 
             eventDto.setImage(eventImagePath);
 
@@ -99,7 +102,7 @@ public class EventController {
 //                                                                                     upload the image in the disk
             if(eventImageDeleted) {
                 String uploadImageName = eventImageImplementation.uploadImage(image);
-                eventDto.setImage(eventImageApi+uploadImageName);
+                eventDto.setImage(imagePathUrl+eventImageApi+uploadImageName);
                 return ResponseEntity.ok(eventService.updateEventById(id, eventDto));
             }
             else{

@@ -43,7 +43,6 @@ public class PollingAnswerController {
 
     @PostMapping("/pollinganswer")
     public ResponseEntity<PollingAnswerDto> addPollingAnswer(@RequestBody PollingAnswerDto pollingAnswerDto){
-
         try{
             return ResponseEntity.ok(pollingAnswerService.addPollingAnswer(pollingAnswerDto));
         }catch (Exception e){
