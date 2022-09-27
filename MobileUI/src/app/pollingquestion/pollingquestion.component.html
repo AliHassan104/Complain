@@ -1,0 +1,32 @@
+<div style="height: 100%!important;overflow: auto;" class="container">
+
+  <div class="appHeader text-light" >
+    <div class="pageTitle">Area Survey</div>
+  <div class="right">
+  </div>
+</div>
+
+<!-- <br> <br> <br> <br> -->
+<div class="" style="margin-top: 70px;">
+
+</div>
+
+
+<div style="margin-top: 10px;" class="accordion" id="accordionExample" *ngFor="let list of lists; let i = index">
+<div class="card" >
+
+  <div class="card-header" id="headingTwo" >
+    <h5 class="mb-0">
+      <a [routerLink]="['/pollingquestion/',list.id]">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#abc'+list.id"  aria-expanded="false" [attr.aria-controls]="'abc'+list.id">
+          {{i+1 + " - " + list.question}} <b> (Click Here) </b>
+        </button>
+      </a>
+    </h5>
+  </div>
+</div>
+
+</div>
+
+
+<app-bottom-menu></app-bottom-menu>

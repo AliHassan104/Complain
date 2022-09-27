@@ -1,0 +1,120 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PollingquestionService } from '../Services/pollingquestion.service';
+import { UserService } from '../Services/user.service';
+
+@Component({
+  selector: 'app-pollingsubmit',
+  templateUrl: './pollingsubmit.component.html',
+  styleUrls: ['./pollingsubmit.component.css']
+})
+export class PollingsubmitComponent implements OnInit {
+  userId: any;
+
+  constructor(private route: ActivatedRoute ,
+              private pollingquestionService : PollingquestionService,
+              private userService : UserService,
+              private router:Router
+
+              ) {}
+
+  questionId: any
+  ngOnInit(): void {
+
+    let id = this.route.snapshot.paramMap.get('id');
+    this.questionId = id
+    this.getPollingQuestion(parseInt(id))
+    this.getUser()
+  }
+
+
+  pollingAnswer = new FormGroup({
+    user : new FormGroup({
+      id : new FormControl()
+    }),
+    pollingQuestion : new FormGroup({
+      id : new FormControl()
+    }),
+    pollingOption : new FormGroup({
+      id : new FormControl()
+    })
+  })
+
+
+
+
+  pollingquestion : any = []
+
+  getPollingQuestion(id: number) {
+    console.log(this.pollingAnswer.value);
+    this.pollingquestionService.getPollingQuestionById(id).subscribe(data => {
+      this.pollingquestion = data
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  goToSurvey(){
+    this.router.navigate(['survey']);
+  }
+
+
+  surveySubmit(data: any ){
+
+    this.pollingAnswer.value.pollingQuestion.id = parseInt(this.questionId)
+    this.pollingAnswer.value.user.id = this.userId
+
+    setTimeout(() => {
+      // console.log(data);
+    }, 1500);
+
+    this.pollingquestionService.postPollingQuestion(data)
+        .subscribe((data) =>
+         {
+          // console.log(data);
+        this.router.navigate(['pollingquestion']);
+      }, error => {
+
+        console.log(error);
+      });
+
+  }
+
+  getToken() {
+    let token = localStorage.getItem("jwtToken")
+    if(token != null){
+        // console.log("Bearer "+token);
+        return "Bearer "+token
+    }
+    return null;
+  }
+
+decodeJwtToken(token: string) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+};
+
+getEmailByToken(){
+  let  encodedToken = this.decodeJwtToken(this.getToken())
+  return encodedToken.sub;
+}
+
+getUser() {
+    let user: any
+    const email = this.getEmailByToken()
+    this.userService.getUserByEmail(email).subscribe(data => {
+      // console.log(data);
+      user = data
+      this.userId = user.area.id
+      console.log(user.area.id);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+}

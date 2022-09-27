@@ -1,0 +1,48 @@
+
+<div class="section full mt-2">
+  <div class="section-title">Status</div>
+  <div class="container-fluid" >
+
+    <div class="wide-block">
+      <div class="timeline timed">
+          <div class="item">
+              <span class="time">{{complain.date | date}}</span>
+              <div class="dot"></div>
+              <div class="content">
+                  <h4 class="title">In Review</h4>
+                  <div class="text">Your Complain Is In Review We Will Start Working on It {{timeToGetCompleted[0] | date}} </div>
+              </div>
+          </div>
+
+          <div class="item">
+              <span class="time">{{timeToGetCompleted[0] | date}}</span>
+              <div class="dot bg-warning"></div>
+              <div class="content">
+                  <h4 class="title">In Progress</h4>
+                  <div class="text">We Are Working On Your Complain Will Get Completed Before {{timeToGetCompleted[1] | date}}</div>
+                </div>
+              </div>
+
+              <div class="item">
+                <span class="time">{{timeToGetCompleted[1] | date}}</span>
+                <div class="dot bg-success"></div>
+                <div class="content">
+                  <h4 class="title">Completed</h4>
+                  <div class="text">Your Complain Is Now Resolved</div>
+                <div class="text">
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-bottom-menu></app-bottom-menu>
+
+
+
+
+

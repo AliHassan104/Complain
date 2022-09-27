@@ -1,0 +1,29 @@
+<div class="container" style="height: 100%!important;overflow: auto;">
+
+  <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
+    <div class="card-body">
+      <h5 class="card-title text-center">Survey</h5>
+      <div class="section full mb-2">
+        <form [formGroup]="pollingAnswer" (ngSubmit)="surveySubmit(pollingAnswer.value)" >
+
+        <div style="margin-bottom: 10px;" class="section-title">{{pollingquestion.question}}</div>
+        <div class="wide-block p-0">
+            <div id="option" class="input-list">
+                <div style="margin-top: 10px;" class="form-check" *ngFor="let polling of pollingquestion.pollingOptions">
+                <div class="" formGroupName="pollingOption">
+                  <label>
+                      <input name="answer" type="radio" [value]="polling.id" formControlName="id">
+                      <span >{{polling.option}}</span>
+                    </label>
+                  </div>
+                </div>
+            </div>
+        </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    </div>
+  </div>
+</div>
+
+<app-bottom-menu></app-bottom-menu>

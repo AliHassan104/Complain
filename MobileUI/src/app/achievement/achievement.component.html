@@ -1,0 +1,28 @@
+<div class="container-fluid" style=" height: 100%!important;overflow: auto;">
+  <div class="section full mt-2">
+    <div class="appHeader">
+      <div class="pageTitle" style="padding-right: 50px;">Achievement</div>
+  </div>
+  <br>
+</div>
+
+<div class="section mt-2">
+  <div class="row">
+    <div class="col-12" *ngFor="let list of lists">
+      <a [routerLink]="['/achivementdetails/',list.id]">
+          <div  class="card product-card" style="margin-top: 20px; margin-bottom: 10px;">
+              <div class="card-body">
+                  <img style="width: 100%;" src={{list.pictureUrl}} class="image" alt="product image">
+                  <h2 class="title">{{list.title}}</h2>
+                  <p>{{list.date | date:"fullDate"}}</p>
+                  <p>{{list.description | slice:0:50}} <b *ngIf="list.description.length > 50"> ...ReadMore</b> </p>
+                </div>
+              </div>
+            </a>
+      </div>
+  </div>
+</div>
+
+<br> <br> <br> <br>
+
+<app-bottom-menu></app-bottom-menu>

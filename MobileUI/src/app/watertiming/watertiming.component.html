@@ -1,0 +1,65 @@
+
+<div class="appHeader text-light" >
+  <div class="pageTitle">{{areaName}} Water Timing</div>
+  <div class="right">
+  </div>
+</div>
+<br> <br> <br>
+
+
+<div style="height: 100%!important;overflow: auto;" class="accordion" id="accordionExample">
+
+  <div   *ngFor="let list of areaWaterTimimg; let i = index">
+
+    <div  class="card" >
+
+      <div class="card-header" id="headingTwo" >
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#abc'+i"  aria-expanded="false" [attr.aria-controls]="'abc'+i">
+            {{list.block_name}}
+          </button>
+        </h5>
+      </div>
+
+      <div [id]="'abc'+i" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <!-- <div class="card-body" *ngFor="let watertime of areaWaterTimimg.waterTimingDtoList">
+          {{watertime.date | date:"fullDate"}} at  {{watertime.time}}
+          <h1>abc</h1> -->
+          <div class="card-body">
+            <div *ngFor="let watertime of list.waterTimingDtoList" class="">
+              water will start at {{watertime.start_time | time}}
+              and end at {{watertime.end_time | time}}
+            </div>
+            <!-- <h1>abc</h1> -->
+          </div>
+          <!-- <ng-container></ng-container> -->
+
+        </div>
+
+      </div>
+
+
+  </div>
+
+
+</div>
+
+<!-- <div class="accordion" id="accordionExample" *ngFor="let water of areaWaterTimimg; let i = index">
+  <div class="card" >
+
+    <div class="card-header" id="headingTwo" >
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#abc'+water.id"  aria-expanded="false" [attr.aria-controls]="'abc'+water.id">
+          {{water.block_name}}
+        </button>
+      </h5>
+    </div>
+    <div [id]="'abc'+water.id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div *ngFor="let list of areaWaterTimimg.waterTimingDtoList" class="card-body">
+        {{list.date | date:"fullDate"}} at  {{list.time}}
+      </div>
+    </div>
+</div> -->
+
+
+<app-bottom-menu></app-bottom-menu>

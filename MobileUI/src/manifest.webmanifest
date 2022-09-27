@@ -1,0 +1,30 @@
+{
+  "name": "MONTREAL SAUVAGE",
+  "short_name": "MONTREAL SAUVAGE",
+  "theme_color": "#0C1624",
+  "background_color": "#0C1624",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/72X72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/96X96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/128X128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+
+    ]
+}

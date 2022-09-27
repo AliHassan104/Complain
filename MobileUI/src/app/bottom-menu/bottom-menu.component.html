@@ -1,0 +1,267 @@
+<!-- App Bottom Menu -->
+<div  class="appBottomMenu">
+
+  <a href="javascript:;" class="item" data-toggle="modal" (click)="getAllFriends()" data-target="#sidebarPanel">
+      <div class="col">
+          <ion-icon  src="assets/menu.svg"></ion-icon>
+          <!-- <img src="https://img.icons8.com/material-sharp/35/000000/menu--v1.png"/> -->
+      </div>
+  </a>
+
+  <a  class="item" [routerLink]="['/home']" >
+      <div class="col">
+          <ion-icon src="assets/home.svg"></ion-icon>
+          <!-- <img src="https://img.icons8.com/material-rounded/24/1A1A1A/home.png"/> -->
+          <!-- <img src="https://img.icons8.com/material-sharp/35/000000/home-page.png"/> -->
+      </div>
+  </a>
+
+  <a [routerLink]="['/mycomplain']"  class="item">
+
+      <div class="col">
+          <ion-icon src="assets/friends.svg"></ion-icon>
+          <!-- <img src="https://img.icons8.com/material-sharp/24/1A1A1A/complaint.png"/> -->
+          <!-- <img src="https://img.icons8.com/ios-filled/35/000000/complaint.png"/> -->
+          <i class="bi bi-person"></i>
+          <span  *ngIf="reqCount>0" class="badge badge-danger" >{{reqCount}}</span>
+      </div>
+  </a>
+  <a (click)="goToAddPostNotifications()" class="item">
+      <div class="col">
+          <ion-icon src="assets/notification.svg"></ion-icon>
+          <!-- <img src="https://img.icons8.com/material-sharp/35/000000/appointment-reminders--v1.png"/> -->
+          <i class="bi bi-bell-fill"></i>
+          <span *ngIf="notificationCount>0" class="badge badge-danger" >{{notificationCount}}</span>
+      </div>
+  </a>
+</div>
+<!-- * App Bottom Menu -->
+
+<!-- App Sidebar -->
+<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-body p-0">
+
+              <!-- profile box -->
+              <div class="profileBox">
+
+                  <div class="image-wrapper">
+                      <!-- <img [src]="
+                      profilePicture != null
+                        ? 'data:image/jpeg;base64,' + profilePicture
+                        : 'assets/user.png'
+                    "
+                    alt="image"
+                    class="imaged rounded myImg"> -->
+
+
+
+                  </div>
+
+                  <div class="in">
+                      <strong (click)="goToMyProfile()" data-dismiss="modal">{{userAreaName.firstname + " " + userAreaName.lastname | uppercase }}</strong>
+
+
+              </div>
+                  <a href="javascript:;" class="close-sidebar-button" data-dismiss="modal">
+                      <ion-icon src="assets/close.svg"></ion-icon>
+                  </a>
+              </div>
+              <!-- * profile box -->
+
+              <ul class="listview flush transparent no-line image-listview mt-2">
+
+                  <li *ngIf="!checkUserType()">
+                      <a  class="item" data-dismiss="modal" [routerLink]="['/home']">
+                          <div class="icon-box bg-primary">
+                              <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
+                              <!-- <ion-icon name="home-outline"></ion-icon> -->
+                              <img src="https://img.icons8.com/material-rounded/24/1A1A1A/home.png"/>
+                          </div>
+                          <div class="in">
+                              Home
+                          </div>
+                      </a>
+                  </li>
+                  <li *ngIf="!checkUserType()">
+                      <a class="item" [routerLink]="['/mycomplain']" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <!-- <ion-icon src="assets/message.svg"></ion-icon> -->
+                              <!-- <ion-icon name="chatbubbles-outline"></ion-icon> -->
+                              <!-- <img src="https://img.icons8.com/ios-glyphs/30/1A1A1A/complaint.png"/> -->
+                              <img src="https://img.icons8.com/material-sharp/24/1A1A1A/complaint.png"/>
+                          </div>
+                          <div class="in">
+                              <div>My Complain</div>
+                              <span *ngIf="chatCount>0" class="badge badge-danger">{{chatCount}}</span>
+                          </div>
+                      </a>
+                  </li>
+                  <li *ngIf="!checkUserType()">
+                      <a [routerLink]="['/watertiming']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
+                              <!-- <ion-icon name="water-outline"></ion-icon> -->
+                              <img src="https://img.icons8.com/android/24/1A1A1A/water.png"/>
+
+                          </div>
+                          <div class="in">
+                              <div>Water Timing</div>
+
+                          </div>
+                      </a>
+                  </li>
+                  <li *ngIf="!checkUserType()">
+                      <a [routerLink]="['/achievement']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
+                              <!-- <ion-icon name="trophy-outline"></ion-icon> -->
+                              <img src="https://img.icons8.com/external-regular-kawalan-studio/24/1A1A1A/external-achievement-business-regular-kawalan-studio-2.png"/>
+                          </div>
+                          <div class="in">
+                              <div>Achievement</div>
+                          </div>
+                      </a>
+                  </li>
+                  <li *ngIf="!checkUserType()">
+                      <a [routerLink]="['/event']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                            <!-- <ion-icon name="calendar-number-outline"></ion-icon> -->
+                            <!-- <ion-icon name="calendar-clear-outline"></ion-icon> -->
+                            <!-- <ion-icon name="calendar-outline"></ion-icon> -->
+                            <img src="https://img.icons8.com/material-rounded/24/1A1A1A/event-accepted-tentatively.png"/>
+                          </div>
+                          <div class="in">
+                              <div>Event</div>
+
+                          </div>
+                      </a>
+                  </li>
+                  <li *ngIf="!checkUserType()">
+                      <a [routerLink]="['/document']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
+                              <!-- <ion-icon name="document-outline"></ion-icon> -->
+                              <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/document--v1.png"/> -->
+                              <img src="https://img.icons8.com/material-outlined/24/1A1A1A/document--v1.png"/>
+                          </div>
+                          <div class="in">
+                              <div>Document</div>
+
+                          </div>
+                      </a>
+                  </li>
+
+                  <li >
+                      <a [routerLink]="['/pollingquestion']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/survey--v2.png"/> -->
+                              <img src="https://img.icons8.com/material-outlined/24/000000/event-accepted-tentatively.png"/>
+                          </div>
+                          <div class="in">
+                              <div>Survey</div>
+                              <!-- <span class="badge badge-danger">5</span> -->
+                          </div>
+                      </a>
+                  </li>
+
+                  <li >
+                      <a [routerLink]="['/help']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <!-- <ion-icon src="assets/calendar.svg"></ion-icon> -->
+                              <!-- <ion-icon name="help-circle-outline"></ion-icon> -->
+                              <img src="https://img.icons8.com/material-outlined/24/1A1A1A/help.png"/>
+                          </div>
+                          <div class="in">
+                              <div>Contact Us</div>
+                              <!-- <span class="badge badge-danger">5</span> -->
+                          </div>
+                      </a>
+                  </li>
+
+                  <!-- <li *ngIf="checkUserType()">
+                      <a [routerLink]="['/addevent']" class="item" data-dismiss="modal">
+                          <div class="icon-box bg-primary">
+                              <ion-icon src="assets/calendar.svg"></ion-icon>
+                          </div>
+                          <div class="in">
+                              <div>Post on Market place</div>
+                          </div>
+                      </a>
+                  </li> -->
+
+              </ul>
+
+              <!-- <div class="listview-title mt-2 mb-1">
+                  <span>Online Friends</span>
+              </div>
+              <div>
+              <ul class="listview image-listview flush transparent no-line">
+                  <li  *ngFor="let user of friendsArray" (click)="gotoChatroom(user.id)" data-dismiss="modal">
+                      <a  class="item">
+                          <img [src]="
+                          user.profilePicture != null
+                            ? 'data:image/jpeg;base64,' + user.profilePicture
+                            : 'assets/user.png'
+                        "  alt="image" class="image">
+                          <div class="in">
+                              <div>{{user.name}}</div>
+                          </div>
+
+                          <span *ngIf="user.sender!=id && user.seen==false" class="badge badge-danger badge-empty"></span>
+                      </a>
+                  </li>
+              </ul>
+              <div *ngIf="!friendsArray.length" style="text-align: center;margin-top: 10px;">
+                  No Friends online
+              </div> -->
+
+            </div>
+
+
+          <!-- sidebar buttons -->
+          <div class="sidebar-buttons">
+              <a  class="button" (click)="logout()" data-dismiss="modal">
+                  <ion-icon src="assets/logout.svg"></ion-icon>
+              </a>
+          </div>
+          <!-- * sidebar buttons -->
+      </div>
+  </div>
+</div>
+
+<!-- Notification -->
+<div id="notification-7" class="notification-box">
+  <div class="notification-dialog ios-style">
+      <div class="notification-header">
+          <div class="in">
+              <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="imaged w24 rounded">
+              <strong>Pablo Cambeiro</strong>
+          </div>
+          <div class="right">
+              <span>just now</span>
+              <a href="#" class="close-button">
+                  <ion-icon name="close-circle"></ion-icon>
+              </a>
+          </div>
+      </div>
+      <div class="notification-content">
+          <div class="in">
+              <h3 class="subtitle">Hello There</h3>
+              <div class="text">
+                  This is a simple iOS style notification.
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div id="toast-9" class="toast-box toast-center">
+  <div class="in">
+      <div class="text">
+          Centered Toast
+      </div>
+  </div>
+  <!-- <button type="button" class="btn btn-sm btn-text-light close-button">CLOSE</button> -->
+</div>
