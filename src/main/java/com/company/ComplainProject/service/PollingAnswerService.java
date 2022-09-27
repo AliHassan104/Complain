@@ -23,6 +23,8 @@ public class PollingAnswerService {
     UserService userService;
     @Autowired
     PollingQuestionService pollingQuestionService;
+    @Autowired
+    PollingOptionService pollingOptionService;
 
     public List<PollingAnswer> getAllPollingAnswer() {
         return pollingAnswerRepository.findAll();
@@ -37,14 +39,22 @@ public class PollingAnswerService {
     }
 
     public PollingAnswerDto addPollingAnswer(PollingAnswerDto pollingAnswerDto) {
+        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(pollingAnswerDto.getUser().getId())).findAny().get();
+        PollingQuestion pollingQuestion = pollingQuestionService.getAllPollingQuestion().stream().filter(pollingQuestion1 -> pollingQuestion1.getId().equals(pollingAnswerDto.getPollingQuestion().getId())).findAny().get();
+        PollingOption pollingOption = pollingOptionService.getAllPollingOption().stream().filter(pollingOption1 -> pollingOption1.getId().equals(pollingAnswerDto.getPollingOption().getId())).findAny().get();
+
+        pollingAnswerDto.setUser(user);
+        pollingAnswerDto.setPollingQuestion(pollingQuestion);
+        pollingAnswerDto.setPollingOption(pollingOption);
+
         return toDto(pollingAnswerRepository.save(dto(pollingAnswerDto)));
     }
 
     public Optional<PollingAnswerDto> updatePollingOptionById(Long id, PollingAnswerDto pollingAnswerDto) {
         PollingAnswer updatePollingAnswer = getAllPollingAnswer().stream().filter(el->el.getId().equals(id)).findAny().get();
+        PollingOption pollingOption = pollingOptionService.getAllPollingOption().stream().filter(pollingOption1 -> pollingOption1.getId().equals(pollingAnswerDto.getPollingOption().getId())).findAny().get();
+
         if(updatePollingAnswer != null){
-//            updatePollingAnswer.setUser(pollingAnswerDto.getUser());
-//            updatePollingAnswer.setPollingQuestion(pollingAnswerDto.getPollingQuestion());
             updatePollingAnswer.setPollingOption(pollingAnswerDto.getPollingOption());
         }
         return Optional.of(toDto(pollingAnswerRepository.save(updatePollingAnswer)));
