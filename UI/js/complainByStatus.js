@@ -12,23 +12,17 @@ function getComplain() {
     complainStatus = []
     numberOfStatus = []
 
-    fetch(`${baseUrl}/api/complainbystatus`,{
-        headers:{
-            "Content-Type":"application/json",   
-        }
-    })
-    .then((response)=>response.json())
+
+    getData(`/complainbystatus`)
     .then((data)=> {
 
      
-
         for (const property in data) {
             complainStatus.push(data[property].status)
             numberOfStatus.push(data[property].numberOfComplains)
           }
 
-    
-        
+
         for (let i = 0; i < data.length; i++) {
 
             totalcomplain += numberOfStatus[i];

@@ -81,8 +81,8 @@ public class PollingQuestionService {
                 .end_date(pollingQuestion.getEnd_date()).end_time(pollingQuestion.getEnd_time()).pollingOptions(pollingQuestion.getPollingOptions()).build();
     }
 
-    public List<PollingQuestion> getPollingQuestionByArea(Area areaId) {
-        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId.getId())).findAny().get();
+    public List<PollingQuestion> getPollingQuestionByArea(Long areaId) {
+        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaId)).findAny().get();
         return pollingQuestionRepository.findPollingQuestionByArea(area);
     }
 
@@ -99,7 +99,7 @@ public class PollingQuestionService {
         }
 //                                                                      All Polling Questions by area
         List<Long> getPollingQuestionId = new ArrayList<>();
-        List<PollingQuestion> pollingQuestionsByArea = getPollingQuestionByArea(user.getArea());
+        List<PollingQuestion> pollingQuestionsByArea = getPollingQuestionByArea(user.getArea().getId());
         if(!pollingQuestionsByArea.isEmpty()) {
             pollingQuestionsByArea.stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
         }

@@ -22,11 +22,11 @@ function decodeJwtToken(token) {
 
 
 function getData(url) {
-    return fetch(`${baseUrl}/api/${url}`, {
+    return fetch(`${baseUrl}/api${url}`, {
         method: "GET",
         headers: {
             "Content-type": "application/json",
-            // "Authorization": getToken()
+            "Authorization": getToken()
         }
     })
         .then((response) => {
@@ -39,12 +39,11 @@ function getData(url) {
 }
 
 function sendData(url, data) {
-
-    return fetch(`${baseUrl}/api/${url}`, {
+    return fetch(`${baseUrl}/api${url}`, {
         method: "POST",
         headers: {
             "Content-type": "application/json",
-            // "Authorization": getToken()
+            "Authorization": getToken()
         },
         body: JSON.stringify(data)
     })
@@ -57,16 +56,31 @@ function sendData(url, data) {
         });
 }
 
+function sendDataWithFormData(url, data) {
+    return fetch(`${baseUrl}/api${url}`, {
+        method: "POST",
+        headers: {
+            "Authorization": getToken()
+        },
+        body: data
+    })
+        .then((response) => {
+            return response.json().then((data) => {
+                return data;
+            }).catch((err) => {
+                console.log(err);
+            })
+        });
+}
+
+
 function deleteData(url) {
-    return fetch(`${baseUrl}/api/${url}`, {
+    return fetch(`${baseUrl}/api${url}`, {
         method: 'DELETE',
         headers: {
             "Authorization": getToken()
         }
     })
-        .then((data) => {
-
-        })
         .catch((error) => {
             console.log(error);
         })
@@ -74,13 +88,31 @@ function deleteData(url) {
 
 function updateData(url, data) {
 
-    return fetch(`${baseUrl}/api/${url}`, {
+    return fetch(`${baseUrl}/api${url}`, {
         method: "PUT",
         headers: {
             "Content-type": "application/json",
-            // "Authorization": getToken()
+            "Authorization": getToken()
         },
         body: JSON.stringify(data)
+    })
+        .then((response) => {
+            return response.json().then((data) => {
+                return data;
+            }).catch((err) => {
+                console.log(err);
+            })
+        });
+}
+
+function updateDataWithFormData(url, data) {
+
+    return fetch(`${baseUrl}/api${url}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": getToken()
+        },
+        body: data
     })
         .then((response) => {
             return response.json().then((data) => {
@@ -93,11 +125,11 @@ function updateData(url, data) {
 
 function patchData(url, data) {
 
-    return fetch(`${baseUrl}/api/${url}`, {
+    return fetch(`${baseUrl}/api${url}`, {
         method: "PATCH",
         headers: {
             "Content-type": "application/json",
-            // "Authorization": getToken()
+            "Authorization": getToken()
         },
         body: JSON.stringify(data)
     })
@@ -118,14 +150,16 @@ function tokenNotExist() {
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
         var arrayOfRoles = roles.split(",");
+
         for (let i = 0; i < arrayOfRoles.length; i++) {
             getRoles[i] = arrayOfRoles[i].trim()
         }
     }
 
     if (token != null) {
+        //                                                                              Verify the token First api isTokenExpired
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-            console.log("yeh")
+            console.log("Congratulation")
         }
         else { window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") }
     }
@@ -138,7 +172,7 @@ function tokenNotExist() {
 
 function getUserData() {
     let email = userDetails.sub
-    return getData(`userbyemail/${email}`)
+    return getData(`/userbyemail/${email}`)
         .then((data) => {
             return data
         }

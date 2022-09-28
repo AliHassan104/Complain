@@ -1,11 +1,10 @@
 let queryString = window.location.search;
 if (queryString != "") {
+    
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
-    
-    fetch(`${baseUrl}/api/area/${urlId}`, {
-    })
-        .then(response => response.json()).catch(() => { })
+
+    getData(`/area/${urlId}`)
         .then(data => {
             document.getElementById("name").value = data.name;
             document.getElementById("postalcode").value = data.postalCode
@@ -24,62 +23,22 @@ function formSubmit() {
 
     if (name != "" && postalcode != "") {
         if (queryString == "") {
-            fetch(`${baseUrl}/api/area`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newArea)
-            })
-                .then(response => response.json())
+        
+            sendData(`/area`, newArea)
                 .then(data => {
 
                     let table = ""
                     table += `
-                <div  style=" 
-                    margin: auto;
-                    text-align: center;
-                    width: 50%;
-                    height: 5vh; text-align: center; 
-                    justify-content: center;
-                    font-size: large" 
-                    class="alert alert-success" role="alert">
-                    <b> ${newArea.name} </b> &nbsp  Added In Area Successfully
-                </div>`
-
-
-                document.getElementById("name").value = "";
-                document.getElementById("postalcode").value = "";
-                document.getElementById("formSubmitted").innerHTML = table
-                  
-                    setTimeout(() => {
-                        document.getElementById("formSubmitted").innerHTML = ""
-                    }, 2000)
-
-                   
-
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        }
-        else {
-            fetch(`${baseUrl}/api/area/${urlId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newArea),
-            })
-                .then(response => response.json()).catch(() => { })
-                .then(data => {
-                
-                    let table = ""
-                    table += `
-            <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
-            justify-content: center;font-size: large" class="alert alert-success" role="alert">
-            <b> ${newArea.name} </b> &nbsp  Updated In Area Successfully
-            </div>`
+                    <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        <b> ${newArea.name} </b> &nbsp  Added In Area Successfully
+                    </div>`
 
                     document.getElementById("name").value = "";
                     document.getElementById("postalcode").value = "";
@@ -89,7 +48,34 @@ function formSubmit() {
                         document.getElementById("formSubmitted").innerHTML = ""
                     }, 2000)
 
-                   
+
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+        else {
+    
+                 updateData(`/area/${urlId}`,newArea)
+                .then(data => {
+
+                    let table = ""
+                    table += `
+                        <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
+                        justify-content: center;font-size: large" class="alert alert-success" role="alert">
+                        <b> ${newArea.name} </b> &nbsp  Updated In Area Successfully
+                        </div>`
+
+                    document.getElementById("name").value = "";
+                    document.getElementById("postalcode").value = "";
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+
+
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -98,7 +84,7 @@ function formSubmit() {
     }
     else {
         let invalidContent = ""
-        invalidContent +=  `<div  style=" margin: auto;text-align: center;width: 60%;height: 5vh; text-align: center; 
+        invalidContent += `<div  style=" margin: auto;text-align: center;width: 60%;height: 5vh; text-align: center; 
         justify-content: center;font-size: large" class="alert alert-danger" role="alert">
         <b> Invalid Data ! Area Name Or Postal Code Cannot be Empty </b> &nbsp  
         </div>`

@@ -4,9 +4,7 @@ if (queryString != "") {
     const urlparams = new URLSearchParams(queryString);
     var eventId = urlparams.get("id")
 
-    fetch(`${baseUrl}/api/event/` + eventId, {
-    })
-        .then(response => response.json()).catch(() => { })
+        getData(`/event/${eventId}`)
         .then(data => {
             document.getElementById("achieveventbtn").innerText = "Update"
             document.getElementById('eventtitle').value = data.title;
@@ -47,11 +45,7 @@ function formSubmit() {
 
         if (queryString == "") {
             
-            fetch("http://localhost:8081/api/event", {
-                method: "POST",
-                body: formData
-
-            }).then((response) => response.json())
+                sendDataWithFormData(`/event`,formData)
                 .then((data) => {
                     let table = ""
                     table += `
@@ -78,11 +72,7 @@ function formSubmit() {
         }
         else {
           
-            fetch("http://localhost:8081/api/event/" + eventId, {
-                method: "PUT",
-                body: formData
-
-            }).then((response) => response.json())
+            updateDataWithFormData(`/event/${eventId}`,formData)
                 .then((data) => {
                     console.log(data);
                     let table = ""
@@ -137,10 +127,7 @@ function formSubmit() {
 function getArea() {
     let dataRender = ""
 
-    fetch(`${baseUrl}/api/admin/area`, {
-        'Content-Type': 'application/json',
-    })
-        .then((response) => response.json()).catch(() => { })
+        getData(`/admin/area`)
         .then((data) => {
 
             if (data.length !== 0) {

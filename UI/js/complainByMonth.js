@@ -4,12 +4,7 @@ let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
 
 
 function getComplain() {
-    fetch(`${baseUrl}/api/complianbymonth`,{
-      headers:{
-            "Content-Type":"application/json",
-          }
-        })
-        .then((response)=>response.json())
+        getData(`/complainbymonth`)
         .then((data)=> {
         for (const property in data) {
           complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)

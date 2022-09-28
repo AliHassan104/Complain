@@ -1,30 +1,25 @@
 getArea();
 
 let queryString;
-setTimeout(() => {
-    queryString = window.location.search;
-    
-    if (queryString != "") {
-        const urlParams = new URLSearchParams(queryString)
-        var urlId = urlParams.get("id")
-    
-    fetch(`${baseUrl}/api/document/${urlId}`, {
-})
-.then(response => response.json()).catch(()=>{})
-.then(data => {
-        console.log(data);
-        document.getElementById("url").value = data.url;
-        document.getElementById("title").value = data.title;
-        document.getElementById("title").value = "";
-        document.getElementById("dropdownarea").value = data.area.name;
-        document.getElementById("documentbtn").innerText = "Update";
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}}, 200);
 
-function formSubmit(){
+queryString = window.location.search;
+
+if (queryString != "") {
+    const urlParams = new URLSearchParams(queryString)
+    var urlId = urlParams.get("id")
+
+    getData(`/document/${urlId}`)
+        .then(data => {
+            document.getElementById("url").value = data.url;
+            document.getElementById("title").value = data.title;
+            document.getElementById("documentbtn").innerText = "Update";
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function formSubmit() {
 
     let url = document.getElementById("url").value;
     let title = document.getElementById("title").value;
@@ -32,76 +27,80 @@ function formSubmit(){
     var area = select.options[select.selectedIndex].value;
 
 
-    newDocument = {title:title,url : url,
-        area : {
-            id : area
+    newDocument = {
+        title: title, url: url,
+        area: {
+            id: area
         }
-    }; 
+    };
 
     if (queryString == "") {
-        fetch(`${baseUrl}/api/document`, {
-            method: 'POST',
-            headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newDocument)
-})
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        let table = ""
-        table += `
-    <div class="alert alert-success" role="alert">
-    <b> ${title} </b>  &nbsp Added In Documents Successfully
-    </div>`
-        document.getElementById("formSubmitted").innerHTML = table
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+       
+        sendData("/document", newDocument)
+            .then(data => {
 
-} 
-else {
-    fetch(`${baseUrl}/api/document/${urlId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newDocument),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            let table = ""
-        table += `
-    <div class="alert alert-success" role="alert">
-    <b> ${title} </b>  &nbsp Updated In Documents Successfully
-    </div>`
-        document.getElementById("formSubmitted").innerHTML = table
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
+                let table = ""
+                table +=  `
+                <div  style=" 
+                margin: auto;
+                text-align: center;
+                width: 50%;
+                height: 5vh; text-align: center; 
+                justify-content: center;
+                font-size: large" 
+                class="alert alert-success" role="alert">
+                <b>${title}  Document Added Successfully </b>
+                </div>`
+                document.getElementById("formSubmitted").innerHTML = table
+                document.getElementById("url").value = "";
+                document.getElementById("title").value = "";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+    else {
+        updateData(`/document/${urlId}`, newDocument)
+            .then(data => {
+
+                let table = ""
+                table +=  `
+                <div  style=" 
+                margin: auto;
+                text-align: center;
+                width: 50%;
+                height: 5vh; text-align: center; 
+                justify-content: center;
+                font-size: large" 
+                class="alert alert-success" role="alert">
+                <b>${title} Document Updated Successfully </b>
+                </div>`
+                document.getElementById("formSubmitted").innerHTML = table
+
+                document.getElementById("url").value = "";
+                document.getElementById("title").value = "";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
     
-    document.getElementById("url").value = "";
 }
 
 function getArea() {
     let table = ""
-        fetch(`${baseUrl}/api/area`,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=> {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
 
-            table += `
-            <option value="${data[i].id}">${data[i].name}</option>`
-        }
-        document.getElementById("dropdownarea").innerHTML = table;
-    })
+    getData(`/area`)
+        .then((data) => {
+            for (let i = 0; i < data.length; i++) {
+
+                table += `
+                        <option value="${data[i].id}">${data[i].name}</option>`
+            }
+            document.getElementById("dropdownarea").innerHTML = table;
+        })
 }
+
+

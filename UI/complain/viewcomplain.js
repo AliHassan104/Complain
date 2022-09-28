@@ -19,22 +19,15 @@ document.getElementById('filterByStatus').addEventListener('change', function() 
 
 function filterComplainByStatus() {
 
-
     search = {
         "key": "status",
         "operation": ":",
         "value": complainStatus
     }
-    console.log(complainStatus);
-    if (complainStatus !== "All") {
-        fetch(`${baseUrl}/api/complain/searchByStatus`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(search)
 
-        }).then((response) => response.json()).catch(() => { })
+    if (complainStatus !== "All") {
+      
+        sendData(`/complain/searchByStatus`,search)
             .then((data) => {
                 renderComplainData(data)
             })
@@ -123,12 +116,7 @@ function showComplainDetails(id) {
 
 function getComplain() {
 
-    fetch(`${baseUrl}/api/admin/complain`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json()).catch(() => { })
+        getData(`/admin/complain`)
         .then((data) => {
             renderComplainData(data)
         })
@@ -143,23 +131,15 @@ function updatedStatusModal(id) {
 function updateStatus() {
     let updatedstatus = document.getElementById("updatedstatus").value;
 
-    let updatedataus = {
+    let updatedstatus1 = {
         status: updatedstatus
     }
 
-    fetch(`${baseUrl}/api/admin/complain/` + uid, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedataus),
-    })
-        .then(response => response.json())
+    patchData(`/admin/complain/${uid}`,updatedstatus1)
         .then(data => {
-            console.log('Success:', data);
-            setTimeout(() => {
+           
                 getComplain()
-            }, 100);
+           
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -169,9 +149,8 @@ function updateStatus() {
 
 function deleteComplain(id) {
 
-    fetch(`${baseUrl}/api/complain/`+id, {
-        method: 'DELETE'
-    })
+
+        deleteData(`/complain/${id}`)
         .then(() => {
             getComplain()
             let table = ""
@@ -205,12 +184,8 @@ getArea()
 
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/area`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json())
+ 
+        getData(`/area`)
         .then((data) => {
             allArea = data;
             table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
@@ -225,111 +200,3 @@ function getArea() {
         })
 }
 
-function filterByArea() {
-    var select = document.getElementById('dropdownareafilter');
-    var area = select.options[select.selectedIndex].value;
-
-    console.log(area);
-    table = ""
-    if (area == "ALL") {
-        getUser()
-    }
-    else {
-        fetch(`${baseUrl}/api/complain/` + area, {
-            headers: {
-
-                "Content-Type": "application/json",
-
-            }
-        })
-            .then((response) => response.json()).catch(() => { })
-            .then((data) => {
-                console.log(data);
-                if (data != undefined) {
-
-                    table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-            <th style="width: 15%;" class="toptable ">Name</th>
-        <th style="width: 15%;" class="toptable ">PhoneNumber</th>
-        <th style="width: 20%;" class="toptable ">Email</th>
-        <th style="width: 20%;" class="toptable ">Cnic</th>
-        <th style="width: 15%;" class="toptable ">Area Name </th>
-        <th style="width: 15%;" class="toptable ">Action </th>
-        </tr>`
-                    for (let i = 0; i < data.length; i++) {
-                        table += `
-
-        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 20%;" class="datatable">${data[i].email}</td>
-            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
-            <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 15%;" class="datatable"> 
-            <a href="/user/adduser.html?id=${data[i].id}">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
-            style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
-            </a>
-            <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
-    </td>
-        </tr>`
-                    }
-                    document.getElementById("datatables-reponsive").innerHTML = table;
-                }
-            })
-    }
-}
-
-
-
-
-function filterByStatus() {
-    var select = document.getElementById('dropdownstatusfilter');
-    var status = select.options[select.selectedIndex].value;
-
-    console.log(status);
-    table = ""
-    if (status == "ALL") {
-        getComplain()
-    }
-    else {
-        fetch(`${baseUrl}/api/complain/` + status, {
-            headers: {
-                // mode: 'no-cors',
-                // "Authorization":jwtTokenBearer,
-                "Content-Type": "application/json",
-
-            }
-        })
-            .then((response) => response.json()).catch(() => { })
-            .then((data) => {
-
-                table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-        <th style="width: 15%;" class="toptable ">Name</th>
-        <th style="width: 15%;" class="toptable ">PhoneNumber</th>
-        <th style="width: 20%;" class="toptable ">Email</th>
-        <th style="width: 20%;" class="toptable ">Cnic</th>
-        <th style="width: 15%;" class="toptable ">Area Name </th>
-        <th style="width: 15%;" class="toptable ">Action </th>
-        </tr>`
-                for (let i = 0; i < data.length; i++) {
-                    table += `
-
-        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 20%;" class="datatable">${data[i].email}</td>
-            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
-            <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 15%;" class="datatable"> 
-            <a href="/user/adduser.html?id=${data[i].id}">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
-            style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
-            </a>
-            <i onclick="deleteArea(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
-    </td>
-        </tr>`
-                }
-                document.getElementById("datatables-reponsive").innerHTML = table;
-            })
-    }
-}

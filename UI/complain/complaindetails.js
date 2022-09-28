@@ -1,4 +1,5 @@
 var queryString = window.location.search
+
 if(queryString != ""){
 var parameters = new URLSearchParams(queryString);
 var complain_id = parameters.get('c_id')
@@ -10,12 +11,13 @@ function renderImage(){
     let userDataRender = ""
     let complainData = ''
    
-    fetch(`${baseUrl}/api/complain/${complain_id}`,{
-        headers:{
-            "Content-type":"application/json"
-        }
-    })
-    .then((response)=>response.json())
+    // fetch(`${baseUrl}/api/complain/${complain_id}`,{
+    //     headers:{
+    //         "Content-type":"application/json"
+    //     }
+    // })
+    // .then((response)=>response.json())
+    getData(`/complain/${complain_id}`)
     .then((data)=>{
       
             dataRender += `

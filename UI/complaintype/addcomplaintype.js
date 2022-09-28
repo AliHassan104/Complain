@@ -6,9 +6,10 @@ if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
 
-    fetch(`${baseUrl}/api/complaintype/` + urlId, {
-    })
-        .then(response => response.json()).catch(() => { })
+    // fetch(`${baseUrl}/api/complaintype/` + urlId, {
+    // })
+    //     .then(response => response.json()).catch(() => { })
+        getData(`/complaintype/${urlId}`)
         .then(data => {
 
             document.getElementById("addcomplaintype").value = data.name;
@@ -32,27 +33,20 @@ function formSubmit() {
 
         if (queryString == "") {
 
-            fetch(`${baseUrl}/api/complaintype`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newComplainType)
-            })
-                .then(response => response.json())
+            sendData(`/complaintype`,newComplainType)
                 .then(data => {
 
                     table += `
-        <div  style=" 
-        margin: auto;
-        text-align: center;
-        width: 50%;
-        height: 5vh; text-align: center; 
-        justify-content: center;
-        font-size: large" 
-        class="alert alert-success" role="alert">
-        <b> ${complaintype} </b>  &nbsp Complain Type  Added Successfully
-        </div>`
+                            <div  style=" 
+                            margin: auto;
+                            text-align: center;
+                            width: 50%;
+                            height: 5vh; text-align: center; 
+                            justify-content: center;
+                            font-size: large" 
+                            class="alert alert-success" role="alert">
+                            <b> ${complaintype} </b>  &nbsp Complain Type  Added Successfully
+                            </div>`
                     document.getElementById("formSubmitted").innerHTML = table
                     document.getElementById("addcomplaintype").value = "";
 
@@ -65,29 +59,22 @@ function formSubmit() {
                 });
 
         } else {
-            console.log(urlId);
-            fetch(`${baseUrl}/api/complaintype/` + urlId, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newComplainType)
-            })
-                .then(response => response.json()).catch(() => { })
+           
+        
+            updateData(`/complaintype/${urlId}`,newComplainType)
                 .then(data => {
 
-
                     table += `
-        <div  style=" 
-        margin: auto;
-        text-align: center;
-        width: 50%;
-        height: 5vh; text-align: center; 
-        justify-content: center;
-        font-size: large" 
-        class="alert alert-success" role="alert">
-        <b> ${complaintype} </b>  &nbsp Complain Type  Updated Successfully
-        </div>`
+                        <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        <b> ${complaintype} </b>  &nbsp Complain Type  Updated Successfully
+                        </div>`
                     document.getElementById("formSubmitted").innerHTML = table
                     document.getElementById("addcomplaintype").value = "";
 
@@ -104,16 +91,16 @@ function formSubmit() {
 
     else {
         table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-danger" role="alert">
-    <b> Complain Type </b> &nbsp Cannot be Empty
-    </div>`
+                <div  style=" 
+                margin: auto;
+                text-align: center;
+                width: 50%;
+                height: 5vh; text-align: center; 
+                justify-content: center;
+                font-size: large" 
+                class="alert alert-danger" role="alert">
+                <b> Complain Type </b> &nbsp Cannot be Empty
+                </div>`
         document.getElementById("formSubmitted").innerHTML = table
 
         setTimeout(() => {
