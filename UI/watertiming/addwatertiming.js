@@ -1,5 +1,4 @@
 let queryString;
-setTimeout(() => {
 
     queryString = window.location.search;
 
@@ -7,20 +6,20 @@ setTimeout(() => {
         const urlParams = new URLSearchParams(queryString)
         var urlId = urlParams.get("id")
 
-        fetch(`${baseUrl}/api/watertiming/` + urlId, {
-        })
-            .then(response => response.json()).catch(() => { })
-            .then(data => {
 
-                document.getElementById("date").value = data.date;
-                document.getElementById("time").value = data.time;
+        getData(`/watertiming/${urlId}`)
+            .then(data => {
                 document.getElementById("formButton").innerText = "Update";
+                document.getElementById("date").value = data.date;
+                document.getElementById("start_time").value = data.start_time;
+                document.getElementById("end_time").value = data.end_time;
+                
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }
-}, 200);
+
 
 
 function formSubmit() {
@@ -47,28 +46,22 @@ function formSubmit() {
 
 
     if (queryString == "") {
-        fetch(`${baseUrl}/api/watertiming`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newArea)
-        })
-            .then(response => response.json())
+       
+        sendData(`/watertiming`,newArea)
             .then(data => {
-                console.log('Success:', data);
+               
                 let table = ""
                 table += `
-        <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    &nbsp  Water Timing Added In Area Successfully
-    </div>`
+                        <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-success" role="alert">
+                    &nbsp  Water Timing Added In Area Successfully
+                    </div>`
 
                 document.getElementById("date").value = "";
                 document.getElementById("start_time").value = "";
@@ -85,28 +78,22 @@ function formSubmit() {
             });
 
     } else {
-        fetch(`${baseUrl}/api/watertiming/` + urlId, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newArea)
-        })
-            .then(response => response.json())
+       
+            updateData(`/watertiming/${urlId}`,newArea)
             .then(data => {
-                console.log('Success:', data);
+                
                 let table = ""
                 table += `
-        <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    &nbsp  Water Timing Updated Successfully
-    </div>`
+                        <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-success" role="alert">
+                    &nbsp  Water Timing Updated Successfully
+                    </div>`
 
                 document.getElementById("date").value = "";
                 document.getElementById("start_time").value = "";
@@ -128,12 +115,8 @@ var getareaId;
 
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/area`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json())
+
+    getData("/area")
         .then((data) => {
 
             getareaId = data[0].id
@@ -154,12 +137,8 @@ document.getElementById('dropdownarea').addEventListener('change', function () {
 function getBlock(areaId) {
 
     let table = ""
-    fetch("http://localhost:8081/api/blockByArea/" + areaId, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json())
+ 
+        getData(`/blockByArea/${areaId}`)
         .then((data) => {
             if (data.length !== 0) {
                 for (let i = 0; i < data.length; i++) {

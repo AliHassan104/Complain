@@ -8,9 +8,10 @@ if (queryString != "") {
 
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
-    fetch(`${baseUrl}/api/complain/` + urlId, {
-    })
-        .then(response => response.json()).catch(() => { })
+    // fetch(`${baseUrl}/api/complain/` + urlId, {
+    // })
+    //     .then(response => response.json()).catch(() => { })
+        getData(`/complain/${urlId}`)
         .then(data => {
 
             document.getElementById("complainbtn").innerText = "Update"
@@ -35,13 +36,14 @@ function getselectedDropDownElement(id, valueToSelect) {
 function getComplain() {
 
     let table = ""
-    fetch(`${baseUrl}/api/complaintype`, {
-        headers: {
-            "Content-Type": "application/json",
+    // fetch(`${baseUrl}/api/complaintype`, {
+    //     headers: {
+    //         "Content-Type": "application/json",
 
-        }
-    })
-        .then((response) => response.json())
+    //     }
+    // })
+    //     .then((response) => response.json())
+        getData(`/complaintype`)
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
                 table += `
@@ -56,13 +58,14 @@ var getBlockFromAreaId = 0;
 
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/area`, {
-        headers: {
-            "Content-Type": "application/json",
+    // fetch(`${baseUrl}/api/area`, {
+    //     headers: {
+    //         "Content-Type": "application/json",
 
-        }
-    })
-        .then((response) => response.json())
+    //     }
+    // })
+    //     .then((response) => response.json())
+        getData(`/area`)
         .then((data) => {
             getBlockFromAreaId = data[0].id;
                                                         //  Show blocks of first area in drop down
@@ -80,12 +83,13 @@ function getArea() {
 let username;
 function getUser() {
     let table = ""
-    fetch(`${baseUrl}/api/user`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json())
+    // fetch(`${baseUrl}/api/user`, {
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     }
+    // })
+    //     .then((response) => response.json())
+        getData(`/user`)
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
                 table += `
@@ -127,8 +131,6 @@ function formSubmit() {
     var selectBlock = document.getElementById("dropdownblock");
     var block_id = selectBlock.value;
 
-     console.log("Block_id",block_id)
-
     newComplain = {
         description: description
         , date: d, time: t,
@@ -146,8 +148,6 @@ function formSubmit() {
         }
     };
 
-     console.log(newComplain)
-
     if (image.value != "" && description != "") {
 
         newComplain = JSON.stringify(newComplain)
@@ -160,26 +160,25 @@ function formSubmit() {
         formData.append('data', newComplain);
 
         if (queryString == "") {
-            fetch(`${baseUrl}/api/complain`, {
-                method: "POST",
-                body: formData
+            // fetch(`${baseUrl}/api/complain`, {
+            //     method: "POST",
+            //     body: formData
 
-            }).then((response) => response.json())
+            // }).then((response) => response.json())
+            sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
 
-                
                     table += `
-        <div  style="
-        margin: auto;
-        text-align: center;
-        width: 50%;
-        height: 5vh; text-align: center; 
-        justify-content: center;
-        font-size: large" 
-        class="alert alert-success" role="alert">
-        <b> Your Complain Is Added  Successfully </b>
-        </div>`
-
+                        <div  style="
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        <b> Your Complain Is Added  Successfully </b>
+                        </div>`
 
                     document.getElementById("description").value = "";
                     document.getElementById("inpFile").value = "";
@@ -192,25 +191,25 @@ function formSubmit() {
                 })
                 .catch((error) => console.log(error))
         } else {
-            fetch(`${baseUrl}/api/complain/`+urlId, {
-                method: "PUT",
-                body: formData
+            // fetch(`${baseUrl}/api/complain/`+urlId, {
+            //     method: "PUT",
+            //     body: formData
 
-            }).then((response) => response.json()).catch(() => { })
+            // }).then((response) => response.json()).catch(() => { })
+                updateDataWithFormData(`/complain/${urlId}`,formData)
                 .then((data) => {
 
-                   
                     table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    <b> Your Complain Is Updated Successfully </b>
-    </div>`
+                        <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        <b> Your Complain Is Updated Successfully </b>
+                        </div>`
 
                     document.getElementById("description").value = "";
                     document.getElementById("inpFile").value = "";
@@ -247,7 +246,7 @@ function formSubmit() {
 
 function getBlock(id){
     let renderBlock = ''
-    getData(`blockByArea/${id}`)
+    getData(`/blockByArea/${id}`)
     .then((data)=>{
         if(data != null){
          for (let i = 0; i < data.length; i++) {

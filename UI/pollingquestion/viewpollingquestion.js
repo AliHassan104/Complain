@@ -1,9 +1,9 @@
 
 
 function deletePollingQuestion(id){
-    fetch(`${baseUrl}/api/pollingquestion/`+id, {
-        method: 'DELETE'
-    }).then(()=>{
+    
+    deleteData(`/pollingquestion/${id}`)
+    .then(()=>{
         let table = ""
 
         table += `
@@ -33,12 +33,8 @@ getPollingQuestion()
 
 function getPollingQuestion() {
     let table = ""
-    fetch(`${baseUrl}/api/admin/pollingquestion`,{
-        headers:{
-            "Content-Type":"application/json",   
-        }
-    })
-    .then((response)=>response.json()).catch(()=>{})
+  
+    getData(`/admin/pollingquestion`)
     .then((data)=> {
         table += `
         <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">

@@ -5,15 +5,13 @@ if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
 
-    fetch(`${baseUrl}/api/pollingquestion/` + urlId, {
-    })
-        .then(response => response.json()).catch(() => { })
+
+    getData(`/pollingquestion/${urlId}`)
         .then(data => {
-
-
             document.getElementById("pollingquestionbtn").innerText = "Update"
             document.getElementById('addpollingquestion').value = data.question;
-
+            document.getElementById('end_time').value = data.end_time;
+            document.getElementById('end_date').value = data.end_date;
 
             for (let i = 0; i < data.pollingOptions.length - 1; i++) {
                 arr.push(i + 1)
@@ -51,7 +49,7 @@ function option() {
     </td>
     </tr>`
         } else {
-            console.log(i);
+        
             table += `
     <tr>
     <td>
@@ -95,7 +93,7 @@ function subtractOption(id) {
     let pollingOption = []
 
     for (let i = 0; i < arr.length; i++) {
-        console.log(i);
+      
         if (i != id) {
             let option = document.getElementById("pollingoption" + i).value;
             pollingOption.push(option);
@@ -137,14 +135,8 @@ function formSubmit() {
 
     if (queryString == "") {
 
-        fetch(`${baseUrl}/api/pollingquestion`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newPollingQuestion)
-        })
-            .then(response => response.json())
+        
+            sendData(`/pollingquestion`,newPollingQuestion)
             .then(data => {
             
                 messageRender += `
@@ -166,14 +158,8 @@ function formSubmit() {
                 console.error('Error:', error);
             });
     } else {
-        fetch(`${baseUrl}/api/pollingquestion/` + urlId, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newPollingQuestion)
-        })
-            .then(response => response.json())
+        
+            updateData(`/pollingquestion/${urlId}`,newPollingQuestion)
             .then(data => {
 
                 messageRender += `
@@ -201,11 +187,8 @@ function formSubmit() {
 
 function getArea(){
     let renderData = ""
-    fetch(`${baseUrl}/api/admin/area`,{
-        headers:{
-            "Content-type":"application/json",
-        }
-    }).then((response)=>response.json())
+  
+    getData("/admin/area")
     .then((data)=>{
         if(data.length !== 0){
             for (let i = 0; i < data.length; i++) {

@@ -76,7 +76,7 @@ public class PollingQuestionController {
     }
 
     @GetMapping("/pollingquestionByArea/{area_id}")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestionArea(@PathVariable("area_id") Area areaId){
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestionArea(@PathVariable("area_id") Long areaId){
         try{
             return ResponseEntity.ok(pollingQuestionService.getPollingQuestionByArea(areaId));
         }catch (Exception e){
@@ -85,6 +85,7 @@ public class PollingQuestionController {
         }
     }
 
+//                                                                      Show this api in get all polling question by user
     @GetMapping("/pollingquestion/notansweredbyuser/{user_id}")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(@PathVariable("user_id") Long id){
         try{

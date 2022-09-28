@@ -158,7 +158,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
     public void exportComplainsToExcel(HttpServletResponse response) throws IOException {
         response.getHeader("application/octet-stream");
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename = ComplianData.xlsx";
+        String headerValue = "attachment; filename = ComplainData.xlsx";
 
         List<Complain> complains =complainService.getAllComplain();
         ComplainExcelExporter complainExcelExporter = new ComplainExcelExporter(complains);

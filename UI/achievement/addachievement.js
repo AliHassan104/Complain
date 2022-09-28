@@ -1,113 +1,102 @@
 let queryString = window.location.search;
 if (queryString != "") {
+    
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
-    fetch(`${baseUrl}/api/achievement/`+urlId , {
-})
-.then(response => response.json()).catch(()=>{})
-.then(data => {
-        document.getElementById("achieveventbtn").innerText = "Update"
-        document.getElementById('achievementtitle').value = data.title;
-        document.getElementById('description').value = data.description;
-        document.getElementById('date').value = data.date;
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+
+        getData(`/achievement/`+urlId)
+        .then(data => {
+            document.getElementById("achieveventbtn").innerText = "Update"
+            document.getElementById('achievementtitle').value = data.title;
+            document.getElementById('description').value = data.description;
+            document.getElementById('date').value = data.date;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
-function formSubmit(){
+function formSubmit() {
 
     let title = document.getElementById("achievementtitle").value;
     let description = document.getElementById("description").value;
     let date = document.getElementById("date").value;
     let image = document.getElementById("inpFile");
 
-    if(title != "" && description != "" && date != "" && image.value != ""){
+    if (title != "" && description != "" && date != "" && image.value != "") {
 
-    newAchievement = {title : title, description : description , date : date};
-    newAchievement = JSON.stringify(newAchievement)
+        newAchievement = { title: title, description: description, date: date };
+        newAchievement = JSON.stringify(newAchievement)
 
-    var formData = new FormData();
+        var formData = new FormData();
+        for (const file of image.files) {
+            formData.append("pictureUrl", file)
+        }
+        formData.append('data', newAchievement);
 
-    for (const file of image.files) {
-        formData.append("pictureUrl",file)
+
+        if (queryString == "") {
+                sendDataWithFormData(`/achievement`,formData)
+                .then((data) => {
+
+                    let table = ""
+                    table += `
+                        <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        Achievement Is Added  Successfully
+                        </div>`
+
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+
+                    document.getElementById("achievementtitle").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("date").value = "";
+                    document.getElementById("inpFile").value = null;
+
+                })
+                .catch((error) => console.log(error))
+
+        } else {
+
+                updateDataWithFormData(`/achievement/`+urlId,formData)
+                .then((data) => {
+                    let table = ""
+                    table += `
+                    <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-success" role="alert">
+                    Achievement Is Updated  Successfully
+                    </div>`
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+
+                    document.getElementById("achievementtitle").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("date").value = "";
+                    document.getElementById("inpFile").value.files = "";
+                })
+                .catch((error) => console.log(error))
+        }
     }
-    formData.append('data',newAchievement);
-
-
-    if (queryString == "") {
-        fetch(`${baseUrl}/api/achievement`,{
-            method:"POST",
-            body: formData
-            
-        }).then((response)=>response.json())
-
-    .then((data)=> {
-
-    let table = ""
-    table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    Achievement Is Added  Successfully
-    </div>`
-
-    document.getElementById("formSubmitted").innerHTML = table
-
-    setTimeout(()=>{
-        document.getElementById("formSubmitted").innerHTML = ""
-    },2000)
-
-    document.getElementById("achievementtitle").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("inpFile").value = null;
-
-})
-.catch((error)=>console.log(error))
-
-    }else{
-        
-        fetch(`${baseUrl}/api/achievement/`+urlId,{
-            method:"PUT",
-            body: formData
-            
-        }).then((response)=>response.json())
-    .then((data)=> {
-    let table = ""
-    table += `
-    <div  style=" 
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 5vh; text-align: center; 
-    justify-content: center;
-    font-size: large" 
-    class="alert alert-success" role="alert">
-    Achievement Is Updated  Successfully
-    </div>`
-    document.getElementById("formSubmitted").innerHTML = table
-    
-    setTimeout(()=>{
-        document.getElementById("formSubmitted").innerHTML = ""
-    },2000)
-
-    document.getElementById("achievementtitle").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("inpFile").value.files = "";
-})
-.catch((error)=>console.log(error))
-}
-    }
-    else{
-        
+    else {
         let table = ""
         table += `
         <div  style=" 
@@ -121,9 +110,9 @@ function formSubmit(){
         Invalid Data
         </div>`
         document.getElementById("formSubmitted").innerHTML = table
-        
-        setTimeout(()=>{
+
+        setTimeout(() => {
             document.getElementById("formSubmitted").innerHTML = ""
-        },2000)
+        }, 2000)
     }
 }

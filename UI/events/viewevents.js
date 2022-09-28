@@ -1,12 +1,6 @@
 function getEvent() {
     let table = ""
-    fetch("http://localhost:8081/api/admin/event",{
-        headers:{
-            "Content-Type":"application/json",
-            
-        }
-    })
-    .then((response)=>response.json())
+    getData(`/admin/event`)
     .then((data)=> {
 
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
@@ -70,37 +64,10 @@ function getEvent() {
 getEvent();
 
 
-// function updateEvent(){
-//     // let title = document.getElementById("achievementtitle").value;
-//     let description = document.getElementById("description").value;
-//     let date = document.getElementById("start_date").value;
-//     let time = document.getElementById("start_time").value;
-//     let image = document.getElementById("inpFile");
-
-//     newAchievement = {description : description , date : date , time : time}; 
-
-//     newAchievement = JSON.stringify(newAchievement)
-
-//     var formData = new FormData();
-
-//     for (const file of image.files) {
-//         formData.append("image",file)
-//     }
-//     formData.append('data',newAchievement);
-
-//     fetch("http://localhost:8081/api/event/"+uid,{
-//         method:"PUT",
-//         body: formData
-    
-//     }).then((response)=>response.json())
-//     .then((data)=> console.log(data))
-//     .catch((error)=>console.log(error))
-// }
-
 function deleteEvent(id){
-    fetch('http://localhost:8081/api/event/'+id, {
-            method: 'DELETE'
-    }).then(()=>{
+   
+    deleteData(`/event/${id}`)
+    .then(()=>{
         let table = ""
 
         table += `

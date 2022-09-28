@@ -1,3 +1,4 @@
+
 function logOut() {
     localStorage.clear();
     location.href = `${loginUrl}/loginPage/loginpage.html`
@@ -8,8 +9,7 @@ function showUserData() {
         (data) => {
             document.getElementById("username").innerText = data.firstname
             console.log(data);
-        }
-    )
+        })
 }
 
 showUserData()

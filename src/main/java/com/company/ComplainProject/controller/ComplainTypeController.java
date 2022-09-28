@@ -70,8 +70,4 @@ public class ComplainTypeController {
         }
     }
 
-//    @GetMapping("/complaintype/search")
-//    public ResponseEntity<List<ComplainType>> filterComplainType(@RequestBody SearchCriteria searchCriteria){
-//
-//    }
 }
