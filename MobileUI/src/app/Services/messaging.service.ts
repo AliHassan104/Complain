@@ -26,7 +26,7 @@ export class MessagingService {
 requestPermission() {
   this.angularFireMessaging.requestToken.subscribe(
     (token) => {
-      console.log(token);
+      // console.log(token);
      // prompt("token",token)
       //alert(token)
       this.myMethodSubject.next(token);

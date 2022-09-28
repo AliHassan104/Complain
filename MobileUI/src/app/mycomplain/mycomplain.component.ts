@@ -21,6 +21,7 @@ export class MycomplainComponent implements OnInit {
   userId: any
   areaId: any
   blockId: any
+  userEmail: any
   userFile: File
   imageSrc:any
 
@@ -30,10 +31,12 @@ export class MycomplainComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.getUser()
     this.getComplainType()
     // this.getComplain()
-    this.getComplainByEmail()
-    this.getUser()
+    setTimeout(() => {
+      this.getComplainByEmail()
+    }, 500);
   }
 
   newComplain : boolean =  true
@@ -73,7 +76,8 @@ export class MycomplainComponent implements OnInit {
 
 
   getComplainByEmail() {
-    this.myComplainService.getComplainByEmail(this.getEmailByToken()).subscribe(data => {
+    // console.log(this.userEmail);
+    this.myComplainService.getComplainByEmail(this.userEmail).subscribe(data => {
       this.complainList = data
     },error => {
       console.log(error);
@@ -136,31 +140,10 @@ export class MycomplainComponent implements OnInit {
     // this.object.value.description = data.value.description
     // this.object.value.complainType.id = data.value.complainType.id
 
-    console.log(data);
+    // console.log(data);
 
     var newComplain = JSON.stringify(data)
     var formData = new FormData()
-
-    // formData.append("data",newComplain)
-    // formData.append("pictureUrl",this.userFile)
-    // console.log(newComplain);
-
-    // console.log(this.selectedFile);
-    // console.log(this.image.value.file);
-
-  //   for (const file of this.selectedFile.files) {
-  //     formData.append("pictureUrl", file)
-  // }
-
-
-  // for (const file of this.image.value.pictureUrl) {
-  //   console.log(file);
-  //   formData.append("pictureUrl", file)
-  // }
-
-    // formData.append("pictureUrl", this.selectedFile.name)
-    // }
-
 
      console.log(this.userFile);
     formData.append('data', newComplain);
@@ -178,38 +161,41 @@ export class MycomplainComponent implements OnInit {
 
   }
 
-getToken() {
-    let token = localStorage.getItem("jwtToken")
-    if(token != null){
-        return "Bearer "+token
-    }
-    return null;
-  }
+// getToken() {
+//     let token = localStorage.getItem("jwtToken")
+//     if(token != null){
+//         return "Bearer "+token
+//     }
+//     return null;
+//   }
 
-decodeJwtToken(token: string) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-};
+// decodeJwtToken(token: string) {
+//     var base64Url = token.split('.')[1];
+//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//     }).join(''));
+//     return JSON.parse(jsonPayload);
+// };
 
-getEmailByToken(){
-  let  encodedToken = this.decodeJwtToken(this.getToken())
-  return encodedToken.sub;
-}
+// getEmailByToken(){
+//   let  encodedToken = this.decodeJwtToken(this.getToken())
+//   return encodedToken.sub;
+// }
 
 getUser() {
-  const email = this.getEmailByToken()
+  // const email = this.getEmailByToken()
   let user: any
-  this.userService.getUserByEmail(email).subscribe(data => {
+  this.userService.getUser().subscribe(data => {
     console.log(data);
 
     user = data
+
     this.areaId = user.area.id
     this.blockId = user.block.id
     this.userId = user.id
+    this.userEmail = user.email
+
   }, error => {
     console.log(error);
   });

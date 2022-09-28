@@ -44,11 +44,10 @@ export class EventComponent implements OnInit {
   }
 
   getEventsByArea(area: any) {
-
-    console.log(area);
+    // console.log(area);
       this.eventService.getEventByArea(area).subscribe(data => {
         this.lists = data
-        console.log(data);
+        // console.log(data);
         this.checkListLength()
       }, error => {
         console.log(error);
@@ -81,10 +80,11 @@ export class EventComponent implements OnInit {
 
   getUser() {
     let user: any
-    const email = this.getEmailByToken()
-    this.userService.getUserByEmail(email).subscribe(data => {
-      console.log(data);
+    // const email = this.getEmailByToken()
+    this.userService.getUser().subscribe(data => {
+      // console.log(data);
       user = data
+      // console.log(user);
       this.getEventsByArea(user.area.id)
       // this.getAreaByUser()
       // return data;
