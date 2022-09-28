@@ -106,8 +106,7 @@ public class AchievementController {
     }
 
     @PostMapping("/achievement")
-    public ResponseEntity<AchievementsDto> addAchievements(
-                                                            @RequestParam("pictureUrl") MultipartFile image,
+    public ResponseEntity<AchievementsDto> addAchievements(@RequestParam("pictureUrl") MultipartFile image,
                                                             @RequestParam("data") String userdata) {
         try{
             ObjectMapper mapper = new ObjectMapper();

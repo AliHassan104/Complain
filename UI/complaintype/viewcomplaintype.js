@@ -4,13 +4,7 @@ let uid ;
 
 function getComplain() {
     let table = ""
-    fetch(`${baseUrl}/api/admin/complaintype`,{
-        headers:{
-            "Content-Type":"application/json",
-            
-        }
-    })
-    .then((response)=>response.json()).catch(()=>{})
+    getData(`/admin/complaintype`)
     .then((data)=> {
         
         table += `
@@ -46,9 +40,9 @@ function getComplain() {
 }
 
 function deleteComplainType(id){
-    fetch(`${baseUrl}/api/complaintype/`+id, {
-            method: 'DELETE' ,
-    }).then(()=>{
+    
+    deleteData(`/complaintype/${id}`)
+    .then(()=>{
         let table = ""
 
         table += `

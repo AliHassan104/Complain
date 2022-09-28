@@ -7,12 +7,7 @@ function getPollingQuestionDetails() {
     var renderQuestion = ""
     var renderOption = ""
 
-    fetch(`${baseUrl}/api/pollinganswer/getpollingoptionper/${pollingQuestionId}`, {
-        headers: {
-            "Content-type": "application/json"
-        }
-    })
-        .then((response) => response.json())
+        getData(`/pollinganswer/getpollingoptionper/${pollingQuestionId}`)
         .then((data) => {
             renderQuestion += `<b>${data.pollingQuestion}</b> `
 

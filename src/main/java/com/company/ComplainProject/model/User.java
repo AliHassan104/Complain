@@ -30,6 +30,8 @@ public class User {
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
+    @Lob
+    private String deviceToken;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;

@@ -2,7 +2,7 @@ countPendingUsers()
 countTotalUsers()
 
 function countPendingUsers(){
-    getData("user/countuserbystatus/in_review")
+    getData("/user/countuserbystatus/in_review")
     .then((data)=>{
         if(data != null){
         document.getElementById("pendingUsers").innerText = data
@@ -12,7 +12,7 @@ function countPendingUsers(){
 
 
 function countTotalUsers(){
-    getData("user/countuserbystatus/Published")
+    getData("/user/countuserbystatus/Published")
     .then((data)=>{
         if(data != null){
             document.getElementById("totalUsers").innerText = data

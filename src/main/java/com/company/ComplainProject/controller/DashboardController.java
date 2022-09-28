@@ -1,5 +1,6 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.DashboardData.ComplainByComplainType;
 import com.company.ComplainProject.dto.DashboardData.ComplainByStatus;
 import com.company.ComplainProject.dto.DashboardDto;
@@ -27,16 +28,31 @@ public class DashboardController {
 
     @GetMapping("/complainbycomplaintype")
     public ResponseEntity<ArrayList<ComplainByComplainType> > getComplainByComplainType(){
-        return ResponseEntity.ok(dashboardService.getComplainByComplainType());
+        try{
+            return ResponseEntity.ok(dashboardService.getComplainByComplainType());
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No complain Found");
+        }
     }
 
     @GetMapping("complainbystatus")
     public ResponseEntity<ArrayList<ComplainByStatus>> getComplainByStatus(){
-        return ResponseEntity.ok(dashboardService.getComplainByStatus());
+        try{
+            return ResponseEntity.ok(dashboardService.getComplainByStatus());
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No complain Found");
+        }
     }
 
-    @GetMapping("complianbymonth")
+    @GetMapping("complainbymonth")
     public ResponseEntity<?> getComplainByMonth(){
-       return ResponseEntity.ok(dashboardService.getComplainByMonth());
+        try{
+            return ResponseEntity.ok(dashboardService.getComplainByMonth());
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("No complain Found");
+        }
     }
 }

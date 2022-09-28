@@ -1,26 +1,22 @@
 let queryString;
-setTimeout(() => {
 
-    queryString = window.location.search;
+queryString = window.location.search;
 
-    if (queryString != "") {
-        const urlParams = new URLSearchParams(queryString)
-        var urlId = urlParams.get("id")
+if (queryString != "") {
+    const urlParams = new URLSearchParams(queryString)
+    var urlId = urlParams.get("id")
 
-        fetch(`${baseUrl}/api/block/${urlId}`, {
-
+    getData(`/block/${urlId}`)
+        .then(data => {
+            console.log(data);
+            document.getElementById("blockbtn").innerText = "Update";
+            document.getElementById("block").value = data.block_name;
         })
-            .then(response => response.json()).catch(() => { })
-            .then(data => {
-                console.log(data);
-                document.getElementById("blockbtn").innerText = "Update";
-                document.getElementById("block").value = data.block_name;
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
-}, 200);
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 
 
 function formSubmit() {
@@ -38,17 +34,8 @@ function formSubmit() {
 
     if (area != "" && block != "") {
         if (queryString == "") {
-
-            fetch(`${baseUrl}/api/block`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newArea)
-            })
-                .then(response => response.json())
+            sendData(`/block`, newArea)
                 .then(data => {
-                    console.log('Success:', data);
                     let table = ""
                     table += `
                             <div  style=" 
@@ -75,14 +62,8 @@ function formSubmit() {
                 });
 
         } else {
-            fetch(`${baseUrl}/api/block/${urlId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newArea)
-            })
-                .then(response => response.json())
+
+            updateData(`/block/${urlId}`, newArea)
                 .then(data => {
 
                     let table = ""
@@ -131,12 +112,7 @@ function formSubmit() {
 
 function getArea() {
     let table = ""
-    fetch(`${baseUrl}/api/area`, {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then((response) => response.json())
+    getData(`/area`)
         .then((data) => {
 
             for (let i = 0; i < data.length; i++) {

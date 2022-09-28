@@ -1,33 +1,27 @@
 
 function getAchievement() {
     let table = ""
-    fetch(`${baseUrl}/api/admin/achievement`,{
-        headers:{
-            "Content-Type":"application/json",
-        }
-    })
-    .then((response)=>response.json()).catch((error)=>{})
+    getData(`/admin/achievement`)
     .then((data)=> {
 
-        console.log("Data ",data)
-        table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
-        <th style="width: 15%;" class="toptable ">Title</th>
-        <th style="width: 20%;" class="toptable ">Description</th>
-        <th style="width: 15%;" class="toptable ">Date</th>
-        <th style="width: 20%;" class="toptable ">Picture</th>
-        <th style="width: 20%; " class="toptable ">Action</th>
+        table += `<tr  class="tablepoint">
+        <th  class="toptable ">Title</th>
+        <th  class="toptable ">Description</th>
+        <th  class="toptable ">Date</th>
+        <th  class="toptable ">Picture</th>
+        <th  class="toptable ">Action</th>
         </tr>`
        
         for (let i = 0; i < data.length; i++) {
             table += `
 
-        <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
-            <td style="width: 15%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].title}</td>
-            <td style="width: 20%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].description}</td>
-            <td style="width: 15%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].date}</td>
-            <td style="width: 20%;" class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
+        <tr class="tablepoint "  >
+            <td class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].title}</td>
+            <td class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].description}</td>
+            <td class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})">${data[i].date}</td>
+            <td class="datatable mouseHand" onclick="showAchievementDetails(${data[i].id})"><img src="${data[i].pictureUrl}" alt="abc" style="width: 80%; height : 100px"> 
             </td>
-            <td style="width: 20%;" class="datatable"> 
+            <td class="datatable"> 
 
             <a  href="/achievement/addachievement.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
@@ -57,11 +51,11 @@ function showAchievementDetails(id){
 }
 
 function deleteAchievement(id){
-    fetch(`${baseUrl}/api/achievement/`+id, {
-            method: 'DELETE'
-    }).then(()=>{
+   
+    deleteData(`/achievement/`+id)
+    .then(()=>{
+        getAchievement()
         let table = ""
-
         table += `
             <div  style=" 
             margin: auto;
@@ -81,11 +75,6 @@ function deleteAchievement(id){
         },2000)
 
     })
- 
-    setTimeout(() => {
-        getAchievement()
-    }, 100);
-
 }
 
 

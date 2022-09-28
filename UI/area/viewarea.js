@@ -7,9 +7,8 @@ function getArea() {
 
     let table = ""
  
-    let url = "admin/area";
     //                                                  getData Method to get Data
-    getData(url).then((data)=> {
+    getData("/admin/area").then((data)=> {
         
         table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
         <th style="width: 40%;" class="toptable ">Name</th>
@@ -49,9 +48,8 @@ getArea()
 
 
 function deleteArea(id){
-    
-    let url = `area/${id}`
-    deleteData(url).then(()=>{
+
+    deleteData(`/area/${id}`).then(()=>{
         let table = ""
 
         table += `
