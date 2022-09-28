@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -100,8 +102,23 @@ public class PollingQuestionService {
 //                                                                      All Polling Questions by area
         List<Long> getPollingQuestionId = new ArrayList<>();
         List<PollingQuestion> pollingQuestionsByArea = getPollingQuestionByArea(user.getArea().getId());
+
         if(!pollingQuestionsByArea.isEmpty()) {
-            pollingQuestionsByArea.stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
+            for (PollingQuestion pollingQuestion:pollingQuestionsByArea) {
+
+                if(pollingQuestion.getEnd_date().isEqual(LocalDate.now())){
+                    if(LocalTime.now().isBefore(pollingQuestion.getEnd_time())){
+                        getPollingQuestionId.add(pollingQuestion.getId());
+                    }
+                }
+                else{
+                    if(LocalDate.now().isBefore(pollingQuestion.getEnd_date())){
+                        getPollingQuestionId.add(pollingQuestion.getId());
+                    }
+                }
+
+            }
+//            pollingQuestionsByArea.stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
         }
 
         getPollingQuestionId.removeAll(attemptedPollingQuestionsId);

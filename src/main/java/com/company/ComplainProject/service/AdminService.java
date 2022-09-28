@@ -87,7 +87,6 @@ public class AdminService {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
         List<User> userList = userPage.getContent();
-        System.out.println(userList);
         return userList;
 
     }

@@ -11,42 +11,35 @@ function renderImage(){
     let userDataRender = ""
     let complainData = ''
    
-    // fetch(`${baseUrl}/api/complain/${complain_id}`,{
-    //     headers:{
-    //         "Content-type":"application/json"
-    //     }
-    // })
-    // .then((response)=>response.json())
     getData(`/complain/${complain_id}`)
     .then((data)=>{
-      
+            console.log(data);
+            
             dataRender += `
-            <div class="carousel-item active">
-                <img src="${data.picture}" class="d-block w-100"  alt="Not found" ">
-            </div>
+        
+                <img src="${data.picture}"  class="rounded mx-auto d-block "  alt="Not found" ">
+            
             `
             document.getElementById('showImage').innerHTML = dataRender
 
-            userDataRender += `
-            <div class="list-group" >
-            <a class="list-group-item list-group-item-action disabled">User Name : ${data.user.firstname+" "+data.user.lastname}</a>
-            <a class="list-group-item list-group-item-action disabled">UserName : ${data.user.firstname}</a>
-            <a class="list-group-item list-group-item-action disabled">UserName : ${data.user.firstname}</a>
-            <a class="list-group-item list-group-item-action disabled">UserName : ${data.user.firstname}</a>
-            <a class="list-group-item list-group-item-action disabled">UserName : ${data.user.firstname}</a>
-            </div>`
+            document.getElementById('username').value = data.user.firstname+" "+data.user.lastname
+            document.getElementById('email').value = data.user.email
+            document.getElementById('cnic').value =  data.user.cnic
+            document.getElementById('number').value = data.user.phoneNumber
+            document.getElementById('family').value = data.user.numberOfFamilyMembers
+            document.getElementById('areaName').value = data.user.area.name
+            document.getElementById('block').value = data.user.block.block_name
+            document.getElementById('address').value = "House Number "+data.user.address.houseNumber+" Street "+data.user.address.street+" Floor Number "+data.user.address.floorNumber+" , "+data.user.address.city
+            document.getElementById('property').value = data.user.property
 
-            document.getElementById("userData").innerHTML = userDataRender
+            document.getElementById('complain_name').value = data.complainType.name
+            document.getElementById('description').value = data.description
+            document.getElementById('complain_area').value = data.area.name
+            document.getElementById('complain_block').value = data.block.block_name
+            document.getElementById('complain_status').value = data.status
+            document.getElementById('complain_date').value = data.date
+            document.getElementById('complain_time').value = data.time
 
-            complainData += `<div class="list-group" >
-            <a class="list-group-item list-group-item-action disabled">Complain Name : ${data.complainType.name}</a>
-            <a class="list-group-item list-group-item-action disabled">Complain Name : ${data.complainType.name}</a>
-            <a class="list-group-item list-group-item-action disabled">Complain Name : ${data.complainType.name}</a>
-            <a class="list-group-item list-group-item-action disabled">Complain Name : ${data.complainType.name}</a>
-            <a class="list-group-item list-group-item-action disabled">Complain Name : ${data.complainType.name}</a>
-            </div>`
-
-            document.getElementById("complainData").innerHTML = complainData
 
     })
 

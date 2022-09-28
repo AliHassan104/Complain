@@ -22,12 +22,12 @@ function getUser() {
                 table += `
 
         <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 23%;" class="datatable">${data[i].email}</td>
-            <td style="width: 10%;" class="datatable">${data[i].property}</td>
-            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
-            <td style="width: 17%;" class="datatable">${data[i].area.name}</td>
+            <td style="width: 15%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].firstname + " " + data[i].lastname}</td>
+            <td style="width: 15%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].phoneNumber}</td>
+            <td style="width: 23%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].email}</td>
+            <td style="width: 10%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].property}</td>
+            <td style="width: 20%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].cnic}</td>
+            <td style="width: 17%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area.name}</td>
 
             <td style="width: 15%;" class="datatable"> 
             <a href="/user/adduser.html?id=${data[i].id}">
@@ -45,6 +45,10 @@ function getUser() {
 getUser()
 
 getArea()
+
+function userDetails(id){
+    location.href = `${loginUrl}/user/userdetails.html?u_id=${id}`
+}
 
 function getArea() {
     let table = ""

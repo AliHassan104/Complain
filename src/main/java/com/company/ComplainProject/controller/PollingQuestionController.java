@@ -85,6 +85,7 @@ public class PollingQuestionController {
         }
     }
 
+//                                                                      Show this api in get all polling question by user
     @GetMapping("/pollingquestion/notansweredbyuser/{user_id}")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(@PathVariable("user_id") Long id){
         try{
