@@ -1,5 +1,7 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.Note;
 import com.company.ComplainProject.service.FirebaseMessagingService;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -18,6 +20,14 @@ public class NotificationController {
         return firebaseMessagingService.sendNotification(note,token);
     }
 
-}
+    @PostMapping("/send-notification-touser")
+    public String sendNotificationToUserAboutComplain(@RequestBody ComplainDto complainDto){
+        try{
+            return firebaseMessagingService.sendNotificationToUserOnComplainStatusChange(complainDto);
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ContentNotFoundException("Error");
+        }
+    }
 
-//AAAAtfhZPjs:APA91bGzlGM3QaC6mnMyUnBTHwaNURf4_xlqULBGluwKJxcKTFQyFayEWHEFDfwUikVySLs-vS13sRlYGPm431IC3YApAmzNzb_kzKl0NKoUAV9xrrrAfBAIlqBjyg_6VEP4E0EK8HKm
+}

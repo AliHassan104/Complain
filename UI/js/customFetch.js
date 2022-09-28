@@ -144,6 +144,7 @@ function patchData(url, data) {
 
 function tokenNotExist() {
     let token = getToken()
+    tokenIsExpired(token.substring(7))
     let getRoles = []
 
     if (token != null) {
@@ -166,8 +167,13 @@ function tokenNotExist() {
     else {
         window.open(`${loginUrl}/loginPage/loginpage.html`, "_self")
     }
+}
 
-
+function tokenIsExpired(token){
+    fetch(`${baseUrl}/api/checkToken?token=${token}`)
+    .then((data)=>{
+         console.log(data)
+    })
 }
 
 function getUserData() {

@@ -137,15 +137,19 @@ function updateStatus() {
 
     patchData(`/admin/complain/${uid}`,updatedstatus1)
         .then(data => {
-           
                 getComplain()
-           
+                giveNotificationToUserOnComplainStatus(data)
+                
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 }
 
+function giveNotificationToUserOnComplainStatus(complain){
+  
+    sendData(`/send-notification-touser`,complain)
+}
 
 function deleteComplain(id) {
 

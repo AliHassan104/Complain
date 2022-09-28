@@ -119,6 +119,7 @@ public class UserService {
                 .status(userDto.getStatus())
                 .block(userDto.getBlock())
                 .userType(userDto.getUserType())
+                .deviceToken(userDto.getDeviceToken())
                 .build();
     }
 
@@ -139,6 +140,7 @@ public class UserService {
                 .status(user.getStatus())
                 .block(user.getBlock())
                 .userType(user.getUserType())
+                .deviceToken(user.getDeviceToken())
                 .build();
     }
 
