@@ -111,15 +111,14 @@ function formSubmit() {
     let description = document.getElementById("description").value;
     var table = ""
 
-    const date = new Date();
-
-    let d = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
+    // const date = new Date();
+    // var todayDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const t = new Date().toLocaleString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         hour12: false
     });
+    var todayDate = new Date().toISOString().substring(0,10);
 
     var select = document.getElementById('dropcomplaintype');
     var complaintype = select.options[select.selectedIndex].value;
@@ -133,7 +132,8 @@ function formSubmit() {
 
     newComplain = {
         description: description
-        , date: d, time: t,
+        , date: todayDate
+        , time: t,
         complainType: {
             id: complaintype
         },
@@ -151,9 +151,7 @@ function formSubmit() {
     if (image.value != "" && description != "") {
 
         newComplain = JSON.stringify(newComplain)
-
         var formData = new FormData();
-
         for (const file of image.files) {
             formData.append("pictureUrl", file)
         }
@@ -163,7 +161,15 @@ function formSubmit() {
         
             sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
-                  
+
+                    complainLog = {
+                        status:"IN_REVIEW",
+                        date:todayDate,
+                        description:"Your Complain is in_review please wait"
+                    }
+
+                    sendData(`/complainlog/${data.id}`,complainLog)
+
                     table += `
                         <div  style="
                         margin: auto;

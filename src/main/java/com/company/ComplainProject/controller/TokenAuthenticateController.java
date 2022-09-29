@@ -22,6 +22,7 @@ public class TokenAuthenticateController {
     public Boolean isTokenExpired(@RequestParam("token") String token){
         JwtUtil jwtUtil  = new JwtUtil();
         try{
+
             return  jwtUtil.isTokenExpired(token);
         }catch (Exception e){
             System.out.println(e);

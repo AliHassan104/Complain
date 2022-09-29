@@ -48,7 +48,9 @@ function formSubmit() {
        
         sendData(`/watertiming`,newArea)
             .then(data => {
+                                                            //  Send notification on water timing add to users
                 sendNotificationOnWaterTiming(data.id)
+
                 let table = ""
                 table += `
                         <div  style=" 

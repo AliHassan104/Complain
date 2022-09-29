@@ -66,7 +66,6 @@ public class AdminController {
     @GetMapping("/complain")
     public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-
         try{
             List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
             return ResponseEntity.ok(complain);
