@@ -54,7 +54,7 @@ public class ComplainImageImplementation implements FileService {
     @Override
     public Boolean deleteImage(Long id) {
         try{
-            Complain complain = complainService.getAllComplain().stream().filter(complain1 -> complain1.getId().equals(id)).findAny().get();
+            Complain complain = complainService.dto(complainService.getAllComplain().stream().filter(complain1 -> complain1.getId().equals(id)).findAny().get());
             String getImageName = complain.getPicture().substring((complain.getPicture().lastIndexOf("/"))+1);
             String imagePath =complainImagePath+File.separator+getImageName;
 

@@ -6,10 +6,7 @@ import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
-import com.company.ComplainProject.model.Address;
-import com.company.ComplainProject.model.Area;
-import com.company.ComplainProject.model.Roles;
-import com.company.ComplainProject.model.User;
+import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.RolesRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
@@ -40,29 +37,35 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> getAllUserWithPagination(Integer pageNumber,Integer pageSize){
+    public List<UserDetailsResponse> getAllUserWithPagination(Integer pageNumber,Integer pageSize){
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<User> userPage = userRepository.findAll(pageable);
-        List<User> users = userPage.getContent();
+        Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
+        List<User> userList = userPage.getContent();
+        List<UserDetailsResponse>  userDetailsResponses=userList.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
+        System.out.println(userDetailsResponses);
+        return userDetailsResponses;
 
-        return users;
     }
 
-    public Optional<User> getUserTypeById(Long id) {
-        return userRepository.findById(id);
+    public UserDetailsResponse getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(!user.isPresent()){
+            throw new ContentNotFoundException("No User Exist Having id "+id);
+        }
+        return userToUserDetailsResponse(user.get());
     }
 
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
-    public UserDto addUser(UserDto userDto) {
+    public UserDetailsResponse addUser(UserDto userDto) {
         if(userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)){
             userDto.setStatus(UserStatus.PUBLISHED);
         }
         userDto.setRoles(assignRolesToUser(userDto));
-        return toDto(userRepository.save(dto(userDto)));
+        return userToUserDetailsResponse(userRepository.save(dto(userDto)));
     }
 
     public Set<Roles> assignRolesToUser(UserDto userDto){
@@ -81,7 +84,7 @@ public class UserService {
         return rolesSet;
     }
 
-    public Optional<UserDto> updateUserById(Long id, UserDto userDto) {
+    public Optional<UserDetailsResponse> updateUserById(Long id, UserDto userDto) {
         User updateUser = getAllUser().stream().filter(el->el.getId().equals(id)).findAny().get();
 
         Area updatedArea =  areaService.getAllArea().stream().filter(area -> area.getId().equals(userDto.getArea().getId())).findAny().get();
@@ -99,7 +102,7 @@ public class UserService {
             updateUser.setProperty(userDto.getProperty());
             updateUser.setBlock(userDto.getBlock());
         }
-        return Optional.of(toDto(userRepository.save(updateUser)));
+        return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
     }
 
     public User dto(UserDto userDto){
@@ -144,10 +147,10 @@ public class UserService {
                 .build();
     }
 
-    public List<UserDto> getFilteredUser(SearchCriteria searchCriteria) {
+    public List<UserDetailsResponse> getFilteredUser(SearchCriteria searchCriteria) {
         UserSpecification userSpecification = new UserSpecification(searchCriteria);
         List<User> users = userRepository.findAll(userSpecification);
-        return users.stream().map(el->toDto(el)).collect(Collectors.toList());
+        return users.stream().map(el->userToUserDetailsResponse(el)).collect(Collectors.toList());
     }
 
     public UserDetailsResponse getUserByEmail(String email) {
@@ -171,12 +174,13 @@ public class UserService {
                 .status(user.getStatus())
                 .block(user.getBlock())
                 .userType(user.getUserType())
+                .deviceToken(user.getDeviceToken())
                 .build();
     }
 
-    public List<UserDto> getUserByStatus(String status) {
+    public List<UserDetailsResponse> getUserByStatus(String status) {
 
-        List<UserDto> userbyStatus;
+        List<UserDetailsResponse> userbyStatus;
         if(status.equalsIgnoreCase("IN_REVIEW")){
             userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.IN_REVIEW));
         }
@@ -193,9 +197,9 @@ public class UserService {
     }
 
 
-    public List<UserDto> userListToUserDtoList(List<User> users){
-        List<UserDto> userDtoList = users.stream().map(user -> toDto(user)).collect(Collectors.toList());
-        return userDtoList;
+    public List<UserDetailsResponse> userListToUserDtoList(List<User> users){
+        List<UserDetailsResponse> userDetailsResponses = users.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
+        return userDetailsResponses;
     }
 
     public Long countUserByStatus(String status){
@@ -211,6 +215,8 @@ public class UserService {
         }
         return countByStatus;
     }
+
+
 
 }
 

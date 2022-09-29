@@ -160,14 +160,10 @@ function formSubmit() {
         formData.append('data', newComplain);
 
         if (queryString == "") {
-            // fetch(`${baseUrl}/api/complain`, {
-            //     method: "POST",
-            //     body: formData
-
-            // }).then((response) => response.json())
+        
             sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
-
+                  
                     table += `
                         <div  style="
                         margin: auto;
@@ -191,11 +187,7 @@ function formSubmit() {
                 })
                 .catch((error) => console.log(error))
         } else {
-            // fetch(`${baseUrl}/api/complain/`+urlId, {
-            //     method: "PUT",
-            //     body: formData
-
-            // }).then((response) => response.json()).catch(() => { })
+           
                 updateDataWithFormData(`/complain/${urlId}`,formData)
                 .then((data) => {
 

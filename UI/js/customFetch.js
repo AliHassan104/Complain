@@ -144,10 +144,13 @@ function patchData(url, data) {
 
 function tokenNotExist() {
     let token = getToken()
-    tokenIsExpired(token.substring(7))
+    
     let getRoles = []
 
     if (token != null) {
+                                                        //  validate Token Expiry
+        tokenIsExpired(token.substring(7))
+
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
         var arrayOfRoles = roles.split(",");
@@ -155,14 +158,15 @@ function tokenNotExist() {
         for (let i = 0; i < arrayOfRoles.length; i++) {
             getRoles[i] = arrayOfRoles[i].trim()
         }
-    }
 
-    if (token != null) {
-        //                                                                              Verify the token First api isTokenExpired
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-            console.log("Congratulation")
+            // location.href = `${loginUrl}/index.html`
+             console.log("Congratulation")
         }
-        else { window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") }
+        else {
+             window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") 
+        }
+
     }
     else {
         window.open(`${loginUrl}/loginPage/loginpage.html`, "_self")
@@ -171,8 +175,13 @@ function tokenNotExist() {
 
 function tokenIsExpired(token){
     fetch(`${baseUrl}/api/checkToken?token=${token}`)
+    .then((response)=>{
+        return response.json()
+    })
     .then((data)=>{
-         console.log(data)
+         if(data){
+                window.open(`${loginUrl}/loginPage/loginpage.html`, "_self")
+         }
     })
 }
 

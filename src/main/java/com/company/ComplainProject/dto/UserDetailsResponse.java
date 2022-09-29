@@ -11,6 +11,7 @@ import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +31,8 @@ public class UserDetailsResponse {
     private String cnic;
     private Integer numberOfFamilyMembers;
     private Address address;
+    @Lob
+    private String deviceToken;
     private Area area;
     private Block block;
     private PropertyEnum property;

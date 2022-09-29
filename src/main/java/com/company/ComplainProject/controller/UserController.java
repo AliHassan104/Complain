@@ -27,9 +27,9 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/user")
-    public ResponseEntity<List<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
-                                              @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize){
-        List<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
+    public ResponseEntity<List<UserDetailsResponse>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
+                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+        List<UserDetailsResponse> user = userService.getAllUserWithPagination(pageNumber,pageSize);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
         }
@@ -37,16 +37,13 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id){
-        Optional<User> user = userService.getUserTypeById(id);
-        if(user.isPresent()){
-            return  ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<UserDetailsResponse> getUserById(@PathVariable Long id){
+        UserDetailsResponse user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/user")
-    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDetailsResponse> addUser(@RequestBody UserDto userDto){
         try{
             return ResponseEntity.ok(userService.addUser(userDto));
         }catch (Exception e){
@@ -68,7 +65,7 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public ResponseEntity<Optional<UserDto>> updateComplainTypeById(@PathVariable Long id,@RequestBody UserDto userDto){
+    public ResponseEntity<Optional<UserDetailsResponse>> updateComplainTypeById(@PathVariable Long id,@RequestBody UserDto userDto){
         try{
             return ResponseEntity.ok(userService.updateUserById(id,userDto));
         }catch (Exception e){
@@ -78,8 +75,8 @@ public class UserController {
     }
 
     @GetMapping("/user/search")
-    public ResponseEntity<List<UserDto>>  filteredAssetBooking(@RequestBody SearchCriteria searchCriteria){
-        List<UserDto> user = userService.getFilteredUser(searchCriteria);
+    public ResponseEntity<List<UserDetailsResponse>>  filtereUser(@RequestBody SearchCriteria searchCriteria){
+        List<UserDetailsResponse> user = userService.getFilteredUser(searchCriteria);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
         }
@@ -110,7 +107,7 @@ public class UserController {
     }
 
     @GetMapping("/user/userbystatus/{status}")
-    public ResponseEntity<List<UserDto>> getUserByStatus(@PathVariable("status") String status){
+    public ResponseEntity<List<UserDetailsResponse>> getUserByStatus(@PathVariable("status") String status){
         try{
             return ResponseEntity.ok(userService.getUserByStatus(status));
         }

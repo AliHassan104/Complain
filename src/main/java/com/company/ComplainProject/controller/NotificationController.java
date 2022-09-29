@@ -20,13 +20,31 @@ public class NotificationController {
         return firebaseMessagingService.sendNotification(note,token);
     }
 
-    @PostMapping("/send-notification-touser")
-    public String sendNotificationToUserAboutComplain(@RequestBody ComplainDto complainDto){
+    @GetMapping("/send-notification-touser/{complain_id}")
+    public String sendNotificationToUserAboutComplain(@PathVariable("complain_id") Long complain_id){
         try{
-            return firebaseMessagingService.sendNotificationToUserOnComplainStatusChange(complainDto);
+            return firebaseMessagingService.sendNotificationToUserOnComplainStatusChange(complain_id);
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("Error");
+        }
+    }
+
+    @GetMapping("/send-notification-about-watertiming/{watertiming_id}")
+    public void sendNotificationToUserAboutWaterTiming(@PathVariable("watertiming_id") Long watertiming_id){
+        try{
+            firebaseMessagingService.sendNotificationOnWaterTiming(watertiming_id);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    @GetMapping("/send-notification-about-events/{event_id}")
+    public void sendNotificationToUserAboutEvents(@PathVariable("event_id") Long event_id){
+        try{
+            firebaseMessagingService.sendNotificationOnEventUpload(event_id);
+        }catch (Exception e){
+            System.out.println(e);
         }
     }
 

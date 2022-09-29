@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
         return  new ResponseEntity<>(cannotDeleteImage.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(ExceptionInFirebaseMessaging.class)
+    public ResponseEntity<String> exceptionInFirebaseMessaging(ExceptionInFirebaseMessaging exceptionInFirebaseMessaging){
+        return new ResponseEntity<>(exceptionInFirebaseMessaging.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

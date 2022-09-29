@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class TokenAuthenticateController {
@@ -19,7 +22,6 @@ public class TokenAuthenticateController {
     public Boolean isTokenExpired(@RequestParam("token") String token){
         JwtUtil jwtUtil  = new JwtUtil();
         try{
-            System.out.println(jwtUtil.isTokenExpired(token));
             return  jwtUtil.isTokenExpired(token);
         }catch (Exception e){
             System.out.println(e);

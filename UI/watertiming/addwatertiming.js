@@ -21,7 +21,6 @@ let queryString;
     }
 
 
-
 function formSubmit() {
 
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -49,7 +48,7 @@ function formSubmit() {
        
         sendData(`/watertiming`,newArea)
             .then(data => {
-               
+                sendNotificationOnWaterTiming(data.id)
                 let table = ""
                 table += `
                         <div  style=" 
@@ -110,6 +109,10 @@ function formSubmit() {
             });
     }
 }
+
+function sendNotificationOnWaterTiming(waterTiming_id){
+    getData(`/send-notification-about-watertiming/${waterTiming_id}`)
+}   
 
 var getareaId;
 
