@@ -15,6 +15,7 @@ export class PollingquestionComponent implements OnInit {
                private userService : UserService
                ) {
     const id = this.activateRoute.snapshot.params['id']
+
     // this.achievementService.getAchievementById(id)
    }
 
@@ -23,7 +24,8 @@ export class PollingquestionComponent implements OnInit {
     this.getUser()
   }
 
-  lists : any
+  lists : any = []
+  areaName : any
 
   // getPollingQuestion() {
   //   this.pollingQuestion.getAllPollingQuestion().subscribe(data => {
@@ -45,6 +47,8 @@ export class PollingquestionComponent implements OnInit {
   getPollingQuestionNotAnswered(area : any) {
     this.pollingQuestion.getPollingQuestionNotAnswered(area).subscribe(data => {
       this.lists = data
+      console.log(this.lists);
+
       // console.log(data);
     }, error => {
       console.log(error);
@@ -80,6 +84,9 @@ getUser() {
   this.userService.getUserByEmail(email).subscribe(data => {
     // console.log(data);
     user = data
+    this.areaName = user.area.name
+    console.log(this.areaName);
+
     // this.getPollingQuestionByArea(user.area.id)
     this.getPollingQuestionNotAnswered(user.id)
   }, error => {

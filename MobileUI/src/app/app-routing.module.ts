@@ -45,6 +45,9 @@ const routes: Routes = [
     path: "login", component: LoginPageComponent
   },
   {
+    path: "register", component: RegisterPageComponent
+  },
+  {
     path: "home", component: HomeComponent , canActivate:[HomeGuard]
   },
   {

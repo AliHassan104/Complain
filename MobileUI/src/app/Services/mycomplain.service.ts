@@ -17,12 +17,10 @@ export class MycomplainService {
     return this.http.get(`${this.url}/api/complaintype`)
   }
 
+
+
   getAllComplain() {
     return this.http.get(`${this.url}/api/complain`)
-  }
-
-  getAllComplainById(id: any) {
-      return this.http.get(`${this.url}/api/complain/${id}`)
   }
 
   getComplainByEmail(email: any){
@@ -36,4 +34,12 @@ export class MycomplainService {
     //console.log(body);
     return this.http.post(`${this.url}/api/complain`, data) //
   }
+
+
+    getAllComplainById(id: any) {
+        return this.http.get(`${this.url}/api/complain/${id}`)
+    }
+
+    
+
 }

@@ -29,6 +29,65 @@ export class ComplaintimelineComponent implements OnInit {
     });
   }
 
+
+  items: any = [
+    {
+        "id": 3,
+        "status": "IN_REVIEW",
+        "date": [
+            2022,
+            9,
+            29
+        ],
+        "assignedFrom": null,
+        "assignedTo": null,
+        "description": "Your Complain is in review please wait",
+        "complain": null
+    }
+    ,
+    {
+      "id": 3,
+      "status": "IN_PROGRESS",
+      "date": [
+          2022,
+          10,
+          1
+      ],
+      "assignedFrom": null,
+      "assignedTo": null,
+      "description": "Your Complain Is In Progress",
+      "complain": null
+  }
+    ,
+    {
+      "id": 3,
+      "status": "REJECTED",
+      "date": [
+          2022,
+          10,
+          1
+      ],
+      "assignedFrom": null,
+      "assignedTo": null,
+      "description": "Your Complain Got Rejected",
+      "complain": null
+  }
+    ,
+    {
+      "id": 3,
+      "status": "COMPLETED",
+      "date": [
+          2022,
+          10,
+          7
+      ],
+      "assignedFrom": null,
+      "assignedTo": null,
+      "description": "Your Complain is Completed",
+      "complain": null
+  }
+]
+
   timeToGetCompleted = []
 
   TimeToTakeComplete(){

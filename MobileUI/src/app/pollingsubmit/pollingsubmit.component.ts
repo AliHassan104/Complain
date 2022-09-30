@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PollingquestionService } from '../Services/pollingquestion.service';
+import { ToastUtilService } from '../Services/toast-util.service';
 import { UserService } from '../Services/user.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class PollingsubmitComponent implements OnInit {
   constructor(private route: ActivatedRoute ,
               private pollingquestionService : PollingquestionService,
               private userService : UserService,
-              private router:Router
+              private router:Router,
+              private toastService: ToastUtilService,
 
               ) {}
 
@@ -65,17 +67,17 @@ export class PollingsubmitComponent implements OnInit {
     this.pollingAnswer.value.pollingQuestion.id = parseInt(this.questionId)
     this.pollingAnswer.value.user.id = this.userId
 
-    setTimeout(() => {
-      // console.log(data);
-    }, 1500);
+    console.log(this.pollingAnswer);
 
     this.pollingquestionService.postPollingQuestion(data)
         .subscribe((data) =>
          {
-          // console.log(data);
-        this.router.navigate(['pollingquestion']);
+          console.log(data);
+          this.toastService.showToast("Complain Submitted", "#toast-17")
+          this.router.navigate(['pollingquestion']);
       }, error => {
 
+        this.toastService.showToast("Complain Not Submitted", "#toast-18");
         console.log(error);
       });
 
@@ -112,8 +114,10 @@ getUser() {
       user = data
       this.userId = user.area.id
       console.log(user.area.id);
+      this.toastService.showToast("Success", "#toast-15")
     }, error => {
       console.log(error);
+      this.toastService.showToast("Wrong Email Or Password", "#toast-16");
     });
   }
 

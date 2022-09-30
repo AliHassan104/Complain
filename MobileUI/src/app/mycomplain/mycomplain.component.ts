@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MycomplainService } from '../Services/mycomplain.service';
+import { ToastUtilService } from '../Services/toast-util.service';
 import { UserService } from '../Services/user.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class MycomplainComponent implements OnInit {
   constructor(private myComplainService: MycomplainService ,
               private userService : UserService,
               public http: HttpClient
+              , private toastService: ToastUtilService,
     ) { }
 
   ngOnInit(): void {
@@ -60,23 +62,7 @@ export class MycomplainComponent implements OnInit {
 
   complainList:any = []
 
-
-
-  // getComplain() {
-  //   this.myComplainService.getAllComplain().subscribe(data => {
-  //     this.complainList = data
-  //     console.log(data);
-  //     console.log(this.complainList.length);
-  //   },error => {
-  //     console.log(error);
-  //     console.log(this.complainList.length);
-  //   });
-  // }
-
-
-
   getComplainByEmail() {
-    // console.log(this.userEmail);
     this.myComplainService.getComplainByEmail(this.userEmail).subscribe(data => {
       this.complainList = data
     },error => {
@@ -107,25 +93,6 @@ export class MycomplainComponent implements OnInit {
     }),
   })
 
-  // complain = new FormGroup({
-  //   description : new FormControl(),
-  //   pictureUrl: new FormControl(),
-  //   date : new FormControl(),
-  //   time : new FormControl(),
-  //   user : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  //   area : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  //   block : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  //   complainType : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  // })
-
   complainSubmit(data: any){
 
     // console.log(data);
@@ -137,56 +104,79 @@ export class MycomplainComponent implements OnInit {
     this.object.value.area.id = this.userId
     this.object.value.block.id = this.blockId
 
-    // this.object.value.description = data.value.description
-    // this.object.value.complainType.id = data.value.complainType.id
-
-    // console.log(data);
-
     var newComplain = JSON.stringify(data)
     var formData = new FormData()
 
-     console.log(this.userFile);
     formData.append('data', newComplain);
-    debugger
+    // debugger
+    console.log(newComplain);
+
     formData.append('pictureUrl', this.userFile);
 
         this.myComplainService.postComplain(formData).subscribe(data => {
             console.log(data);
             this.getComplainByEmail()
             this.newComplain = true
+            this.toastService.showToast("Complain Submitted", "#toast-15")
 
           },error => {
             console.log(error);
+            this.toastService.showToast("Complain Not Submitted", "#toast-16");
           });
+
+
+          this.object = new  FormGroup({
+            description : new FormControl(),
+            date : new FormControl(),
+            time : new FormControl(),
+            user : new FormGroup({
+              id : new FormControl()
+            }),
+            area : new FormGroup({
+              id : new FormControl()
+            }),
+            block : new FormGroup({
+              id : new FormControl()
+            }),
+            complainType : new FormGroup({
+              id : new FormControl()
+            }),
+          })
+
+
+          // this.image.controls["pictureUrl"].setValue('');
+          this.image = new FormGroup({
+            pictureUrl: new FormControl()
+          })
 
   }
 
-// getToken() {
-//     let token = localStorage.getItem("jwtToken")
-//     if(token != null){
-//         return "Bearer "+token
-//     }
-//     return null;
-//   }
+getToken() {
+    let token = localStorage.getItem("jwtToken")
+    if(token != null){
+        return "Bearer "+token
+    }
+    return null;
+  }
 
-// decodeJwtToken(token: string) {
-//     var base64Url = token.split('.')[1];
-//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-//     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-//     }).join(''));
-//     return JSON.parse(jsonPayload);
-// };
+decodeJwtToken(token: string) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+};
 
-// getEmailByToken(){
-//   let  encodedToken = this.decodeJwtToken(this.getToken())
-//   return encodedToken.sub;
-// }
+getEmailByToken(){
+  let  encodedToken = this.decodeJwtToken(this.getToken())
+  return encodedToken.sub;
+}
 
 getUser() {
-  // const email = this.getEmailByToken()
+  const email = this.getEmailByToken()
   let user: any
-  this.userService.getUser().subscribe(data => {
+  this.userService.getUserByEmail(email).subscribe(data => {
     console.log(data);
 
     user = data
@@ -202,7 +192,6 @@ getUser() {
 }
 
 onChange(e: any) {
-
 
   this.selectedFile = e.target.files[0];
   this.userFile = e.target.files[0];
