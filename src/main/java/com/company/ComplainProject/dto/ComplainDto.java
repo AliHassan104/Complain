@@ -1,11 +1,12 @@
 package com.company.ComplainProject.dto;
 
 import com.company.ComplainProject.dto.ProjectEnums.Status;
-import com.company.ComplainProject.model.Area;
-import com.company.ComplainProject.model.Block;
-import com.company.ComplainProject.model.ComplainType;
-import com.company.ComplainProject.model.User;
+import com.company.ComplainProject.model.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,8 @@ public class ComplainDto {
     private User user;
     private ComplainType complainType;
     private Status status = Status.IN_REVIEW;
-    private String date;
-    private String time;
+    private LocalDate date;
+    private LocalTime time;
+    private List<ComplainLog> complainLog;
 
 }

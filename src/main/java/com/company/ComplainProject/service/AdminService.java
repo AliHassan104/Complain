@@ -4,6 +4,7 @@ import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.EventDto;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.*;
@@ -82,13 +83,9 @@ public class AdminService {
         this.pollingQuestionService = pollingQuestionService;
     }
 
-    public List<User> getAllUsers(Integer pageNumber,Integer pageSize){
-
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
-        List<User> userList = userPage.getContent();
-        return userList;
-
+    public List<UserDetailsResponse> getAllUsers(Integer pageNumber,Integer pageSize){
+          List<UserDetailsResponse> userList =  userService.getAllUserWithPagination(pageNumber,pageSize);
+          return userList;
     }
 
     public List<Achievements> getAllAchievements(Integer pageNumber,Integer pageSize){
@@ -166,7 +163,7 @@ public class AdminService {
     }
 
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
-        Complain updateComplain = complainService.getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get();
+        Complain updateComplain = complainService.dto(complainService.getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get());
         if(updateComplain != null){
             updateComplain.setStatus(complainDto.getStatus());
         }

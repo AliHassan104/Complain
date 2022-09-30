@@ -66,8 +66,8 @@
 								alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
-							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								Charles Hall
+							<a class="sidebar-user-title dropdown-toggle" data-bs-toggle="dropdown" id="username">
+								
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -306,11 +306,13 @@
 								<div class="form-group">
 
 									<div class="row mb-3">
-
 										<label for="addcomplaintype" class="col-sm-2 col-form-label"><b>User : </b></label>
-										<input type="text" id="username">
-	
+                                        <div class="col-sm-5"> 
+                                            <input type="text" class="form-control" id="name" disabled>
+                                        </div>
+										
 									</div>
+                                    
 									<div class="row mb-3">
 										<label for="addcomplaintype" class="col-sm-2 col-form-label"><b>Area : </b></label>
 										<div class="col-sm-5">
@@ -322,12 +324,15 @@
 									
 								
 									<br> 
-
 								  </div>
+                                  <div class="form-outline mb-4">
+                                    <label class="form-label" for="description"><b>Title</b></label>
+                                    <input class="form-control" id="title" rows="4"></input>
+                               </div>
 
 								  <div class="form-outline mb-4">
 									  <label class="form-label" for="description"><b>Content</b></label>
-									  <textarea class="form-control" id="description" rows="4"></textarea>
+									  <textarea class="form-control" id="content" rows="4"></textarea>
 								 </div>
 
 								  
@@ -336,7 +341,7 @@
 
                         <div style="width: 100%;text-align: center; justify-content: center;">
 							<br>
-                            <button style="width: 30%;" type="submit" onclick="formSubmit()" id="complainbtn" class="btn btn-primary" >Add</button>
+                            <button style="width: 30%;" type="submit" onclick="createAnnouncement()" id="complainbtn" class="btn btn-primary" >Add</button>
                         <br>
                         </div>
                     </div>
@@ -348,7 +353,7 @@
 	<script src="/js/dashboard.js"></script>
 	<script src="/js/app.js"></script>
 	<script src="/js/properties.js"></script>
-	<script src="/complain/addcomplain.js"></script>
+    <script src="/announcement/addAnnouncement.js"></script>
 
 
 </body>
