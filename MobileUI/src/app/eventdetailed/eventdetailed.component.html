@@ -4,12 +4,12 @@
   <div class="tab-pane fade show active" id="photos" role="tabpanel" >
 
     <div class="section full mt-1">
-      <div class="section-title" style="display: flex;justify-content: center;">{{event.title}}</div>
+      <div class="section-title" style="display: flex;justify-content: center;font-size: larger;">{{event.title}}</div>
       <div class="wide-block pt-2 pb-2">
           <img src={{event.image}} alt="image" class="imaged w-100 mb-1">
-          <p>{{event.startDate | date:"fullDate"}}</p>
-          <p>{{event.startTime}}</p>
-          <p>{{event.description}}</p>
+          <p><b>Date </b>: {{event.startDate | date:"fullDate"}}</p>
+          <p><b>Time</b> : {{event.startTime | time}}</p>
+          <p><b>Details</b> : {{event.description}}</p>
       </div>
   </div>
 

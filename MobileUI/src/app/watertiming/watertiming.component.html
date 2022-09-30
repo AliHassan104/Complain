@@ -9,7 +9,15 @@
 
 <div style="height: 100%!important;overflow: auto;" class="accordion" id="accordionExample">
 
+  <!-- <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming"> -->
+  <!-- <div   *ngIf="areaWaterTimimg.waterTimingDtoList.length > 0"> -->
+
+  <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming">
+
   <div   *ngFor="let list of areaWaterTimimg; let i = index">
+
+
+  <div   *ngIf="list.waterTimingDtoList.length > 0">
 
     <div  class="card" >
 
@@ -23,24 +31,36 @@
 
       <div [id]="'abc'+i" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
         <!-- <div class="card-body" *ngFor="let watertime of areaWaterTimimg.waterTimingDtoList">
-          {{watertime.date | date:"fullDate"}} at  {{watertime.time}}
+          {{watertime.date | date:"EEEE, MMMM d, y"}} at  {{watertime.time}}
           <h1>abc</h1> -->
           <div class="card-body">
             <div *ngFor="let watertime of list.waterTimingDtoList" class="">
+              On {{watertime.date | date:"EEEE"}}
               water will start at {{watertime.start_time | time}}
               and end at {{watertime.end_time | time}}
             </div>
-            <!-- <h1>abc</h1> -->
           </div>
-          <!-- <ng-container></ng-container> -->
 
         </div>
 
       </div>
 
-
+  </div>
   </div>
 
+  </div>
+  <!-- </div> -->
+
+
+  <ng-template #nowatertiming>
+    <!-- <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
+      <div class="card-body"> -->
+          <div class="text-center">
+            <p>No Water Timing Available</p>
+          </div>
+      <!-- </div>
+    </div> -->
+  </ng-template>
 
 </div>
 

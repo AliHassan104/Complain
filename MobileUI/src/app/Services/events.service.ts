@@ -23,7 +23,6 @@ export class EventsService {
   }
 
   getEventByArea(area: any){
-    // console.log(area);
     return this.http.get(`${this.url}/api/eventByArea/${area}`)
   }
 }

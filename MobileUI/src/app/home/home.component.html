@@ -2,29 +2,29 @@
   <div class="left">
     <div>
       <h2 class="title" style="color: #1877F2;">Welcome</h2>
-
+      <br>
     </div>
   </div>
 
   <div class="right">
     <a class="headerButton toggle-searchbox">
-      <!-- <ion-icon src="assets/search.svg"></ion-icon> -->
     </a>
   </div>
 </div>
-<!-- * App Header -->
+
 <div id="appCapsule" style="height: 100%!important;overflow: auto;">
 
     <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
     <div class="divider mt-2 mb-3"></div>
     <div class="header-large-title">
       <h4 class="subTitle">Upcoming Events</h4>
-
     </div>
 
     <div class="section full mt-3 mb-3">
       <div style="margin-left: 5%; ">
+        <div class="col-12" *ngIf="events.length > 0; else noeventfound">
         <owl-carousel [items]="Images" [carouselClasses]="['carousel-multiple', 'owl-carousel', 'owl-theme']">
+
         <div class="" *ngFor="let event of events">
           <!-- <h1>Heading</h1> -->
           <a [routerLink]="['/eventdetailed/',event.id]">
@@ -34,17 +34,30 @@
                 <img [src]="event.image"  class="card-img-top" alt="image"
                 style="height: 100px;width: 100%;" />
                 <div class="card-body pt-2" style="padding: 0px 13px 20px 13px">
-                  <h6 class="mb-0" style="font-size: 12px;">
-
-                    {{event.startDate | date:"fullDate"}} <br>
-                    </h6>
-                    <p>{{event.description | slice:0:50}} <b *ngIf="event.description.length > 50"> ...ReadMore</b> </p>
+                  <p  class="mb-0">{{event.title}}</p>
+                  <p  class="mb-0">{{event.startDate | date:"fullDate"}}</p>
+                  <!-- <p style="display: flex;justify-content: center;" class="mb-0">{{event.description | slice:0:35}}  <b style="margin-left: 5px;" *ngIf="event.description.length > 35"> ...ReadMore</b> </p> -->
                 </div>
               </div>
             </div>
           </a>
           </div>
+
         </owl-carousel>
+      </div>
+
+      <ng-template #noeventfound>
+
+        <!-- <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
+          <div class="card-body">
+              <div class="text-center"> -->
+                <p>No Event Yet</p>
+                <br>
+              <!-- </div>
+          </div>
+        </div> -->
+
+      </ng-template>
 
 
         <!-- if no business ads are available -->
@@ -57,24 +70,31 @@
               <div class="row">
 
 
+
+        <div class="col-12" *ngIf="achievement.length > 0; else noachievement">
                 <div class="col-12" *ngFor="let list of achievement" >
                   <a [routerLink]="['/achivementdetails/',list.id]">
-                      <div  class="card product-card" style="margin-top:30px; margin-bottom: 30px;">
+                      <div  class="card product-card">
                           <div class="card-body">
                               <img style="width: 100%;" src={{list.pictureUrl}} class="image" alt="product image">
                               <h2 class="title">{{list.title}}</h2>
                               <p>{{list.date | date:"fullDate"}}</p>
                               <!-- <p>{{list.description}}</p> -->
-                              <p>{{list.description | slice:0:50}} <b *ngIf="list.description.length > 50"> ...ReadMore</b> </p>
+                              <p>{{list.description | slice:0:250}} <b *ngIf="list.description.length > 250"> ...ReadMore</b> </p>
                             </div>
                           </div>
                         </a>
                   </div>
+        </div>
 
+        <ng-template #noachievement>
 
+                  <p class="text-center">No Achievement Yet</p>
 
-              </div>
+        </ng-template>
+
             </div>
+        </div>
 
           </div>
         </div>

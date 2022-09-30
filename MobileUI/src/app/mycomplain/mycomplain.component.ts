@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MycomplainService } from '../Services/mycomplain.service';
+import { ToastUtilService } from '../Services/toast-util.service';
 import { UserService } from '../Services/user.service';
 
 @Component({
@@ -21,19 +22,23 @@ export class MycomplainComponent implements OnInit {
   userId: any
   areaId: any
   blockId: any
+  userEmail: any
   userFile: File
   imageSrc:any
 
   constructor(private myComplainService: MycomplainService ,
               private userService : UserService,
               public http: HttpClient
+              , private toastService: ToastUtilService,
     ) { }
 
   ngOnInit(): void {
+    this.getUser()
     this.getComplainType()
     // this.getComplain()
-    this.getComplainByEmail()
-    this.getUser()
+    setTimeout(() => {
+      this.getComplainByEmail()
+    }, 500);
   }
 
   newComplain : boolean =  true
@@ -57,23 +62,8 @@ export class MycomplainComponent implements OnInit {
 
   complainList:any = []
 
-
-
-  // getComplain() {
-  //   this.myComplainService.getAllComplain().subscribe(data => {
-  //     this.complainList = data
-  //     console.log(data);
-  //     console.log(this.complainList.length);
-  //   },error => {
-  //     console.log(error);
-  //     console.log(this.complainList.length);
-  //   });
-  // }
-
-
-
   getComplainByEmail() {
-    this.myComplainService.getComplainByEmail(this.getEmailByToken()).subscribe(data => {
+    this.myComplainService.getComplainByEmail(this.userEmail).subscribe(data => {
       this.complainList = data
     },error => {
       console.log(error);
@@ -103,25 +93,6 @@ export class MycomplainComponent implements OnInit {
     }),
   })
 
-  // complain = new FormGroup({
-  //   description : new FormControl(),
-  //   pictureUrl: new FormControl(),
-  //   date : new FormControl(),
-  //   time : new FormControl(),
-  //   user : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  //   area : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  //   block : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  //   complainType : new FormGroup({
-  //     id : new FormControl()
-  //   }),
-  // })
-
   complainSubmit(data: any){
 
     // console.log(data);
@@ -133,48 +104,50 @@ export class MycomplainComponent implements OnInit {
     this.object.value.area.id = this.userId
     this.object.value.block.id = this.blockId
 
-    // this.object.value.description = data.value.description
-    // this.object.value.complainType.id = data.value.complainType.id
-
-    console.log(data);
-
     var newComplain = JSON.stringify(data)
     var formData = new FormData()
 
-    // formData.append("data",newComplain)
-    // formData.append("pictureUrl",this.userFile)
-    // console.log(newComplain);
-
-    // console.log(this.selectedFile);
-    // console.log(this.image.value.file);
-
-  //   for (const file of this.selectedFile.files) {
-  //     formData.append("pictureUrl", file)
-  // }
-
-
-  // for (const file of this.image.value.pictureUrl) {
-  //   console.log(file);
-  //   formData.append("pictureUrl", file)
-  // }
-
-    // formData.append("pictureUrl", this.selectedFile.name)
-    // }
-
-
-     console.log(this.userFile);
     formData.append('data', newComplain);
-    debugger
+    // debugger
+    console.log(newComplain);
+
     formData.append('pictureUrl', this.userFile);
 
         this.myComplainService.postComplain(formData).subscribe(data => {
             console.log(data);
             this.getComplainByEmail()
             this.newComplain = true
+            this.toastService.showToast("Complain Submitted", "#toast-15")
 
           },error => {
             console.log(error);
+            this.toastService.showToast("Complain Not Submitted", "#toast-16");
           });
+
+
+          this.object = new  FormGroup({
+            description : new FormControl(),
+            date : new FormControl(),
+            time : new FormControl(),
+            user : new FormGroup({
+              id : new FormControl()
+            }),
+            area : new FormGroup({
+              id : new FormControl()
+            }),
+            block : new FormGroup({
+              id : new FormControl()
+            }),
+            complainType : new FormGroup({
+              id : new FormControl()
+            }),
+          })
+
+
+          // this.image.controls["pictureUrl"].setValue('');
+          this.image = new FormGroup({
+            pictureUrl: new FormControl()
+          })
 
   }
 
@@ -207,16 +180,18 @@ getUser() {
     console.log(data);
 
     user = data
+
     this.areaId = user.area.id
     this.blockId = user.block.id
     this.userId = user.id
+    this.userEmail = user.email
+
   }, error => {
     console.log(error);
   });
 }
 
 onChange(e: any) {
-
 
   this.selectedFile = e.target.files[0];
   this.userFile = e.target.files[0];

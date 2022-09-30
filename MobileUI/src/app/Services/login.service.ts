@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MessagingService } from './messaging.service';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient , private token : MessagingService) { }
 
   checkUserandPass(name: string, pwd: string):Observable <any> {
     let user = {

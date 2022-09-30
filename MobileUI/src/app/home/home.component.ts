@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   screenHeight=null;
   screenWidth;
   token;
+  areaId: Object
+
 
   customOptions = {
     loop: true,
@@ -59,7 +61,7 @@ export class HomeComponent implements OnInit {
    }
    ngOnInit(): void {
     this.getAchievements()
-    this.getEvents()
+    // this.getEvents()
     // this.getToken()
     // this.decodeJwtToken(this.getToken())
     // this.getEmailByToken()
@@ -68,10 +70,18 @@ export class HomeComponent implements OnInit {
 
   achievement : any = []
 
+  // lengthOfAchievements : any
+  // lengthOfAchivement(){
+  //   if (this.achievement.length == null) {
+  //     this.lengthOfAchievements = false
+  //   }else{
+  //     this.lengthOfAchievements = true
+  //   }
+  // }
+
   getAchievements() {
     this.achievementService.getAllAchievement().subscribe(data => {
       this.achievement = data
-      // console.log(data);
     }, error => {
       console.log(error);
     });
@@ -79,8 +89,19 @@ export class HomeComponent implements OnInit {
 
   events : any = []
 
-  getEvents() {
-    this.eventService.getAllEvent().subscribe(data => {
+  // getEvents() {
+  //   this.eventService.getAllEvent().subscribe(data => {
+  //     this.events = data
+  //     this.Images.push(data)
+  //     // console.log(data);
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
+  getEventsByArea() {
+    this.eventService.getEventByArea(this.areaId).subscribe(data => {
+      console.log(data);
+
       this.events = data
       this.Images.push(data)
       // console.log(data);
@@ -116,9 +137,13 @@ getEmailByToken(){
 }
 
 getUser() {
+  let user : any
   const email = this.getEmailByToken()
   this.userService.getUserByEmail(email).subscribe(data => {
-    // this.achievement = data
+    user = data
+    this.areaId = user.area.id
+
+    this.getEventsByArea()
     // console.log(data);
   }, error => {
     console.log(error);

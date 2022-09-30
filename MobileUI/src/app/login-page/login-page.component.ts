@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit {
   typeChange = "password";
   constructor(private router: Router,
      private loginService: LoginService
-    //  , private toastService: ToastUtilService,
+     , private toastService: ToastUtilService,
     //   private mainService: MainService,
     //   private messagingService: MessagingService
       ) { }
@@ -52,7 +52,6 @@ export class LoginPageComponent implements OnInit {
   // }
   goToRegister() {
     this.router.navigate(['register'])
-
   }
 
 //   checkToken(){
@@ -141,13 +140,12 @@ loginSubmit(loginCredentials: any){
       // console.log(data);
         if (data.jwt != null) {
             localStorage.setItem("jwtToken", data.jwt)
+            this.toastService.showToast("Success", "#toast-15")
             this.router.navigate(['home'])
-            // location.href = `${loginUrl}/index.html`
-
-            // document.getElementById('password').value = ""
         }
     }, error => {
-      console.log(error);
+      this.toastService.showToast("Wrong Email Or Password", "#toast-16");
+      // console.log(error);
     });
 }
 

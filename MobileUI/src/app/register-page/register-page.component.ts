@@ -246,8 +246,11 @@ address = new FormGroup({
         console.log(addressData);
           this.user.value.address.id = 1
           this.userPost(this.user)
+          this.toastService.showToast("Registered Successfully Your Account Will Be Active In 24 Hours", "#toast-15")
+
       }, error => {
         console.log(error);
+        this.toastService.showToast("Not Registered", "#toast-16");
       });
 
 
