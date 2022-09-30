@@ -8,9 +8,7 @@ if (queryString != "") {
 
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
-    // fetch(`${baseUrl}/api/complain/` + urlId, {
-    // })
-    //     .then(response => response.json()).catch(() => { })
+    
         getData(`/complain/${urlId}`)
         .then(data => {
 
@@ -36,13 +34,7 @@ function getselectedDropDownElement(id, valueToSelect) {
 function getComplain() {
 
     let table = ""
-    // fetch(`${baseUrl}/api/complaintype`, {
-    //     headers: {
-    //         "Content-Type": "application/json",
 
-    //     }
-    // })
-    //     .then((response) => response.json())
         getData(`/complaintype`)
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
@@ -58,13 +50,7 @@ var getBlockFromAreaId = 0;
 
 function getArea() {
     let table = ""
-    // fetch(`${baseUrl}/api/area`, {
-    //     headers: {
-    //         "Content-Type": "application/json",
-
-    //     }
-    // })
-    //     .then((response) => response.json())
+  
         getData(`/area`)
         .then((data) => {
             getBlockFromAreaId = data[0].id;
@@ -83,12 +69,7 @@ function getArea() {
 let username;
 function getUser() {
     let table = ""
-    // fetch(`${baseUrl}/api/user`, {
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     }
-    // })
-    //     .then((response) => response.json())
+   
         getData(`/user`)
         .then((data) => {
             for (let i = 0; i < data.length; i++) {

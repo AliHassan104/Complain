@@ -1,5 +1,7 @@
 var userDetails = "";
+var loginUserName = "";
 tokenNotExist();
+getUserData();
 
 
 function getToken() {
@@ -187,6 +189,7 @@ function getUserData() {
     let email = userDetails.sub
     return getData(`/userbyemail/${email}`)
         .then((data) => {
+            loginUserName = data.firstname+" "+data.lastname
             return data
         }
         )

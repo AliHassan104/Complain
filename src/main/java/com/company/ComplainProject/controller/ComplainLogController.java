@@ -38,7 +38,7 @@ public class ComplainLogController {
     }
 
     @GetMapping("complainlogbycomplain/{c_id}")
-    public ResponseEntity<List<ComplainLogDto>> getComplainLogByComplain(@PathVariable Long id){
+    public ResponseEntity<List<ComplainLogDto>> getComplainLogByComplain(@PathVariable("c_id") Long id){
         try{
             return ResponseEntity.ok(complainLogService.getComplainLogsByComplain(id));
         }catch (Exception e){
@@ -50,7 +50,6 @@ public class ComplainLogController {
     @PostMapping("/complainlog/{c_id}")
     public ResponseEntity<ComplainLogDto> addComplainLogByComplain(@PathVariable("c_id") Long id,@RequestBody ComplainLogDto complainLogDto){
         try{
-
             return ResponseEntity.ok(complainLogService.addComplainLogByComplainService(id,complainLogDto));
         }catch (Exception e){
             System.out.println(e);
@@ -58,7 +57,7 @@ public class ComplainLogController {
         }
     }
 
-    @DeleteMapping("/complainLog/{complain-id}")
+    @DeleteMapping("/complainlogdelete/{complain_id}")
     public ResponseEntity<Void> deleteComplianLogByComplainId(@PathVariable("complain_id") Long id){
         try{
             complainLogService.deleteComplainLogByComplain(id);

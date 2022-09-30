@@ -32,6 +32,7 @@ public class ComplainLog {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "complain")
     private Complain complain;
 
 

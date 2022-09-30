@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
+@ToString
 
 public class ComplainLogDto {
 
@@ -28,15 +29,4 @@ public class ComplainLogDto {
     private Complain complain;
 
 
-    @Override
-    public String toString() {
-        return "ComplainLogDto{" +
-                "id=" + id +
-                ", status=" + status +
-                ", date=" + date +
-                ", assignedFrom='" + assignedFrom + '\'' +
-                ", assignedTo='" + assignedTo + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

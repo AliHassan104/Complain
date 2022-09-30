@@ -36,7 +36,7 @@ public class ComplainLogService {
         return ComplainLogDto.builder().id(complainLog.getId())
                 .date(complainLog.getDate()).description(complainLog.getDescription())
                 .status(complainLog.getStatus()).assignedFrom(complainLog.getAssignedFrom())
-                .assignedTo(complainLog.getAssignedTo()).complain(complainLog.getComplain()).build();
+                .assignedTo(complainLog.getAssignedTo()).build();
     }
 
     public List<ComplainLogDto> getAllComplainLog() {
@@ -59,22 +59,12 @@ public class ComplainLogService {
 
         Optional<Complain> complain = complainRepository.findById(id);
 
-
-        if(complainLogDto.getStatus().equals(Status.IN_REVIEW)){
-            complainLogDto.setStatus(Status.IN_REVIEW);
-        }
-        else if(complainLogDto.getStatus().equals(Status.IN_PROGRESS)){
-            complainLogDto.setStatus(Status.IN_PROGRESS);
-        }
-        else if(complainLogDto.getStatus().equals(Status.COMPLETED)){
-            complainLogDto.setStatus(Status.COMPLETED);
-        }
-        else{
-            complainLogDto.setStatus(Status.REJECTED);
-        }
-
+        complainLogDto.setStatus(complain.get().getStatus());
+        complainLogDto.setDescription("Your Complain is "+complain.get().getStatus());
         complainLogDto.setComplain(complain.get());
+        System.out.println(complainLogDto);
         return todto(complainLogRespository.save(dto(complainLogDto)));
+
     }
 
     public void deleteComplainLogByComplain(Long id) {
