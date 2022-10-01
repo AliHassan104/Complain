@@ -157,6 +157,7 @@ user = new FormGroup({
   numberOfFamilyMembers : new FormControl(),
   property : new FormControl(),
   userType : new FormControl(),
+  deviceToken : new FormControl(),
 })
 
 
@@ -204,6 +205,7 @@ address = new FormGroup({
     this.user.value.numberOfFamilyMembers = userData.numberOfFamilyMembers
     this.user.value.property = userData.property
     this.user.value.userType = "Customer"
+    this.user.value.deviceToken = localStorage.getItem("deviceId")
 
     this.user.value.address.id = userData.address.id
     this.user.value.area.id = userData.area.id
@@ -260,7 +262,6 @@ address = new FormGroup({
     // console.log(data.value);
     setTimeout(() => {
       this.registerService.postUser(data.value).subscribe(userData => {
-        console.log(userData);
         this.router.navigate(['survey']);
       }, error => {
         console.log(error);

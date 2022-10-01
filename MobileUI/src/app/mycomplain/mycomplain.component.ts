@@ -67,7 +67,6 @@ export class MycomplainComponent implements OnInit {
       this.complainList = data
     },error => {
       console.log(error);
-      console.log(this.complainList.length);
     });
   }
 
@@ -98,7 +97,7 @@ export class MycomplainComponent implements OnInit {
     // console.log(data);
 
     // data.value
-    this.object.value.date = formatDate(new Date(), 'yyyy/MM/dd', 'en')
+    this.object.value.date = formatDate(new Date(), 'yyyy-MM-dd', 'en')
     this.object.value.time = formatDate(new Date(), 'hh:mm', 'en-US')
     this.object.value.user.id = this.areaId
     this.object.value.area.id = this.userId
@@ -113,16 +112,17 @@ export class MycomplainComponent implements OnInit {
 
     formData.append('pictureUrl', this.userFile);
 
-        this.myComplainService.postComplain(formData).subscribe(data => {
-            console.log(data);
-            this.getComplainByEmail()
-            this.newComplain = true
-            this.toastService.showToast("Complain Submitted", "#toast-15")
+    this.myComplainService.postComplain(formData).subscribe(data => {
+      console.log(data);
+      this.getComplainByEmail()
+      this.newComplain = true
+      this.postComplainLog(data)
+      this.toastService.showToast("Complain Submitted", "#toast-15")
 
-          },error => {
-            console.log(error);
-            this.toastService.showToast("Complain Not Submitted", "#toast-16");
-          });
+      },error => {
+        console.log(error);
+        this.toastService.showToast("Complain Not Submitted", "#toast-16");
+      });
 
 
           this.object = new  FormGroup({
@@ -149,6 +149,19 @@ export class MycomplainComponent implements OnInit {
             pictureUrl: new FormControl()
           })
 
+  }
+
+  postComplainLog(data:any){
+    let details = {
+      date : data.date,
+      status : data.status,
+      description : 'Your complain is in Review'
+    }
+    this.myComplainService.postComplainLog(data.id , details).subscribe(data => {
+        console.log(data);
+      },error => {
+        console.log(error);
+      });
   }
 
 getToken() {

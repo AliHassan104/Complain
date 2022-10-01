@@ -47,7 +47,7 @@ export class PollingquestionComponent implements OnInit {
   getPollingQuestionNotAnswered(area : any) {
     this.pollingQuestion.getPollingQuestionNotAnswered(area).subscribe(data => {
       this.lists = data
-      console.log(this.lists);
+      // console.log(this.lists);
 
       // console.log(data);
     }, error => {

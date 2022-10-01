@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -23,21 +23,29 @@ export class MessagingService {
   )
 }
 
+
 requestPermission() {
-  this.angularFireMessaging.requestToken.subscribe(
-    (token) => {
-      console.log(token);
-     // prompt("token",token)
-      //alert(token)
+  this.angularFireMessaging.requestToken.subscribe((token) => {
+      // console.log(token);
+
+      localStorage.setItem("deviceId", token)
+      // this.myinputMsg = token
       this.myMethodSubject.next(token);
-      // return token;
+
+      // this.deviceID = token
+      // console.log(this.deviceID);
+
+      // return this.deviceID;
     },
     (err) => {
       console.error('Unable to get permission to notify.', err);
-      // return null;
-    }
-  );
+    });
+
+    // return this.deviceID;
 }
+
+
+
 
 receiveMessage() {
   this.angularFireMessaging.messages.subscribe(

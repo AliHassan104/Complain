@@ -34,10 +34,12 @@ import { HomeGuard } from './Guards/home.guard';
 
 
 const routes: Routes = [
+  
   // {
   //   path: "", component: LoginPageComponent,
-
   // },
+
+
   {
     path: "", component: LoginPageComponent
   },

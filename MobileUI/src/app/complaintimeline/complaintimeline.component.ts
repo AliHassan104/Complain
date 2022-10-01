@@ -15,9 +15,11 @@ export class ComplaintimelineComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');;
 
     this.getComplainById(parseInt(id))
+    this.getComplainLog(parseInt(id))
   }
 
   complain: any = []
+
   getComplainById(id: number) {
 
     this.mycomplainService.getAllComplainById(id).subscribe(data => {
@@ -29,63 +31,74 @@ export class ComplaintimelineComponent implements OnInit {
     });
   }
 
+  complainLog : any
+  getComplainLog(id: number) {
+    this.mycomplainService.getComplainLogById(id).subscribe(data => {
+      this.items = data
+      console.log(data);
+      this.TimeToTakeComplete()
+    }, error => {
+      console.log(error);
+    });
+  }
+
 
   items: any = [
-    {
-        "id": 3,
-        "status": "IN_REVIEW",
-        "date": [
-            2022,
-            9,
-            29
-        ],
-        "assignedFrom": null,
-        "assignedTo": null,
-        "description": "Your Complain is in review please wait",
-        "complain": null
-    }
-    ,
-    {
-      "id": 3,
-      "status": "IN_PROGRESS",
-      "date": [
-          2022,
-          10,
-          1
-      ],
-      "assignedFrom": null,
-      "assignedTo": null,
-      "description": "Your Complain Is In Progress",
-      "complain": null
-  }
-    ,
-    {
-      "id": 3,
-      "status": "REJECTED",
-      "date": [
-          2022,
-          10,
-          1
-      ],
-      "assignedFrom": null,
-      "assignedTo": null,
-      "description": "Your Complain Got Rejected",
-      "complain": null
-  }
-    ,
-    {
-      "id": 3,
-      "status": "COMPLETED",
-      "date": [
-          2022,
-          10,
-          7
-      ],
-      "assignedFrom": null,
-      "assignedTo": null,
-      "description": "Your Complain is Completed",
-      "complain": null
-  }
+  //   {
+  //       "id": 3,
+  //       "status": "IN_REVIEW",
+  //       "date": [
+  //           2022,
+  //           9,
+  //           29
+  //       ],
+  //       "assignedFrom": null,
+  //       "assignedTo": null,
+  //       "description": "Your Complain is in review please wait",
+  //       "complain": null
+  //   }
+  //   ,
+  //   {
+  //     "id": 3,
+  //     "status": "IN_PROGRESS",
+  //     "date": [
+  //         2022,
+  //         10,
+  //         1
+  //     ],
+  //     "assignedFrom": null,
+  //     "assignedTo": null,
+  //     "description": "Your Complain Is In Progress",
+  //     "complain": null
+  // }
+  //   ,
+  //   {
+  //     "id": 3,
+  //     "status": "REJECTED",
+  //     "date": [
+  //         2022,
+  //         10,
+  //         1
+  //     ],
+  //     "assignedFrom": null,
+  //     "assignedTo": null,
+  //     "description": "Your Complain Got Rejected",
+  //     "complain": null
+  // }
+  //   ,
+  //   {
+  //     "id": 3,
+  //     "status": "COMPLETED",
+  //     "date": [
+  //         2022,
+  //         10,
+  //         7
+  //     ],
+  //     "assignedFrom": null,
+  //     "assignedTo": null,
+  //     "description": "Your Complain is Completed",
+  //     "complain": null
+  // }
 ]
 
   timeToGetCompleted = []

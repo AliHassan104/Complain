@@ -69,15 +69,12 @@ export class PollingsubmitComponent implements OnInit {
 
     console.log(this.pollingAnswer);
 
-    this.pollingquestionService.postPollingQuestion(data)
-        .subscribe((data) =>
-         {
-          console.log(data);
-          this.toastService.showToast("Complain Submitted", "#toast-17")
-          this.router.navigate(['pollingquestion']);
+    this.pollingquestionService.postPollingQuestion(data).subscribe((data) =>{
+          this.toastService.showToast("Success", "#toast-15")
+          this.router.navigate(['home']);
       }, error => {
 
-        this.toastService.showToast("Complain Not Submitted", "#toast-18");
+        this.toastService.showToast("Complain Not Submitted", "#toast-16");
         console.log(error);
       });
 
@@ -114,10 +111,10 @@ getUser() {
       user = data
       this.userId = user.area.id
       console.log(user.area.id);
-      this.toastService.showToast("Success", "#toast-15")
+      // this.toastService.showToast("Success", "#toast-15")
     }, error => {
       console.log(error);
-      this.toastService.showToast("Wrong Email Or Password", "#toast-16");
+      // this.toastService.showToast("Wrong Email Or Password", "#toast-16");
     });
   }
 
