@@ -25,20 +25,6 @@ public class ComplainLogService {
     ComplainRepository complainRepository;
 
 
-    public ComplainLog  dto(ComplainLogDto complainLogDto){
-        return ComplainLog.builder().id(complainLogDto.getId())
-                .date(complainLogDto.getDate()).description(complainLogDto.getDescription())
-                .status(complainLogDto.getStatus()).assignedFrom(complainLogDto.getAssignedFrom())
-                .assignedTo(complainLogDto.getAssignedTo()).complain(complainLogDto.getComplain()).build();
-    }
-
-    public ComplainLogDto todto(ComplainLog complainLog){
-        return ComplainLogDto.builder().id(complainLog.getId())
-                .date(complainLog.getDate()).description(complainLog.getDescription())
-                .status(complainLog.getStatus()).assignedFrom(complainLog.getAssignedFrom())
-                .assignedTo(complainLog.getAssignedTo()).build();
-    }
-
     public List<ComplainLogDto> getAllComplainLog() {
         List<ComplainLog> complainLogs = complainLogRespository.findAll();
         return complainLogs.stream().map(complainLog -> todto(complainLog)).collect(Collectors.toList());
@@ -62,7 +48,7 @@ public class ComplainLogService {
         complainLogDto.setStatus(complain.get().getStatus());
         complainLogDto.setDescription("Your Complain is "+complain.get().getStatus());
         complainLogDto.setComplain(complain.get());
-        System.out.println(complainLogDto);
+
         return todto(complainLogRespository.save(dto(complainLogDto)));
 
     }
@@ -71,5 +57,22 @@ public class ComplainLogService {
         Optional<Complain> complain = complainRepository.findById(id);
         complainLogRespository.deleteComplainLogByComplain(complain.get());
     }
+
+
+
+    public ComplainLog  dto(ComplainLogDto complainLogDto){
+        return ComplainLog.builder().id(complainLogDto.getId())
+                .date(complainLogDto.getDate()).description(complainLogDto.getDescription())
+                .status(complainLogDto.getStatus()).assignedFrom(complainLogDto.getAssignedFrom())
+                .assignedTo(complainLogDto.getAssignedTo()).complain(complainLogDto.getComplain()).build();
+    }
+
+    public ComplainLogDto todto(ComplainLog complainLog){
+        return ComplainLogDto.builder().id(complainLog.getId())
+                .date(complainLog.getDate()).description(complainLog.getDescription())
+                .status(complainLog.getStatus()).assignedFrom(complainLog.getAssignedFrom())
+                .assignedTo(complainLog.getAssignedTo()).build();
+    }
+
 
 }

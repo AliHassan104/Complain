@@ -36,6 +36,8 @@ public class ComplainService {
     AreaService areaService;
     @Autowired
     ComplainTypeService complainTypeService;
+    @Autowired
+    SessionService service;
 
 
     private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
@@ -52,7 +54,7 @@ public class ComplainService {
         return  complains;
     }
 
-    public Optional<Complain> getComplainTypeById(Long id) {
+    public Optional<Complain> getComplainById(Long id) {
         return complainRepository.findById(id);
     }
 
@@ -61,12 +63,14 @@ public class ComplainService {
     }
 
     public ComplainDto addComplain(ComplainDto complainDto) {
+        User user = service.getLoggedInUser();
+        complainDto.setUser(user);
         return toDto(complainRepository.save(dto(complainDto)));
     }
 
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
         Complain updateComplain = dto(getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get());
-        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(complainDto.getUser().getId())).findAny().get();
+        User user = service.getLoggedInUser();
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
         ComplainType complainType = complainTypeService.getAllComplainType().stream().filter(complainType1 -> complainType1.getId().equals(complainDto.getComplainType().getId())).findAny().get();
 
@@ -109,6 +113,7 @@ public class ComplainService {
                 .time(complain.getTime())
                 .status(complain.getStatus())
                 .block(complain.getBlock())
+                .complainLog(complain.getComplainLogs())
                 .build();
     }
 
@@ -156,15 +161,15 @@ public class ComplainService {
         }
     }
 
-    public List<ComplainDto> getComplainByUserEmail(String email) {
-        User user = userService.getAllUser().stream().filter(user1 -> user1.getEmail().equalsIgnoreCase(email)).findAny().get();
+    public List<ComplainDto> getComplainByUser() {
+        User user = service.getLoggedInUser();
         List<Complain> complains = complainRepository.getComplainByUser(user);
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
 
 //                                                                                      complain user by status
-    public List<ComplainDto> getComplainByUserAndStatus(String email,String status){
-        User user = userService.getAllUser().stream().filter(user1 -> user1.getEmail().equalsIgnoreCase(email)).findAny().get();
+    public List<ComplainDto> getComplainByUserAndStatus(String status){
+        User user = service.getLoggedInUser();
         List<Complain> complains;
 
         if(status.equalsIgnoreCase("IN_REVIEW")){

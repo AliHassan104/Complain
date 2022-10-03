@@ -1,6 +1,8 @@
 package com.company.ComplainProject.config.filter;//package com.company.ComplainProject.config.filter;
+import com.company.ComplainProject.config.exception.UnAuthorizedException;
 import com.company.ComplainProject.config.util.JwtUtil;
 import com.company.ComplainProject.service.MyUserDetailService;
+import com.company.ComplainProject.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,26 +25,29 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     MyUserDetailService customUserDetailService;
 
+
 @Override
 protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     final String authorizationHeader = request.getHeader("Authorization");
     String username = null;
     String jwt = null;
 
-    if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+    if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
         jwt = authorizationHeader.substring(7);
         username = jwtUtil.extractUsername(jwt);
-    }
 
-    if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-        UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
-        if(jwtUtil.validateToken(jwt,userDetails)){
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
-            usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        if(SessionService.token.get(username).isEmpty()){
+            throw new UnAuthorizedException("You are Not Authorize For this");
+        }
 
-//            System.out.println(usernamePasswordAuthenticationToken.getPrincipal());
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
 
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            if (jwtUtil.validateToken(jwt, userDetails)) {
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
         }
     }
     filterChain.doFilter(request,response);

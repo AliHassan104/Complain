@@ -2,9 +2,9 @@ package com.company.ComplainProject.model;
 
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,6 +33,8 @@ public class ComplainLog {
 
     @ManyToOne
     @JoinColumn(name = "complain")
+    @JsonIgnore
+    @JsonIgnoreProperties
     private Complain complain;
 
 

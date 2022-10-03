@@ -30,13 +30,6 @@ public class BlockService {
         return todto(blockRepository.save(dto(blockDto)));
     }
 
-    public Block dto(BlockDto blockDto){
-        return Block.builder().id(blockDto.getId()).block_name(blockDto.getBlock_name()).area(blockDto.getArea()).build();
-    }
-
-    public BlockDto todto(Block block){
-        return BlockDto.builder().id(block.getId()).block_name(block.getBlock_name()).area(block.getArea()).build();
-    }
     public List<Block> getAllBlocks(){
         List<Block> block = blockRepository.findAll();
         if(!block.isEmpty()){
@@ -75,10 +68,23 @@ public class BlockService {
         blockRepository.deleteById(id);
     }
 
-//                                                                                  get Block By Area
+    /**
+     * Get Blocks By Area
+     * @param areaid
+     * @return
+     */
     public List<Block> getBlockByArea(Long areaid) {
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
         List<Block> getBlockByArea = blockRepository.getAllBlockByArea(area);
         return getBlockByArea;
+    }
+
+
+    public Block dto(BlockDto blockDto){
+        return Block.builder().id(blockDto.getId()).block_name(blockDto.getBlock_name()).area(blockDto.getArea()).build();
+    }
+
+    public BlockDto todto(Block block){
+        return BlockDto.builder().id(block.getId()).block_name(block.getBlock_name()).area(block.getArea()).build();
     }
 }

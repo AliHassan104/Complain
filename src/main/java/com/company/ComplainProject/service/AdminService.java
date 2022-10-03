@@ -162,6 +162,12 @@ public class AdminService {
         return waterTimingsList;
     }
 
+    /**
+     *
+     * @param id
+     * @param complainDto
+     * @return
+     */
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
         Complain updateComplain = complainService.dto(complainService.getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get());
         if(updateComplain != null){
@@ -170,6 +176,12 @@ public class AdminService {
         return complainService.toDto(complainRepository.save(updateComplain));
     }
 
+    /**
+     *
+     * @param id
+     * @param userDto
+     * @return
+     */
     public UserDto updateUserStatusById(Long id, UserDto userDto){
         User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(id)).findAny().get();
         if(user != null){

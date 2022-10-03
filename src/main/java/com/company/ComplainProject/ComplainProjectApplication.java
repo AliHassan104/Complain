@@ -34,9 +34,7 @@ public class ComplainProjectApplication implements CommandLineRunner {
 	RolesRepository rolesRepository;
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(ComplainProjectApplication.class, args);
-
 	}
 
 	@Bean
@@ -54,8 +52,8 @@ public class ComplainProjectApplication implements CommandLineRunner {
 		List<Roles> roles = rolesRepository.findAll();
 		if(roles.isEmpty()) {
 			Roles customer = new Roles(1l, "ROLE_CUSTOMER");
-			Roles worker = new Roles(1l, "ROLE_WORKER");
-			Roles admin = new Roles(1l, "ROLE_ADMIN");
+			Roles worker = new Roles(2l, "ROLE_WORKER");
+			Roles admin = new Roles(3l, "ROLE_ADMIN");
 
 			rolesRepository.save(customer);
 			rolesRepository.save(worker);

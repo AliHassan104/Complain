@@ -12,6 +12,7 @@ import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.service.ComplainService;
+import com.company.ComplainProject.service.SessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,13 @@ public class ComplainController {
     ComplainService complainService;
     @Autowired
     ComplainImageImplementation complainImageImplementation;
+    @Autowired
+    SessionService service;
+
     @Value("${complain.image}")
     private String complainImagePath;
     @Value("${image.path.url}")
     private String imagePathUrl;
-
 
 
     @GetMapping("/complain")
@@ -58,31 +61,33 @@ public class ComplainController {
 
     @GetMapping("/complain/{id}")
     public ResponseEntity<Optional<Complain>> getComplainById(@PathVariable Long id){
-        Optional<Complain> complain = complainService.getComplainTypeById(id);
+        Optional<Complain> complain = complainService.getComplainById(id);
         if(complain.isPresent()){
             return  ResponseEntity.ok(complain);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-@PostMapping("/complain")
-public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") MultipartFile image,
-                                               @RequestParam("data") String userdata) {
-    try{
-        ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-        ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
+    @PostMapping("/complain")
+    public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") MultipartFile image,
+                                                   @RequestParam("data") String userdata) {
+        try{
+            ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+            ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
+            /**
+             *  Upload Image
+             */
+            String  fileName = complainImageImplementation.uploadImage(image);
+            complainDto.setPicture(imagePathUrl+"api/"+complainImagePath+fileName);
 
-        String  fileName = complainImageImplementation.uploadImage(image);
+            return ResponseEntity.ok(complainService.addComplain(complainDto));
 
-        complainDto.setPicture(imagePathUrl+"api/"+complainImagePath+fileName);
+        }catch (Exception e){
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 
-        return ResponseEntity.ok(complainService.addComplain(complainDto));
-
-    }catch (Exception e){
-        System.out.println(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
-}
 
     @DeleteMapping("/complain/{id}")
     public ResponseEntity<Void> deleteComplainById(@PathVariable Long id){
@@ -112,14 +117,11 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
             }
             ObjectMapper objectMapper = new ObjectMapper();
             ComplainDto complainDto = objectMapper.readValue(complaindata,ComplainDto.class);
-
             Boolean complainImageDeleted = complainImageImplementation.deleteImage(id);
 
             if(complainImageDeleted){
                 String complainFleName =  complainImageImplementation.uploadImage(image);
-
                 complainDto.setPicture(imagePathUrl+"api/"+complainImagePath+complainFleName);
-
                 return ResponseEntity.ok(complainService.updateComplainById(id,complainDto));
             }
             else{
@@ -154,6 +156,11 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
     }
 
+    /**
+     * Excel Export
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/complain/export")
     public void exportComplainsToExcel(HttpServletResponse response) throws IOException {
         response.getHeader("application/octet-stream");
@@ -166,22 +173,22 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
 
     }
 
-    @GetMapping("complain/complainbyuser/{email}")
-    public ResponseEntity<List<ComplainDto>> getComplainByUserEmail(@PathVariable("email") String email){
+    @GetMapping("complain/complainbyuser")
+    public ResponseEntity<List<ComplainDto>> getComplainByUser(){
         try{
-            return ResponseEntity.ok(complainService.getComplainByUserEmail(email));
+            return ResponseEntity.ok(complainService.getComplainByUser());
         }catch (Exception e){
             System.out.println(e);
-            throw new ContentNotFoundException("No complain Found with user email "+email);
+            throw new ContentNotFoundException("No complain Found with user "+service.getLoggedInUser().getEmail());
         }
     }
 
-//    The api for this method will be http://localhost:8081/api/complain/usercomplainbystatus?email=fahdkhan@gmail.com&status=in_review
+//    The api for this method will be http://localhost:8081/api/complain/usercomplainbystatus?status=in_review
 
     @GetMapping("/complain/usercomplainbystatus")
-    public ResponseEntity<List<ComplainDto>> getComplainByUserAndStatus(@RequestParam(name ="email") String email,@RequestParam(name = "status") String status){
+    public ResponseEntity<List<ComplainDto>> getComplainByUserAndStatus(@RequestParam(name = "status") String status){
         try{
-            return ResponseEntity.ok(complainService.getComplainByUserAndStatus(email,status));
+            return ResponseEntity.ok(complainService.getComplainByUserAndStatus(status));
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No Complain Found having status "+status);

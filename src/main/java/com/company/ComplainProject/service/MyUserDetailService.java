@@ -31,7 +31,6 @@ public class MyUserDetailService implements UserDetailsService {
         }catch (Exception e){
             System.out.println(e);
             throw new UsernameNotFoundException("No User Found Having Email "+username);
-
         }
     }
 

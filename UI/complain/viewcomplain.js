@@ -129,7 +129,7 @@ function updateStatus() {
             console.error('Error:', error);
         });
 }
-//                                                                              give notification to user on change of complain Status
+//                                                                            give notification to user on change of complain Status
 function giveNotificationToUserOnComplainStatus(complain_id){
     sendData(`/send-notification-touser/${complain_id}`)
 }
