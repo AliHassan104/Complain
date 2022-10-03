@@ -1,7 +1,9 @@
 package com.company.ComplainProject;
 
 import com.company.ComplainProject.model.Roles;
+import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.RolesRepository;
+import com.company.ComplainProject.repository.UserRepository;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -11,7 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.ClassPathResource;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,23 +24,33 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @SpringBootApplication
 @EnableWebMvc
 @EnableSwagger2
-public class ComplainProjectApplication implements CommandLineRunner {
+public class ComplainProjectApplication {
 
 	@Autowired
 	RolesRepository rolesRepository;
+	@Autowired
+	UserRepository userRepository;
+
+
+
+
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(ComplainProjectApplication.class, args);
 
 	}
+
+
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -49,19 +62,24 @@ public class ComplainProjectApplication implements CommandLineRunner {
 		};
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		List<Roles> roles = rolesRepository.findAll();
-		if(roles.isEmpty()) {
-			Roles customer = new Roles(1l, "ROLE_CUSTOMER");
-			Roles worker = new Roles(1l, "ROLE_WORKER");
-			Roles admin = new Roles(1l, "ROLE_ADMIN");
 
-			rolesRepository.save(customer);
-			rolesRepository.save(worker);
-			rolesRepository.save(admin);
-		}
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//
+//		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+//
+//		Set<Roles> roles = new HashSet<>();
+//	   	roles.add(rolesRepository.getRoleByName("ROLE_ADMIN"));
+//		User user = new User().builder()
+//				.firstname("saif")
+//				.lastname("khan")
+//				.password(bCryptPasswordEncoder.encode("saifkhan@1"))
+//				.roles(roles)
+//				.build();
+//		User user1 = userRepository.save(user);
+//		System.out.println(user1);
+//
+//	}
 
 
 }
