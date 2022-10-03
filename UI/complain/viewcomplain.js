@@ -8,7 +8,7 @@ if (queryString != "") {
     filterComplainByStatus()
 }
 else {
-    getComplain()
+    getComplain(0,2)
 }
 
 document.getElementById('filterByStatus').addEventListener('change', function() {
@@ -33,7 +33,7 @@ function filterComplainByStatus() {
             })
     }
     else{
-        getComplain()
+        getComplain(0,2)
     }
 }
 
@@ -99,14 +99,35 @@ function renderComplainData(data) {
 function showComplainDetails(id) {
     location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
 }
+                                                                        //  get Complain With Pagination
+var previousPageNumber = 0;
+function getComplain(pageNumber, pageSize, next) {
+    
+    if (next) {
+        totalPaginationBoxes = pageNumber;
+        if (previousPageNumber + 1 < pageNumber) {
+            previousPageNumber += 1
+            pageNumber = previousPageNumber
+        }
+    }
+                                                               //  If Previous is clicked decrement pageNumber
+    if (next === false) {
+        pageNumber = previousPageNumber;
+        if (pageNumber != 0) {
+            previousPageNumber -= 1
+            pageNumber = previousPageNumber
+        }
+    }
 
-
-function getComplain() {
-        getData(`/admin/complain`)
+    if (pageNumber >= 0) {
+        getData(`/admin/complain?pageNumber=${pageNumber}&pageSize=${pageSize}`)
         .then((data) => {
+            previousPageNumber = pageNumber
             renderComplainData(data)
         })
+    }
 }
+
 
 let uid;
 function updatedStatusModal(id) {
@@ -150,7 +171,9 @@ function deleteComplain(id) {
 
         deleteData(`/complain/${id}`)
         .then(() => {
-            getComplain()
+            getComplain(0,2)
+            renderPagination()
+
             let table = ""
 
             table += `
@@ -194,3 +217,37 @@ function getArea() {
         })
 }
 
+function renderPagination() {
+    let renderPagination = ""
+    let paginationBoxes = 0;
+
+
+    getData(`/countallcomplains`).then((data) => {
+        console.log(data);
+        paginationBoxes = Math.ceil(data / 2)
+        onlyFivePaginationBoxes = 0;
+
+        if(paginationBoxes > 5){
+            onlyFivePaginationBoxes = 5
+        }
+        else{
+            onlyFivePaginationBoxes = paginationBoxes;
+        }
+
+        renderPagination += `
+        <li class="page-item" onclick="getComplain(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
+        for (let i = 0; i < onlyFivePaginationBoxes; i++) {
+            renderPagination += `
+            <li class="page-item" onclick="getComplain(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
+            `
+        }
+
+        renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
+        <li class="page-item" onclick="getComplain(${paginationBoxes - 1},${2})"><a class="page-link" href="#">${paginationBoxes}</a></li>
+        <li class="page-item"onclick="getComplain(${paginationBoxes},${2},${true})"><a class="page-link" href="#">Next</a></li>`
+
+
+        document.getElementById("pagination").innerHTML = renderPagination
+    })
+}
+renderPagination()

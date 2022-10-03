@@ -194,6 +194,14 @@ public class ComplainController {
             throw new ContentNotFoundException("No Complain Found having status "+status);
         }
     }
+    @GetMapping("/countallcomplains")
+    public ResponseEntity<Long> countAllComplains(){
+        try{
+            return ResponseEntity.ok(complainService.countAllComplains_Service());
+        }catch (Exception e){
+            throw new ContentNotFoundException("No Complain Found");
+        }
+    }
 
 
 }

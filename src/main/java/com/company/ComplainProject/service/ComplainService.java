@@ -189,4 +189,8 @@ public class ComplainService {
         }
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
+
+    public Long countAllComplains_Service() {
+        return complainRepository.count();
+    }
 }

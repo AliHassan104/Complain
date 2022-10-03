@@ -143,6 +143,15 @@ public class EventController {
         }
     }
 
+    @GetMapping("/countallevents")
+    public ResponseEntity<Long> countAllEvents(){
+        try{
+            return ResponseEntity.ok(eventService.countAllEvents_Service());
+        }catch (Exception e){
+            throw new ContentNotFoundException("No Event Exist");
+        }
+    }
+
 
 
 }

@@ -64,13 +64,21 @@ function renderEvent(data) {
 
 var previousPageNumber = 0;
 function getEvent(pageNumber, pageSize, next) {
-
+                                                                //  If Next is clicked increment pageNumber
     if (next) {
-        pageNumber += 1
+        totalPaginationBoxes = pageNumber;
+        if (previousPageNumber + 1 < pageNumber) {
+            previousPageNumber += 1
+            pageNumber = previousPageNumber
+        }
     }
+                                                               //  If Previous is clicked decrement pageNumber
     if (next === false) {
-        previousPageNumber -= 1
-        pageNumber = previousPageNumber
+        pageNumber = previousPageNumber;
+        if (pageNumber != 0) {
+            previousPageNumber -= 1
+            pageNumber = previousPageNumber
+        }
     }
 
     if (pageNumber >= 0) {
@@ -111,7 +119,8 @@ function deleteEvent(id) {
         })
 
     setTimeout(() => {
-        getEvent()
+        getEvent(0, 2)
+        renderPagination()
     }, 100);
 
 }
@@ -120,19 +129,36 @@ let uid;
 
 
 function renderPagination() {
-    renderPagination = ""
+    let renderPagination = ""
+    let paginationBoxes = 0;
 
-    renderPagination += `
-    <li class="page-item" onclick="getEvent(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item" onclick="getEvent(${0},${2})"><a class="page-link" href="#">1</a></li>
-    <li class="page-item" onclick="getEvent(${1},${2})"><a class="page-link" href="#">2</a></li>
-    <li class="page-item" onclick="getEvent(${2},${2})"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"onclick="getEvent(${3},${2})"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"onclick="getEvent(${4},${2})"><a class="page-link" href="#">5</a></li>
-    <li class="page-item"onclick="getEvent(${4},${2},${true})"><a class="page-link" href="#">Next</a></li>
-    `
-    document.getElementById("pagination").innerHTML = renderPagination
 
+    getData(`/countallevents`).then((data) => {
+        paginationBoxes = Math.ceil(data / 2)
+        onlyFivePaginationBoxes = 0;
+
+        if (paginationBoxes > 5) {
+            onlyFivePaginationBoxes = 5
+        }
+        else {
+            onlyFivePaginationBoxes = paginationBoxes;
+        }
+
+        renderPagination += `
+        <li class="page-item" onclick="getEvent(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
+        for (let i = 0; i < onlyFivePaginationBoxes; i++) {
+            renderPagination += `
+            <li class="page-item" onclick="getEvent(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
+            `
+        }
+
+        renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
+        <li class="page-item" onclick="getEvent(${paginationBoxes - 1},${2})"><a class="page-link" href="#">${paginationBoxes}</a></li>
+        <li class="page-item"onclick="getEvent(${paginationBoxes},${2},${true})"><a class="page-link" href="#">Next</a></li>`
+
+
+        document.getElementById("pagination").innerHTML = renderPagination
+    })
 }
 renderPagination()
 
