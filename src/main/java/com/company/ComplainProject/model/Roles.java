@@ -21,6 +21,6 @@ public class Roles {
     private Long id;
     private String name;
 
-    @OneToMany
-    List<Permission> permission;
+//    @OneToMany
+//    List<Permission> permission;
 }

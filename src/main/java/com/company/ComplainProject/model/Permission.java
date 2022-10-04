@@ -18,6 +18,6 @@ public class Permission {
     private Long id;
     String url;
 
-    @OneToMany
-    List<Roles> roles;
+//    @OneToMany
+//    List<Roles> roles;
 }
