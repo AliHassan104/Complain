@@ -15,7 +15,6 @@ import { DiscoverEventsComponent } from './discover-events/discover-events.compo
 import { EventPreviewComponent } from './event-preview/event-preview.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AddpostNotificationsComponent } from './addpost-notifications/addpost-notifications.component';
 import { HomeComponent } from './home/home.component';
@@ -31,6 +30,8 @@ import { AchievementdetailedComponent } from './achievementdetailed/achievementd
 import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
 import { PollingsubmitComponent } from './pollingsubmit/pollingsubmit.component';
 import { HomeGuard } from './Guards/home.guard';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,12 @@ const routes: Routes = [
   // },
   {
     path: "", component: LoginPageComponent
+  },
+  {
+    path: "forget", component: ForgetPasswordComponent
+  },
+  {
+    path: "new-password", component: NewPasswordComponent
   },
   {
     path: "login", component: LoginPageComponent
@@ -86,6 +93,7 @@ const routes: Routes = [
   {
     path: "register", component: RegisterPageComponent
   },
+
   {
     path: "**", redirectTo: 'login' , pathMatch: 'full'
   },
@@ -145,9 +153,7 @@ const routes: Routes = [
   {
     path:'edit-post/:id',component:EditPostComponent
   },
-  {
-    path:'forgot-password',component:ForgotPasswordComponent
-  },
+
   {
     path:'resetlink/:uuid',component:ResetPasswordComponent
   },

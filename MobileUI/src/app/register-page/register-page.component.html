@@ -28,7 +28,7 @@
             <h4>Fill the form to join us</h4>
         </div>
         <div class="section mt-2 mb-5">
-            <form [formGroup]="registerForm"  (ngSubmit)="userSubmit(registerForm.value)">
+            <form   (ngSubmit)="userSubmit(registerForm.value)">
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
@@ -85,7 +85,7 @@
                     <div class="input-wrapper">
                         <input formControlName="password" [type]="typeChange" class="form-control" name="password" placeholder="password">
                         <i class="field-icon" (click)="onToggleShowPassword()">
-                            <ion-icon src="assets/eye.svg"></ion-icon>
+                            <!-- <ion-icon src="assets/eye.svg"></ion-icon> -->
                         </i>
                     </div>
                 </div>

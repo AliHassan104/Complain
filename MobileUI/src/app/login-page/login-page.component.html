@@ -31,12 +31,12 @@
                 <div class="form-group boxed">
                     <div class="input-wrapper">
 
-                        <input type="password" formControlName="password"  placeholder="Password" class="form-control">
+                        <input formControlName="password"  placeholder="Password" class="form-control">
                         <!-- [type]="typeChange" class="form-control" required #password -->
-                        <!-- <i class="field-icon" > -->
+                        <i class="field-icon" >
                           <!-- (click)="onToggleShowPassword()" -->
-                            <!-- <ion-icon src="assets/eye.svg"></ion-icon> -->
-                        <!-- </i> -->
+                            <ion-icon src="assets/eye.svg"></ion-icon>
+                        </i>
                     </div>
                 </div>
 
@@ -44,8 +44,10 @@
                     <div>
                         <a (click)="goToRegister()">Register Now</a>
                     </div>
-                    <div><a  class="text-muted">Forgot Password?</a></div>
-                    <!-- //(click)="goToForgotPassword()" -->
+                    <div class="forgot-password">
+                       <a  class="forgot-btn color-blue" (click)="goToForgetPassword()"> Forgot Password? </a>
+                    </div>
+                    <!-- <div><a (click)="goToForgotPassword()" class="text-muted">Forgot Password?</a></div> -->
                 </div>
 
                 <div class="form-button-group">
@@ -59,8 +61,6 @@
 
 
 </div>
-
-
 <div id="toast-15" class="toast-box toast-bottom bg-success">
     <div class="in">
         <div class="text">
