@@ -14,14 +14,17 @@
                   <label>
                       <input name="answer" type="radio" [value]="polling.id" formControlName="id">
                       <span >{{polling.option}}</span>
+
                     </label>
+
                   </div>
                 </div>
             </div>
         </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" [disabled]="!pollingAnswer.valid" class="btn btn-primary">Submit</button>
         </form>
     </div>
+    
     </div>
   </div>
 </div>

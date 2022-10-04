@@ -1,7 +1,7 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MycomplainService } from '../Services/mycomplain.service';
@@ -75,7 +75,7 @@ export class MycomplainComponent implements OnInit {
   })
 
   object = new  FormGroup({
-    description : new FormControl(),
+    description : new FormControl('',[ Validators.required]),
     date : new FormControl(),
     time : new FormControl(),
     user : new FormGroup({
@@ -99,8 +99,8 @@ export class MycomplainComponent implements OnInit {
     // data.value
     this.object.value.date = formatDate(new Date(), 'yyyy-MM-dd', 'en')
     this.object.value.time = formatDate(new Date(), 'hh:mm', 'en-US')
-    this.object.value.user.id = this.areaId
-    this.object.value.area.id = this.userId
+    this.object.value.user.id = this.userId
+    this.object.value.area.id = this.areaId
     this.object.value.block.id = this.blockId
 
     var newComplain = JSON.stringify(data)

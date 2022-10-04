@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PollingquestionService } from '../Services/pollingquestion.service';
 import { ToastUtilService } from '../Services/toast-util.service';
@@ -39,7 +39,7 @@ export class PollingsubmitComponent implements OnInit {
       id : new FormControl()
     }),
     pollingOption : new FormGroup({
-      id : new FormControl()
+      id : new FormControl('',Validators.required)
     })
   })
 
@@ -109,8 +109,7 @@ getUser() {
     this.userService.getUserByEmail(email).subscribe(data => {
       // console.log(data);
       user = data
-      this.userId = user.area.id
-      console.log(user.area.id);
+      this.userId = user.id
       // this.toastService.showToast("Success", "#toast-15")
     }, error => {
       console.log(error);

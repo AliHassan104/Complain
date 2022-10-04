@@ -32,61 +32,155 @@
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="text" formControlName="firstname" class="form-control" name="first name" placeholder="first name">
-                        <i class="clear-input">
-                            <!-- <ion-icon name="close-circle"></ion-icon> -->
-                        </i>
+                        <input type="text" formControlName="firstname" class="form-control" name="firstname" placeholder="First Name">
+
+                         <div class="alert alert-danger"
+
+                         *ngIf="registerForm.controls['firstname'].invalid &&
+                         registerForm.controls['firstname'].touched">
+
+                         <span  *ngIf="registerForm.controls['firstname'].errors['required']" class="">
+                           First Name Required
+                         </span>
+                         <span *ngIf="registerForm.controls['firstname'].errors['minlength']" class="">
+                           Atleast 3 Albhabet Required
+                         </span>
+                         <span *ngIf="registerForm.controls['firstname'].errors['pattern']" class="">
+                           Wrong Pattern
+                         </span>
+
+                        </div>
+
+
+
+                        <!-- <div *ngIf="registerForm.controls['firstname'].invalid && registerForm?.controls['firstname'].dirty && registerForm?.controls['firstname'].touched" class="alert alert-danger">Please enter your first name</div> -->
+
                     </div>
                 </div>
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="text" formControlName="lastname" class="form-control" name="last name"  placeholder="last name">
-                        <i class="clear-input">
-                            <!-- <ion-icon name="close-circle"></ion-icon> -->
-                        </i>
+                        <input type="text" formControlName="lastname" class="form-control" name="last name"  placeholder="Last Name">
+
+                         <div class="alert alert-danger"
+                         *ngIf="registerForm.controls['lastname'].invalid &&
+                         registerForm.controls['lastname'].touched">
+
+                         <span  *ngIf="registerForm.controls['lastname'].errors['required']" class="">
+                           Last Name Required
+                         </span>
+                         <span *ngIf="registerForm.controls['lastname'].errors['minlength']" class="">
+                           Atleast 3 alphabet Required
+                         </span>
+                         <span *ngIf="registerForm.controls['lastname'].errors['pattern']" class="">
+                          Wrong Pattern
+                        </span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="text" formControlName="cnic" class="form-control" name="cnic number" placeholder="cnic number">
-                        <i class="clear-input">
-                            <!-- <ion-icon name="close-circle"></ion-icon> -->
-                        </i>
+
+                        <input type="text" formControlName="cnic" class="form-control" name="cnic" placeholder="CNIC eg. 4200001234567">
+
+                        <div class="alert alert-danger"
+                        *ngIf="registerForm.controls['cnic'].invalid &&
+                        registerForm.controls['cnic'].touched">
+
+                        <div  *ngIf="registerForm.controls['cnic'].errors['required']" class="">
+                          CNIC Required
+                        </div>
+                        <!-- <div *ngIf="registerForm.controls['cnic'].errors['minlength']" class="">
+                          Atleast 9 Required
+                        </div> -->
+                        <div *ngIf="registerForm.controls['cnic'].errors['pattern']" class="">
+                          Wrong Pattern 13 Character Required
+                        </div>
+                       </div>
+
                     </div>
                 </div>
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="text" formControlName="phoneNumber" class="form-control" name="phone number" placeholder="phone number">
-                        <i class="clear-input">
-                            <!-- <ion-icon name="close-circle"></ion-icon> -->
-                        </i>
+                        <input type="number" formControlName="phoneNumber" class="form-control" name="phone number" placeholder="PhoneNumber eg. 03350000000">
+
+                        <div class="alert alert-danger"
+                         *ngIf="registerForm.controls['phoneNumber'].invalid &&
+                         registerForm.controls['phoneNumber'].touched">
+
+                         <div  *ngIf="registerForm.controls['phoneNumber'].errors['required']" class="">
+                           Phone Number Required
+                         </div>
+
+                         <div *ngIf="registerForm.controls['phoneNumber'].errors['pattern']" class="">
+                           Invalid Number
+                         </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="text" formControlName="numberOfFamilyMembers" class="form-control" name="total number of family member" placeholder="total number of family member">
-                        <i class="clear-input">
-                            <!-- <ion-icon name="close-circle"></ion-icon> -->
-                        </i>
+                        <input type="number" formControlName="numberOfFamilyMembers" class="form-control" name="total number of family member" placeholder="Total Number Of Family Member">
+
+                        <div class="alert alert-danger"
+                        *ngIf="registerForm.controls['numberOfFamilyMembers'].invalid &&
+                        registerForm.controls['numberOfFamilyMembers'].touched">
+
+                        <div  *ngIf="registerForm.controls['numberOfFamilyMembers'].errors['required']" class="">
+                          Number Of Family Members Required
+                        </div>
+                        <!-- <div  *ngIf="registerForm.controls['numberOfFamilyMembers'].errors['maxlength']" class="">
+                          Maximum 99 members
+                        </div> -->
+
+                       </div>
                     </div>
                 </div>
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="email" formControlName="email" class="form-control" name="email"  placeholder="email address">
-                        <i class="clear-input">
+                        <input type="email" formControlName="email" class="form-control" name="email"  placeholder="Email">
+
+                        <div class="alert alert-danger"
+                         *ngIf="registerForm.controls['email'].invalid &&
+                         registerForm.controls['email'].touched">
+
+                         <div  *ngIf="registerForm.controls['email'].errors['required']" class="">
+                           Email Required
+                         </div>
+                         <div *ngIf="registerForm.controls['email'].errors['email']" class="">
+                          Email Is Not Valid
+                        </div>
+
+                        </div>
+
+                        <!-- <div *ngIf="registerForm.controls['phoneNumber'].hasError('required')" class="alert alert-danger">Please enter your cnic number</div>
+                        <div *ngIf="registerForm.controls['phoneNumber'].hasError('minlength')" class="alert alert-danger">Atleast 9 Charachters</div> -->
+
+                        <!-- <i class="clear-input"> -->
                             <!-- <ion-icon name="close-circle"></ion-icon> -->
-                        </i>
+                        <!-- </i> -->
                     </div>
                 </div>
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input formControlName="password" [type]="typeChange" class="form-control" name="password" placeholder="password">
-                        <i class="field-icon" (click)="onToggleShowPassword()">
-                            <ion-icon src="assets/eye.svg"></ion-icon>
-                        </i>
+                        <input formControlName="password" [type]="typeChange" class="form-control" name="password" placeholder="Password">
+
+                        <div class="alert alert-danger"
+                         *ngIf="registerForm.controls['password'].invalid &&
+                         registerForm.controls['password'].touched">
+
+                         <div  *ngIf="registerForm.controls['password'].errors['required']" class="">
+                           Password Required
+                         </div>
+                         <div *ngIf="registerForm.controls['password'].errors['minlength']" class="">
+                          Atleast 8 Required
+                        </div>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -95,8 +189,8 @@
                     <div class="input-wrapper">
 
                         <select formControlName="property" class="browser-default custom-select" name="userType">
-                            <option  value="null" selected disabled>Select Property</option>
-                            <option  value="Owner">Owner</option>
+                            <option  value="null" selected disabled>Select Property Type</option>
+                            <option  value="Owner" selected>Owner</option>
                             <option  value="Tenant">Tenant</option>
                           </select>
                 </div>
@@ -104,7 +198,7 @@
 
                 <div class="form-group boxed">
                   <div class="input-wrapper" formGroupName="area">
-                      <select formControlName="id" (change)="getBlock()"  class="browser-default custom-select" name="userType">
+                      <select formControlName="id" (change)="getBlock()"  class="browser-default custom-select" name="area">
                           <option  value="null" selected disabled>Select Area</option>
                           <option *ngFor="let area of areas" [value]="area.id">{{area.name}}</option>>
                         </select>
@@ -123,31 +217,50 @@
 
             <div class="form-group boxed">
               <div class="input-wrapper">
-                  <input type="email" formControlName="houseNumber" class="form-control" name="email"  placeholder="house number">
-                  <i class="clear-input">
-                      <!-- <ion-icon name="close-circle"></ion-icon> -->
-                  </i>
+                  <input type="text" formControlName="houseNumber" class="form-control" name="email"  placeholder="House Number">
+                  <div class="alert alert-danger"
+                        *ngIf="registerForm.controls['houseNumber'].invalid &&
+                        registerForm.controls['houseNumber'].touched">
+
+                        <div  *ngIf="registerForm.controls['houseNumber'].errors['required']" class="">
+                          House Number Required
+                        </div>
+
+                       </div>
               </div>
           </div>
           <div class="form-group boxed">
             <div class="input-wrapper">
-                <input type="email" formControlName="floorNumber" class="form-control" name="email"  placeholder="floor number">
-                <i class="clear-input">
-                    <!-- <ion-icon name="close-circle"></ion-icon> -->
-                </i>
+                <input type="text" formControlName="floorNumber" class="form-control" name="email"  placeholder="Floor Number">
+                <div class="alert alert-danger"
+                        *ngIf="registerForm.controls['floorNumber'].invalid &&
+                        registerForm.controls['floorNumber'].touched">
+
+                        <div  *ngIf="registerForm.controls['floorNumber'].errors['required']" class="">
+                          Floor Number Required
+                        </div>
+
+                </div>
+
             </div>
         </div>
         <div class="form-group boxed">
           <div class="input-wrapper">
-              <input type="email" formControlName="street" class="form-control" name="email"  placeholder="street">
-              <i class="clear-input">
-                  <!-- <ion-icon name="close-circle"></ion-icon> -->
-              </i>
+              <input type="text" formControlName="street" class="form-control" name="email"  placeholder="Street">
+              <div class="alert alert-danger"
+                        *ngIf="registerForm.controls['street'].invalid &&
+                        registerForm.controls['street'].touched">
+
+                        <div  *ngIf="registerForm.controls['street'].errors['required']" class="">
+                          Street Required
+                        </div>
+
+                </div>
           </div>
       </div>
 
             <div class="form-button-group">
-                <button type="submit"  class="btn btn-primary btn-block btn-lg">Register</button>
+                <button type="submit" [disabled]="!registerForm.valid"  class="btn btn-primary btn-block btn-lg">Register</button>
             </div>
 
             </form>
