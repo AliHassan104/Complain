@@ -20,7 +20,4 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-//    @OneToMany
-//    List<Permission> permission;
 }
