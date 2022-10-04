@@ -1,26 +1,27 @@
 package com.company.ComplainProject.model;
 
+
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Builder
-
 @Entity
-@Table(name = "roles")
-public class Roles {
+public class PermissionRole {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
 
-    @OneToMany
-    List<Permission> permission;
+    @ManyToOne
+    private Roles roles;
+    @ManyToOne
+    private Permission permission;
+    private Boolean canActive;
+    private Boolean canDelete;
 }
