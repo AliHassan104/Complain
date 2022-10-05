@@ -1,12 +1,10 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.dto.ComplainDto;
-import com.company.ComplainProject.dto.EventDto;
-import com.company.ComplainProject.dto.UserDetailsResponse;
-import com.company.ComplainProject.dto.UserDto;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.service.AdminService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,10 +62,10 @@ public class AdminController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complain")
-    public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
-            List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
+            Page<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
             return ResponseEntity.ok(complain);
         }
         catch (Exception e){
@@ -196,4 +194,18 @@ public class AdminController {
             throw new ContentNotFoundException("No Events Exist");
         }
     }
+
+//                                                          Assign Complain To User
+
+    @PreAuthorize(("hasRole('ROLE_ADMIN')"))
+    @PostMapping("/assigncomplaintoworker")
+    public ResponseEntity<ComplainLogDto> assignComplainToWorker(@RequestBody ComplainLogDto complainLogDto){
+        try{
+            return ResponseEntity.ok(adminService.assignComplainToWorker(complainLogDto));
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new IllegalArgumentException("Issue in Assigning Complain");
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
-package com.company.ComplainProject.config.authenticate;
+package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.util.AuthenticationResponse;
+import com.company.ComplainProject.dto.LoginCredentials;
 import com.company.ComplainProject.config.util.JwtUtil;
 import com.company.ComplainProject.service.MyUserDetailService;
 import com.company.ComplainProject.service.SessionService;
@@ -38,16 +40,10 @@ public class LoginController {
 
         UserDetails userDetails = myUserDetailService.loadUserByUsername(loginCredentials.getEmail());
         String jwtToken = jwtUtil.generateToken(userDetails);
-        service.saveToken(userDetails.getUsername(),jwtToken);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwtToken));
 
         }
-
-     @PostMapping("/logout")
-     public void logOut(){
-        service.removeToken();
-     }
 
 
 }

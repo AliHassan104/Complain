@@ -7,6 +7,7 @@ import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
+import com.company.ComplainProject.repository.AreaRepository;
 import com.company.ComplainProject.repository.RolesRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
@@ -32,6 +33,10 @@ public class UserService {
     AddressService addressService;
     @Autowired
     RolesRepository rolesRepository;
+    @Autowired
+    SessionService service;
+    @Autowired
+    AreaRepository areaRepository;
 
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -43,7 +48,7 @@ public class UserService {
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
         List<User> userList = userPage.getContent();
         List<UserDetailsResponse>  userDetailsResponses=userList.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
-        System.out.println(userDetailsResponses);
+
         return userDetailsResponses;
 
     }
@@ -105,6 +110,66 @@ public class UserService {
         return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
     }
 
+
+    public List<UserDetailsResponse> getFilteredUser(SearchCriteria searchCriteria) {
+        UserSpecification userSpecification = new UserSpecification(searchCriteria);
+        List<User> users = userRepository.findAll(userSpecification);
+        return users.stream().map(el->userToUserDetailsResponse(el)).collect(Collectors.toList());
+    }
+
+    public UserDetailsResponse getLoggedInUser() {
+        User user = service.getLoggedInUser();
+        UserDetailsResponse userDetailsResponse = userToUserDetailsResponse(user);
+        return userDetailsResponse;
+    }
+
+
+    public List<UserDetailsResponse> getUserByStatus(String status) {
+
+        List<UserDetailsResponse> userbyStatus;
+        if(status.equalsIgnoreCase("IN_REVIEW")){
+            userbyStatus = userListToUserDetailsResponseList(userRepository.findUserByStatus(UserStatus.IN_REVIEW));
+        }
+        else if(status.equalsIgnoreCase("PUBLISHED")){
+            userbyStatus = userListToUserDetailsResponseList(userRepository.findUserByStatus(UserStatus.PUBLISHED));
+        }
+        else if(status.equalsIgnoreCase("REJECTED")){
+            userbyStatus = userListToUserDetailsResponseList(userRepository.findUserByStatus(UserStatus.REJECTED));
+        }
+        else{
+            throw new ContentNotFoundException("No User Exist Having Status "+status);
+        }
+        return userbyStatus;
+    }
+
+    public Long countUserByStatus(String status){
+        Long countByStatus;
+        if(status.equalsIgnoreCase("IN_REVIEW")){
+            countByStatus = userRepository.countUserByStatus(UserStatus.IN_REVIEW);
+        }
+        else if(status.equalsIgnoreCase("PUBLISHED")){
+            countByStatus = userRepository.countUserByStatus(UserStatus.PUBLISHED);
+        }
+        else{
+            countByStatus = userRepository.countUserByStatus(UserStatus.REJECTED);
+        }
+        return countByStatus;
+    }
+
+    /**
+     * Get All Workers
+     * @return
+     */
+    public List<UserDetailsResponse> getAllWorkers() {
+        List<User> userList = userRepository.getAllWorkers(UserType.Worker);
+        return userListToUserDetailsResponseList(userList);
+    }
+
+    public List<UserDetailsResponse> userListToUserDetailsResponseList(List<User> users){
+        List<UserDetailsResponse> userDetailsResponses = users.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
+        return userDetailsResponses;
+    }
+
     public User dto(UserDto userDto){
         return User.builder()
                 .id(userDto.getId())
@@ -147,18 +212,6 @@ public class UserService {
                 .build();
     }
 
-    public List<UserDetailsResponse> getFilteredUser(SearchCriteria searchCriteria) {
-        UserSpecification userSpecification = new UserSpecification(searchCriteria);
-        List<User> users = userRepository.findAll(userSpecification);
-        return users.stream().map(el->userToUserDetailsResponse(el)).collect(Collectors.toList());
-    }
-
-    public UserDetailsResponse getUserByEmail(String email) {
-        UserDetailsResponse userDetailsResponse = userToUserDetailsResponse(userRepository.findUserByEmail(email));
-        return userDetailsResponse;
-    }
-
-
     public UserDetailsResponse userToUserDetailsResponse(User user){
         return UserDetailsResponse.builder().id(user.getId())
                 .firstname(user.getFirstname())
@@ -178,45 +231,12 @@ public class UserService {
                 .build();
     }
 
-    public List<UserDetailsResponse> getUserByStatus(String status) {
-
-        List<UserDetailsResponse> userbyStatus;
-        if(status.equalsIgnoreCase("IN_REVIEW")){
-            userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.IN_REVIEW));
+    public List<UserDetailsResponse> getAllWorkerByArea(Long area_id) {
+        Optional<Area> area = areaRepository.findById(area_id);
+        if(area.isPresent()){
+            return userListToUserDetailsResponseList(userRepository.getAllWorkerByArea(UserType.Worker,area.get()));
         }
-        else if(status.equalsIgnoreCase("PUBLISHED")){
-            userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.PUBLISHED));
-        }
-        else if(status.equalsIgnoreCase("REJECTED")){
-            userbyStatus = userListToUserDtoList(userRepository.findUserByStatus(UserStatus.REJECTED));
-        }
-        else{
-            throw new ContentNotFoundException("No User Exist Having Status "+status);
-        }
-        return userbyStatus;
+        throw new ContentNotFoundException("Area Not Exist Having id "+area_id);
     }
-
-
-    public List<UserDetailsResponse> userListToUserDtoList(List<User> users){
-        List<UserDetailsResponse> userDetailsResponses = users.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
-        return userDetailsResponses;
-    }
-
-    public Long countUserByStatus(String status){
-        Long countByStatus;
-        if(status.equalsIgnoreCase("IN_REVIEW")){
-            countByStatus = userRepository.countUserByStatus(UserStatus.IN_REVIEW);
-        }
-        else if(status.equalsIgnoreCase("PUBLISHED")){
-            countByStatus = userRepository.countUserByStatus(UserStatus.PUBLISHED);
-        }
-        else{
-            countByStatus = userRepository.countUserByStatus(UserStatus.REJECTED);
-        }
-        return countByStatus;
-    }
-
-
-
 }
 

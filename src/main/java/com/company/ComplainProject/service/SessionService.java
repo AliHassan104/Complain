@@ -20,7 +20,6 @@ public class SessionService {
     public static HashMap<String,String> token = new HashMap<>();
 
     public User getLoggedInUser(){
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof CustomUserDetail) {
@@ -29,22 +28,7 @@ public class SessionService {
             if (user.isPresent()) {
                 return user.get();
             }
-
         }
         throw new UserNotFoundException("User Not Found");
     }
-
-    public  void saveToken(String username,String token){
-        SessionService.token.put(username, token);
-    }
-
-    /**
-     * it will remove the token in the map
-     */
-    public void removeToken() {
-        User user = getLoggedInUser();
-        SessionService.token.remove(user.getEmail());
-    }
-
-
 }

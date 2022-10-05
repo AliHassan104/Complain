@@ -26,8 +26,10 @@ public class ComplainLog {
     private Status status;
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
-    private String assignedFrom;
-    private String assignedTo;
+    @OneToOne
+    private User assignedFrom;
+    @OneToOne
+    private User assignedTo;
     @Lob
     private String description;
 
@@ -44,10 +46,9 @@ public class ComplainLog {
                 "id=" + id +
                 ", status=" + status +
                 ", date=" + date +
-                ", assignedFrom='" + assignedFrom + '\'' +
-                ", assignedTo='" + assignedTo + '\'' +
+                ", assignedFrom=" + assignedFrom +
+                ", assignedTo=" + assignedTo +
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }

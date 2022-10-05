@@ -118,7 +118,6 @@ public class PollingQuestionService {
                 }
 
             }
-//            pollingQuestionsByArea.stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
         }
 
         getPollingQuestionId.removeAll(attemptedPollingQuestionsId);

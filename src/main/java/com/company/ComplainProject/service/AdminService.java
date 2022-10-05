@@ -1,11 +1,8 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.dto.ComplainDto;
-import com.company.ComplainProject.dto.EventDto;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
-import com.company.ComplainProject.dto.UserDetailsResponse;
-import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.*;
 import org.springframework.data.domain.Page;
@@ -114,12 +111,12 @@ public class AdminService {
         return areaList;
     }
 
-    public List<Complain> getAllComplain(Integer pageNumber,Integer pageSize){
+    public Page<Complain> getAllComplain(Integer pageNumber,Integer pageSize){
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
-        List<Complain> complainsList = complainPage.getContent();
-        return complainsList;
+
+        return complainPage;
     }
 
     public List<ComplainType> getAllComplainType(Integer pageNumber,Integer pageSize){
@@ -192,5 +189,7 @@ public class AdminService {
     }
 
 
-
+    public ComplainLogDto assignComplainToWorker(ComplainLogDto complainLogDto) {
+        return null;
+    }
 }

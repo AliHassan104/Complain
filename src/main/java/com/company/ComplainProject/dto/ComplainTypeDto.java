@@ -2,6 +2,8 @@ package com.company.ComplainProject.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -11,5 +13,6 @@ import lombok.*;
 
 public class ComplainTypeDto {
     private Long id;
+    @NotNull
     private String name;
 }

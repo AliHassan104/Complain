@@ -92,8 +92,6 @@ function formSubmit() {
     let description = document.getElementById("description").value;
     var table = ""
 
-    // const date = new Date();
-    // var todayDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const t = new Date().toLocaleString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
@@ -142,12 +140,8 @@ function formSubmit() {
         
             sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
-
-                    complainLog = {
-                        status:"IN_REVIEW",
-                        date:todayDate,
-                        description:"Your Complain is in_review please wait"
-                    }
+                                            //  empty complain log because at initial stage complain status =  inreview
+                    complainLog = {}
 
                     sendData(`/complainlog/${data.id}`,complainLog)
 

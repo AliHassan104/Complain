@@ -1,5 +1,6 @@
 var userDetails = "";
 var loginUserName = "";
+var loginUserId;
 tokenNotExist();
 getUserData();
 
@@ -32,9 +33,14 @@ function getData(url) {
         }
     })
         .then((response) => {
-            return response.json().then((data) => {
+            if(response.status == 403){
+                window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") 
+            }
+            return response.json()
+            .then((data) => {
                 return data;
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 console.log(err);
             })
         });
@@ -50,10 +56,15 @@ function sendData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
-            return response.json().then((data) => {
+            if(!response.ok){
+                return response.text().then(text => { throw new Error(text) })
+            }
+            return response.json()
+        .then((data) => {
                 return data;
-            }).catch((err) => {
-                console.log(err);
+            })
+        .catch((err) => {
+                console.log("Caught it "+err);
             })
         });
 }
@@ -149,14 +160,14 @@ function tokenNotExist() {
     let getRoles = []
 
     if (token != null) {
-                                                        //  validate Token Expiry
-        // tokenIsExpired(token.substring(7))
-
+      
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
-        var arrayOfRoles = roles.split(",");
+        // Converting roles (string) into array 
+        var arrayOfRoles = roles.split(",");                                    
 
         for (let i = 0; i < arrayOfRoles.length; i++) {
+        // Removing white spaces from array of role using trim()  
             getRoles[i] = arrayOfRoles[i].trim()
         }
 
@@ -172,26 +183,14 @@ function tokenNotExist() {
     }
 }
 
-// function tokenIsExpired(token){
-//     fetch(`${baseUrl}/api/checkToken?token=${token}`)
-//     .then((response)=>{
-//         return response.json()
-//     })
-//     .then((data)=>{
-//          if(data){
-//              console.log(data)
-//                 window.open(`${loginUrl}/loginPage/loginpage.html`, "_self")
-//          }
-//     })
-// }
+
 
 function getUserData() {
-    let email = userDetails.sub
-    return getData(`/userbyemail/${email}`)
+    return getData(`/get-logged-in-user`)
         .then((data) => {
             loginUserName = data.firstname+" "+data.lastname
+            loginUserId =data.id;
             return data
-        }
-        )
+        })
 }
 

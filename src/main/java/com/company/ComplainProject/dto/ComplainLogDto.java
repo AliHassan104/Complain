@@ -2,6 +2,7 @@ package com.company.ComplainProject.dto;
 
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.model.Complain;
+import com.company.ComplainProject.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -22,8 +23,8 @@ public class ComplainLogDto {
     @Enumerated(EnumType.STRING)
     private Status status;
     private LocalDate date;
-    private String assignedFrom;
-    private String assignedTo;
+    private User assignedFrom;
+    private User assignedTo;
     @Lob
     private String description;
     private Complain complain;

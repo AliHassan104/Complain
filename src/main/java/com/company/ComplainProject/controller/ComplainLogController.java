@@ -6,6 +6,7 @@ import com.company.ComplainProject.service.ComplainLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class ComplainLogController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/complainlog/{c_id}")
     public ResponseEntity<ComplainLogDto> addComplainLogByComplain(@PathVariable("c_id") Long id,@RequestBody ComplainLogDto complainLogDto){
         try{

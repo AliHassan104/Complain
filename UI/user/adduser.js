@@ -58,8 +58,10 @@ function addUser() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let family = document.getElementById("family").value;
+
     let property = document.getElementById("dropdownproperty");
     let propertyValue = property.value;
+    
     let usertype = document.getElementById("usertype").value
 
 
@@ -106,6 +108,9 @@ function addUser() {
                 },2000)
 
             })
+            .catch((error)=>{
+                console.log(error)
+    })  
 
     } else {
     

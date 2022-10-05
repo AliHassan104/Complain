@@ -1,7 +1,9 @@
 package com.company.ComplainProject.repository;
 
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
+import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.dto.UserDto;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.specification.UserSpecification;
 import org.apache.poi.ss.formula.functions.T;
@@ -36,7 +38,12 @@ public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificati
     @Query("SELECT u from User u WHERE u.status = :status")
     Page<User>  findPublishedUser(Pageable pageable,@Param("status") UserStatus status);
 
+    @Query("SELECT u from User u where u.phoneNumber = :number")
+    User findUserByNumber(@Param("number") Long contactNumber);
 
+    @Query("SELECT u FROM User u where u.userType = :type")
+    List<User> getAllWorkers(@Param("type")UserType userType);
 
-
+    @Query("SELECT u FROM User u where u.userType = :type AND u.area = :area")
+    List<User> getAllWorkerByArea(@Param("type") UserType userType, @Param("area")Area area);
 }

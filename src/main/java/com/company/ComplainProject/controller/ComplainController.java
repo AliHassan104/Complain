@@ -4,11 +4,8 @@ import com.company.ComplainProject.config.exception.CannotDeleteImage;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.image.FileService;
-import com.company.ComplainProject.dto.AchievementsDto;
-import com.company.ComplainProject.dto.ComplainDto;
-import com.company.ComplainProject.dto.ComplainTypeDto;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
-import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.service.ComplainService;
@@ -50,9 +47,9 @@ public class ComplainController {
 
 
     @GetMapping("/complain")
-    public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<Complain> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
+    public ResponseEntity<List<ComplainDetailsResponse>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                                     @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+        List<ComplainDetailsResponse> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
         if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
         }
@@ -60,16 +57,14 @@ public class ComplainController {
     }
 
     @GetMapping("/complain/{id}")
-    public ResponseEntity<Optional<Complain>> getComplainById(@PathVariable Long id){
-        Optional<Complain> complain = complainService.getComplainById(id);
-        if(complain.isPresent()){
-            return  ResponseEntity.ok(complain);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<ComplainDetailsResponse> getComplainById(@PathVariable Long id){
+       ComplainDetailsResponse complain = complainService.getComplainById(id);
+       return  ResponseEntity.ok(complain);
+
     }
 
     @PostMapping("/complain")
-    public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") MultipartFile image,
+    public ResponseEntity<ComplainDetailsResponse> addComplain(@RequestParam("pictureUrl") MultipartFile image,
                                                    @RequestParam("data") String userdata) {
         try{
             ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
@@ -109,13 +104,13 @@ public class ComplainController {
     }
 
     @PutMapping("/complain/{id}")
-    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id,@RequestParam("pictureUrl") MultipartFile image,
+    public ResponseEntity<ComplainDetailsResponse> updateComplainTypeById(@PathVariable Long id,@RequestParam("pictureUrl") MultipartFile image,
                                                               @RequestParam("data") String complaindata){
         try{
             if(image.isEmpty()){
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
-            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
             ComplainDto complainDto = objectMapper.readValue(complaindata,ComplainDto.class);
             Boolean complainImageDeleted = complainImageImplementation.deleteImage(id);
 
@@ -135,8 +130,8 @@ public class ComplainController {
     }
 
     @GetMapping("/complain/search")
-    public ResponseEntity<List<ComplainDto>>  filteredComplain(@RequestBody SearchCriteria searchCriteria){
-        List<ComplainDto> complain = complainService.getFilteredComplain(searchCriteria);
+    public ResponseEntity<List<ComplainDetailsResponse>>  filteredComplain(@RequestBody SearchCriteria searchCriteria){
+        List<ComplainDetailsResponse> complain = complainService.getFilteredComplain(searchCriteria);
         if(!complain.isEmpty()){
             return ResponseEntity.ok(complain);
         }
@@ -144,10 +139,10 @@ public class ComplainController {
     }
 
     @PostMapping("/complain/searchByStatus")
-    public ResponseEntity<List<ComplainDto>> filteredComplainByStatus(@RequestBody SearchCriteria searchCriteria)  {
+    public ResponseEntity<List<ComplainDetailsResponse>> filteredComplainByStatus(@RequestBody SearchCriteria searchCriteria)  {
 
         try{
-            List<ComplainDto> complain = complainService.getFilteredComplainByStatus(searchCriteria);
+            List<ComplainDetailsResponse> complain = complainService.getFilteredComplainByStatus(searchCriteria);
             return ResponseEntity.ok(complain);
         }catch (Exception e){
             System.out.println(e);
@@ -156,8 +151,9 @@ public class ComplainController {
 
     }
 
+
     /**
-     * Excel Export
+     * Create Excel File
      * @param response
      * @throws IOException
      */
@@ -174,7 +170,7 @@ public class ComplainController {
     }
 
     @GetMapping("complain/complainbyuser")
-    public ResponseEntity<List<ComplainDto>> getComplainByUser(){
+    public ResponseEntity<List<ComplainDetailsResponse>> getComplainByUser(){
         try{
             return ResponseEntity.ok(complainService.getComplainByUser());
         }catch (Exception e){
@@ -186,7 +182,7 @@ public class ComplainController {
 //    The api for this method will be http://localhost:8081/api/complain/usercomplainbystatus?status=in_review
 
     @GetMapping("/complain/usercomplainbystatus")
-    public ResponseEntity<List<ComplainDto>> getComplainByUserAndStatus(@RequestParam(name = "status") String status){
+    public ResponseEntity<List<ComplainDetailsResponse>> getComplainByUserAndStatus(@RequestParam(name = "status") String status){
         try{
             return ResponseEntity.ok(complainService.getComplainByUserAndStatus(status));
         }catch (Exception e){

@@ -40,6 +40,7 @@ function filterComplainByStatus() {
 function renderComplainData(data) {
    
     let table = ""
+    
     table += `
     <tr  class="tablepoint">
     <th  class="toptable ">User Name</th>
@@ -52,10 +53,13 @@ function renderComplainData(data) {
     </tr>`
 
     for (let i = 0; i < data.length; i++) {
+       
 
         if(data[i].description.length > 5){
             data[i].description = data[i].description.slice(0,5)+`<a>...more</a>`
         }
+
+      
 
         table += `
 
@@ -70,18 +74,21 @@ function renderComplainData(data) {
            
             <td class="datatable"> 
             <a  href="/complain/addcomplain.html?id=${data[i].id}">
-            <i onclick="updateComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;"  
+            <i onclick="updateComplain(${data[i].id})"  
             class="fa fa-pencil"></i>
             </a>
 
             <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
-            style="padding-right: 5px; margin-right: 5px;"  class="fa fa-file"></i>
+             class="fa fa-file"></i>
 
-            <i onclick="deleteComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;" class="fa fa-close"></i>
-
+            <i onclick="deleteComplain(${data[i].id})"  class="fa fa-close"></i>
+        
+            <i onclick="assignComplainToUser(${data[i].id})"  
+             class="fa fa-file"></i>
             </td>
         </tr>`
     }
+
     document.getElementById("datatables-reponsive").innerHTML = table;
     
     if (data.length === 0) {
@@ -96,36 +103,20 @@ function renderComplainData(data) {
 
 }
 
+function assignComplainToUser(complain_id){
+    location.href = `${loginUrl}/complain/assigncomplain.html?c_id=${complain_id}`
+}
+
 function showComplainDetails(id) {
     location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
 }
                                                                         //  get Complain With Pagination
-var previousPageNumber = 0;
-function getComplain(pageNumber, pageSize, next) {
-    
-    if (next) {
-        totalPaginationBoxes = pageNumber;
-        if (previousPageNumber + 1 < pageNumber) {
-            previousPageNumber += 1
-            pageNumber = previousPageNumber
-        }
-    }
-                                                               //  If Previous is clicked decrement pageNumber
-    if (next === false) {
-        pageNumber = previousPageNumber;
-        if (pageNumber != 0) {
-            previousPageNumber -= 1
-            pageNumber = previousPageNumber
-        }
-    }
-
-    if (pageNumber >= 0) {
-        getData(`/admin/complain?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+function getComplain(number,size) {
+    getData(`/admin/complain?pageNumber=${number}&pageSize=${size}`)
         .then((data) => {
-            previousPageNumber = pageNumber
-            renderComplainData(data)
+            renderComplainData(data.content)
+            renderPagination(data.totalPages) 
         })
-    }
 }
 
 
@@ -155,16 +146,16 @@ function giveNotificationToUserOnComplainStatus(complain_id){
     sendData(`/send-notification-touser/${complain_id}`)
 }
 
-function updateComplainLog(complain_id){
-    var todayDate = new Date().toISOString().substring(0,10);
+async function updateComplainLog(complain_id){
+    
+    getUserData().then((data)=>{
+        complainLog = {
+            assignedFrom:{id:data.id},
+            assignedTo:{id:28}
+        }
+        sendData(`/complainlog/${complain_id}`,complainLog)
+    })
 
-    complainLog = {
-        date:todayDate,
-        assignedFrom:loginUserName,
-        assignedTo:"ahmed"
-    }
-
-    sendData(`/complainlog/${complain_id}`,complainLog)
 }
 
 function deleteComplain(id) {
@@ -204,7 +195,6 @@ function getArea() {
  
         getData(`/area`)
         .then((data) => {
-            allArea = data;
             table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
             table += `<option value="ALL" selected>Select Area</option>`
             for (let i = 0; i < data.length; i++) {
@@ -217,37 +207,27 @@ function getArea() {
         })
 }
 
-function renderPagination() {
-    let renderPagination = ""
-    let paginationBoxes = 0;
-
-
-    getData(`/countallcomplains`).then((data) => {
-        console.log(data);
-        paginationBoxes = Math.ceil(data / 2)
-        onlyFivePaginationBoxes = 0;
-
-        if(paginationBoxes > 5){
-            onlyFivePaginationBoxes = 5
-        }
-        else{
-            onlyFivePaginationBoxes = paginationBoxes;
-        }
+function  renderPagination(pages) {
+        let renderPagination = ""
 
         renderPagination += `
         <li class="page-item" onclick="getComplain(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
-        for (let i = 0; i < onlyFivePaginationBoxes; i++) {
+
+        document.getElementById("pagination").innerHTML = renderPagination
+
+        for (let i = 0; i < pages; i++) {
             renderPagination += `
             <li class="page-item" onclick="getComplain(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
             `
         }
+        document.getElementById("pagination").innerHTML = renderPagination
 
         renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
-        <li class="page-item" onclick="getComplain(${paginationBoxes - 1},${2})"><a class="page-link" href="#">${paginationBoxes}</a></li>
-        <li class="page-item"onclick="getComplain(${paginationBoxes},${2},${true})"><a class="page-link" href="#">Next</a></li>`
+        <li class="page-item" onclick="getComplain(${pages- 1},${2})"><a class="page-link" href="#">${pages}</a></li>
+        <li class="page-item"onclick="getComplain(${pages},${2},${true})"><a class="page-link" href="#">Next</a></li>`
 
 
         document.getElementById("pagination").innerHTML = renderPagination
-    })
+    
 }
 renderPagination()

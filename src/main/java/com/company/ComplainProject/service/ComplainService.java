@@ -3,6 +3,7 @@ package com.company.ComplainProject.service;
 //import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.ComplainImageImplementation;
+import com.company.ComplainProject.dto.ComplainDetailsResponse;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
@@ -47,28 +48,33 @@ public class ComplainService {
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
 
-    public List<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
+    public List<ComplainDetailsResponse> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
         List<Complain> complains = complainPage.getContent();
-        return  complains;
+        return  complainListToComplainDetailsResponseList(complains);
     }
 
-    public Optional<Complain> getComplainById(Long id) {
-        return complainRepository.findById(id);
+    public ComplainDetailsResponse getComplainById(Long id) {
+        Optional<Complain> complain = complainRepository.findById(id);
+        if(complain.isPresent()){
+            return complainToComplainDetailsResponse(complain.get());
+        }
+        throw new ContentNotFoundException("No complain Found Having id "+id);
+
     }
 
     public void deleteComplainById(Long id) {
         complainRepository.deleteById(id);
     }
 
-    public ComplainDto addComplain(ComplainDto complainDto) {
+    public ComplainDetailsResponse addComplain(ComplainDto complainDto) {
         User user = service.getLoggedInUser();
         complainDto.setUser(user);
-        return toDto(complainRepository.save(dto(complainDto)));
+        return complainToComplainDetailsResponse(complainRepository.save(dto(complainDto)));
     }
 
-    public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
+    public ComplainDetailsResponse updateComplainById(Long id, ComplainDto complainDto) {
         Complain updateComplain = dto(getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get());
         User user = service.getLoggedInUser();
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
@@ -83,7 +89,7 @@ public class ComplainService {
             updateComplain.setDate(complainDto.getDate());
             updateComplain.setTime(complainDto.getTime());
         }
-        return toDto(complainRepository.save(updateComplain));
+        return complainToComplainDetailsResponse(complainRepository.save(updateComplain));
     }
 
     public Complain dto(ComplainDto complainDto){
@@ -117,13 +123,13 @@ public class ComplainService {
                 .build();
     }
 
-    public List<ComplainDto> getFilteredComplain(SearchCriteria searchCriteria) {
+    public List<ComplainDetailsResponse> getFilteredComplain(SearchCriteria searchCriteria) {
         ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
         List<Complain> complains = complainRepository.findAll(complainSpecification);
-        return complains.stream().map(el->toDto(el)).collect(Collectors.toList());
+        return complainListToComplainDetailsResponseList(complains);
     }
 //                                                                                              filter complain by status
-    public List<ComplainDto> getFilteredComplainByStatus(SearchCriteria searchCriteria) {
+    public List<ComplainDetailsResponse> getFilteredComplainByStatus(SearchCriteria searchCriteria) {
 
         if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_REVIEW")){
             searchCriteria.setValue(Status.IN_REVIEW);
@@ -140,7 +146,7 @@ public class ComplainService {
         try{
             ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
             List<Complain> complains = complainRepository.findAll(complainSpecification);
-            return complains.stream().map(el->toDto(el)).collect(Collectors.toList());
+            return complainListToComplainDetailsResponseList(complains);
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No data Exist having "+searchCriteria.getKey()+" = "+searchCriteria.getValue());
@@ -161,14 +167,14 @@ public class ComplainService {
         }
     }
 
-    public List<ComplainDto> getComplainByUser() {
+    public List<ComplainDetailsResponse> getComplainByUser() {
         User user = service.getLoggedInUser();
         List<Complain> complains = complainRepository.getComplainByUser(user);
-        return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
+        return complainListToComplainDetailsResponseList(complains);
     }
 
 //                                                                                      complain user by status
-    public List<ComplainDto> getComplainByUserAndStatus(String status){
+    public List<ComplainDetailsResponse> getComplainByUserAndStatus(String status){
         User user = service.getLoggedInUser();
         List<Complain> complains;
 
@@ -187,10 +193,30 @@ public class ComplainService {
         else{
             throw new ContentNotFoundException("No Complain found of user having status "+status);
         }
-        return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
+        return complainListToComplainDetailsResponseList(complains);
     }
 
     public Long countAllComplains_Service() {
         return complainRepository.count();
     }
+
+    public ComplainDetailsResponse complainToComplainDetailsResponse(Complain complain){
+        return ComplainDetailsResponse.builder()
+                .id(complain.getId())
+                .complainLog(complain.getComplainLogs())
+                .complainType(complain.getComplainType())
+                .area(complain.getArea())
+                .date(complain.getDate())
+                .description(complain.getDescription())
+                .picture(complain.getPicture())
+                .block(complain.getBlock())
+                .time(complain.getTime())
+                .status(complain.getStatus())
+                .user(userService.userToUserDetailsResponse(complain.getUser())).build();
+    }
+
+    public List<ComplainDetailsResponse> complainListToComplainDetailsResponseList(List<Complain> complain){
+        return complain.stream().map(complain1 -> complainToComplainDetailsResponse(complain1)).collect(Collectors.toList());
+    }
+
 }
