@@ -1,5 +1,6 @@
 package com.company.ComplainProject.exportDataToExcel;
 
+import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.User;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,9 +17,9 @@ import java.util.List;
 public class ComplainExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<Complain> complainList;
+    private List<ComplainDto> complainList;
 
-    public ComplainExcelExporter(List<Complain> complains){
+    public ComplainExcelExporter(List<ComplainDto> complains){
         workbook = new XSSFWorkbook();
         sheet =workbook.createSheet("View Complain");
         complainList = complains;
@@ -49,7 +50,7 @@ public class ComplainExcelExporter {
     public void writeDataRow(){
         int rowCount =1;
 
-        for (Complain complain:complainList) {
+        for (ComplainDto complain:complainList) {
             Row row = sheet.createRow(rowCount);
 
             Cell cell = row.createCell(0);

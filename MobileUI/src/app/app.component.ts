@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MessagingService } from './services/messaging.service';
 import { NotificationService } from './Services/notification.service';
 
@@ -86,16 +87,16 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+
     this.messagingService.requestPermission()
-    // this.messagingService.myMethod$.subscribe(data=>{
-    //   console.log("hello data",data)
-    //   this.message = data;
+
+    // this.messagingService.returnToken().subscribe((data: any)=>{
+    //   console.log(data);
     // })
-    this.messagingService.receiveMessage()
+    // this.messagingService.returnToken().subscribe(data => {
+    //   console.log(data);
+    // });
     //this.message = this.messagingService.myMethod$
-
-
-
 
   }
 }

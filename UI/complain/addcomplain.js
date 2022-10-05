@@ -8,9 +8,7 @@ if (queryString != "") {
 
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
-    // fetch(`${baseUrl}/api/complain/` + urlId, {
-    // })
-    //     .then(response => response.json()).catch(() => { })
+    
         getData(`/complain/${urlId}`)
         .then(data => {
 
@@ -36,13 +34,7 @@ function getselectedDropDownElement(id, valueToSelect) {
 function getComplain() {
 
     let table = ""
-    // fetch(`${baseUrl}/api/complaintype`, {
-    //     headers: {
-    //         "Content-Type": "application/json",
 
-    //     }
-    // })
-    //     .then((response) => response.json())
         getData(`/complaintype`)
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
@@ -58,13 +50,7 @@ var getBlockFromAreaId = 0;
 
 function getArea() {
     let table = ""
-    // fetch(`${baseUrl}/api/area`, {
-    //     headers: {
-    //         "Content-Type": "application/json",
-
-    //     }
-    // })
-    //     .then((response) => response.json())
+  
         getData(`/area`)
         .then((data) => {
             getBlockFromAreaId = data[0].id;
@@ -83,12 +69,7 @@ function getArea() {
 let username;
 function getUser() {
     let table = ""
-    // fetch(`${baseUrl}/api/user`, {
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     }
-    // })
-    //     .then((response) => response.json())
+   
         getData(`/user`)
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
@@ -111,15 +92,14 @@ function formSubmit() {
     let description = document.getElementById("description").value;
     var table = ""
 
-    const date = new Date();
-
-    let d = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
+    // const date = new Date();
+    // var todayDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const t = new Date().toLocaleString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         hour12: false
     });
+    var todayDate = new Date().toISOString().substring(0,10);
 
     var select = document.getElementById('dropcomplaintype');
     var complaintype = select.options[select.selectedIndex].value;
@@ -133,7 +113,8 @@ function formSubmit() {
 
     newComplain = {
         description: description
-        , date: d, time: t,
+        , date: todayDate
+        , time: t,
         complainType: {
             id: complaintype
         },
@@ -151,22 +132,24 @@ function formSubmit() {
     if (image.value != "" && description != "") {
 
         newComplain = JSON.stringify(newComplain)
-
         var formData = new FormData();
-
         for (const file of image.files) {
             formData.append("pictureUrl", file)
         }
         formData.append('data', newComplain);
 
         if (queryString == "") {
-            // fetch(`${baseUrl}/api/complain`, {
-            //     method: "POST",
-            //     body: formData
-
-            // }).then((response) => response.json())
+        
             sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
+
+                    complainLog = {
+                        status:"IN_REVIEW",
+                        date:todayDate,
+                        description:"Your Complain is in_review please wait"
+                    }
+
+                    sendData(`/complainlog/${data.id}`,complainLog)
 
                     table += `
                         <div  style="
@@ -191,11 +174,7 @@ function formSubmit() {
                 })
                 .catch((error) => console.log(error))
         } else {
-            // fetch(`${baseUrl}/api/complain/`+urlId, {
-            //     method: "PUT",
-            //     body: formData
-
-            // }).then((response) => response.json()).catch(() => { })
+           
                 updateDataWithFormData(`/complain/${urlId}`,formData)
                 .then((data) => {
 

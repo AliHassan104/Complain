@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PollingquestionService } from '../Services/pollingquestion.service';
+import { ToastUtilService } from '../Services/toast-util.service';
 import { UserService } from '../Services/user.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class PollingsubmitComponent implements OnInit {
   constructor(private route: ActivatedRoute ,
               private pollingquestionService : PollingquestionService,
               private userService : UserService,
-              private router:Router
+              private router:Router,
+              private toastService: ToastUtilService,
 
               ) {}
 
@@ -37,7 +39,7 @@ export class PollingsubmitComponent implements OnInit {
       id : new FormControl()
     }),
     pollingOption : new FormGroup({
-      id : new FormControl()
+      id : new FormControl('',Validators.required)
     })
   })
 
@@ -65,17 +67,14 @@ export class PollingsubmitComponent implements OnInit {
     this.pollingAnswer.value.pollingQuestion.id = parseInt(this.questionId)
     this.pollingAnswer.value.user.id = this.userId
 
-    setTimeout(() => {
-      // console.log(data);
-    }, 1500);
+    console.log(this.pollingAnswer);
 
-    this.pollingquestionService.postPollingQuestion(data)
-        .subscribe((data) =>
-         {
-          // console.log(data);
-        this.router.navigate(['pollingquestion']);
+    this.pollingquestionService.postPollingQuestion(data).subscribe((data) =>{
+          this.toastService.showToast("Success", "#toast-15")
+          this.router.navigate(['home']);
       }, error => {
 
+        this.toastService.showToast("Complain Not Submitted", "#toast-16");
         console.log(error);
       });
 
@@ -110,10 +109,11 @@ getUser() {
     this.userService.getUserByEmail(email).subscribe(data => {
       // console.log(data);
       user = data
-      this.userId = user.area.id
-      console.log(user.area.id);
+      this.userId = user.id
+      // this.toastService.showToast("Success", "#toast-15")
     }, error => {
       console.log(error);
+      // this.toastService.showToast("Wrong Email Or Password", "#toast-16");
     });
   }
 

@@ -33,3 +33,7 @@ function getPollingQuestionDetails() {
 }
 
 getPollingQuestionDetails()
+
+function getPollingAnswersInPercent(numberOfUsers){
+    // let ansInPercent = numberOfUsers*100/
+}

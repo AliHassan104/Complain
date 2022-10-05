@@ -69,7 +69,7 @@ public class ComplainController {
 public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") MultipartFile image,
                                                @RequestParam("data") String userdata) {
     try{
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
         ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
 
         String  fileName = complainImageImplementation.uploadImage(image);
@@ -160,7 +160,7 @@ public ResponseEntity<ComplainDto> addComplain(@RequestParam("pictureUrl") Multi
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename = ComplainData.xlsx";
 
-        List<Complain> complains =complainService.getAllComplain();
+        List<ComplainDto> complains =complainService.getAllComplain();
         ComplainExcelExporter complainExcelExporter = new ComplainExcelExporter(complains);
         complainExcelExporter.export(response);
 

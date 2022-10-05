@@ -1,5 +1,4 @@
 
-
 function loginData() {
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
@@ -25,7 +24,6 @@ function loginData() {
                 if (data.jwt != null) {
                     localStorage.setItem("jwtToken", data.jwt)
                     location.href = `${loginUrl}/index.html`
-                    
                     document.getElementById('password').value = ""
                 }
             })

@@ -8,6 +8,7 @@
 
 <div class="section mt-2">
   <div class="row">
+    <div class="col-12" *ngIf="lists.length > 0; else noeventfound">
     <div class="col-12" *ngFor="let list of lists">
       <a [routerLink]="['/eventdetailed/',list.id]">
           <div  class="card product-card" style="margin-top: 20px; margin-bottom: 10px;">
@@ -16,15 +17,32 @@
                   <h2 class="title">{{list.title}}</h2>
                   <p>{{list.startDate | date:"fullDate"}}</p>
 
-                  <p>{{list.startTime | date :'shortTime':'h:mm a'}}</p>
-                  <p>{{list.startTime | date :'h:mm a'}}</p>
-                  <p>{{list.startTime}}</p>
+                  <!-- <p>{{list.startTime | date :'shortTime':'h:mm a'}}</p>
+                  <p>{{list.startTime | date :'h:mm a'}}</p> -->
+                  <p>{{list.startTime | time}}</p>
 
-                  <p>{{list.description | slice:0:50}} <b *ngIf="list.description>50"> ...ReadMore</b> </p>
+                  <p>{{list.description | slice:0:450}} <b *ngIf="list.description.length>450"> ...ReadMore</b> </p>
                 </div>
               </div>
             </a>
       </div>
+  </div>
+
+  <ng-template #noeventfound>
+
+    <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
+      <div class="card-body">
+          <div class="text-center">
+            <p>No Event Found</p>
+          </div>
+      </div>
+    </div>
+
+  </ng-template>
+
+
+
+
   </div>
   </div>
 

@@ -5,16 +5,23 @@
 
     <div class="wide-block">
       <div class="timeline timed">
-          <div class="item">
-              <span class="time">{{complain.date | date}}</span>
-              <div class="dot"></div>
+
+          <div class="item" *ngFor="let item of items">
+              <span class="time">{{item.date | date}}</span>
+              <div class="dot" *ngIf="item.status === 'IN_REVIEW'"></div>
+              <div class="dot bg-warning" *ngIf="item.status === 'IN_PROGRESS'"></div>
+              <div class="dot bg-danger" *ngIf="item.status === 'REJECTED'"></div>
+              <div class="dot bg-success" *ngIf="item.status === 'COMPLETED'"></div>
               <div class="content">
-                  <h4 class="title">In Review</h4>
-                  <div class="text">Your Complain Is In Review We Will Start Working on It {{timeToGetCompleted[0] | date}} </div>
+                  <h4 class="title" >{{item.status.replace('_', ' ') | titlecase}}</h4>
+                  <!-- <div class="text">Your Complain Is In Review We Will Start Working on It With In Two Days </div> -->
+                  <div class="text">{{item.description | titlecase}} </div>
               </div>
           </div>
 
-          <div class="item">
+
+
+          <!-- <div class="item">
               <span class="time">{{timeToGetCompleted[0] | date}}</span>
               <div class="dot bg-warning"></div>
               <div class="content">
@@ -32,7 +39,7 @@
                 <div class="text">
                 </div>
             </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

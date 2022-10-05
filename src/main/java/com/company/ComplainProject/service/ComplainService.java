@@ -40,14 +40,15 @@ public class ComplainService {
 
     private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
 
-    public List<Complain> getAllComplain() {
-        return complainRepository.findAll();
+    public List<ComplainDto> getAllComplain() {
+        List<Complain> complains = complainRepository.findAll();
+        return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
+
     public List<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
         List<Complain> complains = complainPage.getContent();
-
         return  complains;
     }
 
@@ -64,10 +65,11 @@ public class ComplainService {
     }
 
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
-        Complain updateComplain = getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get();
+        Complain updateComplain = dto(getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get());
         User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(complainDto.getUser().getId())).findAny().get();
         Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
         ComplainType complainType = complainTypeService.getAllComplainType().stream().filter(complainType1 -> complainType1.getId().equals(complainDto.getComplainType().getId())).findAny().get();
+
         if(updateComplain != null){
             updateComplain.setDescription(complainDto.getDescription());
             updateComplain.setPicture(complainDto.getPicture());

@@ -16,25 +16,15 @@ export class AchievementComponent implements OnInit {
     this.getAchievements()
   }
 
-  lists : any = []
+  achievements : any = []
 
   getAchievements() {
     this.achievementService.getAllAchievement().subscribe(data => {
-      this.lists = data
-      // console.log(data);
-      this.checkListLength()
+      this.achievements = data
     }, error => {
       console.log(error);
     });
   }
 
-  sizeOfList : boolean;
-  checkListLength(){
-    if (this.lists.length == 0) {
-      this.sizeOfList = false;
-    }else{
-      this.sizeOfList = false;
-    }
-  }
 
 }

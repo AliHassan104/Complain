@@ -9,7 +9,15 @@
 
 <div style="height: 100%!important;overflow: auto;" class="accordion" id="accordionExample">
 
+  <!-- <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming"> -->
+  <!-- <div   *ngIf="areaWaterTimimg.waterTimingDtoList.length > 0"> -->
+
+  <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming">
+
   <div   *ngFor="let list of areaWaterTimimg; let i = index">
+
+
+  <div   *ngIf="list.waterTimingDtoList.length > 0">
 
     <div  class="card" >
 
@@ -22,25 +30,86 @@
       </div>
 
       <div [id]="'abc'+i" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-        <!-- <div class="card-body" *ngFor="let watertime of areaWaterTimimg.waterTimingDtoList">
-          {{watertime.date | date:"fullDate"}} at  {{watertime.time}}
-          <h1>abc</h1> -->
+
           <div class="card-body">
             <div *ngFor="let watertime of list.waterTimingDtoList" class="">
-              water will start at {{watertime.start_time | time}}
-              and end at {{watertime.end_time | time}}
+              <!-- On {{watertime.date | date:"EEEE" }} -->
+              <!-- On {{watertime.date.slice(0.3)}} -->
+
+              <!-- water will start at {{watertime.start_time | time}}
+              and end at {{watertime.end_time | time}} -->
+              <!-- *ngIf="watertime.date === 'Sunday'" -->
+              <div style="width: 200px;height: 50px; margin-bottom: 5px;" class="chip">
+                <!-- <i  style="width: 50px;height: 50px;" class="chip-icon bg-primary"> -->
+                    <!-- <ion-icon name="person"></ion-icon> -->
+                <!-- <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE').slice(0,2) === 'Mon'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/mon.png"/> -->
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Mon'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/mon.png"/>
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Tue'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/tue.png"/>
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Wed'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/wed.png"/>
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Thu'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/thur.png"/>
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Fri'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/fri.png"/>
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Sat'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/sat.png"/>
+                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Sun'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/sun.png"/>
+                <!-- </i> -->
+
+                <span  class="chip-label">{{watertime.start_time | time}} - {{watertime.end_time | time}}</span>
+              </div>
+
+              <br>
+
             </div>
-            <!-- <h1>abc</h1> -->
+
           </div>
-          <!-- <ng-container></ng-container> -->
+
+          <!-- <div class="section full mt-2">
+            <div class="section-title">with Icon</div>
+            <div class="wide-block pt-2 pb-2">
+
+                <div class="chip chip-media">
+                    <i class="chip-icon bg-primary">
+                        <ion-icon name="person"></ion-icon>
+                    </i>
+                    <span class="chip-label">John Doe</span>
+                </div>
+
+                <div class="chip chip-media">
+                    <i class="chip-icon bg-danger">
+                        <ion-icon name="pin"></ion-icon>
+                    </i>
+                    <span class="chip-label">London</span>
+                </div>
+
+                <div class="chip chip-media">
+                    <i class="chip-icon bg-warning">
+                        <ion-icon name="alarm"></ion-icon>
+                    </i>
+                    <span class="chip-label">5:22 AM</span>
+                </div>
+
+            </div>
+        </div> -->
 
         </div>
+        <!-- </div> -->
 
       </div>
 
-
+  </div>
   </div>
 
+  </div>
+  <!-- </div> -->
+
+
+  <ng-template #nowatertiming>
+    <!-- <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
+      <div class="card-body"> -->
+          <div class="text-center">
+            <p>No Water Timing Available</p>
+          </div>
+      <!-- </div>
+    </div> -->
+  </ng-template>
 
 </div>
 

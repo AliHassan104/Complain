@@ -27,6 +27,7 @@ import { DiscoverEventsComponent } from './discover-events/discover-events.compo
 import { EventPreviewComponent } from './event-preview/event-preview.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+// import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -52,6 +53,8 @@ import { HomeGuard } from './Guards/home.guard';
 // import { Header} from './interceptor/header.interceptor';
 import { TimePipe } from './Pipes/time.pipe';
 import { HeaderInterceptor } from './Interceptor/header.interceptor';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 
@@ -93,6 +96,8 @@ import { HeaderInterceptor } from './Interceptor/header.interceptor';
     EventdetailedComponent,
     PollingsubmitComponent,
     TimePipe,
+    ForgetPasswordComponent,
+    NewPasswordComponent,
 
 
   ],

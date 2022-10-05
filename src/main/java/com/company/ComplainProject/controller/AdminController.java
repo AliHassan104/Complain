@@ -3,6 +3,7 @@ package com.company.ComplainProject.controller;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.EventDto;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.service.AdminService;
@@ -65,7 +66,6 @@ public class AdminController {
     @GetMapping("/complain")
     public ResponseEntity<List<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-
         try{
             List<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
             return ResponseEntity.ok(complain);
@@ -137,10 +137,10 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user")
-    public ResponseEntity<List<User>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<List<UserDetailsResponse>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                               @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
-            List<User> user = adminService.getAllUsers(pageNumber,pageSize);
+            List<UserDetailsResponse> user = adminService.getAllUsers(pageNumber,pageSize);
             return ResponseEntity.ok(user);
         }
         catch (Exception e){

@@ -2,24 +2,27 @@ package com.company.ComplainProject.model;
 
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@ToString
-@Builder
 
 @Entity
 @Table(name = "complain")
 public class Complain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -36,9 +39,9 @@ public class Complain {
     private String picture;
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    private String date;
+    private LocalDate date;
     @JsonFormat(pattern="HH:mm:ss")
-    private String time;
+    private LocalTime time;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.IN_REVIEW;
@@ -50,5 +53,12 @@ public class Complain {
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "complain_type_id", referencedColumnName = "id")
     private ComplainType complainType;
+
+    @OneToMany(mappedBy = "complain",cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @JsonIgnoreProperties
+    private List<ComplainLog> complainLogs;
+
+
 
 }

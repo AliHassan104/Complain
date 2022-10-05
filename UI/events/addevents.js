@@ -47,6 +47,9 @@ function formSubmit() {
             
                 sendDataWithFormData(`/event`,formData)
                 .then((data) => {
+                                                                        // send notification to user on event add
+                    sendNotificationToUserOfEvent(data.id)
+
                     let table = ""
                     table += `
                     <div  style=" 
@@ -122,6 +125,11 @@ function formSubmit() {
 
             document.getElementById("formSubmitted").innerHTML = invalidData
     }
+}
+
+
+function sendNotificationToUserOfEvent(event_id){
+    getData(`/send-notification-about-events/${event_id}`)
 }
 
 function getArea() {

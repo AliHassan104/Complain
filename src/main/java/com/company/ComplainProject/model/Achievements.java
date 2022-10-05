@@ -31,6 +31,4 @@ public class Achievements {
     private String pictureUrl;
     @JsonFormat(pattern="yyyy-MM-dd")
     private String date;
-
-
 }

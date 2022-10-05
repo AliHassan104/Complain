@@ -21,8 +21,8 @@ import java.util.Map;
 public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificationExecutor<User> {
 
 //    Because of lazyInitializationError
-    @Query("select u from User u left join fetch u.roles where u.email = ?1")
-    User findByEmail(String email);
+    @Query("select u from User u left join fetch u.roles where u.email = ?1 AND u.status = ?2")
+    User findByEmailAndStatus(String email,UserStatus userStatus);
 
     @Query("SELECT u from User u where u.email = :email")
     User findUserByEmail(@Param("email") String email);
@@ -37,6 +37,7 @@ public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificati
     Page<User>  findPublishedUser(Pageable pageable,@Param("status") UserStatus status);
 
 
-
+    @Query(value = "SELECT u.id FROM users u where u.email=?1",nativeQuery = true)
+    Long byEmail(String email);
 
 }
