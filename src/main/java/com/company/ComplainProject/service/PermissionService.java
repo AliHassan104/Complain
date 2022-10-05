@@ -47,14 +47,14 @@ public class PermissionService {
 //        }
 //    }
 
-    private PermissionDto toDto(Permission permission){
+    public PermissionDto toDto(Permission permission){
         return new PermissionDto().builder()
                 .id(permission.getId())
                 .url(permission.getUrl())
                 .build();
     }
 
-    private Permission toDo(PermissionDto permissionDto){
+    public Permission toDo(PermissionDto permissionDto){
         return new Permission().builder()
                 .id(permissionDto.getId())
                 .url(permissionDto.getUrl())
