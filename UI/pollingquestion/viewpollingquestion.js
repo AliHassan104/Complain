@@ -23,10 +23,11 @@ function deletePollingQuestion(id){
         setTimeout(()=>{
             document.getElementById("formSubmitted").innerHTML = ""
         },2000)
-    })
-    setTimeout(() => {
         getPollingQuestion()
-    }, 200);
+    })
+    
+       
+   
 }
 
 getPollingQuestion()

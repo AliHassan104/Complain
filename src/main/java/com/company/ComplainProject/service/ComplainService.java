@@ -48,11 +48,10 @@ public class ComplainService {
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
 
-    public List<ComplainDetailsResponse> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
+    public Page<ComplainDetailsResponse> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
-        List<Complain> complains = complainPage.getContent();
-        return  complainListToComplainDetailsResponseList(complains);
+        return (Page<ComplainDetailsResponse>) complainPage.stream().map(complain -> complainToComplainDetailsResponse(complain)).collect(Collectors.toList());
     }
 
     public ComplainDetailsResponse getComplainById(Long id) {

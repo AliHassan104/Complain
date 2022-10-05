@@ -23,6 +23,7 @@ function renderUserData(){
             document.getElementById('block').value = data.block.block_name
             document.getElementById('address').value = "House Number "+data.address.houseNumber+" Street "+data.address.street+" Floor Number "+data.address.floorNumber+" , "+data.address.city
             document.getElementById('property').value = data.property
+            document.getElementById("user_type").value = data.userType
 
     
     })

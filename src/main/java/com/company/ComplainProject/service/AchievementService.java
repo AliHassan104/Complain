@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.repository.AchievementRepository;
@@ -25,20 +26,23 @@ public class AchievementService {
     private final String imageFolderPath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
 
 
-    public List<Achievements> getAllAchievementWithPagination(Integer pageNumber,Integer pageSize) {
+    public Page<Achievements> getAllAchievementWithPagination(Integer pageNumber,Integer pageSize) {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Achievements> achievementsPage = achievementRepository.findAll(pageable);
-        List<Achievements> achievementsList = achievementsPage.getContent();
-        return achievementsList;
+        return  achievementsPage;
     }
 
     public List<Achievements> getAllAchievement(){
         return achievementRepository.findAll();
     }
 
-    public Optional<Achievements> getAchievementById(Long id) {
-        return achievementRepository.findById(id);
+    public AchievementsDto getAchievementById(Long id) {
+        Optional<Achievements> achievements =  achievementRepository.findById(id);
+        if(achievements.isPresent()){
+            return toDto(achievements.get());
+        }
+        throw new ContentNotFoundException("No Achievement Exist having id "+id);
     }
 
     public void deleteAchievementById(Long id) {
@@ -53,7 +57,7 @@ public class AchievementService {
         return toDto(achievementRepository.save(dto(achievementsDto)));
     }
 
-    public Optional<AchievementsDto> updateAchievementById(Long id, AchievementsDto achievementsDto) {
+    public AchievementsDto updateAchievementById(Long id, AchievementsDto achievementsDto) {
         Achievements updateAchievement = getAllAchievement().stream().filter(el->el.getId().equals(id)).findAny().get();
         if(updateAchievement != null){
             updateAchievement.setTitle(achievementsDto.getTitle());
@@ -61,7 +65,7 @@ public class AchievementService {
             updateAchievement.setPictureUrl(achievementsDto.getPictureUrl());
             updateAchievement.setDate(achievementsDto.getDate());
         }
-        return Optional.of(toDto(achievementRepository.save(updateAchievement)));
+        return toDto(achievementRepository.save(updateAchievement));
     }
 
     public Achievements dto(AchievementsDto achievementsDto){

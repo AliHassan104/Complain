@@ -43,9 +43,8 @@ function formSubmit() {
     var selectBlock = document.getElementById("dropdownblock");
     blockId = selectBlock.options[selectBlock.selectedIndex].value;
 
-    setTimeout(() => {
-        addAddress()
-    }, 1000);
+    addAddress()
+   
 }
 
 
@@ -205,6 +204,7 @@ function getArea() {
         `
             }
             document.getElementById("dropdownarea").innerHTML = table;
+            getBlock(areaIdToGetBlock)
         })
 }
 getArea();
@@ -231,13 +231,10 @@ function getBlock(areaId) {
                 <option value="" disabled selected>Sorry No Block Available</option>
             `
             }
-
             document.getElementById("dropdownblock").innerHTML = renderData;
         })
 
 }
 
 
-setTimeout(() => {
-    getBlock(areaIdToGetBlock)
-}, 400)
+

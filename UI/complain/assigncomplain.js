@@ -115,7 +115,7 @@ function updateStatus() {
     let updatedstatusData = {
         status: updatedstatus
     }
-     console.log(updatedstatusData)
+
     patchData(`/admin/complain/${complain_id}`,updatedstatusData)
         .then(data => {
                                                                         //  Send Notification to that customer about complain status
@@ -137,7 +137,9 @@ function assignComplain(complain_id){
             id:document.getElementById("worker_id").value
         }  
     }
-     console.log(complainLog)
     sendData(`/complainlog/${complain_id}`,complainLog)
+    .then((data)=>{
+        
+    })
 
 }

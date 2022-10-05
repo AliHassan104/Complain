@@ -6,9 +6,6 @@ if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
 
-    // fetch(`${baseUrl}/api/complaintype/` + urlId, {
-    // })
-    //     .then(response => response.json()).catch(() => { })
         getData(`/complaintype/${urlId}`)
         .then(data => {
 

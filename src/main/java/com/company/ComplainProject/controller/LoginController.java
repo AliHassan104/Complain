@@ -5,6 +5,7 @@ import com.company.ComplainProject.dto.LoginCredentials;
 import com.company.ComplainProject.config.util.JwtUtil;
 import com.company.ComplainProject.service.MyUserDetailService;
 import com.company.ComplainProject.service.SessionService;
+import com.company.ComplainProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,8 @@ public class LoginController {
     @Autowired
     private MyUserDetailService myUserDetailService;
     @Autowired
-    private SessionService service;
+    private UserService userService;
+
 
 
     @PostMapping("/login")
@@ -40,10 +42,14 @@ public class LoginController {
 
         UserDetails userDetails = myUserDetailService.loadUserByUsername(loginCredentials.getEmail());
         String jwtToken = jwtUtil.generateToken(userDetails);
+//                                                      Update device token
+        userService.updateLoginUserDeviceToken(loginCredentials.getEmail(),loginCredentials.getDeviceToken());
 
         return ResponseEntity.ok(new AuthenticationResponse(jwtToken));
 
         }
+
+
 
 
 }

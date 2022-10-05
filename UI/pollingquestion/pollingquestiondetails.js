@@ -9,31 +9,36 @@ function getPollingQuestionDetails() {
 
         getData(`/pollinganswer/getpollingoptionper/${pollingQuestionId}`)
         .then((data) => {
-            renderQuestion += `<b>${data.pollingQuestion}</b> `
+            getData(`/user/countuserbystatus/Published`)
+            .then((countUser)=>{
+               
+                renderQuestion += `<b>${data.pollingQuestion}</b> `
 
-            document.getElementById("pollingQuestion").innerHTML = renderQuestion
+                document.getElementById("pollingQuestion").innerHTML = renderQuestion
+    
+                for (let i = 0; i < data.getPollingQuestionResult.length; i++) {
+                    
+                    var pollingAnswerInPercentage = Math.round((Object.values(data.getPollingQuestionResult[i])*100)/countUser)
+                    
+                    renderOption += `
+                    <a  class="list-group-item list-group-item-action ">
+                        <div class="d-flex w-100 justify-content-between">
+                            <span>${i+1}. &nbsp ${Object.keys(data.getPollingQuestionResult[i])}</span>${Object.values(data.getPollingQuestionResult[i])}
+                        </div>
+                    <br>
+                        <div class="progress" style="margin-left:2% ; width: 90%;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${pollingAnswerInPercentage}%">${pollingAnswerInPercentage}%</div>
+                        </div>
+                  </a>`
+    
+                }
+    
+                document.getElementById("options").innerHTML = renderOption
 
-            for (let i = 0; i < data.getPollingQuestionResult.length; i++) {
-                renderOption += `
-                <a  class="list-group-item list-group-item-action ">
-                    <div class="d-flex w-100 justify-content-between">
-                        <span>${i+1}. &nbsp ${Object.keys(data.getPollingQuestionResult[i])}</span>
-                    </div>
-                <br>
-                    <div class="progress" style="margin-left:2% ; width: 90%;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${Object.values(data.getPollingQuestionResult[i])}%">${Object.values(data.getPollingQuestionResult[i])}</div>
-                    </div>
-              </a>`
-
-            }
-
-            document.getElementById("options").innerHTML = renderOption
-
+            })
+        
         })
 }
 
 getPollingQuestionDetails()
 
-function getPollingAnswersInPercent(numberOfUsers){
-    // let ansInPercent = numberOfUsers*100/
-}

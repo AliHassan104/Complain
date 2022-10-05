@@ -18,13 +18,12 @@ import java.util.Optional;
 public class BlockController {
 
     @Autowired
-    BlockService blockService;
+    private BlockService blockService;
 
     @GetMapping("/block")
-    public ResponseEntity<List<Block>> viewAllBlocks(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
-                                                     @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+    public ResponseEntity<List<Block>> getAllBlocks(){
         try{
-            return ResponseEntity.ok(blockService.getAllBlocksWithPagination(pageNumber,pageSize));
+            return ResponseEntity.ok(blockService.getAllBlocks());
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

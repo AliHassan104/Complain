@@ -71,10 +71,8 @@ function deleteArea(id){
             document.getElementById("formSubmitted").innerHTML = ""
         }, 2000)
         
+        getArea();
     })
 
-    setTimeout(() => {
-        getArea()
-    }, 300);
 }
 

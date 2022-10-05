@@ -116,12 +116,13 @@ function deleteEvent(id) {
             setTimeout(() => {
                 document.getElementById("formSubmitted").innerHTML = ""
             }, 2000)
+
+            getEvent(0, 2)
+            renderPagination()
         })
 
-    setTimeout(() => {
-        getEvent(0, 2)
-        renderPagination()
-    }, 100);
+   
+        
 
 }
 

@@ -8,7 +8,7 @@ if (queryString != "") {
     filterComplainByStatus()
 }
 else {
-    getComplain(0,2)
+    getComplain(0,10)
 }
 
 document.getElementById('filterByStatus').addEventListener('change', function() {
@@ -33,7 +33,7 @@ function filterComplainByStatus() {
             })
     }
     else{
-        getComplain(0,2)
+        getComplain(0,10)
     }
 }
 
@@ -58,8 +58,6 @@ function renderComplainData(data) {
         if(data[i].description.length > 5){
             data[i].description = data[i].description.slice(0,5)+`<a>...more</a>`
         }
-
-      
 
         table += `
 
@@ -211,20 +209,20 @@ function  renderPagination(pages) {
         let renderPagination = ""
 
         renderPagination += `
-        <li class="page-item" onclick="getComplain(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
+        <li class="page-item" onclick="getComplain(${1},${10},${false})"><a class="page-link" href="#">Previous</a></li>`
 
         document.getElementById("pagination").innerHTML = renderPagination
 
         for (let i = 0; i < pages; i++) {
             renderPagination += `
-            <li class="page-item" onclick="getComplain(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
+            <li class="page-item" onclick="getComplain(${i},${10})"><a class="page-link" href="#">${i + 1}</a></li>
             `
         }
         document.getElementById("pagination").innerHTML = renderPagination
 
         renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
-        <li class="page-item" onclick="getComplain(${pages- 1},${2})"><a class="page-link" href="#">${pages}</a></li>
-        <li class="page-item"onclick="getComplain(${pages},${2},${true})"><a class="page-link" href="#">Next</a></li>`
+        <li class="page-item" onclick="getComplain(${pages- 1},${10})"><a class="page-link" href="#">${pages}</a></li>
+        <li class="page-item"onclick="getComplain(${pages},${10},${true})"><a class="page-link" href="#">Next</a></li>`
 
 
         document.getElementById("pagination").innerHTML = renderPagination

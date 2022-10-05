@@ -94,13 +94,12 @@ function deleteBlock(id){
         }, 2000) 
     }
 
+    getBlock()
+
     })
 
-    setTimeout(() => {
-        getBlock()
-    }, 100);
+  
 }
-
 
 
 

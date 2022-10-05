@@ -6,6 +6,7 @@ let complainNumber = [0,0,0,0,0,0,0,0,0,0,0,0]
 function getComplain() {
         getData(`/complainbymonth`)
         .then((data)=> {
+
         for (const property in data) {
           complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)
         }
@@ -15,15 +16,13 @@ function getComplain() {
             max = complainNumber[i+1]
           }
         }
+        barchart1()
       })
 }
 
 getComplain()
 
-setTimeout(() => {
-    barchart1()
-}, 1500);
-    // Bar chart
+
 function barchart1(){
     new Chart(document.getElementById("chartjs-dashboard-bar1"), {
         type: "bar",
@@ -67,4 +66,3 @@ function barchart1(){
         }
     });
 }
-// }, 1500);

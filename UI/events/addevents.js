@@ -77,7 +77,7 @@ function formSubmit() {
           
             updateDataWithFormData(`/event/${eventId}`,formData)
                 .then((data) => {
-                    console.log(data);
+                  
                     let table = ""
                     table += `
                     <div  style=" 

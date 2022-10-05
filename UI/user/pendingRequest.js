@@ -92,11 +92,13 @@ function deleteUser(id) {
         setTimeout(()=>{
             document.getElementById("formSubmitted").innerHTML = ""
         },2000)
+
+        getUser()
     })
 
-    setTimeout(() => {
-        getUser()
-    }, 200);
+
+       
+   
 }
 
 function exportDataToExcel() {

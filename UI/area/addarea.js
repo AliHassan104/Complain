@@ -42,8 +42,8 @@ function formSubmit() {
 
                     document.getElementById("name").value = "";
                     document.getElementById("postalcode").value = "";
-                    document.getElementById("formSubmitted").innerHTML = table
 
+                    document.getElementById("formSubmitted").innerHTML = table
                     setTimeout(() => {
                         document.getElementById("formSubmitted").innerHTML = ""
                     }, 2000)

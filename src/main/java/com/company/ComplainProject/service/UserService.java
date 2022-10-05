@@ -1,6 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.config.exception.UserNotFoundException;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.dto.SearchCriteria;
@@ -164,6 +165,20 @@ public class UserService {
         return userListToUserDetailsResponseList(userList);
     }
 
+    public UserDetailsResponse updateLoginUserDeviceToken(String email,String deviceToken){
+        try {
+            User user = userRepository.findUserByEmail(email);
+            if(user != null){
+                user.setDeviceToken(deviceToken);
+            }
+            return userToUserDetailsResponse(userRepository.save(user));
+        }
+        catch (Exception e){
+            throw new UserNotFoundException("User having Email "+email+" not found");
+        }
+
+    }
+
     public List<UserDetailsResponse> userListToUserDetailsResponseList(List<User> users){
         List<UserDetailsResponse> userDetailsResponses = users.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
         return userDetailsResponses;
@@ -236,6 +251,26 @@ public class UserService {
             return userListToUserDetailsResponseList(userRepository.getAllWorkerByArea(UserType.Worker,area.get()));
         }
         throw new ContentNotFoundException("Area Not Exist Having id "+area_id);
+    }
+
+    public User userDetailResponseToUser(UserDetailsResponse userDetailsResponse){
+        return User.builder()
+                .id(userDetailsResponse.getId())
+                .firstname(userDetailsResponse.getFirstname())
+                .lastname(userDetailsResponse.getLastname())
+                .email(userDetailsResponse.getEmail())
+                .phoneNumber(userDetailsResponse.getPhoneNumber())
+                .cnic(userDetailsResponse.getCnic())
+                .numberOfFamilyMembers(userDetailsResponse.getNumberOfFamilyMembers())
+                .area(userDetailsResponse.getArea())
+                .address(userDetailsResponse.getAddress())
+                .property(userDetailsResponse.getProperty())
+                .roles(userDetailsResponse.getRoles())
+                .status(userDetailsResponse.getStatus())
+                .block(userDetailsResponse.getBlock())
+                .userType(userDetailsResponse.getUserType())
+                .deviceToken(userDetailsResponse.getDeviceToken())
+                .build();
     }
 }
 

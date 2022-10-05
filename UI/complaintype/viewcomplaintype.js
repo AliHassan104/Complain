@@ -62,11 +62,10 @@ function deleteComplainType(id){
         setTimeout(() => {
             document.getElementById("formSubmitted").innerHTML = ""
         }, 2000)
-    })
-
-    setTimeout(() => {
+        
         getComplain()
-    }, 300);
+    })
+        
 }
 
 

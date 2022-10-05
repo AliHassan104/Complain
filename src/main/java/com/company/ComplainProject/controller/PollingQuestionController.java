@@ -88,13 +88,13 @@ public class PollingQuestionController {
 //                                                     Show this api in get all polling question by user
 //                                                     Polling questions for customer
 
-    @GetMapping("/pollingquestion/notansweredbyuser/{user_id}")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(@PathVariable("user_id") Long id){
+    @GetMapping("/pollingquestion/notansweredbyuser")
+    public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(){
         try{
-            return ResponseEntity.ok(pollingQuestionService.getPollingQuestionsNotAnsweredByUserService(id));
+            return ResponseEntity.ok(pollingQuestionService.getPollingQuestionsNotAnsweredByUserService());
         }catch (Exception e){
             System.out.println(e);
-            throw new ContentNotFoundException("No questions for user id "+id);
+            throw new ContentNotFoundException("No questions for user id ");
         }
     }
 

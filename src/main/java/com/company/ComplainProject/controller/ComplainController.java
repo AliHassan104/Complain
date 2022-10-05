@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,11 +35,11 @@ import java.util.Optional;
 public class ComplainController {
 
     @Autowired
-    ComplainService complainService;
+    private ComplainService complainService;
     @Autowired
-    ComplainImageImplementation complainImageImplementation;
+    private ComplainImageImplementation complainImageImplementation;
     @Autowired
-    SessionService service;
+    private SessionService service;
 
     @Value("${complain.image}")
     private String complainImagePath;
@@ -47,10 +48,10 @@ public class ComplainController {
 
 
     @GetMapping("/complain")
-    public ResponseEntity<List<ComplainDetailsResponse>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                                     @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<ComplainDetailsResponse> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
-        if(!complain.isEmpty()){
+    public ResponseEntity<Page<ComplainDetailsResponse>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                                     @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+        Page<ComplainDetailsResponse> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
+        if(!complain.getContent().isEmpty()){
             return ResponseEntity.ok(complain);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

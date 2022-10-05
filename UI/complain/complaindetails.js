@@ -14,7 +14,7 @@ function renderComplainDetails(){
    
     getData(`/complain/${complain_id}`)
     .then((data)=>{
-            console.log(data)
+    
             dataRender += `
                 <img src="${data.picture}"  class="rounded mx-auto d-block "  alt="Not found" ">
             
@@ -99,7 +99,6 @@ function renderComplainDetails(){
             }
 
             document.getElementById("complainLogs").innerHTML = renderComplainLogs
-
 
     })
 
