@@ -67,7 +67,7 @@ function deleteComplainType(id){
             document.getElementById("formSubmitted").innerHTML = ""
         }, 2000)
         
-        getComplain()
+        getComplainType()
     })
         
 }

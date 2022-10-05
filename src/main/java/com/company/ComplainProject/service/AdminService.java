@@ -111,7 +111,6 @@ public class AdminService {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<PollingQuestion> pollingQuestionPage = pollingQuestionRepository.findAll(pageable);
         return pollingQuestionPage;
-
     }
 
     public Page<WaterTiming> getAllWaterTiming(Integer pageNumber,Integer pageSize){

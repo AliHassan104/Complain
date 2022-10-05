@@ -62,7 +62,8 @@ function renderEvent(data) {
 }
 
 function viewEventDetails(event_id){
-    location.href = ``
+    
+    location.href = `${loginUrl}/events/eventdetails.html?e_id=${event_id}`
 }
 
 // var previousPageNumber = 0;
@@ -93,7 +94,7 @@ function getEvent(pageNumber, pageSize, next) {
     }
 }
 
-getEvent(0, 2)
+getEvent(0, 10)
 
 
 function deleteEvent(id) {
@@ -132,39 +133,39 @@ function deleteEvent(id) {
 let uid;
 
 
-function renderPagination() {
-    let renderPagination = ""
-    let paginationBoxes = 0;
+// function renderPagination() {
+//     let renderPagination = ""
+//     let paginationBoxes = 0;
 
 
-    getData(`/countallevents`).then((data) => {
-        paginationBoxes = Math.ceil(data / 2)
-        onlyFivePaginationBoxes = 0;
+//     getData(`/countallevents`).then((data) => {
+//         paginationBoxes = Math.ceil(data / 2)
+//         onlyFivePaginationBoxes = 0;
 
-        if (paginationBoxes > 5) {
-            onlyFivePaginationBoxes = 5
-        }
-        else {
-            onlyFivePaginationBoxes = paginationBoxes;
-        }
+//         if (paginationBoxes > 5) {
+//             onlyFivePaginationBoxes = 5
+//         }
+//         else {
+//             onlyFivePaginationBoxes = paginationBoxes;
+//         }
 
-        renderPagination += `
-        <li class="page-item" onclick="getEvent(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
-        for (let i = 0; i < onlyFivePaginationBoxes; i++) {
-            renderPagination += `
-            <li class="page-item" onclick="getEvent(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
-            `
-        }
+//         renderPagination += `
+//         <li class="page-item" onclick="getEvent(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
+//         for (let i = 0; i < onlyFivePaginationBoxes; i++) {
+//             renderPagination += `
+//             <li class="page-item" onclick="getEvent(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
+//             `
+//         }
 
-        renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
-        <li class="page-item" onclick="getEvent(${paginationBoxes - 1},${2})"><a class="page-link" href="#">${paginationBoxes}</a></li>
-        <li class="page-item"onclick="getEvent(${paginationBoxes},${2},${true})"><a class="page-link" href="#">Next</a></li>`
+//         renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
+//         <li class="page-item" onclick="getEvent(${paginationBoxes - 1},${2})"><a class="page-link" href="#">${paginationBoxes}</a></li>
+//         <li class="page-item"onclick="getEvent(${paginationBoxes},${2},${true})"><a class="page-link" href="#">Next</a></li>`
 
 
-        document.getElementById("pagination").innerHTML = renderPagination
-    })
-}
-renderPagination()
+//         document.getElementById("pagination").innerHTML = renderPagination
+//     })
+// }
+// renderPagination()
 
 
 

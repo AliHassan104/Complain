@@ -172,7 +172,9 @@ function tokenNotExist() {
         }
 
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-             console.log("Congratulation")
+             if(getRoles.includes("ROLE_WORKER")){
+                window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") 
+             }
         }
         else {
              window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") 

@@ -38,7 +38,7 @@ function renderUser(data) {
 
             <td  class="datatable"> 
             <a href="/user/adduser.html?id=${data[i].id}">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
+            <i data-bs-toggle="modal" style="padding-right: 15px; margin-right: 5px;"  data-bs-target="#exampleModal"  
              class="fa fa-pencil"></i>
             </a>
 
@@ -58,7 +58,6 @@ function renderUser(data) {
                 document.getElementById("noRecordFound").innerHTML = ""
             }
 }
-// style="padding-right: 15px; margin-right: 5px;" 
 getUser()
 
 
@@ -66,31 +65,14 @@ function userDetails(id){
     location.href = `${loginUrl}/user/userdetails.html?u_id=${id}`
 }
 
-// function getArea() {
-//     let table = ""
-
-//         getArea(`/area`)
-//         .then((data) => {
-//             allArea = data;
-//             table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
-//             table += `<option value="ALL" selected>Select Area</option>`
-//             for (let i = 0; i < data.length; i++) {
-//                 table += `
-//             <option value="${data[i].id}">${data[i].name}</option>
-//         `
-//             }
-//             table += `</select>`
-//             document.getElementById("dropdownarea1").innerHTML = table;
-//         })
-// }
-
 
 function deleteUser(id) {
 
     deleteData(`/user/${id}`)
-    .then(() => {
+    .then((response) => {
         let table = ""
 
+        if(response.ok){
         table += `
             <div  style=" 
             margin: auto;
@@ -102,6 +84,20 @@ function deleteUser(id) {
             class="alert alert-danger" role="alert">
             User Deleted Successfully
             </div>`
+        }
+        else{
+            table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Some thing Went Wrong Cannot Delete
+            </div>`
+        }
 
         document.getElementById("formSubmitted").innerHTML = table
 

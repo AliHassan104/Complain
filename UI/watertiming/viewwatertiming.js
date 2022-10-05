@@ -6,13 +6,16 @@ function getWaterTiming() {
 
     getData(`/admin/watertiming`)
         .then((data) => {
+           
             renderWaterTiming(data.content)
             // pagination method
         })
 }
 
 function renderWaterTiming(data) {
+     
     let table = ""
+
     table += `
     <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
     <th style="width: 20%;" class="toptable ">Area</th>
@@ -23,6 +26,7 @@ function renderWaterTiming(data) {
     <th style="width: 20%;" class="toptable ">End Time</th>
     <th style="width: 20%;" class="toptable ">Action</th>
     </tr>`
+
     if (data != null) {
         for (let i = 0; i < data.length; i++) {
 
@@ -33,15 +37,15 @@ function renderWaterTiming(data) {
             endTimeToHr = convertTimeTo12hrs(endTime, data[i].end_time.slice(3, 5))
 
             table += `
-        <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
-        <td style="width: 20%;" class="datatable">${data[i].block.area.name}</td>
-        <td style="width: 20%;" class="datatable">${data[i].block.block_name}</td>
-        <td style="width: 20%;" class="datatable">${data[i].day}</td>
-        <td style="width: 20%;" class="datatable">${data[i].date}</td>
-        <td style="width: 20%;" class="datatable">${startTimeToHr}</td>
-        <td style="width: 20%;" class="datatable">${endTimeToHr}</td>
-        <td style="width: 20%;" class="datatable">
-        
+                <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
+                <td style="width: 20%;" class="datatable">${data[i].block.area.name}</td>
+                <td style="width: 20%;" class="datatable">${data[i].block.block_name}</td>
+                <td style="width: 20%;" class="datatable">${data[i].day}</td>
+                <td style="width: 20%;" class="datatable">${data[i].date}</td>
+                <td style="width: 20%;" class="datatable">${startTimeToHr}</td>
+                <td style="width: 20%;" class="datatable">${endTimeToHr}</td>
+                <td style="width: 20%;" class="datatable">
+                
         <a  href="/watertiming/addwatertiming.html?id=${data[i].id}">
         <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>

@@ -8,7 +8,8 @@ function getArea() {
     let table = ""
  
     //                                                  getData Method to get Data
-    getData("/admin/area").then((data)=> {
+    getData("/admin/area").
+    then((data)=> {
         
         table += `<tr  class="tablepoint">
         <th  class="toptable ">Name</th>
@@ -51,11 +52,12 @@ getArea()
 
 
 function deleteArea(id){
+    let table = ""
 
-    deleteData(`/area/${id}`).then(()=>{
-        let table = ""
-
-        table += `
+    deleteData(`/area/${id}`).then((response)=>{
+        
+        if(response.ok){
+            table += `
             <div  style=" 
             margin: auto;
             text-align: center;
@@ -67,6 +69,22 @@ function deleteArea(id){
             Area  Deleted Successfully
             </div>`
 
+        }
+        else{
+        table += `
+                    <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-danger" role="alert">
+                    Some thing Wrong Cannot Delete
+                    </div>`
+        }
+
+        
         document.getElementById("formSubmitted").innerHTML = table
 
         

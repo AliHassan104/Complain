@@ -183,7 +183,7 @@ function formSubmit() {
 function getArea() {
     let renderData = ""
 
-    getData("/admin/area")
+    getData("/area")
         .then((data) => {
             if (data.length !== 0) {
                 for (let i = 0; i < data.length; i++) {
