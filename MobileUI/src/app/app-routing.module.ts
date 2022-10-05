@@ -35,10 +35,12 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 const routes: Routes = [
+  
   // {
   //   path: "", component: LoginPageComponent,
-
   // },
+
+
   {
     path: "", component: LoginPageComponent
   },
