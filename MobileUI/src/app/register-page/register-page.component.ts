@@ -4,7 +4,7 @@ import { Register } from './register';
 import { MainService } from '../Services/main.service';
 import { ToastUtilService } from '../Services/toast-util.service';
 import { AreaService } from '../Services/area.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../Services/register.service';
 
 @Component({
@@ -108,30 +108,38 @@ onToggleShowPassword(){
 
 // registerForm:FormGroup;
 
+
+
+
 registerForm = new FormGroup({
   address : new FormGroup({
     id : new FormControl()
   }),
   area : new FormGroup({
-    id : new FormControl()
+    id : new FormControl(null,[ Validators.required])
   }),
-  block : new FormGroup({
-    id : new FormControl()
+  block : new FormGroup(
+    {id : new FormControl(null,[ Validators.required])
   }),
 
-  firstname : new FormControl(),
-  lastname : new FormControl(),
-  cnic : new FormControl(),
-  phoneNumber : new FormControl(),
-  email : new FormControl(),
-  password : new FormControl(),
-  numberOfFamilyMembers : new FormControl(),
-  property : new FormControl(),
-  houseNumber : new FormControl(),
-  floorNumber : new FormControl(),
-  street : new FormControl()
+  firstname : new FormControl('',[ Validators.required , Validators.minLength(3) , Validators.pattern("[a-zA-Z]*")]), // ,Validators.minLength(3) , Validators.maxLength(15)
+  lastname : new FormControl('',[ Validators.required , Validators.minLength(3) , Validators.pattern("[a-zA-Z]*")]), // ,Validators.minLength(3) , Validators.maxLength(15)]
+  // cnic : new FormControl('',[ Validators.required , Validators.pattern('/^([0-9]{5})[\-]([0-9]{7})[\-]([0-9]{1})+/')]), // ,Validators.minLength(9)]
+  cnic : new FormControl('',[ Validators.required , Validators.pattern('^[0-9]{13}$')]), // ,Validators.minLength(9)]
+  phoneNumber : new FormControl('',[ Validators.required, Validators.pattern('^[0-3]{2}[0-9]{8}$')]), // ,Validators.minLength(10) , Validators.maxLength(10)]
+  email : new FormControl('',[ Validators.required , Validators.email]), // , Validators.email
+  password : new FormControl('',[ Validators.required , Validators.minLength(8)]),
+  numberOfFamilyMembers : new FormControl('',[ Validators.required]), // Validators.pattern('^[1-9][0-9]{2}$')
+  property : new FormControl(null,[ Validators.required]),
+  houseNumber : new FormControl('',[ Validators.required]),
+  floorNumber : new FormControl('',[ Validators.required]),
+  street : new FormControl('',[ Validators.required])
 
 })
+
+
+
+
 
 
 user = new FormGroup({
@@ -157,6 +165,7 @@ user = new FormGroup({
   numberOfFamilyMembers : new FormControl(),
   property : new FormControl(),
   userType : new FormControl(),
+  deviceToken : new FormControl(),
 })
 
 
@@ -204,6 +213,7 @@ address = new FormGroup({
     this.user.value.numberOfFamilyMembers = userData.numberOfFamilyMembers
     this.user.value.property = userData.property
     this.user.value.userType = "Customer"
+    this.user.value.deviceToken = localStorage.getItem("deviceId")
 
     this.user.value.address.id = userData.address.id
     this.user.value.area.id = userData.area.id
@@ -246,21 +256,18 @@ address = new FormGroup({
         console.log(addressData);
           this.user.value.address.id = 1
           this.userPost(this.user)
-          this.toastService.showToast("Registered Successfully Your Account Will Be Active In 24 Hours", "#toast-15")
+          this.toastService.showToast("Registered Successfully Your Account Will Be Active With In 24 Hours", "#toast-15")
 
       }, error => {
         console.log(error);
         this.toastService.showToast("Not Registered", "#toast-16");
       });
-
-
   }
 
   userPost(data: any){
     // console.log(data.value);
     setTimeout(() => {
       this.registerService.postUser(data.value).subscribe(userData => {
-        console.log(userData);
         this.router.navigate(['survey']);
       }, error => {
         console.log(error);

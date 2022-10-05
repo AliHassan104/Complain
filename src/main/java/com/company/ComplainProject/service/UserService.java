@@ -61,6 +61,7 @@ public class UserService {
     }
 
     public UserDetailsResponse addUser(UserDto userDto) {
+        System.out.println(userDto);
         if(userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)){
             userDto.setStatus(UserStatus.PUBLISHED);
         }

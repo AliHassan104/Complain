@@ -100,8 +100,6 @@ export class HomeComponent implements OnInit {
   // }
   getEventsByArea() {
     this.eventService.getEventByArea(this.areaId).subscribe(data => {
-      console.log(data);
-
       this.events = data
       this.Images.push(data)
       // console.log(data);

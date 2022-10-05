@@ -22,7 +22,7 @@ export class LoginService {
   }
   url = environment.baseUrl
 
-  Login(data):Observable <any> {
+  login(data):Observable <any> {
     return this.http.post(`${this.url}/api/login`,data);
   }
 

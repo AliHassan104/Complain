@@ -17,7 +17,7 @@ public class ComplainLogController {
     @Autowired
     ComplainLogService complainLogService;
 
-    @GetMapping("complainlog")
+    @GetMapping("/complainlog")
     public ResponseEntity<List<ComplainLogDto>> getAllComplainLog(){
         try{
             return ResponseEntity.ok(complainLogService.getAllComplainLog());
@@ -27,7 +27,7 @@ public class ComplainLogController {
         }
     }
 
-    @GetMapping("complainlog/{id}")
+    @GetMapping("/complainlog/{id}")
     public ResponseEntity<ComplainLogDto> getComplainLogById(@PathVariable Long id){
         try{
             return ResponseEntity.ok(complainLogService.getComplainLogById(id));
@@ -37,7 +37,7 @@ public class ComplainLogController {
         }
     }
 
-    @GetMapping("complainlogbycomplain/{c_id}")
+    @GetMapping("/complainlogbycomplain/{c_id}")
     public ResponseEntity<List<ComplainLogDto>> getComplainLogByComplain(@PathVariable("c_id") Long id){
         try{
             return ResponseEntity.ok(complainLogService.getComplainLogsByComplain(id));
