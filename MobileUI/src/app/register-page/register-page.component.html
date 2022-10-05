@@ -36,6 +36,8 @@
 
                          <div class="alert alert-danger"
 
+
+
                          *ngIf="registerForm.controls['firstname'].invalid &&
                          registerForm.controls['firstname'].touched">
 
@@ -50,6 +52,7 @@
                          </span>
 
                         </div>
+
 
 
 
@@ -212,6 +215,7 @@
                         <option *ngFor="let block of blocks" [value]="block.id">{{block.block_name}}</option>>
                         <!-- <option  value="Tenant">Block B</option> -->
                     </select>
+
                 </div>
             </div>
 

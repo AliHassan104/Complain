@@ -88,7 +88,7 @@ export class MycomplainComponent implements OnInit {
       id : new FormControl()
     }),
     complainType : new FormGroup({
-      id : new FormControl()
+      id : new FormControl(null,[ Validators.required])
     }),
   })
 

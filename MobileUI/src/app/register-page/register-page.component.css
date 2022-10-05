@@ -13,7 +13,13 @@
       appearance: none;
   }
 
-  input.ng-invalid {border-left: 5px solid red;}
-  input.ng-valid {border-left: 5px solid green;}
+  /* .alert-custom{
+    font-weight: bold;
+    background-color:#ff6875;
+    color:#721c24;
+  } */
+
+  /* input.ng-invalid {border-left: 5px solid red;}
+  input.ng-valid {border-left: 5px solid green;} */
 
 

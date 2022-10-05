@@ -116,10 +116,10 @@ registerForm = new FormGroup({
     id : new FormControl()
   }),
   area : new FormGroup({
-    id : new FormControl()
+    id : new FormControl(null,[ Validators.required])
   }),
   block : new FormGroup(
-    {id : new FormControl()
+    {id : new FormControl(null,[ Validators.required])
   }),
 
   firstname : new FormControl('',[ Validators.required , Validators.minLength(3) , Validators.pattern("[a-zA-Z]*")]), // ,Validators.minLength(3) , Validators.maxLength(15)
@@ -130,7 +130,7 @@ registerForm = new FormGroup({
   email : new FormControl('',[ Validators.required , Validators.email]), // , Validators.email
   password : new FormControl('',[ Validators.required , Validators.minLength(8)]),
   numberOfFamilyMembers : new FormControl('',[ Validators.required]), // Validators.pattern('^[1-9][0-9]{2}$')
-  property : new FormControl(),
+  property : new FormControl(null,[ Validators.required]),
   houseNumber : new FormControl('',[ Validators.required]),
   floorNumber : new FormControl('',[ Validators.required]),
   street : new FormControl('',[ Validators.required])
