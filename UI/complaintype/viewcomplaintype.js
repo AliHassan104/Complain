@@ -44,12 +44,25 @@ function renderComplainType(data){
 }
 
 function deleteComplainType(id){
-    
-    deleteData(`/complaintype/${id}`)
-    .then(()=>{
-        let table = ""
+    let table = ""
 
-        table += `
+    deleteData(`/complaintype/${id}`).then((response)=>{
+        
+        if(response.ok){
+            table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-success" role="alert">
+             Complain Type Deleted Successfully
+            </div>`
+        }
+        else{
+            table += `
         <div  style=" 
         margin: auto;
         text-align: center;
@@ -58,8 +71,9 @@ function deleteComplainType(id){
         justify-content: center;
         font-size: large" 
         class="alert alert-danger" role="alert">
-         Complain Type Deleted Successfully
+         Some Thing Went Wrong Cannot Delete
         </div>`
+        }
 
         document.getElementById("formSubmitted").innerHTML = table
 

@@ -76,9 +76,6 @@ function renderComplainData(data) {
             class="fa fa-pencil"></i>
             </a>
 
-            <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
-             class="fa fa-file"></i>
-
             <i onclick="deleteComplain(${data[i].id})"  class="fa fa-close"></i>
         
             <i onclick="assignComplainToUser(${data[i].id})"  
@@ -87,6 +84,8 @@ function renderComplainData(data) {
         </tr>`
     }
 
+    // <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
+    // class="fa fa-file"></i>
     document.getElementById("datatables-reponsive").innerHTML = table;
     
     if (data.length === 0) {
@@ -237,4 +236,4 @@ function  renderPagination(pages) {
         document.getElementById("pagination").innerHTML = renderPagination
     
 }
-renderPagination()
+// renderPagination()

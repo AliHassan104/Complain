@@ -14,7 +14,7 @@ function renderUserData(){
     getData(`/user/${user_id}`)
     .then((data)=>{
            
-            document.getElementById('username').value = data.firstname+" "+data.lastname
+            document.getElementById('userName').value = data.firstname+" "+data.lastname
             document.getElementById('email').value = data.email
             document.getElementById('cnic').value =  data.cnic
             document.getElementById('number').value = data.phoneNumber
