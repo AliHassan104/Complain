@@ -10,6 +10,7 @@ import com.company.ComplainProject.exportDataToExcel.UserExcelExporter;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,9 +30,9 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/user")
-    public ResponseEntity<List<UserDetailsResponse>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
-                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<UserDetailsResponse> user = userService.getAllUserWithPagination(pageNumber,pageSize);
+    public ResponseEntity<Page<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
+                                                             @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+        Page<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
         }

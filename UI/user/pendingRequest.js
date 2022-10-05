@@ -43,6 +43,16 @@ function getUser() {
         </tr>`
             }
             document.getElementById("showUserData").innerHTML = table;
+
+            if (data.length === 0) {
+                noRecordFound = ""
+                noRecordFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+                        class="alert alert-danger" role="alert" >No User Found</span> `
+                document.getElementById("noRecordFound").innerHTML = noRecordFound
+            }
+            else{
+                document.getElementById("noRecordFound").innerHTML = ""
+            }
         })
 }
 getUser()

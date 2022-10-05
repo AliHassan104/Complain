@@ -93,8 +93,6 @@ public class PollingAnswerService {
         }
 //                                                  Sort the HashMap with largest value (Descending Order)
          Collections.sort(optionResult,new filterPollingOptionResults());
-        System.out.println(optionResult);
-
 
         return new PollingQuestionResult(pollingQuestion.getId(),pollingQuestion.getQuestion(),optionResult);
     }

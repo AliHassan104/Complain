@@ -62,30 +62,30 @@ function renderEvent(data) {
 
 }
 
-var previousPageNumber = 0;
+// var previousPageNumber = 0;
 function getEvent(pageNumber, pageSize, next) {
                                                                 //  If Next is clicked increment pageNumber
-    if (next) {
-        totalPaginationBoxes = pageNumber;
-        if (previousPageNumber + 1 < pageNumber) {
-            previousPageNumber += 1
-            pageNumber = previousPageNumber
-        }
-    }
-                                                               //  If Previous is clicked decrement pageNumber
-    if (next === false) {
-        pageNumber = previousPageNumber;
-        if (pageNumber != 0) {
-            previousPageNumber -= 1
-            pageNumber = previousPageNumber
-        }
-    }
+    // if (next) {
+    //     totalPaginationBoxes = pageNumber;
+    //     if (previousPageNumber + 1 < pageNumber) {
+    //         previousPageNumber += 1
+    //         pageNumber = previousPageNumber
+    //     }
+    // }
+    //                                                            //  If Previous is clicked decrement pageNumber
+    // if (next === false) {
+    //     pageNumber = previousPageNumber;
+    //     if (pageNumber != 0) {
+    //         previousPageNumber -= 1
+    //         pageNumber = previousPageNumber
+    //     }
+    // }
 
     if (pageNumber >= 0) {
         getData(`/admin/event?pageNumber=${pageNumber}&pageSize=${pageSize}`)
             .then((data) => {
                 previousPageNumber = pageNumber
-                renderEvent(data);
+                renderEvent(data.content);
             })
     }
 }

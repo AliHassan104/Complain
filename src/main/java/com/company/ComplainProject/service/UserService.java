@@ -43,14 +43,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<UserDetailsResponse> getAllUserWithPagination(Integer pageNumber,Integer pageSize){
+    public Page<User> getAllUserWithPagination(Integer pageNumber,Integer pageSize){
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
-        List<User> userList = userPage.getContent();
-        List<UserDetailsResponse>  userDetailsResponses=userList.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
-
-        return userDetailsResponses;
+        userPage.getContent().stream().forEach(user -> user.setPassword(null));
+        return userPage;
     }
 
     public UserDetailsResponse getUserById(Long id) {

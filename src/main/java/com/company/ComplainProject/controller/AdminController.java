@@ -26,33 +26,34 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/achievement")
-    public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
-            List<Achievements> achievements = adminService.getAllAchievements(pageNumber,pageSize);
+            Page<Achievements> achievements = adminService.getAllAchievements(pageNumber,pageSize);
             return ResponseEntity.ok(achievements);
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No Achievements Exist");
         }
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAddress(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                    @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<Address> address = adminService.getAllAddress(pageNumber,pageSize);
+    public ResponseEntity<List<AddressDto>> getAddress(){
+        List<AddressDto> address = adminService.getAllAddress();
         if(!address.isEmpty()){
             return ResponseEntity.ok(address);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/area")
-    public ResponseEntity<List<Area>> getArea(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<Area>> getArea(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
-            List<Area> assetBooking = adminService.getAllArea(pageNumber,pageSize);
-            return ResponseEntity.ok(assetBooking);
+            Page<Area> area = adminService.getAllArea(pageNumber,pageSize);
+            return ResponseEntity.ok(area);
         }
         catch (Exception e){
             System.out.println(e);
@@ -75,10 +76,10 @@ public class AdminController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complaintype")
-    public ResponseEntity<List<ComplainType>> getComplainType(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<ComplainType>> getComplainType(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
-            List<ComplainType> complainType = adminService.getAllComplainType(pageNumber,pageSize);
+            Page<ComplainType> complainType = adminService.getAllComplainType(pageNumber,pageSize);
             return ResponseEntity.ok(complainType);
         }
         catch (Exception e){
@@ -88,10 +89,10 @@ public class AdminController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/document")
-    public ResponseEntity<List<Document>> getDocument(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+    public ResponseEntity<Page<Document>> getDocument(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                      @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
-            List<Document> document = adminService.getAllDocument(pageNumber,pageSize);
+            Page<Document> document = adminService.getAllDocument(pageNumber,pageSize);
             return ResponseEntity.ok(document);
         }
         catch (Exception e){
@@ -99,6 +100,7 @@ public class AdminController {
             throw  new ContentNotFoundException("No Document Found");
         }
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollinganswer")
     public ResponseEntity<List<PollingAnswer>> getPollingAnswer(){
@@ -121,10 +123,10 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/pollingquestion")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                                    @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+    public ResponseEntity<Page<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                                    @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
-            List<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
+            Page<PollingQuestion> pollingQuestion = adminService.getAllPollingQuestion(pageNumber,pageSize);
             return ResponseEntity.ok(pollingQuestion);
         }
         catch (Exception e){
@@ -135,10 +137,10 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user")
-    public ResponseEntity<List<UserDetailsResponse>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+    public ResponseEntity<Page<User>> getUser(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
-            List<UserDetailsResponse> user = adminService.getAllUsers(pageNumber,pageSize);
+            Page<User> user = adminService.getAllUsers(pageNumber,pageSize);
             return ResponseEntity.ok(user);
         }
         catch (Exception e){
@@ -149,10 +151,10 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/watertiming")
-    public ResponseEntity<List<WaterTiming>> getWaterTiming(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<WaterTiming>> getWaterTiming(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                             @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         try{
-            List<WaterTiming> waterTiming = adminService.getAllWaterTiming(pageNumber,pageSize);
+            Page<WaterTiming> waterTiming = adminService.getAllWaterTiming(pageNumber,pageSize);
             return ResponseEntity.ok(waterTiming);
         }
         catch (Exception e){
@@ -185,7 +187,7 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/event")
-    public ResponseEntity<List<EventDto>> getAllEvent(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<Event>> getAllEvent(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
         try{
             return ResponseEntity.ok(adminService.getAllEvents(pageNumber,pageSize));
@@ -195,17 +197,5 @@ public class AdminController {
         }
     }
 
-//                                                          Assign Complain To User
-
-    @PreAuthorize(("hasRole('ROLE_ADMIN')"))
-    @PostMapping("/assigncomplaintoworker")
-    public ResponseEntity<ComplainLogDto> assignComplainToWorker(@RequestBody ComplainLogDto complainLogDto){
-        try{
-            return ResponseEntity.ok(adminService.assignComplainToWorker(complainLogDto));
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new IllegalArgumentException("Issue in Assigning Complain");
-        }
-    }
 
 }

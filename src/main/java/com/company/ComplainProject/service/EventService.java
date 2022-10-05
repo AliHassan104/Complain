@@ -36,12 +36,11 @@ public class EventService {
         return events;
     }
 //                                                                                          get all event s with pagination
-    public List<EventDto> getAllEventWithPagination(Integer pageNumber,Integer pageSize){
+    public Page<Event> getAllEventWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Event> eventPage = eventRepository.findAll(pageable);
-        List<Event> events = eventPage.getContent();
 
-        return events.stream().map(event -> todto(event)).collect(Collectors.toList());
+        return eventPage;
      }
 
 //                                                                                           save events in the record

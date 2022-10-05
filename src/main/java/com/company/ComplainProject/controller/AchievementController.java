@@ -38,9 +38,9 @@ public class AchievementController {
     @GetMapping("/achievement")
     public ResponseEntity<Page<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        Page<Achievements> assetBooking = achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
-        if(!assetBooking.isEmpty()){
-            return ResponseEntity.ok(assetBooking);
+        Page<Achievements> achievements= achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
+        if(!achievements.isEmpty()){
+            return ResponseEntity.ok(achievements);
         }
         throw new ContentNotFoundException("No Achievement Exist ");
     }

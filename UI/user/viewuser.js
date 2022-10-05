@@ -3,11 +3,18 @@ var mainAreaId;
 var mainAddressId;
 var allArea = []
 
-function getUser() {
-    let table = ""
+
+function getUser(){
 
     getData(`/admin/user`)
-        .then((data) => {
+    .then((data)=>{
+        renderUser(data.content)
+    })
+
+}
+function renderUser(data) {
+    let table = ""
+
 
             table += `<tr  class="tablepoint">
         <th class="toptable ">Name</th>
@@ -40,34 +47,42 @@ function getUser() {
         </tr>`
             }
             document.getElementById("datatables-reponsive").innerHTML = table;
-        })
+
+            if (data.length === 0) {
+                noRecordFound = ""
+                noRecordFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+                        class="alert alert-danger" role="alert" >No User Found</span> `
+                document.getElementById("noRecordFound").innerHTML = noRecordFound
+            }
+            else{
+                document.getElementById("noRecordFound").innerHTML = ""
+            }
 }
 // style="padding-right: 15px; margin-right: 5px;" 
 getUser()
 
-getArea()
 
 function userDetails(id){
     location.href = `${loginUrl}/user/userdetails.html?u_id=${id}`
 }
 
-function getArea() {
-    let table = ""
+// function getArea() {
+//     let table = ""
 
-        getArea(`/area`)
-        .then((data) => {
-            allArea = data;
-            table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
-            table += `<option value="ALL" selected>Select Area</option>`
-            for (let i = 0; i < data.length; i++) {
-                table += `
-            <option value="${data[i].id}">${data[i].name}</option>
-        `
-            }
-            table += `</select>`
-            document.getElementById("dropdownarea1").innerHTML = table;
-        })
-}
+//         getArea(`/area`)
+//         .then((data) => {
+//             allArea = data;
+//             table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
+//             table += `<option value="ALL" selected>Select Area</option>`
+//             for (let i = 0; i < data.length; i++) {
+//                 table += `
+//             <option value="${data[i].id}">${data[i].name}</option>
+//         `
+//             }
+//             table += `</select>`
+//             document.getElementById("dropdownarea1").innerHTML = table;
+//         })
+// }
 
 
 function deleteUser(id) {

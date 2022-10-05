@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AchievementService {
@@ -30,7 +31,7 @@ public class AchievementService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Achievements> achievementsPage = achievementRepository.findAll(pageable);
-        return  achievementsPage;
+        return achievementsPage;
     }
 
     public List<Achievements> getAllAchievement(){

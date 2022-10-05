@@ -109,9 +109,19 @@ function showComplainDetails(id) {
     location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
 }
                                                                         //  get Complain With Pagination
-function getComplain(number,size) {
+var previousPage = 0;
+function getComplain(number,size,next) {
+    
+    if(next){
+        number = previousPage + 1
+    }
+    else if(next == false && previousPage > 0){
+         number = previousPage-1
+    }
+
     getData(`/admin/complain?pageNumber=${number}&pageSize=${size}`)
         .then((data) => {
+            previousPage = number
             renderComplainData(data.content)
             renderPagination(data.totalPages) 
         })
@@ -144,7 +154,7 @@ function giveNotificationToUserOnComplainStatus(complain_id){
     sendData(`/send-notification-touser/${complain_id}`)
 }
 
-async function updateComplainLog(complain_id){
+function updateComplainLog(complain_id){
     
     getUserData().then((data)=>{
         complainLog = {
@@ -223,7 +233,6 @@ function  renderPagination(pages) {
         renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
         <li class="page-item" onclick="getComplain(${pages- 1},${10})"><a class="page-link" href="#">${pages}</a></li>
         <li class="page-item"onclick="getComplain(${pages},${10},${true})"><a class="page-link" href="#">Next</a></li>`
-
 
         document.getElementById("pagination").innerHTML = renderPagination
     

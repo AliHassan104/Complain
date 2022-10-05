@@ -6,9 +6,16 @@ import com.company.ComplainProject.dto.AreaDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.repository.AreaRepository;
+import com.google.cloud.PageImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +38,13 @@ public class AreaService {
         }
         throw new ContentNotFoundException("No Area Exist");
     }
+
+    public Page<Area> getAllAreaDtoWithPagination(Integer pageNumber,Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Area> areaPage = areaRepository.findAll(pageable);
+        return areaPage;
+    }
+
 
     public AreaDto getAreaById(Long id) {
        Optional<Area> area = areaRepository.findById(id);
