@@ -27,7 +27,6 @@ import { DiscoverEventsComponent } from './discover-events/discover-events.compo
 import { EventPreviewComponent } from './event-preview/event-preview.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -79,7 +78,6 @@ import { HeaderInterceptor } from './Interceptor/header.interceptor';
     EventPreviewComponent,
     ChatroomComponent,
     EditPostComponent,
-    ForgotPasswordComponent,
     ResetPasswordComponent,
     AddpostNotificationsComponent,
     HomeComponent,

@@ -115,9 +115,9 @@ export class LoginPageComponent implements OnInit {
 //   }
 
 
-  // goToForgotPassword(){
-  //   this.router.navigate(['forgot-password'])
-  // }
+  goToForgotPassword(){
+    this.router.navigate(['forget-password'])
+  }
 
 //   @HostListener('window:resize', ['$event'])
 //   onResize(event) {
