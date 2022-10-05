@@ -41,4 +41,10 @@ public class LoginController {
         return ResponseEntity.ok(new AuthenticationResponse(jwtToken));
 
         }
+
+//        @PutMapping("/testing12")
+//        public ResponseEntity<String> testing12(){
+//        return ResponseEntity.ok("Hello");
+//        }
+
 }

@@ -2,51 +2,37 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ForgetPasswordDto;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
-import com.company.ComplainProject.model.ForgetPassword;
+import com.company.ComplainProject.model.OTP;
 import com.company.ComplainProject.model.User;
-import com.company.ComplainProject.repository.ForgetPasswordRepo;
+import com.company.ComplainProject.repository.OTPRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 
 @Service
 public class EmailService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ForgetPasswordRepo forgetPasswordRepo;
-    @Autowired
-    UserService userService;
 
-    public Long getUserIdByEmail(String email) {
-//        System.out.println(userRepository.findByEmail(email));
-        Long byEmail = userRepository.byEmail(email);
-        if(byEmail != null){
-            return byEmail;
-        }
-        throw new ContentNotFoundException("No User present with Email of "+email);
+    @Value("${email.path.url}")
+    private String emailPath;
 
 
-    }
 
-    public ForgetPassword saveOtpInDb(ForgetPassword forgetPasswordDto){
-        return forgetPasswordRepo.save(forgetPasswordDto);
-    }
 
-//    public ForgotPasswordDto toDto(ForgotPassword forgotPassword){
-//        return ForgotPasswordDto.builder().Id(forgotPassword.getId()).otp(forgotPassword.getOtp()).build();
-//    }
-//    public ForgotPassword dto(int dto){
-//        return ForgotPassword.builder().Id(dto.getId()).otp(dto.getOtp()).build();
-//    }
 
     public boolean sendEmail(String subject , String message , String to){
 
@@ -110,48 +96,14 @@ public class EmailService {
 
     }
 
-    public List<ForgetPassword> getAllOtp() {
-        List<ForgetPassword> allOtp = forgetPasswordRepo.findAll();
 
+    public void sendForgetPasswordEmail(UserDetailsResponse user,OTP otp) throws UnsupportedEncodingException, MalformedURLException {
+        URL url=new URL(emailPath+"#/new-password?otp="+ URLEncoder.encode(otp.getCode().toString(), String.valueOf(StandardCharsets.UTF_8))+"&userId="
+                +URLEncoder.encode(user.getId().toString(),StandardCharsets.UTF_8.toString()));
+        String message="hello dear your url " + url;
+        String subject="Confirmation code";
 
-        return allOtp;
+        sendEmail(subject,message,user.getEmail());
     }
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
-    }
-    public UserDto updateUserPassword( ForgetPasswordDto forgetPasswordDto ){
-        try {
-            Long userId=forgetPasswordDto.getId();
-            List<ForgetPassword> f = getAllOtp();
-            User updateUser = getAllUsers().stream().filter(el -> el.getId().equals(userId)).findAny().get();
-
-            boolean bol = false;
-            for (ForgetPassword el : f) {
-                if (el.getOtp().equals(forgetPasswordDto.getOtp())) {
-                    if (updateUser != null) {
-                        updateUser.setPassword(forgetPasswordDto.getPassword());
-                    }
-                    bol = true;
-                }
-            }
-
-            if (bol) {
-                UserDto userDto = userService.toDto(userRepository.save(updateUser));
-
-                if (userDto != null) {
-                    ForgetPassword otpId = forgetPasswordRepo.getIdByOtp(forgetPasswordDto.getOtp());
-                    forgetPasswordRepo.deleteById(otpId.getId());
-                }
-                return userDto;
-            }
-            else{
-                throw new ContentNotFoundException("No otp found");
-            }
-        }catch (Exception e){
-            throw new ContentNotFoundException("a");
-        }
-    }
-
-
 }
 

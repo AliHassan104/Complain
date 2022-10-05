@@ -37,6 +37,7 @@ public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificati
     Page<User>  findPublishedUser(Pageable pageable,@Param("status") UserStatus status);
 
 
-
+    @Query(value = "SELECT u.id FROM users u where u.email=?1",nativeQuery = true)
+    Long byEmail(String email);
 
 }

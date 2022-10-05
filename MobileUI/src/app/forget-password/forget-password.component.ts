@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ForgetPasswordServiceService } from './forget-password-service.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-forget-password',
@@ -24,7 +25,6 @@ export class ForgetPasswordComponent implements OnInit {
 
   form = new FormGroup({
     email : new FormControl(),
-  
   })
 
 

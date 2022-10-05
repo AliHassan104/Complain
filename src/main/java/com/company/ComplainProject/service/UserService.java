@@ -1,6 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.dto.ForgetPasswordDto;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.ProjectEnums.UserType;
 import com.company.ComplainProject.dto.SearchCriteria;
@@ -217,7 +218,15 @@ public class UserService {
         return countByStatus;
     }
 
+    public UserDetailsResponse updateUserPassword(ForgetPasswordDto forgetPasswordDto) {
 
+        User updateUser = getAllUser().stream().filter(el->el.getId().equals(forgetPasswordDto.getUserId())).findAny().get();
+        if(updateUser!=null) {
+        updateUser.setPassword(forgetPasswordDto.getPassword());
+        }
 
-}
+        return userToUserDetailsResponse(userRepository.save(updateUser));
+        }
+    }
+
 
