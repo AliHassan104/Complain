@@ -83,11 +83,13 @@ function deleteWaterTiming(id){
             </div>`
 
         document.getElementById("formSubmitted").innerHTML = table
+        setTimeout(()=>{
+            document.getElementById("formSubmitted").innerHTML = ""
+        },2000)
+        getWaterTiming()
     })
 
-    setTimeout(() => {
-        getWaterTiming()
-    }, 100);
+   
 }
 
 
