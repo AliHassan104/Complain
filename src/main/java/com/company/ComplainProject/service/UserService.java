@@ -50,7 +50,6 @@ public class UserService {
         List<UserDetailsResponse>  userDetailsResponses=userList.stream().map(user -> userToUserDetailsResponse(user)).collect(Collectors.toList());
 
         return userDetailsResponses;
-
     }
 
     public UserDetailsResponse getUserById(Long id) {
