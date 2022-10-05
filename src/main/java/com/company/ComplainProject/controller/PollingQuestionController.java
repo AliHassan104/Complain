@@ -88,7 +88,7 @@ public class PollingQuestionController {
 //                                                     Show this api in get all polling question by user
 //                                                     Polling questions for customer
 
-    @GetMapping("/pollingquestion/notansweredbyuser")
+    @GetMapping("/pollingquestion/get-all-pollingquestion-for-user")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(){
         try{
             return ResponseEntity.ok(pollingQuestionService.getPollingQuestionsNotAnsweredByUserService());

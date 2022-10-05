@@ -5,8 +5,17 @@ function getDocuments() {
 
     getData(`/admin/document`)
         .then((data) => {
+            renderDocuments(data.content)
+            //  Pagination render method
+        })
+}
+getDocuments()
 
-            table += `<tr  class="tablepoint">
+
+function renderDocuments(data){
+    let table = ''
+
+    table += `<tr  class="tablepoint">
         <th class="toptable ">Title</th>
         <th class="toptable ">Area</th>
         <th class="toptable ">URL</th>
@@ -31,9 +40,7 @@ function getDocuments() {
         </tr>`
             }
             document.getElementById("datatables-reponsive").innerHTML = table;
-        })
 }
-getDocuments()
 
 
 

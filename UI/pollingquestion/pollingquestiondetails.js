@@ -7,7 +7,7 @@ function getPollingQuestionDetails() {
     var renderQuestion = ""
     var renderOption = ""
 
-        getData(`/pollinganswer/getpollingoptionper/${pollingQuestionId}`)
+        getData(`/pollinganswer/getpollingoptionresult/${pollingQuestionId}`)
         .then((data) => {
             getData(`/user/countuserbystatus/Published`)
             .then((countUser)=>{
