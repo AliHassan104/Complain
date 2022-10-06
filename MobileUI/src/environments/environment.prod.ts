@@ -1,7 +1,7 @@
 
 export const environment = {
-  //production: false,
-  baseUrl: 'http://' + window.location.hostname + ':8081',
+  production: true,
+  baseUrl: 'https://' + window.location.hostname + ':8081',
  // baseUrl: 'http://localhost:8081',
     // baseUrl: 'https://d633-101-53-235-105.ap.ngrok.io',
   firebase: {
