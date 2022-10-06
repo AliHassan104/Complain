@@ -50,7 +50,7 @@ public class User {
     @JoinColumn(name = "block_id",referencedColumnName = "id")
     private Block block;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

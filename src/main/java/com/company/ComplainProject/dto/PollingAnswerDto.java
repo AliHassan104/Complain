@@ -19,5 +19,5 @@ public class PollingAnswerDto {
     private Long id;
     private PollingQuestion pollingQuestion;
     private PollingOption pollingOption;
-    private User user;
+    private UserDetailsResponse user;
 }

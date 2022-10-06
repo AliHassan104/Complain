@@ -21,6 +21,10 @@ import java.util.Set;
 @Setter
 @ToString
 @Builder
+
+/**
+ *  send Response using UserDetailResponse (it will not return password)
+ */
 public class UserDetailsResponse {
 
     private Long id;

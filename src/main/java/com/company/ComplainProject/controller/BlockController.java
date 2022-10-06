@@ -6,6 +6,7 @@ import com.company.ComplainProject.service.BlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,18 +19,19 @@ import java.util.Optional;
 public class BlockController {
 
     @Autowired
-    BlockService blockService;
+    private BlockService blockService;
 
     @GetMapping("/block")
-    public ResponseEntity<List<Block>> viewAllBlocks(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
-                                                     @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+    public ResponseEntity<List<Block>> getAllBlocks(){
         try{
-            return ResponseEntity.ok(blockService.getAllBlocksWithPagination(pageNumber,pageSize));
+            return ResponseEntity.ok(blockService.getAllBlocks());
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 //                                                                      Get Blocks with Area
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("blockByArea/{area}")
     public ResponseEntity<List<Block>> getAllBlockByArea(@PathVariable("area") Long areaid){
         try {
@@ -50,6 +52,7 @@ public class BlockController {
     }
 
     @PutMapping("block/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<BlockDto> updateBlockById(@PathVariable("id") Long id,@RequestBody BlockDto blockDto){
         try{
             return ResponseEntity.ok(blockService.updateBlockById(id,blockDto));
@@ -60,6 +63,7 @@ public class BlockController {
     }
 
     @DeleteMapping("block/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteBlockById(@PathVariable Long id){
         try{
             blockService.deleteBlockById(id);
@@ -72,6 +76,7 @@ public class BlockController {
 
 
     @PostMapping("/block")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<BlockDto> addBlock(@RequestBody BlockDto blockDto){
         try{
             return  ResponseEntity.ok(blockService.addBlockInRecord(blockDto));

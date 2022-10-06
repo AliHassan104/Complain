@@ -75,7 +75,7 @@ public class PollingAnswerController {
 
 //     get polling option result (which will be given by user)
     
-    @GetMapping("/pollinganswer/getpollingoptionper/{id}")
+    @GetMapping("/pollinganswer/getpollingoptionresult/{id}")
     public ResponseEntity<PollingQuestionResult> getPollingOptionPercent(@PathVariable("id") Long id){
         try{
             return ResponseEntity.ok(pollingAnswerService.getPollingOptionPercent(id));

@@ -1,4 +1,4 @@
-package com.company.ComplainProject.config.authenticate;
+package com.company.ComplainProject.config.util;
 
 import lombok.Getter;
 

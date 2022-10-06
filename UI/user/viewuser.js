@@ -3,78 +3,76 @@ var mainAreaId;
 var mainAddressId;
 var allArea = []
 
-function getUser() {
-    let table = ""
+
+function getUser(){
 
     getData(`/admin/user`)
-        .then((data) => {
+    .then((data)=>{
+        renderUser(data.content)
+    })
 
-            table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-        <th style="width: 15%;" class="toptable ">Name</th>
-        <th style="width: 15%;" class="toptable ">PhoneNumber</th>
-        <th style="width: 23%;" class="toptable ">Email</th>
-        <th style="width: 10%;" class="toptable ">Property</th>
-        <th style="width: 20%;" class="toptable ">Cnic</th>
-        <th style="width: 15%;" class="toptable ">Area Name </th>
-        <th style="width: 17%;" class="toptable ">Action </th>
+}
+function renderUser(data) {
+    let table = ""
+
+
+            table += `<tr  class="tablepoint">
+        <th class="toptable ">Name</th>
+        <th class="toptable ">PhoneNumber</th>
+        <th class="toptable ">Email</th>
+        <th class="toptable ">Property</th>
+        <th class="toptable ">Cnic</th>
+        <th class="toptable ">Area Name </th>
+        <th class="toptable ">Action </th>
         </tr>`
             for (let i = 0; i < data.length; i++) {
                 table += `
 
-        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].phoneNumber}</td>
-            <td style="width: 23%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].email}</td>
-            <td style="width: 10%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].property}</td>
-            <td style="width: 20%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].cnic}</td>
-            <td style="width: 17%;" class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area.name}</td>
+        <tr class="tablepoint"" >
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].firstname + " " + data[i].lastname}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].phoneNumber}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].email}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].property}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].cnic}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area.name}</td>
 
-            <td style="width: 15%;" class="datatable"> 
+            <td  class="datatable"> 
             <a href="/user/adduser.html?id=${data[i].id}">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
-            style="padding-right: 10px; margin-right: 15px;"  class="fa fa-pencil"></i>
+            <i data-bs-toggle="modal" style="padding-right: 15px; margin-right: 5px;"  data-bs-target="#exampleModal"  
+             class="fa fa-pencil"></i>
             </a>
 
-            <i onclick="deleteUser(${data[i].id})"  style="padding-right: 15px; margin-right: 5px;" class="fa fa-close"></i>
+            <i onclick="deleteUser(${data[i].id})" class="fa fa-close"></i>
     </td>
         </tr>`
             }
             document.getElementById("datatables-reponsive").innerHTML = table;
-        })
+
+            if (data.length === 0) {
+                noRecordFound = ""
+                noRecordFound += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+                        class="alert alert-danger" role="alert" >No User Found</span> `
+                document.getElementById("noRecordFound").innerHTML = noRecordFound
+            }
+            else{
+                document.getElementById("noRecordFound").innerHTML = ""
+            }
 }
 getUser()
 
-getArea()
 
 function userDetails(id){
     location.href = `${loginUrl}/user/userdetails.html?u_id=${id}`
-}
-
-function getArea() {
-    let table = ""
-
-        getArea(`/area`)
-        .then((data) => {
-            allArea = data;
-            table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
-            table += `<option value="ALL" selected>Select Area</option>`
-            for (let i = 0; i < data.length; i++) {
-                table += `
-            <option value="${data[i].id}">${data[i].name}</option>
-        `
-            }
-            table += `</select>`
-            document.getElementById("dropdownarea1").innerHTML = table;
-        })
 }
 
 
 function deleteUser(id) {
 
     deleteData(`/user/${id}`)
-    .then(() => {
+    .then((response) => {
         let table = ""
 
+        if(response.ok){
         table += `
             <div  style=" 
             margin: auto;
@@ -86,17 +84,29 @@ function deleteUser(id) {
             class="alert alert-danger" role="alert">
             User Deleted Successfully
             </div>`
+        }
+        else{
+            table += `
+            <div  style=" 
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 5vh; text-align: center; 
+            justify-content: center;
+            font-size: large" 
+            class="alert alert-danger" role="alert">
+            Some thing Went Wrong Cannot Delete
+            </div>`
+        }
 
         document.getElementById("formSubmitted").innerHTML = table
 
         setTimeout(()=>{
             document.getElementById("formSubmitted").innerHTML = ""
         },2000)
+        getUser()
     })
 
-    setTimeout(() => {
-        getUser()
-    }, 200);
 }
 
 
@@ -122,3 +132,42 @@ function exportDataToExcel() {
         });
 
 }
+
+function  renderPagination(data,) {
+    let pages = data.totalPages;
+    let renderPagination = ""
+    let renderPageOf = ""
+    let pageNumber = data.number
+    let nextPageNumber = pageNumber+1
+
+    if(nextPageNumber == pages){
+       nextPageNumber = -1
+    }
+    if(data.numberOfElements != 0){
+        pageNumber += 1
+    }
+   
+    document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
+
+    renderPagination += `
+    <li class="page-item" onclick="showPreviousPage(${pageNumber-2})"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" onclick="showFirstPage(${0})"><a class="page-link" href="#">First</a></li>
+    <li class="page-item" onclick="showLastPage(${nextPageNumber})"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"onclick="showNextPage(${pages-1})"><a class="page-link" href="#">Last</a></li>`
+
+    document.getElementById("pagination").innerHTML = renderPagination
+}
+
+function showPreviousPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showFirstPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showLastPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showNextPage(pageNumber){
+    getAchievement(pageNumber)
+}
+

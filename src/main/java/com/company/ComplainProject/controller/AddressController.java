@@ -2,18 +2,15 @@ package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AddressDto;
-import com.company.ComplainProject.dto.AreaDto;
-import com.company.ComplainProject.model.Address;
-import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.service.AddressService;
-import com.company.ComplainProject.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @CrossOrigin("*")
 @RestController
@@ -21,25 +18,25 @@ import java.util.Optional;
 public class AddressController {
 
     @Autowired
-    AddressService addressService;
+    private AddressService addressService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAddress(){
-        List<Address> address = addressService.getAllAddress();
+    public ResponseEntity<List<AddressDto>> getAddress(){
+        List<AddressDto> address = addressService.getAllAddressDto();
         if(!address.isEmpty()){
             return ResponseEntity.ok(address);
         }
         throw new ContentNotFoundException("No Address Exist");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/address/{id}")
-    public ResponseEntity<Optional<Address>> getAddressById(@PathVariable Long id){
-        Optional<Address> address = addressService.getAddressById(id);
-        if(address.isPresent()){
-            return  ResponseEntity.ok(address);
-        }
-        throw new ContentNotFoundException("No Address Exist having id "+id);
+    public ResponseEntity<AddressDto> getAddressById(@PathVariable Long id){
+        AddressDto address = addressService.getAddressById(id);
+        return  ResponseEntity.ok(address);
     }
+
 
     @PostMapping("/address")
     public ResponseEntity<AddressDto> addAddress(@RequestBody AddressDto addressDto){
@@ -51,6 +48,7 @@ public class AddressController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @DeleteMapping("/address/{id}")
     public ResponseEntity<Void> deleteAddressById(@PathVariable Long id){
         try{
@@ -63,8 +61,9 @@ public class AddressController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @PutMapping("/address/{id}")
-    public ResponseEntity<Optional<AddressDto>> updateAddressById(@PathVariable Long id, @RequestBody AddressDto addressDto){
+    public ResponseEntity<AddressDto> updateAddressById(@PathVariable Long id, @RequestBody AddressDto addressDto){
         try{
             return ResponseEntity.ok(addressService.updateAddressById(id,addressDto));
         }catch (Exception e){

@@ -1,6 +1,6 @@
 getComplain()
 getArea()
-getUser()
+// getUser()
 
 
 let queryString = window.location.search;
@@ -67,19 +67,19 @@ function getArea() {
 }
 
 let username;
-function getUser() {
-    let table = ""
+// function getUser() {
+//     let table = ""
    
-        getData(`/user`)
-        .then((data) => {
-            for (let i = 0; i < data.length; i++) {
-                table += `
-            <option value="${data[i].id}">${data[i].firstname + " " + data[i].lastname}</option>
-        `
-            }
-            document.getElementById("dropuser").innerHTML = table;
-        })
-}
+//         getData(`/user`)
+//         .then((data) => {
+//             for (let i = 0; i < data.length; i++) {
+//                 table += `
+//             <option value="${data[i].id}">${data[i].firstname + " " + data[i].lastname}</option>
+//         `
+//             }
+//             document.getElementById("dropuser").innerHTML = table;
+//         })
+// }
 
                                                     //  to get area on change of drop down value
 document.getElementById('droparea').addEventListener('change', function () {
@@ -92,8 +92,6 @@ function formSubmit() {
     let description = document.getElementById("description").value;
     var table = ""
 
-    // const date = new Date();
-    // var todayDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const t = new Date().toLocaleString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
@@ -105,8 +103,8 @@ function formSubmit() {
     var complaintype = select.options[select.selectedIndex].value;
     var select = document.getElementById('droparea');
     var area = select.options[select.selectedIndex].value;
-    var select = document.getElementById('dropuser');
-    var user = select.options[select.selectedIndex].value;
+    // var select = document.getElementById('dropuser');
+    // var user = select.options[select.selectedIndex].value;
     let image = document.getElementById("inpFile");
     var selectBlock = document.getElementById("dropdownblock");
     var block_id = selectBlock.value;
@@ -121,9 +119,9 @@ function formSubmit() {
         area: {
             id: area
         },
-        user: {
-            id: user
-        },
+        // user: {
+        //     id: user
+        // },
         block: {
             id:block_id
         }
@@ -142,12 +140,8 @@ function formSubmit() {
         
             sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
-
-                    complainLog = {
-                        status:"IN_REVIEW",
-                        date:todayDate,
-                        description:"Your Complain is in_review please wait"
-                    }
+                                            //  empty complain log because at initial stage complain status =  inreview
+                    complainLog = {}
 
                     sendData(`/complainlog/${data.id}`,complainLog)
 

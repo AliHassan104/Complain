@@ -18,13 +18,15 @@ import java.util.*;
 @Service
 public class PollingAnswerService {
     @Autowired
-    PollingAnswerRepository pollingAnswerRepository;
+    private PollingAnswerRepository pollingAnswerRepository;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    PollingQuestionService pollingQuestionService;
+    private PollingQuestionService pollingQuestionService;
     @Autowired
-    PollingOptionService pollingOptionService;
+    private PollingOptionService pollingOptionService;
+    @Autowired
+    private SessionService service;
 
     public List<PollingAnswer> getAllPollingAnswer() {
         return pollingAnswerRepository.findAll();
@@ -39,11 +41,11 @@ public class PollingAnswerService {
     }
 
     public PollingAnswerDto addPollingAnswer(PollingAnswerDto pollingAnswerDto) {
-        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(pollingAnswerDto.getUser().getId())).findAny().get();
+        User user = service.getLoggedInUser();
         PollingQuestion pollingQuestion = pollingQuestionService.getAllPollingQuestion().stream().filter(pollingQuestion1 -> pollingQuestion1.getId().equals(pollingAnswerDto.getPollingQuestion().getId())).findAny().get();
         PollingOption pollingOption = pollingOptionService.getAllPollingOption().stream().filter(pollingOption1 -> pollingOption1.getId().equals(pollingAnswerDto.getPollingOption().getId())).findAny().get();
 
-        pollingAnswerDto.setUser(user);
+        pollingAnswerDto.setUser(userService.userToUserDetailsResponse(user));
         pollingAnswerDto.setPollingQuestion(pollingQuestion);
         pollingAnswerDto.setPollingOption(pollingOption);
 
@@ -63,7 +65,7 @@ public class PollingAnswerService {
     public PollingAnswer dto(PollingAnswerDto pollingAnswerDto){
         return PollingAnswer.builder()
                 .id(pollingAnswerDto.getId())
-                .user(pollingAnswerDto.getUser())
+                .user(userService.userDetailResponseToUser(pollingAnswerDto.getUser()))
                 .pollingOption(pollingAnswerDto.getPollingOption())
                 .pollingQuestion(pollingAnswerDto.getPollingQuestion())
                 .build();
@@ -72,7 +74,7 @@ public class PollingAnswerService {
     public PollingAnswerDto toDto(PollingAnswer pollingAnswer){
         return  PollingAnswerDto.builder()
                 .id(pollingAnswer.getId())
-                .user(pollingAnswer.getUser())
+                .user(userService.userToUserDetailsResponse(pollingAnswer.getUser()))
                 .pollingOption(pollingAnswer.getPollingOption())
                 .pollingQuestion(pollingAnswer.getPollingQuestion())
                 .build();
@@ -80,19 +82,17 @@ public class PollingAnswerService {
 
     public PollingQuestionResult getPollingOptionPercent(Long id) {
         PollingQuestion pollingQuestion = pollingQuestionService.getAllPollingQuestion().stream().filter(pollingQuestion1 -> pollingQuestion1.getId().equals(id)).findAny().get();
-//        List<PollingQuestionResult> pollingQuestionResults = new ArrayList<>();
+
         List<Map<String,Long>> optionResult = new ArrayList<>();
 
         for (PollingOption pollingOption:pollingQuestion.getPollingOptions()) {
             Map<String,Long> pollingResult = new HashMap<>();
             pollingResult.put(pollingOption.getOption(),pollingAnswerRepository.countUsersFromPollingOption(pollingOption));
-//            pollingQuestionResults.add(new PollingQuestionResult(pollingResult));
+
             optionResult.add(pollingResult);
         }
 //                                                  Sort the HashMap with largest value (Descending Order)
          Collections.sort(optionResult,new filterPollingOptionResults());
-        System.out.println(optionResult);
-
 
         return new PollingQuestionResult(pollingQuestion.getId(),pollingQuestion.getQuestion(),optionResult);
     }

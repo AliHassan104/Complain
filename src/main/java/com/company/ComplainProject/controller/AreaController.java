@@ -8,11 +8,12 @@ import com.company.ComplainProject.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @CrossOrigin("*")
 @RestController
@@ -20,29 +21,25 @@ import java.util.Optional;
 public class AreaController {
 
     @Autowired
-    AreaService areaService;
+    private AreaService areaService;
+
 
     @GetMapping("/area")
-    public ResponseEntity<List<Area>> getArea(){
-        List<Area> assetBooking = areaService.getAllArea();
-        if(!assetBooking.isEmpty()){
-            return ResponseEntity.ok(assetBooking);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<List<AreaDto>> getArea(){
+        List<AreaDto> area = areaService.getAllAreaDto();
+        return ResponseEntity.ok(area);
     }
+
 
     @GetMapping("/area/{id}")
-    public ResponseEntity<Optional<Area>> getAreaById(@PathVariable Long id){
-        Optional<Area> asset = areaService.getAreaById(id);
-        if(asset.isPresent()){
-            return  ResponseEntity.ok(asset);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<AreaDto> getAreaById(@PathVariable Long id){
+        AreaDto area = areaService.getAreaById(id);
+        return  ResponseEntity.ok(area);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/area")
     public ResponseEntity<AreaDto> addAchievements(@RequestBody AreaDto areaDto){
-        System.out.println(areaDto);
         try{
             return ResponseEntity.ok(areaService.addArea(areaDto));
         }catch (Exception e){
@@ -51,6 +48,7 @@ public class AreaController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/area/{id}")
     public ResponseEntity<Void> deleteAchievementById(@PathVariable Long id){
         try{
@@ -58,13 +56,14 @@ public class AreaController {
             return ResponseEntity.ok().build();
         }
         catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/area/{id}")
-    public ResponseEntity<Optional<AreaDto>> updateAchievementById(@PathVariable Long id,@RequestBody AreaDto areaDto){
+    public ResponseEntity<AreaDto> updateAchievementById(@PathVariable Long id,@RequestBody AreaDto areaDto){
         try{
             return ResponseEntity.ok(areaService.updateAchievementById(id,areaDto));
         }catch (Exception e){

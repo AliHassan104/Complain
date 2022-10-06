@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,8 +45,8 @@ public class EventController {
     }
 
     @GetMapping("/paginatedEvents")
-    public ResponseEntity<List<EventDto>> getAllEventsWithPagination(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber,
-                                                                     @RequestParam(value = "pageSize" , defaultValue = "10",required = false) Integer pageSize){
+    public ResponseEntity<Page<Event>> getAllEventsWithPagination(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber,
+                                                                  @RequestParam(value = "pageSize" , defaultValue = "10",required = false) Integer pageSize){
         try{
             return ResponseEntity.ok(eventService.getAllEventWithPagination(pageNumber,pageSize));
         }catch (Exception error){
@@ -140,6 +141,15 @@ public class EventController {
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No Even Exist");
+        }
+    }
+
+    @GetMapping("/countallevents")
+    public ResponseEntity<Long> countAllEvents(){
+        try{
+            return ResponseEntity.ok(eventService.countAllEvents_Service());
+        }catch (Exception e){
+            throw new ContentNotFoundException("No Event Exist");
         }
     }
 

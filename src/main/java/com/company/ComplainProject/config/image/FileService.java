@@ -12,7 +12,7 @@ import java.util.UUID;
 @Service
 public interface FileService {
 
-    String uploadImage(MultipartFile file) throws IOException; //1
+    String uploadImage(MultipartFile file) throws IOException;
     Boolean deleteImage(Long id);
 
     public static void createStaticFolder()  {

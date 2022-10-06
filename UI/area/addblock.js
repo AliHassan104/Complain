@@ -107,6 +107,9 @@ function formSubmit() {
                         </div>`
 
         document.getElementById("formSubmitted").innerHTML = invalidData
+        setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = ""
+        }, 2000)
     }
 }
 

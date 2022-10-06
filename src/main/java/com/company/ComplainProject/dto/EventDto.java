@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,6 +19,7 @@ import java.time.LocalTime;
 @Builder
 public class EventDto {
     private Long id;
+    @NotEmpty
     private String title;
     private String description;
     private String image;

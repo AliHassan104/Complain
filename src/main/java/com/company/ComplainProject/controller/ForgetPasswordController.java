@@ -32,7 +32,7 @@ public class ForgetPasswordController {
     @PostMapping("/send/otp/{email}")
     public void sendOTP(@PathVariable String email) throws MalformedURLException, UnsupportedEncodingException {
 
-        System.out.println(email);
+
         UserDetailsResponse user = userService.getUserByEmail(email);
         try{
             OTP otp = otpService.generateAndSaveOTP(user.getEmail());

@@ -5,18 +5,17 @@ var parameters = new URLSearchParams(queryString);
 var complain_id = parameters.get('c_id')
 }
 
-function renderImage(){
+function renderComplainDetails(){
 
     let dataRender = "" 
     let userDataRender = ""
     let complainData = ''
+    let renderComplainLogs = ""
    
     getData(`/complain/${complain_id}`)
     .then((data)=>{
-            console.log(data);
-            
+    
             dataRender += `
-        
                 <img src="${data.picture}"  class="rounded mx-auto d-block "  alt="Not found" ">
             
             `
@@ -41,11 +40,71 @@ function renderImage(){
             document.getElementById('complain_time').value = data.time
 
 
+            for (let i = 0; i < data.complainLog.length; i++) {
+
+                if(data.complainLog[i].assignedFrom == null && data.complainLog[i].assignedTo == null){
+                    adminfirstname  = "not Assigned"
+                    workerfirstname = "not Assigned"
+                }
+                else{
+                    adminfirstname  = data.complainLog[i].assignedFrom.firstname
+                    workerfirstname = data.complainLog[i].assignedTo.firstname
+                }
+
+                renderComplainLogs += `
+                <div class="card">
+                <div class="card-header">
+                    <h4>${data.complainLog[i].status}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Assigned From</span>
+                                 </div>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${adminfirstname}" disabled>
+                              </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Assigned To</span>
+                                 </div>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${workerfirstname}"  disabled>
+                              </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Date</span>
+                                 </div>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${data.complainLog[i].date}"  disabled>
+                              </div>
+                        </div>
+                      </div>
+                     
+                                
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Description</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" placeholder="${data.complainLog[i].description}"  disabled ></textarea>
+                      </div>
+                    </div>
+                </div>
+                ` 
+            }
+
+            document.getElementById("complainLogs").innerHTML = renderComplainLogs
+
     })
 
 }
 
-renderImage()
+renderComplainDetails()
 
 
 

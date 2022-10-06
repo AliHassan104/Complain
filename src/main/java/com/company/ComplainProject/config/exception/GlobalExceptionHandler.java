@@ -37,4 +37,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exceptionInFirebaseMessaging.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> userNotFoundException(UserNotFoundException userNotFoundException){
+        return new ResponseEntity<>(userNotFoundException.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity<String> unAuthorizedException(UnAuthorizedException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.FORBIDDEN);
+    }
+
 }

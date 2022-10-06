@@ -1,15 +1,24 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.AreaDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.repository.AreaRepository;
+import com.google.cloud.PageImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AreaService {
@@ -17,12 +26,32 @@ public class AreaService {
     @Autowired
     AreaRepository areaRepository;
 
-    public List<Area> getAllArea() {
+
+    public List<Area> getAllArea(){
         return areaRepository.findAll();
     }
 
-    public Optional<Area> getAreaById(Long id) {
-        return areaRepository.findById(id);
+    public List<AreaDto> getAllAreaDto() {
+        List<Area> areaList = areaRepository.findAll();
+        if(!areaList.isEmpty()){
+            return areaList.stream().map(area1->toDto(area1)).collect(Collectors.toList());
+        }
+        throw new ContentNotFoundException("No Area Exist");
+    }
+
+    public Page<Area> getAllAreaDtoWithPagination(Integer pageNumber,Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Area> areaPage = areaRepository.findAll(pageable);
+        return areaPage;
+    }
+
+
+    public AreaDto getAreaById(Long id) {
+       Optional<Area> area = areaRepository.findById(id);
+       if(area.isPresent()){
+           return toDto(area.get());
+       }
+       throw new ContentNotFoundException("No Area Exist Having id "+id);
     }
 
     public void deleteAreaById(Long id) {
@@ -33,13 +62,13 @@ public class AreaService {
         return toDto(areaRepository.save(dto(areaDto)));
     }
 
-    public Optional<AreaDto> updateAchievementById(Long id, AreaDto areaDto) {
-        Area updateAchievement = getAllArea().stream().filter(el->el.getId().equals(id)).findAny().get();
-        if(updateAchievement != null){
-            updateAchievement.setName(areaDto.getName());
-            updateAchievement.setPostalCode(areaDto.getPostalCode());
+    public AreaDto updateAchievementById(Long id, AreaDto areaDto) {
+        Optional<Area> updateArea = areaRepository.findById(id);
+        if(updateArea.isPresent()){
+            updateArea.get().setName(areaDto.getName());
+            updateArea.get().setPostalCode(areaDto.getPostalCode());
         }
-        return Optional.of(toDto(areaRepository.save(updateAchievement)));
+        return toDto(areaRepository.save(updateArea.get()));
     }
 
     public Area dto(AreaDto areaDto){
@@ -52,4 +81,6 @@ public class AreaService {
         return  AreaDto.builder().id(area.getId()).name(area.getName())
             .postalCode(area.getPostalCode()).build();
     }
+
+
 }

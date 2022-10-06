@@ -27,16 +27,21 @@ public class ComplainImageImplementation implements FileService {
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
 
+        /**
+         *  Create Static Folder if not exist
+         */
         FileService.createStaticFolder();
 
+        /**
+         *  Create Complain And Image Folder if not exist
+         */
         createComplainFolder();
         imageFolderInsideComplainFolder();
-                                     // file name
-
+                                                                                 // file name
         String generatedfilename = FileService.generateRandomImageName(file);
-                                    // file path
+                                                                                 // file path
         String filePath = complainImagePath+File.separator+generatedfilename;
-        // file copy
+                                                                                 // file copy
         InputStream inputStream = null;
         try {
             inputStream =file.getInputStream();

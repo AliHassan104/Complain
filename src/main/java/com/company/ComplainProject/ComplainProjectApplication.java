@@ -20,14 +20,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
 
 
 @SpringBootApplication
@@ -45,9 +39,7 @@ public class ComplainProjectApplication {
 
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(ComplainProjectApplication.class, args);
-
 	}
 
 
