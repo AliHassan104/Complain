@@ -107,7 +107,7 @@ public class UserController {
     @GetMapping("/get-logged-in-user")
     public ResponseEntity<UserDetailsResponse> getLoggedInUser(){
         try{
-            return  ResponseEntity.ok(userService.getLoggedInUser());
+            return ResponseEntity.ok(userService.getLoggedInUser());
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No user Exist");

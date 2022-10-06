@@ -14,14 +14,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import java.util.List;
 
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication
@@ -36,42 +31,12 @@ public class ComplainProjectApplication {
 
 
 
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(ComplainProjectApplication.class, args);
 	}
 
 
 
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer() {
-//		return new WebMvcConfigurerAdapter() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/**").allowedOrigins("*");
-//			}
-//		};
-//	}
-
-
-//	@Override
-//	public void run(String... args) throws Exception {
-//
-//		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//
-//		Set<Roles> roles = new HashSet<>();
-//	   	roles.add(rolesRepository.getRoleByName("ROLE_ADMIN"));
-//		User user = new User().builder()
-//				.firstname("saif")
-//				.lastname("khan")
-//				.password(bCryptPasswordEncoder.encode("saifkhan@1"))
-//				.roles(roles)
-//				.build();
-//		User user1 = userRepository.save(user);
-//		System.out.println(user1);
-//
-//	}
 
 
 }
