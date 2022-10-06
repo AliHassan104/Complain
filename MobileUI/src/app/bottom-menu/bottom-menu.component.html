@@ -1,7 +1,7 @@
 <!-- App Bottom Menu -->
 <div  class="appBottomMenu">
 
-  <a href="javascript:;" class="item" data-toggle="modal" (click)="getAllFriends()" data-target="#sidebarPanel">
+  <a href="javascript:;" class="item" data-toggle="modal"  data-target="#sidebarPanel">
       <div class="col">
           <!-- <ion-icon  src="assets/menu.svg"></ion-icon> -->
           <img width="30px" src="assets/icons/menu2.png"/>
@@ -60,7 +60,7 @@
                   </div>
 
                   <div class="in">
-                      <strong (click)="goToMyProfile()" data-dismiss="modal">{{userAreaName.firstname + " " + userAreaName.lastname | uppercase }}</strong>
+                      <strong data-dismiss="modal">{{userAreaName.firstname + " " + userAreaName.lastname | uppercase }}</strong>
 
 
               </div>

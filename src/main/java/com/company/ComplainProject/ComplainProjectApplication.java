@@ -34,10 +34,6 @@ public class ComplainProjectApplication {
 	@Autowired
 	UserRepository userRepository;
 
-
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(ComplainProjectApplication.class, args);
 	}

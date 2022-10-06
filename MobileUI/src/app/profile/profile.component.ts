@@ -1,13 +1,13 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { MainService } from '../Services/main.service';
-import { FriendsIds } from './friendsIds';
+// import { MainService } from '../Services/main.service';
+// import { FriendsIds } from './friendsIds';
 import { Profile } from './profile';
 import { ToastUtilService } from '../Services/toast-util.service';
 import { NotificationService } from '../Services/notification.service';
 import { ProfileGallery } from './gallery';
 import * as $ from 'jquery';
-import { ChatService } from '../Services/chat.service';
+// import { ChatService } from '../Services/chat.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   userName;
   btnColor;
   friendStatus;
-  friendsIdObj: FriendsIds = new FriendsIds();
+  // friendsIdObj: FriendsIds = new FriendsIds();
   profileObj: Profile = new Profile();
   notificationBtns = false;
   isFriends: boolean = false;
@@ -51,7 +51,9 @@ export class ProfileComponent implements OnInit {
   innerHeight: number = window.innerHeight - 100;
 
   constructor(private router: Router, private notificationService: NotificationService,
-    private activateRoute: ActivatedRoute, private service: MainService, private chatService: ChatService, private toastService: ToastUtilService) {
+    private activateRoute: ActivatedRoute,
+    //  private service: MainService,
+    private toastService: ToastUtilService) {
     // this.onResize();
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -71,11 +73,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activateRoute.snapshot.params['id'];
     this.loggedInUserId = sessionStorage.getItem('userId');
-    this.getUserStatus();
-    this.getProfile();
+    // this.getUserStatus();
+    // this.getProfile();
     this.checkIfLoggedInUser();
-    this.getAllFriends();
-    this.getGalleryImages();
+    // this.getAllFriends();
+    // this.getGalleryImages();
   }
   // onResize(event?) {
   //   this.screenHeight = window.innerHeight - 102;
@@ -90,148 +92,148 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  getUserStatus() {
+  // getUserStatus() {
 
-    if (this.id) {
-      this.service.getUserById(this.id).subscribe(d => {
-        if (d.status == 200) {
+  //   if (this.id) {
+  //     this.service.getUserById(this.id).subscribe(d => {
+  //       if (d.status == 200) {
 
-          this.updateButton(d.message);
-        }
-        else {
-          console.log("error");
-        }
+  //         this.updateButton(d.message);
+  //       }
+  //       else {
+  //         console.log("error");
+  //       }
 
-      })
-    }
+  //     })
+  //   }
 
-  }
+  // }
 
-  getProfile() {
-    if (this.id) {
-      this.service.getUserById(this.id).subscribe(d => {
-        if (d.status == 200) {
-
-
-          this.userName = d.result.name;
-          this.description = d.result.description;
-          this.profileObj.profilePicture = d.result.profilePicture;
-          this.noOfFriends = d.result.noOfFriends;
-
-        }
-
-        else {
-          console.log("error");
-        }
-
-      })
-    }
-  }
-
-  getAllFriends() {
-    // this.profilePicture = sessionStorage.getItem('profilePicture');
-    this.friendsArray = [];
-    this.service.getAllFriends(this.id).subscribe(d => {
-      if (d.status == 200) {
-        d.result.map(u => {
-          this.friendsArray.push(u.friend);
-        })
-      }
-
-    })
-  }
-
-  updateButton(status) {
-    if (status === "not friends") {
-      this.changeBtnToAddFriend()
-    }
-    else if (status === "pending") {
-      this.changeBtnToCancelRequest()
-    }
-    else if (status === "pendingN") {
-      this.notificationBtns = true;
-
-    }
-    else {
-      this.changeBtnToFriends()
-
-    }
-  }
-
-  friendsButtonClick() {
-    console.log(this.friendStatus)
-    if (this.friendStatus == "Add friend") {
+  // getProfile() {
+  //   if (this.id) {
+  //     this.service.getUserById(this.id).subscribe(d => {
+  //       if (d.status == 200) {
 
 
-      this.populateFriendsIdObj();
-      this.service.addFriend(this.friendsIdObj).subscribe(d => {
-        if (d.status == 200) {
-          this.notificationService.updateNotification()
-          this.changeBtnToCancelRequest()
-        }
-        else {
-          console.log("ERROR");
-        }
-      })
-    }
-    else if (this.friendStatus === "Cancel Request") {
-      this.populateFriendsIdObj()
-      this.service.cancelRequest(this.friendsIdObj).subscribe(d => {
-        if (d.status == 200) {
-          this.notificationService.updateNotification()
-          this.changeBtnToAddFriend();
-        }
-        else {
-          console.log("ERROR");
-        }
-      })
+  //         this.userName = d.result.name;
+  //         this.description = d.result.description;
+  //         this.profileObj.profilePicture = d.result.profilePicture;
+  //         this.noOfFriends = d.result.noOfFriends;
 
-    }
-  }
+  //       }
 
-  acceptRequest() {
-    this.populateFriendsIdObj();
-    this.service.acceptRequest(this.friendsIdObj).subscribe(d => {
-      if (d.status == 200) {
-        this.notificationService.updateNotification()
-        this.changeBtnToFriends()
-      }
-      else {
-        console.log("ERROR");
+  //       else {
+  //         console.log("error");
+  //       }
 
-      }
-    })
-  }
+  //     })
+  //   }
+  // }
 
-  deleteRequest() {
-    this.populateFriendsIdObj();
-    this.service.cancelRequest(this.friendsIdObj).subscribe(d => {
-      if (d.status == 200) {
-        this.changeBtnToAddFriend()
-        this.getProfile();
-        this.notificationService.updateNotification()
-      }
-      else {
-        console.log("ERROR");
+  // getAllFriends() {
+  //   // this.profilePicture = sessionStorage.getItem('profilePicture');
+  //   this.friendsArray = [];
+  //   this.service.getAllFriends(this.id).subscribe(d => {
+  //     if (d.status == 200) {
+  //       d.result.map(u => {
+  //         this.friendsArray.push(u.friend);
+  //       })
+  //     }
 
-      }
-    })
-  }
+  //   })
+  // }
 
-  populateFriendsIdObj() {
-    // this.friendsIdObj.notificationTitle = "New notification from Montreal Sauvage"
-    this.friendsIdObj.notificationBody = sessionStorage.getItem("username") + " sent you a friend request";
-    this.friendsIdObj.userId = sessionStorage.getItem('userId');
-    this.friendsIdObj.friendId = this.id;
-  }
+  // updateButton(status) {
+  //   if (status === "not friends") {
+  //     // this.changeBtnToAddFriend()
+  //   }
+  //   else if (status === "pending") {
+  //     this.changeBtnToCancelRequest()
+  //   }
+  //   else if (status === "pendingN") {
+  //     this.notificationBtns = true;
 
-  changeBtnToAddFriend() {
-    this.btnColor = "btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1"
-    this.friendStatus = "Add friend";
-    this.notificationBtns = false;
-    this.isFriends = false;
-    this.showHideprivateProfile = false;
-  }
+  //   }
+  //   else {
+  //     this.changeBtnToFriends()
+
+  //   }
+  // }
+
+  // friendsButtonClick() {
+  //   console.log(this.friendStatus)
+  //   if (this.friendStatus == "Add friend") {
+
+
+  //     this.populateFriendsIdObj();
+  //     this.service.addFriend(this.friendsIdObj).subscribe(d => {
+  //       if (d.status == 200) {
+  //         this.notificationService.updateNotification()
+  //         this.changeBtnToCancelRequest()
+  //       }
+  //       else {
+  //         console.log("ERROR");
+  //       }
+  //     })
+  //   }
+  //   else if (this.friendStatus === "Cancel Request") {
+  //     this.populateFriendsIdObj()
+  //     this.service.cancelRequest(this.friendsIdObj).subscribe(d => {
+  //       if (d.status == 200) {
+  //         this.notificationService.updateNotification()
+  //         this.changeBtnToAddFriend();
+  //       }
+  //       else {
+  //         console.log("ERROR");
+  //       }
+  //     })
+
+  //   }
+  // }
+
+  // acceptRequest() {
+  //   this.populateFriendsIdObj();
+  //   this.service.acceptRequest(this.friendsIdObj).subscribe(d => {
+  //     if (d.status == 200) {
+  //       this.notificationService.updateNotification()
+  //       this.changeBtnToFriends()
+  //     }
+  //     else {
+  //       console.log("ERROR");
+
+  //     }
+  //   })
+  // }
+
+  // deleteRequest() {
+  //   this.populateFriendsIdObj();
+  //   this.service.cancelRequest(this.friendsIdObj).subscribe(d => {
+  //     if (d.status == 200) {
+  //       this.changeBtnToAddFriend()
+  //       this.getProfile();
+  //       this.notificationService.updateNotification()
+  //     }
+  //     else {
+  //       console.log("ERROR");
+
+  //     }
+  //   })
+  // }
+
+  // populateFriendsIdObj() {
+  //   // this.friendsIdObj.notificationTitle = "New notification from Montreal Sauvage"
+  //   this.friendsIdObj.notificationBody = sessionStorage.getItem("username") + " sent you a friend request";
+  //   this.friendsIdObj.userId = sessionStorage.getItem('userId');
+  //   this.friendsIdObj.friendId = this.id;
+  // }
+
+  // changeBtnToAddFriend() {
+  //   this.btnColor = "btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1"
+  //   this.friendStatus = "Add friend";
+  //   this.notificationBtns = false;
+  //   this.isFriends = false;
+  //   this.showHideprivateProfile = false;
+  // }
 
   changeBtnToCancelRequest() {
     this.btnColor = "btn btn-outline-warning btn-sm rounded shadowed mr-1 mb-1"
@@ -246,19 +248,19 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  saveDescription() {
-    this.profileObj.description = this.description;
-    this.service.saveDescription(this.profileObj).subscribe(d => {
-      if (d.status == 200) {
-        this.toastService.showToast("Description updated", "#toast-9")
-        this.description = d.result.description;
-      }
-      else {
-        console.log("ERROR");
+  // saveDescription() {
+  //   this.profileObj.description = this.description;
+  //   this.service.saveDescription(this.profileObj).subscribe(d => {
+  //     if (d.status == 200) {
+  //       this.toastService.showToast("Description updated", "#toast-9")
+  //       this.description = d.result.description;
+  //     }
+  //     else {
+  //       console.log("ERROR");
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
   changeBtnToFriends() {
 
@@ -298,19 +300,20 @@ export class ProfileComponent implements OnInit {
     this.profileObj.profilePicture = this.picture;
   }
 
-  saveProfilePicture() {
+  // saveProfilePicture() {
 
-    if (this.profileObj.profilePicture != null) {
-      this.service.saveProfilePicture(this.profileObj).subscribe(d => {
-        if (d.status == 200) {
+  //   if (this.profileObj.profilePicture != null) {
+  //     this.service.saveProfilePicture(this.profileObj).subscribe(d => {
+  //       if (d.status == 200) {
 
-          this.service.sendPicture(this.profileObj.profilePicture);
-          this.toastService.showToast("Profile picture updated", "#toast-9")
-          sessionStorage.setItem("profilePicture", this.profileObj.profilePicture)
-        }
-      })
-    }
-  }
+  //         this.service.sendPicture(this.profileObj.profilePicture);
+  //         this.toastService.showToast("Profile picture updated", "#toast-9")
+  //         sessionStorage.setItem("profilePicture", this.profileObj.profilePicture)
+  //       }
+  //     })
+  //   }
+  // }
+
 
   showClose() {
     this.showCloseOnAction = true;
@@ -354,40 +357,40 @@ export class ProfileComponent implements OnInit {
     this.showDialogOnAddPicture = false;
   }
 
-  uploadPicture() {
+  // uploadPicture() {
 
-    this.profileGalleryObj.userId = this.id;
-    this.formData.append("userId", this.profileGalleryObj.userId);
-    this.formData.append("galleryImage", this.profileGalleryObj.galleryImage);
-    console.log("ye hai form data", this.profileGalleryObj.galleryImage)
-    this.service.saveGalleryImage(this.formData).subscribe(d => {
-      if (d.status == 200) {
-        console.log("Uploaded")
-        this.getGalleryImages();
-        this.toastService.showToast("Picture uploaded", "#toast-9")
-      }
-      else {
-        console.log("ERROR");
+  //   this.profileGalleryObj.userId = this.id;
+  //   this.formData.append("userId", this.profileGalleryObj.userId);
+  //   this.formData.append("galleryImage", this.profileGalleryObj.galleryImage);
+  //   console.log("ye hai form data", this.profileGalleryObj.galleryImage)
+  //   this.service.saveGalleryImage(this.formData).subscribe(d => {
+  //     if (d.status == 200) {
+  //       console.log("Uploaded")
+  //       this.getGalleryImages();
+  //       this.toastService.showToast("Picture uploaded", "#toast-9")
+  //     }
+  //     else {
+  //       console.log("ERROR");
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
-  getGalleryImages() {
-    this.profileGalleryArr = [];
-    this.service.getAllImages(this.id).subscribe(d => {
-      if (d.status == 200) {
-        d.result.map(data => {
-          this.profileGalleryArr.push(data);
+  // getGalleryImages() {
+  //   this.profileGalleryArr = [];
+  //   this.service.getAllImages(this.id).subscribe(d => {
+  //     if (d.status == 200) {
+  //       d.result.map(data => {
+  //         this.profileGalleryArr.push(data);
 
-        })
-         this.picturesCount =  this.profileGalleryArr.length
+  //       })
+  //        this.picturesCount =  this.profileGalleryArr.length
 
 
-      }
-    })
+  //     }
+  //   })
 
-  }
+  // }
 
   showPicture(id) {
     this.router.navigate(['viewimage', id]);
@@ -397,13 +400,13 @@ export class ProfileComponent implements OnInit {
 
 
 
-  routeToChat() {
+  // routeToChat() {
 
-    this.chatService.initiateChat(this.loggedInUserId, this.id)
-      .subscribe((chatroom) => {
-        this.router.navigate([`chat/${chatroom}/${this.id}`])
-      })
-  }
+  //   this.chatService.initiateChat(this.loggedInUserId, this.id)
+  //     .subscribe((chatroom) => {
+  //       this.router.navigate([`chat/${chatroom}/${this.id}`])
+  //     })
+  // }
 
 
   addClassToFriendsTab(addId,removeId){

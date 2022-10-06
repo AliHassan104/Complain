@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, HostListener } from "@angular/core";
 import { Router } from "@angular/router";
-import { MainService } from "../Services/main.service";
+// import { MainService } from "../Services/main.service";
 import { NotificationService } from "../Services/notification.service";
-import { ChatService } from "../Services/chat.service";
+// import { ChatService } from "../Services/chat.service";
 import { environment } from "../../environments/environment";
 import * as Stomp from "stompjs";
 import * as SockJS from "sockjs-client";
@@ -11,7 +11,7 @@ import { ToastUtilService } from "../Services/toast-util.service";
 import * as $ from "jquery";
 import { MessagingService } from "../services/messaging.service";
 import { NotificationBody } from "./notificationBody";
-import { Profile } from '../profile/profile';
+// import { Profile } from '../profile/profile';
 import { UserService } from "../Services/user.service";
 
 @Component({
@@ -36,15 +36,15 @@ export class BottomMenuComponent implements OnInit {
   token: any;
   notificationObj: NotificationBody = new NotificationBody();
   reqCount: number = 0;
-  userObj: Profile = new Profile();
+  // userObj: Profile = new Profile();
   // @Input("noOfNotifications") noOfNotifications:number;
 
   constructor(
     private messagingService: MessagingService,
     private router: Router,
-    private service: MainService,
+    // private service: MainService,
     private notificationService: NotificationService,
-    private chatService: ChatService,
+    // private chatService: ChatService,
     private toastService: ToastUtilService,
     private userService: UserService
   ) {}
@@ -98,18 +98,18 @@ export class BottomMenuComponent implements OnInit {
     }
   }
 
-  getAllFriends() {
-    this.friendsArray = [];
+  // getAllFriends() {
+  //   this.friendsArray = [];
 
-    this.service.getAllFriendsAndStatus(this.id).subscribe((d) => {
-      if (d.status == 200) {
-        console.log(d);
-        d.result.map((u) => {
-          this.friendsArray.push(u);
-        });
-      }
-    });
-  }
+  //   this.service.getAllFriendsAndStatus(this.id).subscribe((d) => {
+  //     if (d.status == 200) {
+  //       console.log(d);
+  //       d.result.map((u) => {
+  //         this.friendsArray.push(u);
+  //       });
+  //     }
+  //   });
+  // }
 
   openGlobalSocketForRequestNotification() {
     console.log("open global socket");
@@ -198,15 +198,9 @@ export class BottomMenuComponent implements OnInit {
     }
   }
 
-  goToNotifications() {
-
-      this.updateNotificationsCount('req')
-
-
-  }
-  goToMyProfile() {
-    this.router.navigate(["profiles/", this.id]);
-  }
+  // goToMyProfile() {
+  //   this.router.navigate(["profiles/", this.id]);
+  // }
   logout() {
     // this.stompClient.unsubscribe();
     sessionStorage.clear();
@@ -214,11 +208,11 @@ export class BottomMenuComponent implements OnInit {
     this.router.navigate([""]);
   }
 
-  getProfilePicture() {
-    this.service.sendPicture$.subscribe((d) => {
-      this.profilePicture = d;
-    });
-  }
+  // getProfilePicture() {
+  //   this.service.sendPicture$.subscribe((d) => {
+  //     this.profilePicture = d;
+  //   });
+  // }
 
   updateNotificationCount() {
     this.notificationService.updateNotification$.subscribe(() => {
@@ -243,44 +237,19 @@ export class BottomMenuComponent implements OnInit {
 
   }
 
-  gotoChatroom(friendId) {
-    this.chatService.initiateChat(this.id, friendId).subscribe((chatroom) => {
-      this.router.navigate([`chat/${chatroom}/${friendId}`]);
-    });
-  }
-
-  getChatsCount() {
-    this.chatService
-      .getChatCount(this.id)
-      .subscribe((res) => (this.chatCount = res));
-  }
-
-  // notifyMe(msg) {
-  //   // Let's check if the browser supports notifications
-  //   if (!("Notification" in window)) {
-  //     alert("This browser does not support desktop notification");
-  //   }
-
-  //   // Let's check whether notification permissions have already been granted
-  //   else if (Notification.permission === "granted") {
-  //     // If it's okay let's create a notification
-  //     // console.log(notification)
-  //     this.showNotification(msg);
-  //   }
-
-  //   // Otherwise, we need to ask the user for permission
-  //   else if (Notification.permission !== "denied") {
-  //     Notification.requestPermission().then(function (permission) {
-  //       // If the user accepts, let's create a notification
-  //       console.log(permission)
-  //       if (permission === "granted") {
-  //         // console.log(notification)
-  //         this.showNotification(msg);
-  //       }
-  //     });
-  //   }
-
+  // gotoChatroom(friendId) {
+  //   this.chatService.initiateChat(this.id, friendId).subscribe((chatroom) => {
+  //     this.router.navigate([`chat/${chatroom}/${friendId}`]);
+  //   });
   // }
+
+  // getChatsCount() {
+  //   this.chatService
+  //     .getChatCount(this.id)
+  //     .subscribe((res) => (this.chatCount = res));
+  // }
+
+
 
   showNotification(msg) {
     const notification = new Notification("Montreal Sauvage", {
@@ -322,40 +291,40 @@ export class BottomMenuComponent implements OnInit {
 
   }
 
-  updateNotificationsCount(type){
-    if(this.notificationCount > 0 || this.reqCount > 0){
-    if(type === 'req')
-    {
-      this.reqCount = 0;
-    }
-    else if(type == 'post'){
-      this.notificationCount = 0;
-    }
+  // updateNotificationsCount(type){
+  //   if(this.notificationCount > 0 || this.reqCount > 0){
+  //   if(type === 'req')
+  //   {
+  //     this.reqCount = 0;
+  //   }
+  //   else if(type == 'post'){
+  //     this.notificationCount = 0;
+  //   }
 
-    this.userObj.numberOfFriendRequests = this.reqCount;
-    this.userObj.numberOfNotifications = this.notificationCount;
-    this.notificationService.updateNoOfNotifications(this.id,this.userObj).subscribe(d=>{
-      if(d.status == 200){
-        if(type === 'req'){
-          this.router.navigate(["notifications"]);
-        }
-        else if(type === 'post')
-        {
-          this.router.navigate(["addpostnotifications"]);
-        }
-        this.getNotificationCount();
-      }
-    })
-  }else{
-    if(type === 'req'){
-      this.router.navigate(["notifications"]);
-    }
-    else if(type === 'post')
-    {
-      this.router.navigate(["addpostnotifications"]);
-    }
-  }
-  }
+  //   // this.userObj.numberOfFriendRequests = this.reqCount;
+  //   // this.userObj.numberOfNotifications = this.notificationCount;
+  //   // this.notificationService.updateNoOfNotifications(this.id,this.userObj).subscribe(d=>{
+  //   //   if(d.status == 200){
+  //   //     if(type === 'req'){
+  //   //       this.router.navigate(["notifications"]);
+  //   //     }
+  //   //     else if(type === 'post')
+  //   //     {
+  //   //       this.router.navigate(["addpostnotifications"]);
+  //   //     }
+  //   //     this.getNotificationCount();
+  //   //   }
+  //   // })
+  // }else{
+  //   if(type === 'req'){
+  //     this.router.navigate(["notifications"]);
+  //   }
+  //   else if(type === 'post')
+  //   {
+  //     this.router.navigate(["addpostnotifications"]);
+  //   }
+  // }
+  // }
 
 
 
