@@ -6,7 +6,6 @@ let queryString;
         const urlParams = new URLSearchParams(queryString)
         var urlId = urlParams.get("id")
 
-
         getData(`/watertiming/${urlId}`)
             .then(data => {
                 document.getElementById("formButton").innerText = "Update";
@@ -132,6 +131,7 @@ function getArea() {
         `
             }
             document.getElementById("dropdownarea").innerHTML = table;
+            getBlock(getareaId)
         })
 }
 //                                                                                  get value from the area drop down when the value change
@@ -165,6 +165,5 @@ function getBlock(areaId) {
 }
 
 getArea();
-setTimeout(() => {
-    getBlock(getareaId)
-}, 400)
+    
+

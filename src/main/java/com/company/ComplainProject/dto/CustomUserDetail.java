@@ -25,6 +25,10 @@ public class CustomUserDetail implements UserDetails {
         return authorityList;
     }
 
+    public Long getUserId(){
+        return this.user.getId();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -33,6 +37,10 @@ public class CustomUserDetail implements UserDetails {
     @Override
     public String getUsername() {
         return user.getEmail();
+    }
+
+    public String getName(){
+        return user.getFirstname();
     }
 
     @Override

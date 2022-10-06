@@ -44,6 +44,9 @@ export class LoginPageComponent implements OnInit {
   goToRegister() {
     this.router.navigate(['register'])
   }
+  goToForgetPassword(){
+    this.router.navigate(['forget']);
+  }
 
 
 loginSubmit(loginCredentials: any){

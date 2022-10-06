@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AddressDto;
 import com.company.ComplainProject.dto.AreaDto;
 import com.company.ComplainProject.model.Address;
@@ -12,18 +13,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AddressService {
     @Autowired
     AddressRepository addressRepository;
 
-    public List<Address> getAllAddress() {
+    public List<Address> getAllAddress(){
         return addressRepository.findAll();
     }
 
-    public Optional<Address> getAddressById(Long id) {
-        return addressRepository.findById(id);
+    public List<AddressDto> getAllAddressDto() {
+        return addressListToAddressDtoList(addressRepository.findAll());
+    }
+
+    public AddressDto getAddressById(Long id) {
+        Optional<Address> address = addressRepository.findById(id);
+        if(address.isPresent()){
+            return toDto(address.get());
+        }
+        throw new ContentNotFoundException("No Address Exist having id "+id);
     }
 
     public void deleteAddressById(Long id) {
@@ -34,15 +44,15 @@ public class AddressService {
         return toDto(addressRepository.save(dto(addressDto)));
     }
 
-    public Optional<AddressDto> updateAddressById(Long id, AddressDto addressDto) {
-        Address updateAddress = getAllAddress().stream().filter(el->el.getId().equals(id)).findAny().get();
-        if(updateAddress != null){
-            updateAddress.setCity(addressDto.getCity());
-            updateAddress.setFloorNumber(addressDto.getFloorNumber());
-            updateAddress.setHouseNumber(addressDto.getHouseNumber());
-            updateAddress.setStreet(addressDto.getStreet());
+    public AddressDto updateAddressById(Long id, AddressDto addressDto) {
+        Optional<Address> updateAddress = addressRepository.findById(id);
+        if(updateAddress.isPresent()){
+            updateAddress.get().setCity(addressDto.getCity());
+            updateAddress.get().setFloorNumber(addressDto.getFloorNumber());
+            updateAddress.get().setHouseNumber(addressDto.getHouseNumber());
+            updateAddress.get().setStreet(addressDto.getStreet());
         }
-        return Optional.of(toDto(addressRepository.save(updateAddress)));
+        return toDto(addressRepository.save(updateAddress.get()));
     }
 
     public Address dto(AddressDto addressDto){
@@ -55,5 +65,9 @@ public class AddressService {
         return  AddressDto.builder().id(address.getId()).city(address.getCity())
                 .houseNumber(address.getHouseNumber()).floorNumber(address.getFloorNumber())
                 .street(address.getStreet()).build();
+    }
+
+    public List<AddressDto> addressListToAddressDtoList(List<Address> address){
+        return address.stream().map(address1 -> toDto(address1)).collect(Collectors.toList());
     }
 }

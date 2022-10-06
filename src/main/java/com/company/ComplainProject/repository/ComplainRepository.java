@@ -6,6 +6,8 @@ import com.company.ComplainProject.dto.DashboardData.ComplainByStatus;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -35,6 +37,12 @@ public interface ComplainRepository extends JpaRepository<Complain,Long> , JpaSp
     @Query("SELECT c FROM Complain c WHERE c.user =:user AND c.status =:status")
     List<Complain> getComplainByUserAndStatus(@Param("user") User user,@Param("status") Status status);
 
+
+    @Query("SELECT c FROM Complain c WHERE c.area.id = :a_id")
+    Page<Complain> getAllComplainByArea(@Param("a_id") Long id, Pageable pageable);
+
+    @Query("SELECT c FROM Complain c WHERE c.complainType.id = :c_type_id")
+    Page<Complain> getAllComplainByComplainType(@Param("c_type_id") Long c_type_id, Pageable pageable);
 }
 
 

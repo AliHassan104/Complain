@@ -4,6 +4,7 @@ import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.model.*;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -19,6 +20,7 @@ public class ComplainDto {
 
     private Long id;
     private String description;
+    @NotNull
     private String picture;
     private Area area;
     private Block block;

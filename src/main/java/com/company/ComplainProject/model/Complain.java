@@ -55,8 +55,6 @@ public class Complain {
     private ComplainType complainType;
 
     @OneToMany(mappedBy = "complain",cascade = CascadeType.REMOVE)
-    @JsonIgnore
-    @JsonIgnoreProperties
     private List<ComplainLog> complainLogs;
 
 

@@ -21,5 +21,4 @@ public class AchievementsDto {
     private String description;
     private String pictureUrl;
     private String date;
-//    private String time;
 }

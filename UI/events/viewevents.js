@@ -1,14 +1,14 @@
 function renderEvent(data) {
     let table = ""
 
-    table += `<tr style="width: 100%; display: flex; justify-content: space-evenly;" class="tablepoint">
-        <th style="width: 20%;" class="toptable ">Title</th>
-        <th style="width: 20%;" class="toptable ">Description</th>
-        <th style="width: 20%;" class="toptable ">Area</th>
-        <th style="width: 15%;" class="toptable ">Date</th>
-        <th style="width: 10%;" class="toptable ">Time</th>
-        <th style="width: 20%;" class="toptable ">Picture</th>
-        <th style="width: 20%; " class="toptable ">Action</th>
+    table += `<tr  class="tablepoint">
+        <th  class="toptable ">Title</th>
+        <th  class="toptable ">Description</th>
+        <th  class="toptable ">Area</th>
+        <th  class="toptable ">Date</th>
+        <th  class="toptable ">Time</th>
+        <th  class="toptable ">Picture</th>
+        <th  class="toptable ">Action</th>
         </tr>`
 
     for (let i = 0; i < data.length; i++) {
@@ -19,22 +19,22 @@ function renderEvent(data) {
 
         table += `
 
-        <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-evenly;" >
-            <td style="width: 20%;" class="datatable">${data[i].title}</td>
-            <td style="width: 20%;" class="datatable">${data[i].description}</td>
-            <td style="width: 20%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 15%;" class="datatable">${data[i].startDate}</td>
-            <td style="width: 10%;" class="datatable">${data[i].startTime}</td>
-            <td style="width: 20%;" class="datatable"><img src="${data[i].image}" alt="abc" style="width: 80%; height : 100px"> 
+        <tr class="tablepoint ">
+            <td class="datatable mouseHand" onclick="viewEventDetails(${data[i].id})" >${data[i].title}</td>
+            <td class="datatable mouseHand" onclick="viewEventDetails(${data[i].id})">${data[i].description}</td>
+            <td class="datatable mouseHand" onclick="viewEventDetails(${data[i].id})">${data[i].area.name}</td>
+            <td class="datatable mouseHand" onclick="viewEventDetails(${data[i].id})">${data[i].startDate}</td>
+            <td class="datatable mouseHand" onclick="viewEventDetails(${data[i].id})">${data[i].startTime}</td>
+            <td class="datatable mouseHand" onclick="viewEventDetails(${data[i].id})"><img src="${data[i].image}" alt="abc" style="width: 80%; height : 100px"> 
             </td>
-            <td style="width: 20%;" class="datatable"> 
+            <td class="datatable"> 
 
             <a  href="/events/addevents.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
             
-            <i onclick="deleteEvent(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
+            <i onclick="deleteEvent(${data[i].id})"  class="fa fa-close"></i>
     </td>
         </tr>`
     }
@@ -59,30 +59,26 @@ function renderEvent(data) {
     else {
         document.getElementById("noRecordFound").innerHTML = ""
     }
-
 }
 
-var previousPageNumber = 0;
-function getEvent(pageNumber, pageSize, next) {
+function viewEventDetails(event_id){
+    
+    location.href = `${loginUrl}/events/eventdetails.html?e_id=${event_id}`
+}
 
-    if (next) {
-        pageNumber += 1
-    }
-    if (next === false) {
-        previousPageNumber -= 1
-        pageNumber = previousPageNumber
-    }
-
+// var previousPageNumber = 0;
+function getEvent(pageNumber) {
+   
     if (pageNumber >= 0) {
-        getData(`/admin/event?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+        getData(`/admin/event?pageNumber=${pageNumber}&pageSize=${2}`)
             .then((data) => {
-                previousPageNumber = pageNumber
-                renderEvent(data);
+                renderEvent(data.content);
+                renderPagination(data)
             })
     }
 }
 
-getEvent(0, 2)
+getEvent(0)
 
 
 function deleteEvent(id) {
@@ -108,33 +104,52 @@ function deleteEvent(id) {
             setTimeout(() => {
                 document.getElementById("formSubmitted").innerHTML = ""
             }, 2000)
+
+            getEvent(0)
+            renderPagination()
         })
 
-    setTimeout(() => {
-        getEvent()
-    }, 100);
+   
+        
 
 }
 
 let uid;
 
+function  renderPagination(data) {
+    let pages = data.totalPages;
+    let renderPagination = ""
+    let renderPageOf = ""
+    let pageNumber = data.number
+    let nextPageNumber = pageNumber+1
 
-function renderPagination() {
-    renderPagination = ""
+    if(nextPageNumber == pages){
+       nextPageNumber = -1
+    }
+    if(data.numberOfElements != 0){
+        pageNumber += 1
+    }
+   
+    document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
 
     renderPagination += `
-    <li class="page-item" onclick="getEvent(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item" onclick="getEvent(${0},${2})"><a class="page-link" href="#">1</a></li>
-    <li class="page-item" onclick="getEvent(${1},${2})"><a class="page-link" href="#">2</a></li>
-    <li class="page-item" onclick="getEvent(${2},${2})"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"onclick="getEvent(${3},${2})"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"onclick="getEvent(${4},${2})"><a class="page-link" href="#">5</a></li>
-    <li class="page-item"onclick="getEvent(${4},${2},${true})"><a class="page-link" href="#">Next</a></li>
-    `
+    <li class="page-item" onclick="showPreviousPage(${pageNumber-2})"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" onclick="showFirstPage(${0})"><a class="page-link" href="#">First</a></li>
+    <li class="page-item" onclick="showLastPage(${nextPageNumber})"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"onclick="showNextPage(${pages-1})"><a class="page-link" href="#">Last</a></li>`
+
     document.getElementById("pagination").innerHTML = renderPagination
-
 }
-renderPagination()
 
-
-
+function showPreviousPage(pageNumber){
+    getEvent(pageNumber)
+}
+function showFirstPage(pageNumber){
+    getEvent(pageNumber)
+}
+function showLastPage(pageNumber){
+    getEvent(pageNumber)
+}
+function showNextPage(pageNumber){
+    getEvent(pageNumber)
+}

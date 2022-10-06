@@ -6,10 +6,12 @@ import java.util.Set;
 
 public class filterPollingOptionResults implements Comparator<Map<String,Long>> {
 
-//    @Override
-//    public int compare(PollingQuestionResult o1, PollingQuestionResult o2) {
-//        return o2.getGetPollingQuestionResult().get(String.join(", ", o2.getGetPollingQuestionResult().keySet())).compareTo(o1.getGetPollingQuestionResult().get(String.join(", ", o1.getGetPollingQuestionResult().keySet())));
-//    }
+    /**
+     * Sort the Hash Map of Polling Options ( answered  by user)
+     * @param o1
+     * @param o2
+     * @return
+     */
 
     @Override
     public int compare(Map<String, Long> o1, Map<String, Long> o2) {

@@ -3,14 +3,13 @@ package com.company.ComplainProject.controller;
 import com.company.ComplainProject.config.exception.CannotDeleteImage;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.image.AchievementImageImplementation;
-import com.company.ComplainProject.config.image.FileService;
 import com.company.ComplainProject.dto.AchievementsDto;
-import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.service.AchievementService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,40 +20,40 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
 public class AchievementController {
 
     @Autowired
-    AchievementService achievementService;
+    private AchievementService achievementService;
     @Autowired
-    AchievementImageImplementation achievementImageImplementation;
+    private AchievementImageImplementation achievementImageImplementation;
     @Value("${achievement.image}")
     private String achievementPath;
     @Value("${image.path.url}")
     private String imagePathUrl;
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/achievement")
-    public ResponseEntity<List<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                              @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
-        List<Achievements> assetBooking = achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
-        if(!assetBooking.isEmpty()){
-            return ResponseEntity.ok(assetBooking);
+    public ResponseEntity<Page<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+        Page<Achievements> achievements= achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
+        if(!achievements.isEmpty()){
+            return ResponseEntity.ok(achievements);
         }
         throw new ContentNotFoundException("No Achievement Exist ");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/achievement/{id}")
-    public ResponseEntity<Optional<Achievements>> getAchievementsById(@PathVariable Long id){
-        Optional<Achievements> asset = achievementService.getAchievementById(id);
-        if(asset.isPresent()){
-            return  ResponseEntity.ok(asset);
-        }
-        throw new ContentNotFoundException("No Achievement Exist having id "+id);
+    public ResponseEntity<AchievementsDto> getAchievementsById(@PathVariable Long id){
+        AchievementsDto achievement = achievementService.getAchievementById(id);
+        return  ResponseEntity.ok(achievement);
+
+
     }
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/achievement/{id}")
     public ResponseEntity<Void> deleteAchievementById(@PathVariable Long id){
         try{
@@ -67,7 +66,6 @@ public class AchievementController {
             else{
                 throw new CannotDeleteImage("Cannot delete Achievement Image having id "+id);
             }
-
         }
         catch (Exception e){
             System.out.println(e);
@@ -75,8 +73,9 @@ public class AchievementController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/achievement/{id}")
-    public ResponseEntity<Optional<AchievementsDto>> updateAchievementById(@PathVariable Long id
+    public ResponseEntity<AchievementsDto> updateAchievementById(@PathVariable Long id
                                                                     ,@RequestParam("pictureUrl") MultipartFile image,
                                                                            @RequestParam("data") String achievementdto){
         try{
@@ -105,6 +104,7 @@ public class AchievementController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/achievement")
     public ResponseEntity<AchievementsDto> addAchievements(@RequestParam("pictureUrl") MultipartFile image,
                                                             @RequestParam("data") String userdata) {
@@ -113,7 +113,6 @@ public class AchievementController {
             AchievementsDto achievementsDto = mapper.readValue(userdata,AchievementsDto.class);
 //                                                                                              Save Image in Database
             String fileName = achievementImageImplementation.uploadImage(image);
-
             achievementsDto.setPictureUrl(imagePathUrl+"api/"+achievementPath+fileName);
 
             return ResponseEntity.ok(achievementService.addAchievement(achievementsDto));

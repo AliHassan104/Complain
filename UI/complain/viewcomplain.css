@@ -1,4 +1,17 @@
+@media screen and (min-width: 601px) {
+    .heading {
+      font-size: 80px;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .heading {
+      font-size: 30px;
+    }
+  }
+
 .mouseHand{
     cursor: pointer;
+    /* display:; */
+   
 }
-

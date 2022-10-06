@@ -43,9 +43,8 @@ function formSubmit() {
     var selectBlock = document.getElementById("dropdownblock");
     blockId = selectBlock.options[selectBlock.selectedIndex].value;
 
-    setTimeout(() => {
-        addAddress()
-    }, 1000);
+    addAddress()
+   
 }
 
 
@@ -58,8 +57,10 @@ function addUser() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let family = document.getElementById("family").value;
+
     let property = document.getElementById("dropdownproperty");
     let propertyValue = property.value;
+    
     let usertype = document.getElementById("usertype").value
 
 
@@ -106,6 +107,9 @@ function addUser() {
                 },2000)
 
             })
+            .catch((error)=>{
+                console.log(error)
+    })  
 
     } else {
     
@@ -200,6 +204,7 @@ function getArea() {
         `
             }
             document.getElementById("dropdownarea").innerHTML = table;
+            getBlock(areaIdToGetBlock)
         })
 }
 getArea();
@@ -226,13 +231,10 @@ function getBlock(areaId) {
                 <option value="" disabled selected>Sorry No Block Available</option>
             `
             }
-
             document.getElementById("dropdownblock").innerHTML = renderData;
         })
 
 }
 
 
-setTimeout(() => {
-    getBlock(areaIdToGetBlock)
-}, 400)
+

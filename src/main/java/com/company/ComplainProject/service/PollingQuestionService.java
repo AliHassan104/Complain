@@ -31,6 +31,8 @@ public class PollingQuestionService {
     PollingAnswerRepository pollingAnswerRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    SessionService service;
 
     public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
@@ -88,10 +90,10 @@ public class PollingQuestionService {
         return pollingQuestionRepository.findPollingQuestionByArea(area);
     }
 
-    public List<PollingQuestion> getPollingQuestionsNotAnsweredByUserService(Long user_id) {
+    public List<PollingQuestion> getPollingQuestionsNotAnsweredByUserService() {
         List<PollingQuestion> showPollingQuestions = new ArrayList<>();
 
-        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(user_id)).findAny().get();
+        User user = service.getLoggedInUser();
         List<PollingQuestion> attemptedQuestions = pollingAnswerRepository.getAttemptedPollingQuestionsByUser(user);
 
 //                                                                      Attempted Polling Questions
@@ -118,7 +120,6 @@ public class PollingQuestionService {
                 }
 
             }
-//            pollingQuestionsByArea.stream().forEach(pollingQuestion -> getPollingQuestionId.add(pollingQuestion.getId()));
         }
 
         getPollingQuestionId.removeAll(attemptedPollingQuestionsId);

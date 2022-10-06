@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.config.exception.UserNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.SearchCriteria;
 import com.company.ComplainProject.dto.UserDetailsResponse;
@@ -9,12 +10,14 @@ import com.company.ComplainProject.exportDataToExcel.UserExcelExporter;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +30,9 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/user")
-    public ResponseEntity<List<UserDetailsResponse>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
-                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        List<UserDetailsResponse> user = userService.getAllUserWithPagination(pageNumber,pageSize);
+    public ResponseEntity<Page<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
+                                                             @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
+        Page<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
         }
@@ -42,8 +45,13 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * Register User
+     * @param userDto
+     * @return
+     */
     @PostMapping("/user")
-    public ResponseEntity<UserDetailsResponse> addUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDetailsResponse> addUser(@Valid @RequestBody UserDto userDto){
         try{
             return ResponseEntity.ok(userService.addUser(userDto));
         }catch (Exception e){
@@ -75,7 +83,7 @@ public class UserController {
     }
 
     @GetMapping("/user/search")
-    public ResponseEntity<List<UserDetailsResponse>>  filtereUser(@RequestBody SearchCriteria searchCriteria){
+    public ResponseEntity<List<UserDetailsResponse>>  filteredUser(@RequestBody SearchCriteria searchCriteria){
         List<UserDetailsResponse> user = userService.getFilteredUser(searchCriteria);
         if(!user.isEmpty()){
             return ResponseEntity.ok(user);
@@ -96,13 +104,13 @@ public class UserController {
         userExcelExporter.exportData(response);
     }
 
-    @GetMapping("/userbyemail/{email}")
-    public ResponseEntity<UserDetailsResponse> getUserByEmail(@PathVariable("email") String email){
+    @GetMapping("/get-logged-in-user")
+    public ResponseEntity<UserDetailsResponse> getLoggedInUser(){
         try{
-            return  ResponseEntity.ok(userService.getUserByEmail(email));
+            return  ResponseEntity.ok(userService.getLoggedInUser());
         }catch (Exception e){
             System.out.println(e);
-            throw new ContentNotFoundException("No user Exist having email "+email);
+            throw new ContentNotFoundException("No user Exist");
         }
     }
 
@@ -124,6 +132,33 @@ public class UserController {
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No user found having status "+status);
+        }
+    }
+
+    /**
+     * Get All User whose type = worker
+     * @return
+     */
+    @GetMapping("/user/getallworker")
+    public ResponseEntity<List<UserDetailsResponse>> getAllWorker(){
+        try{
+            return ResponseEntity.ok(userService.getAllWorkers());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new UserNotFoundException("No Worker Exist");
+        }
+    }
+
+    /**
+     *
+     */
+    @GetMapping("/user/getallworkerbyarea/{area_id}")
+    public ResponseEntity<List<UserDetailsResponse>> getAllWorkerByArea(@PathVariable("area_id") Long area_id){
+        try{
+            return ResponseEntity.ok(userService.getAllWorkerByArea(area_id));
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new UserNotFoundException("No Worker Exist Having area id "+area_id);
         }
     }
 

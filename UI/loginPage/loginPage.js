@@ -17,9 +17,31 @@ function loginData() {
             },
             body: JSON.stringify(loginCredentials)
         })
-            .then((response) => 
+            .then((response) => {
+                wrongEmailAndPass = '';
+                    if(!response.ok){
+                        wrongEmailAndPass +=
+                        `
+                        <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 100%;
+                        height: 6vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-danger" role="alert">
+                        Wrong Credentials
+                        </div>`
+
+                        document.getElementById("notAllowed").innerHTML = wrongEmailAndPass
+                        
+                        setTimeout(()=>{
+                            document.getElementById("notAllowed").innerHTML = ""
+                        },2000)
+                    }
+
                 response.json()
-            )
+            
             .then((data) => {
                 if (data.jwt != null) {
                     localStorage.setItem("jwtToken", data.jwt)
@@ -30,11 +52,32 @@ function loginData() {
             .catch((response) => {
                 console.log("Only Admin Allow")
             });
+        })
 
     }
     else {
-        console.log("Email And Password Cannot be Null");
-    }
+         console.log("yes")
+        var wrongEmailAndPass=''
+        wrongEmailAndPass +=
+                        `
+                        <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 100%;
+                        height: 6vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-danger" role="alert">
+                        Email Or Password Cannot be Empty
+                        </div>`
+
+                        document.getElementById("notAllowed").innerHTML = wrongEmailAndPass
+                        
+                        setTimeout(()=>{
+                            document.getElementById("notAllowed").innerHTML = ""
+                        },2000)
+        }
 }
+
 
 

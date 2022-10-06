@@ -1,6 +1,9 @@
 
 let queryString = window.location.search;
 var complainStatus;
+var paginationDiv = document.getElementById('paginationDiv')
+
+
 
 if (queryString != "") {
     let parameters = new URLSearchParams(queryString);
@@ -8,13 +11,15 @@ if (queryString != "") {
     filterComplainByStatus()
 }
 else {
-    getComplain()
+    getComplain(0)
 }
+
+
 
 document.getElementById('filterByStatus').addEventListener('change', function() {
     complainStatus = this.value
     filterComplainByStatus()
-  });
+});
                                                         // filterByStatus
 
 function filterComplainByStatus() {
@@ -30,16 +35,62 @@ function filterComplainByStatus() {
         sendData(`/complain/searchByStatus`,search)
             .then((data) => {
                 renderComplainData(data)
+                paginationDiv.style.display = 'none'
             })
     }
     else{
-        getComplain()
+        getComplain(0)
+        paginationDiv.style.display = 'flex'
     }
 }
+
+//                                                                                          filter Complain By Area
+
+document.getElementById('dropdownArea').addEventListener('change', function() {
+    filterComplainByArea(this.value);
+});
+
+function filterComplainByArea(area_id){
+    
+    if (area_id !== "All") {
+        getData(`/getcomplainbyarea/${area_id}`)
+            .then((data) => {
+                renderComplainData(data.content)
+                paginationDiv.style.display = 'none'
+            })
+    }
+    else{
+        getComplain(0)
+        paginationDiv.style.display = 'flex'
+    }
+}
+
+//                                                                                          filter Complain By Complain Type
+document.getElementById('complainType').addEventListener('change', function() {
+    filterCompainByComplainType(this.value)
+});
+
+function filterCompainByComplainType(complainType_id){
+    
+    if (complainType_id !== "All") {
+        getData(`/getcomplainbycomplaintype/${complainType_id}`)
+            .then((data) => {
+                renderComplainData(data.content)
+                paginationDiv.style.display = 'none'
+            })
+    }
+    else{
+        getComplain(0)
+        paginationDiv.style.display = 'flex'
+    }
+}
+
+
 
 function renderComplainData(data) {
    
     let table = ""
+    
     table += `
     <tr  class="tablepoint">
     <th  class="toptable ">User Name</th>
@@ -52,6 +103,7 @@ function renderComplainData(data) {
     </tr>`
 
     for (let i = 0; i < data.length; i++) {
+       
 
         if(data[i].description.length > 5){
             data[i].description = data[i].description.slice(0,5)+`<a>...more</a>`
@@ -70,18 +122,19 @@ function renderComplainData(data) {
            
             <td class="datatable"> 
             <a  href="/complain/addcomplain.html?id=${data[i].id}">
-            <i onclick="updateComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;"  
+            <i style="margin-right: 5px;"  onclick="updateComplain(${data[i].id})"  
             class="fa fa-pencil"></i>
             </a>
 
-            <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
-            style="padding-right: 5px; margin-right: 5px;"  class="fa fa-file"></i>
-
-            <i onclick="deleteComplain(${data[i].id})"  style="padding-right: 5px; margin-right: 5px;" class="fa fa-close"></i>
-
+            <i style="margin-right: 5px;" onclick="deleteComplain(${data[i].id})"  class="fa fa-close"></i>
+        
+            <i onclick="assignComplainToUser(${data[i].id})"  
+             class="fa fa-file"></i>
             </td>
         </tr>`
     }
+
+   
     document.getElementById("datatables-reponsive").innerHTML = table;
     
     if (data.length === 0) {
@@ -96,17 +149,28 @@ function renderComplainData(data) {
 
 }
 
+function assignComplainToUser(complain_id){
+    location.href = `${loginUrl}/complain/assigncomplain.html?c_id=${complain_id}`
+}
+
 function showComplainDetails(id) {
     location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
 }
+                                                                        //  get Complain With Pagination
 
 
-function getComplain() {
-        getData(`/admin/complain`)
-        .then((data) => {
-            renderComplainData(data)
-        })
+function getComplain(number) {
+        
+        if(number >= 0 ){
+            getData(`/admin/complain?pageNumber=${number}&pageSize=${2}`)
+                .then((data) => {
+                    renderComplainData(data.content)
+                    renderPagination(data) 
+                    
+                })
+        }
 }
+
 
 let uid;
 function updatedStatusModal(id) {
@@ -129,41 +193,56 @@ function updateStatus() {
             console.error('Error:', error);
         });
 }
-//                                                                              give notification to user on change of complain Status
+//                                                                            give notification to user on change of complain Status
 function giveNotificationToUserOnComplainStatus(complain_id){
     sendData(`/send-notification-touser/${complain_id}`)
 }
 
-function updateComplainLog(complain_id){
-    var todayDate = new Date().toISOString().substring(0,10);
+// function updateComplainLog(complain_id){
+    
+//     getUserData().then((data)=>{
+//         complainLog = {
+//             assignedFrom:{id:data.id},
+//             assignedTo:{id:28}
+//         }
+//         sendData(`/complainlog/${complain_id}`,complainLog)
+//     })
 
-    complainLog = {
-        date:todayDate,
-        assignedFrom:loginUserName,
-        assignedTo:"ahmed"
-    }
-
-    sendData(`/complainlog/${complain_id}`,complainLog)
-}
+// }
 
 function deleteComplain(id) {
 
         deleteData(`/complain/${id}`)
-        .then(() => {
-            getComplain()
+        .then((response) => {
+            getComplain(0)
+            
             let table = ""
-
+            if(response.ok){
             table += `
-            <div  style=" 
-            margin: auto;
-            text-align: center;
-            width: 50%;
-            height: 5vh; text-align: center; 
-            justify-content: center;
-            font-size: large" 
-            class="alert alert-danger" role="alert">
-            Complain Deleted Successfully
-            </div>`
+                <div  style=" 
+                margin: auto;
+                text-align: center;
+                width: 50%;
+                height: 5vh; text-align: center; 
+                justify-content: center;
+                font-size: large" 
+                class="alert alert-success" role="alert">
+                Complain Deleted Successfully
+                </div>`
+            }
+            else{
+                table += `
+                <div  style=" 
+                margin: auto;
+                text-align: center;
+                width: 50%;
+                height: 5vh; text-align: center; 
+                justify-content: center;
+                font-size: large" 
+                class="alert alert-danger" role="alert">
+                Some thing went Wrong Complain Cannot Be deleted
+                </div>`
+            }
 
             document.getElementById("formSubmitted").innerHTML = table
 
@@ -174,23 +253,96 @@ function deleteComplain(id) {
 
 }
 
-getArea()
+
+
 
 function getArea() {
     let table = ""
- 
+   
         getData(`/area`)
         .then((data) => {
-            allArea = data;
-            table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
-            table += `<option value="ALL" selected>Select Area</option>`
+
+            table += `
+            <option selected disabled>Filter by Area</option>
+            `
+        
             for (let i = 0; i < data.length; i++) {
                 table += `
             <option value="${data[i].id}">${data[i].name}</option>
-        `
+            `
             }
-            table += `</select>`
-            document.getElementById("dropdownarea1").innerHTML = table;
+
+            table += `
+            <option value="All">All</option>
+            `
+            document.getElementById("dropdownArea").innerHTML = table;
         })
 }
+getArea();
+
+
+
+
+function getComplainType() {
+    let table = ""
+   
+    getData(`/complaintype`)
+    .then((data) => {
+
+        table += `
+            <option selected disabled>Filter by Complain Type</option>
+            `
+        for (let i = 0; i < data.length; i++) {
+            table += `
+        <option value="${data[i].id}">${data[i].name}</option>
+    `   
+        }
+        table += `
+        <option value="All">All</option>
+        `
+        document.getElementById("complainType").innerHTML = table;
+    })
+}
+
+getComplainType()
+
+
+function  renderPagination(data,) {
+    let pages = data.totalPages;
+    let renderPagination = ""
+    let renderPageOf = ""
+    let pageNumber = data.number
+    let nextPageNumber = pageNumber+1
+
+    if(nextPageNumber == pages){
+       nextPageNumber = -1
+    }
+    if(data.numberOfElements != 0){
+        pageNumber += 1
+    }
+   
+    document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
+
+    renderPagination += `
+    <li class="page-item" onclick="showPreviousPage(${pageNumber-2})"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" onclick="showFirstPage(${0})"><a class="page-link" href="#">First</a></li>
+    <li class="page-item" onclick="showLastPage(${nextPageNumber})"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"onclick="showNextPage(${pages-1})"><a class="page-link" href="#">Last</a></li>`
+
+    document.getElementById("pagination").innerHTML = renderPagination
+}
+
+function showPreviousPage(pageNumber){
+    getComplain(pageNumber)
+}
+function showFirstPage(pageNumber){
+    getComplain(pageNumber)
+}
+function showLastPage(pageNumber){
+    getComplain(pageNumber)
+}
+function showNextPage(pageNumber){
+    getComplain(pageNumber)
+}
+
 

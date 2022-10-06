@@ -77,7 +77,7 @@ function formSubmit() {
           
             updateDataWithFormData(`/event/${eventId}`,formData)
                 .then((data) => {
-                    console.log(data);
+                  
                     let table = ""
                     table += `
                     <div  style=" 
@@ -135,7 +135,7 @@ function sendNotificationToUserOfEvent(event_id){
 function getArea() {
     let dataRender = ""
 
-        getData(`/admin/area`)
+        getData(`/area`)
         .then((data) => {
 
             if (data.length !== 0) {

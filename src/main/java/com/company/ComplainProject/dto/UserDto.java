@@ -1,5 +1,7 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.config.customvalidation.UniqueContactNumber;
+import com.company.ComplainProject.config.customvalidation.UniqueEmail;
 import com.company.ComplainProject.dto.ProjectEnums.PropertyEnum;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.ProjectEnums.UserType;
@@ -12,6 +14,7 @@ import lombok.*;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,8 +29,14 @@ public class UserDto{
     private Long id;
     private String firstname;
     private String lastname;
+
+    @UniqueEmail
+    @NotBlank(message = "email should not be blank")
     private String email;
+
     private String password;
+
+    @UniqueContactNumber
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;

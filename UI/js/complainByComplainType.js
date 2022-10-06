@@ -9,20 +9,20 @@ function getComplain() {
             TypeOfComplain.push(data[property].complainType)
             NumberOfComplains.push(data[property].numberOfComplains)
         }
+
+        for (let i = 0; i < NumberOfComplains.length; i++) {
+            if (NumberOfComplains[i] > maxNumberOfComplain ) {
+                maxNumberOfComplain = NumberOfComplains[i]
+            }
+        }
+        barchart2()
+        
       })
 }
 
 getComplain()
 
-setTimeout(() => {
-    for (let i = 0; i < NumberOfComplains.length; i++) {
-        if (NumberOfComplains[i] > maxNumberOfComplain ) {
-            maxNumberOfComplain = NumberOfComplains[i]
-        }
-    }
-    barchart2()
-}, 1500);
-
+    
 
 function barchart2(){
     new Chart(document.getElementById("chartjs-dashboard-bar2"), {
