@@ -13,6 +13,9 @@
   <div class="content-header mb-05">
     <br>
   </div>
+
+  <div   *ngIf="lists.length > 0; else nodocument">
+
   <div class="wide-block p-0">
 
       <div class="table-responsive">
@@ -50,6 +53,20 @@
       </div>
 
   </div>
+
+</div>
+
+
+<ng-template #nodocument>
+  <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
+    <div class="card-body">
+        <div class="text-center">
+          <p>No Document Available</p>
+        </div>
+    </div>
+  </div>
+</ng-template>
+
 </div>
 
 <app-bottom-menu></app-bottom-menu>

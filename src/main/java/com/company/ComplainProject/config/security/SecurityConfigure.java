@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -46,9 +47,10 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/complain/images/**").permitAll()
                 .antMatchers("/api/event/images/**").permitAll()
                 .antMatchers("/api/login").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/area").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/block").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/admin/area").permitAll()
+                .antMatchers("/api/send/otp/**").permitAll()
+                .antMatchers("/api/area").permitAll()
+                .antMatchers("/api/blockByArea/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/address/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**")
                 .permitAll().anyRequest().authenticated()
                 .and().sessionManagement()
@@ -64,8 +66,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
-
 }

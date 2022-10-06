@@ -3,14 +3,20 @@
 
   <a href="javascript:;" class="item" data-toggle="modal" (click)="getAllFriends()" data-target="#sidebarPanel">
       <div class="col">
-          <ion-icon  src="assets/menu.svg"></ion-icon>
+          <!-- <ion-icon  src="assets/menu.svg"></ion-icon> -->
+          <img width="30px" src="assets/icons/menu2.png"/>
+          <!-- <ion-icon  src="assets/menu.svg"></ion-icon> -->
           <!-- <img src="https://img.icons8.com/material-sharp/35/000000/menu--v1.png"/> -->
       </div>
   </a>
 
   <a  class="item" [routerLink]="['/home']" >
       <div class="col">
-          <ion-icon src="assets/home.svg"></ion-icon>
+
+          <img width="30px" src="assets/icons/home2.png"/>
+          <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
+          <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
+          <!-- <img style="width: 40px;" src="assets/home.svg"/> -->
           <!-- <img src="https://img.icons8.com/material-rounded/24/1A1A1A/home.png"/> -->
           <!-- <img src="https://img.icons8.com/material-sharp/35/000000/home-page.png"/> -->
       </div>
@@ -19,16 +25,19 @@
   <a [routerLink]="['/mycomplain']"  class="item">
 
       <div class="col">
-          <ion-icon src="assets/friends.svg"></ion-icon>
+          <!-- <ion-icon src="assets/friends.svg"></ion-icon> -->
+
+          <img width="33px" src="assets/icons/complain2.png"/>
           <!-- <img src="https://img.icons8.com/material-sharp/24/1A1A1A/complaint.png"/> -->
           <!-- <img src="https://img.icons8.com/ios-filled/35/000000/complaint.png"/> -->
           <i class="bi bi-person"></i>
           <span  *ngIf="reqCount>0" class="badge badge-danger" >{{reqCount}}</span>
       </div>
   </a>
-  <a (click)="goToAddPostNotifications()" class="item">
+  <a (click)="logout()" class="item">
       <div class="col">
-          <ion-icon src="assets/notification.svg"></ion-icon>
+          <!-- <ion-icon src="assets/notification.svg"></ion-icon> -->
+          <img width="25px" src="assets/icons/logout2.png"/>
           <!-- <img src="https://img.icons8.com/material-sharp/35/000000/appointment-reminders--v1.png"/> -->
           <i class="bi bi-bell-fill"></i>
           <span *ngIf="notificationCount>0" class="badge badge-danger" >{{notificationCount}}</span>
@@ -47,15 +56,6 @@
               <div class="profileBox">
 
                   <div class="image-wrapper">
-                      <!-- <img [src]="
-                      profilePicture != null
-                        ? 'data:image/jpeg;base64,' + profilePicture
-                        : 'assets/user.png'
-                    "
-                    alt="image"
-                    class="imaged rounded myImg"> -->
-
-
 
                   </div>
 
@@ -77,7 +77,7 @@
                           <div class="icon-box bg-primary">
                               <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
                               <!-- <ion-icon name="home-outline"></ion-icon> -->
-                              <img src="https://img.icons8.com/material-rounded/24/1A1A1A/home.png"/>
+                              <img width="24px" src="assets/home.svg"/>
                           </div>
                           <div class="in">
                               Home
@@ -87,10 +87,11 @@
                   <li *ngIf="!checkUserType()">
                       <a class="item" [routerLink]="['/mycomplain']" data-dismiss="modal">
                           <div class="icon-box bg-primary">
+                            <img width="24px" src="assets/icons/complain.png"/>
                               <!-- <ion-icon src="assets/message.svg"></ion-icon> -->
                               <!-- <ion-icon name="chatbubbles-outline"></ion-icon> -->
                               <!-- <img src="https://img.icons8.com/ios-glyphs/30/1A1A1A/complaint.png"/> -->
-                              <img src="https://img.icons8.com/material-sharp/24/1A1A1A/complaint.png"/>
+                              <!-- <img src="https://img.icons8.com/material-sharp/24/1A1A1A/complaint.png"/> -->
                           </div>
                           <div class="in">
                               <div>My Complain</div>
@@ -103,7 +104,8 @@
                           <div class="icon-box bg-primary">
                               <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
                               <!-- <ion-icon name="water-outline"></ion-icon> -->
-                              <img src="https://img.icons8.com/android/24/1A1A1A/water.png"/>
+                              <img width="24px" src="assets/icons/water.png"/>
+                              <!-- <img src="https://img.icons8.com/android/24/1A1A1A/water.png"/> -->
 
                           </div>
                           <div class="in">
@@ -117,7 +119,8 @@
                           <div class="icon-box bg-primary">
                               <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
                               <!-- <ion-icon name="trophy-outline"></ion-icon> -->
-                              <img src="https://img.icons8.com/external-regular-kawalan-studio/24/1A1A1A/external-achievement-business-regular-kawalan-studio-2.png"/>
+                              <!-- <img src="https://img.icons8.com/external-regular-kawalan-studio/24/1A1A1A/external-achievement-business-regular-kawalan-studio-2.png"/> -->
+                              <img width="24px" src="assets/icons/achievement.png"/>
                           </div>
                           <div class="in">
                               <div>Achievement</div>
@@ -130,7 +133,8 @@
                             <!-- <ion-icon name="calendar-number-outline"></ion-icon> -->
                             <!-- <ion-icon name="calendar-clear-outline"></ion-icon> -->
                             <!-- <ion-icon name="calendar-outline"></ion-icon> -->
-                            <img src="https://img.icons8.com/material-rounded/24/1A1A1A/event-accepted-tentatively.png"/>
+                            <!-- <img src="https://img.icons8.com/material-rounded/24/1A1A1A/event-accepted-tentatively.png"/> -->
+                            <img width="24px" src="assets/icons/event.png"/>
                           </div>
                           <div class="in">
                               <div>Event</div>
@@ -141,10 +145,11 @@
                   <li *ngIf="!checkUserType()">
                       <a [routerLink]="['/document']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
+                            <img width="24px" src="assets/icons/document.png"/>
                               <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
                               <!-- <ion-icon name="document-outline"></ion-icon> -->
                               <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/document--v1.png"/> -->
-                              <img src="https://img.icons8.com/material-outlined/24/1A1A1A/document--v1.png"/>
+                              <!-- <img src="https://img.icons8.com/material-outlined/24/1A1A1A/document--v1.png"/> -->
                           </div>
                           <div class="in">
                               <div>Document</div>
@@ -156,8 +161,9 @@
                   <li >
                       <a [routerLink]="['/pollingquestion']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
+                            <img width="26px" src="assets/icons/survey.png"/>
                               <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/survey--v2.png"/> -->
-                              <img src="https://img.icons8.com/material-outlined/24/000000/event-accepted-tentatively.png"/>
+
                           </div>
                           <div class="in">
                               <div>Survey</div>
@@ -169,9 +175,11 @@
                   <li >
                       <a [routerLink]="['/help']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
+
+                            <img width="26px" src="assets/icons/contact.png"/>
                               <!-- <ion-icon src="assets/calendar.svg"></ion-icon> -->
                               <!-- <ion-icon name="help-circle-outline"></ion-icon> -->
-                              <img src="https://img.icons8.com/material-outlined/24/1A1A1A/help.png"/>
+                              <!-- <img src="https://img.icons8.com/material-outlined/24/1A1A1A/help.png"/> -->
                           </div>
                           <div class="in">
                               <div>Contact Us</div>
@@ -223,7 +231,8 @@
           <!-- sidebar buttons -->
           <div class="sidebar-buttons">
               <a  class="button" (click)="logout()" data-dismiss="modal">
-                  <ion-icon src="assets/logout.svg"></ion-icon>
+                  <!-- <ion-icon src="assets/logout.svg"></ion-icon> -->
+                  <img width="25px" src="assets/icons/logout2.png"/>
               </a>
           </div>
           <!-- * sidebar buttons -->

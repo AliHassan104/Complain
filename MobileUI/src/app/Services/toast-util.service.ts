@@ -13,7 +13,7 @@ export class ToastUtilService {
     $(toastId).addClass("show")
     setTimeout(() => {
       $(toastId).removeClass("show");
-  }, 2000);
+  }, 3000);
 }
 
 showNotification(notificationId){

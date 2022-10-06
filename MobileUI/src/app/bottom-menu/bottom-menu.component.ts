@@ -316,8 +316,9 @@ export class BottomMenuComponent implements OnInit {
   }
 
   goToAddPostNotifications() {
+    this.router.navigate([''])
 
-      this.updateNotificationsCount('post')
+      // this.updateNotificationsCount('post')
 
   }
 

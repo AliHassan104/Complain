@@ -48,8 +48,4 @@ public class LoginController {
         return ResponseEntity.ok(new AuthenticationResponse(jwtToken));
 
         }
-
-
-
-
 }

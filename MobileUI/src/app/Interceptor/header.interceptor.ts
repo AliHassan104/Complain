@@ -19,6 +19,7 @@ export class HeaderInterceptor implements HttpInterceptor {
         // const isApiUrl = request.url.startsWith(environment.apiUrl);
         // if (isLoggedIn && isApiUrl) {
           // console.log(`${this.accountService.getToken()}`);
+
             request = request.clone({
                 setHeaders: { Authorization: `${this.accountService.getToken()}` }
             });
