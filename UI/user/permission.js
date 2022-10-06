@@ -1,39 +1,87 @@
+// async function getData1(url){
+//     debugger;
+//     var data;
+//     var token = JSON.parse(localStorage.getItem("jwtToken"));
+//   try {
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: {
+//         "Authorization": "Bearer " + token,
+//         "Content-type": "application/json",
+//       },
+//     });
+//     const value = await response.json();
+//     // data = value;
+//     return value;
+//   } catch (json) {
+//     return json;
+//   }
+//   }
+  
+//   async function getDataWithBody(url, body){
+//     debugger;
+    
+//     var data;
+//     var token = JSON.parse(localStorage.getItem("jwtToken"));
+//   try {
+//     const response = await fetch(url, {
+      
+//       method: "POST",
+//               body: JSON.stringify(body),
+//       headers: {
+//         "Authorization": "Bearer " + token,
+//         "Content-type": "application/json",
+//       },
+//     });
+//     const value = await response.json();
+//     data = value;
+//     return data;
+//   } catch (json) {
+//     return json;
+//   }
+//   }
 
-    var array=[]
 
-function newElement() {
 
-    fetch("http://localhost:8081/api/permission", {
-        headers: {
-            "Content-Type": "application/octet-stream",
 
-        },
-        method: 'GET'
 
-    }).then((response) => console.log(response))
-        .then(data1 => array=data1)
-        .then(error => {console.log(error)
-        });
-        var data =`
-        <tr>
-        <th>
-            Permissions
-        </th>
-    </tr>`
-    array.push(document.getElementById("myInput").value)
-    for(let i=0 ; i<array.length ; i++){
-        data+=`
-    <tr>
-        <td>${array[i]}</td>
-       
-      </tr>
-        `
+
+
+
+
+
+
+
+
+
+
+function addPermission() {
+
+    permissionData ={ 
+        url:document.getElementById("myInput").value
     }
-
-    document.getElementById("myTable").innerHTML=data
-
-
-
+    sendData(`/permission`,permissionData)
+        .then((data) => {
+            console.log(data)
+            getData(`/permission`)
+            .then((allPermission) =>{
+                var data =`
+                <tr>
+                <th>
+                    Permissions
+                </th>
+            </tr>`
+                console.log(allPermission)
+                for(let i=0 ; i<allPermission.length ; i++){
+                    data+=`
+                <tr>
+                    <td>${allPermission[i].url}</td> 
+                </tr>
+                    `
+                }
+                document.getElementById("myTable").innerHTML=data
+            })
+        })
   }
 
 

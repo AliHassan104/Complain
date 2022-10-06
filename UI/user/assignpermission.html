@@ -20,6 +20,7 @@
 
 
 	<link rel="canonical" href="/index-2.html" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
 
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
@@ -27,13 +28,15 @@
 
 
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
+    <link class="js-stylesheet" href="/css/permission.css" rel="stylesheet">
 
 	<style>
 		body {
 			opacity: 0;
 		}
 	</style>
-
+	
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 	<script src="/js/properties.js"></script>
 	<script src="/js/customFetch.js"></script>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
@@ -45,7 +48,13 @@
 		gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 	</script>
 </head>
-
+<!--
+  HOW TO USE: 
+  data-theme: default (default), dark, light, colored
+  data-layout: fluid (default), boxed
+  data-sidebar-position: left (default), right
+  data-sidebar-layout: default (default), compact
+-->
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
@@ -100,7 +109,7 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item">
+					<li class="sidebar-item ">
 						<a href="/index.html" data-bs-target="#dashboards" class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">Dashboards</span>
@@ -148,12 +157,10 @@
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a>
-							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending
-									Users</a></li>
-									<li class="sidebar-item"><a class="sidebar-link" href="/user/permission.html">Permission</a></li>
-									<li class="sidebar-item"><a class="sidebar-link" href="/user/assignpermission.html">Assign Permissions</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="/user/permission.html">Permission</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="/user/assignpermission.html">Assign Permissions</a></li>
 						</ul>
 					</li>
 
@@ -258,7 +265,66 @@
 					</div>
 				</form>
 
+				<ul class="navbar-nav d-none d-lg-flex">
+					<li class="nav-item px-2 dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Mega Menu
+						</a>
+						<div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="megaDropdown">
+							<div class="d-md-flex align-items-start justify-content-start">
+								<div class="dropdown-mega-list">
+									<div class="dropdown-header">UI Elements</div>
+									<a class="dropdown-item" href="#">Alerts</a>
+									<a class="dropdown-item" href="#">Buttons</a>
+									<a class="dropdown-item" href="#">Cards</a>
+									<a class="dropdown-item" href="#">Carousel</a>
+									<a class="dropdown-item" href="#">General</a>
+									<a class="dropdown-item" href="#">Grid</a>
+									<a class="dropdown-item" href="#">Modals</a>
+									<a class="dropdown-item" href="#">Tabs</a>
+									<a class="dropdown-item" href="#">Typography</a>
+								</div>
+								<div class="dropdown-mega-list">
+									<div class="dropdown-header">Forms</div>
+									<a class="dropdown-item" href="#">Layouts</a>
+									<a class="dropdown-item" href="#">Basic Inputs</a>
+									<a class="dropdown-item" href="#">Input Groups</a>
+									<a class="dropdown-item" href="#">Advanced Inputs</a>
+									<a class="dropdown-item" href="#">Editors</a>
+									<a class="dropdown-item" href="#">Validation</a>
+									<a class="dropdown-item" href="#">Wizard</a>
+								</div>
+								<div class="dropdown-mega-list">
+									<div class="dropdown-header">Tables</div>
+									<a class="dropdown-item" href="#">Basic Tables</a>
+									<a class="dropdown-item" href="#">Responsive Table</a>
+									<a class="dropdown-item" href="#">Table with Buttons</a>
+									<a class="dropdown-item" href="#">Column Search</a>
+									<a class="dropdown-item" href="#">Muulti Selection</a>
+									<a class="dropdown-item" href="#">Ajax Sourced Data</a>
+								</div>
+							</div>
+						</div>
+					</li>
 
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Resources
+						</a>
+						<div class="dropdown-menu" aria-labelledby="resourcesDropdown">
+							<a class="dropdown-item" href="https://adminkit.io/" target="_blank"><i
+									class="align-middle me-1" data-feather="home"></i>
+								Homepage</a>
+							<a class="dropdown-item" href="https://adminkit.io/docs/" target="_blank"><i
+									class="align-middle me-1" data-feather="book-open"></i>
+								Documentation</a>
+							<a class="dropdown-item" href="https://adminkit.io/docs/getting-started/changelog/"
+								target="_blank"><i class="align-middle me-1" data-feather="edit"></i> Changelog</a>
+						</div>
+					</li>
+				</ul>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
@@ -464,86 +530,26 @@
 			</nav>
 
 
+            <main class="content">
+                <span class = "label label-default">Select Roles</span>
+                <select id="dropdownarea" class="form-select">
+                    
+                </select>
+                
+                <div  class="row d-flex justify-content pt-5">
+                    <div class="col-md-6"> 
+                        <span class = "label label-default">Select URL'S</span>
+                        <select id="choices-multiple-remove-button" multiple>
 
-
-			<!-- Change Complain Status Modal	 -->
-
-			<div class="modal fade" id="statusmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Status</h5>
-							<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<select id="updatedstatus" class="form-select" aria-label="Default select example">
-								<option value="IN_REVIEW" selected>IN REVIEW</option>
-								<option value="PUBLISHED">PUBLISHED</option>
-								<option value="REJECTED">REJECTED</option>
-							</select>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="button" onclick="updateUserStatus()" class="btn btn-primary"
-								data-bs-dismiss="modal">Save changes</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-
-
-
-
-
-
-
-			<main class="content">
-
-				<div class="container-fluid p-0">
-
-					<div id="formSubmitted" style="height: 5vh;">
-
-					</div>
-
-
-					<div class="row">
-						<div class="col-sm-4">
-							<h1 class="h3 d-inline align-middle">Pending User Requests</h1>
-						</div>
-
-						<div id="dropdownarea1" class="col-sm-4">
-
-						</div>
-
-					</div>
-
-					<br>
-
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-body">
-									<table id="showUserData" class="table table-striped" style="width:100%">
-
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
+                        </select> 
+                    </div>
+                                        
 			</main>
 
-			<script src="/js/app.js"></script>
-			<script src="/js/properties.js"></script>
-			<script src="/user/pendingRequest.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/properties.js"></script>
+		<script src="/user/adduser.js"></script>
+        <script src="/user/assignpermission.js"></script>
 
 </body>
 
