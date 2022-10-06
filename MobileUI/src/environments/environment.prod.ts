@@ -1,7 +1,7 @@
 
 export const environment = {
   production: true,
-  baseUrl: 'https://' + window.location.hostname + ':8081',
+  baseUrl: 'https://api.jicomplain.com',
  // baseUrl: 'http://localhost:8081',
     // baseUrl: 'https://d633-101-53-235-105.ap.ngrok.io',
   firebase: {
