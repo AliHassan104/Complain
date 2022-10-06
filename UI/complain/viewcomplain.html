@@ -320,22 +320,32 @@
 
 			
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<h1 class="h3 d-inline align-middle heading">Complains</h1>
 						</div>
 
-						<!-- <div id="dropdownarea1" class="col-sm-4">
-
-						</div> -->
+						<div  class="col-sm-3">
+							<select  class="form-select " data-style="btn-secondary" id="complainType">
 						
-						<select  class="selectpicker show-tick" data-style="btn-secondary" id="filterByStatus">
-							<option  disabled selected>Filter By Status</option>
-							<option value="IN_REVIEW">In Review</option>
-							<option value="IN_PROGRESS">In Progress</option>
-							<option value="COMPLETED">Completed</option>
-							<option value="REJECTED">Rejected</option>
-							<option value="All">All</option>
-						</select>
+							</select>	
+						</div> 
+
+						<div class="col-sm-3" >
+							<select  class="form-select" data-style="btn-secondary" id="dropdownArea">
+
+							</select>
+						</div>
+						
+						<div class="col-sm-3">
+							<select  class="form-select show-tick" data-style="btn-secondary" id="filterByStatus">
+								<option  disabled selected>Filter By Status</option>
+								<option value="IN_REVIEW">In Review</option>
+								<option value="IN_PROGRESS">In Progress</option>
+								<option value="COMPLETED">Completed</option>
+								<option value="REJECTED">Rejected</option>
+								<option value="All">All</option>
+							</select>
+						</div>
 						  
 					</div>	
 
@@ -359,11 +369,21 @@
 					</div>
 
 					
-					<nav aria-label="Page navigation example">
-						<ul class="pagination" id="pagination">
-						  
-						</ul>
-					</nav>
+					<div class="row" id="paginationDiv">
+						<div class="col-3" id="showPageNumbers">
+						
+						</div>
+						<div class="col-5">
+						
+						</div>
+						<div class="col-4" >
+							<nav aria-label="Page navigation example">
+								<ul class="pagination" id="pagination">
+								  
+								</ul>
+							</nav>
+						</div>
+					</div>
 				</div>
 			</main>
 

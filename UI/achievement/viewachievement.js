@@ -49,14 +49,15 @@ function renderAchievement(data){
     }
 }
 
-function getAchievement() {
+function getAchievement(number) {
     let table = ""
-    getData(`/admin/achievement`)
+    getData(`/admin/achievement?pageNumber=${number}&pageSize=${2}`)
     .then((data)=> {
         renderAchievement(data.content)
+        renderPagination(data) 
     })
 }
-getAchievement();
+getAchievement(0);
 
 
 function showAchievementDetails(id){
@@ -67,7 +68,7 @@ function deleteAchievement(id){
    
     deleteData(`/achievement/`+id)
     .then(()=>{
-        getAchievement()
+        getAchievement(0)
         let table = ""
         table += `
             <div  style=" 
@@ -88,6 +89,45 @@ function deleteAchievement(id){
         },2000)
 
     })
+}
+
+
+function  renderPagination(data,) {
+    let pages = data.totalPages;
+    let renderPagination = ""
+    let renderPageOf = ""
+    let pageNumber = data.number
+    let nextPageNumber = pageNumber+1
+
+    if(nextPageNumber == pages){
+       nextPageNumber = -1
+    }
+    if(data.numberOfElements != 0){
+        pageNumber += 1
+    }
+   
+    document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
+
+    renderPagination += `
+    <li class="page-item" onclick="showPreviousPage(${pageNumber-2})"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" onclick="showFirstPage(${0})"><a class="page-link" href="#">First</a></li>
+    <li class="page-item" onclick="showLastPage(${nextPageNumber})"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"onclick="showNextPage(${pages-1})"><a class="page-link" href="#">Last</a></li>`
+
+    document.getElementById("pagination").innerHTML = renderPagination
+}
+
+function showPreviousPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showFirstPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showLastPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showNextPage(pageNumber){
+    getAchievement(pageNumber)
 }
 
 

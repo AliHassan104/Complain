@@ -67,34 +67,18 @@ function viewEventDetails(event_id){
 }
 
 // var previousPageNumber = 0;
-function getEvent(pageNumber, pageSize, next) {
-                                                                //  If Next is clicked increment pageNumber
-    // if (next) {
-    //     totalPaginationBoxes = pageNumber;
-    //     if (previousPageNumber + 1 < pageNumber) {
-    //         previousPageNumber += 1
-    //         pageNumber = previousPageNumber
-    //     }
-    // }
-    //                                                            //  If Previous is clicked decrement pageNumber
-    // if (next === false) {
-    //     pageNumber = previousPageNumber;
-    //     if (pageNumber != 0) {
-    //         previousPageNumber -= 1
-    //         pageNumber = previousPageNumber
-    //     }
-    // }
-
+function getEvent(pageNumber) {
+   
     if (pageNumber >= 0) {
-        getData(`/admin/event?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+        getData(`/admin/event?pageNumber=${pageNumber}&pageSize=${2}`)
             .then((data) => {
-                previousPageNumber = pageNumber
                 renderEvent(data.content);
+                renderPagination(data)
             })
     }
 }
 
-getEvent(0, 10)
+getEvent(0)
 
 
 function deleteEvent(id) {
@@ -121,7 +105,7 @@ function deleteEvent(id) {
                 document.getElementById("formSubmitted").innerHTML = ""
             }, 2000)
 
-            getEvent(0, 2)
+            getEvent(0)
             renderPagination()
         })
 
@@ -132,40 +116,40 @@ function deleteEvent(id) {
 
 let uid;
 
+function  renderPagination(data) {
+    let pages = data.totalPages;
+    let renderPagination = ""
+    let renderPageOf = ""
+    let pageNumber = data.number
+    let nextPageNumber = pageNumber+1
 
-// function renderPagination() {
-//     let renderPagination = ""
-//     let paginationBoxes = 0;
+    if(nextPageNumber == pages){
+       nextPageNumber = -1
+    }
+    if(data.numberOfElements != 0){
+        pageNumber += 1
+    }
+   
+    document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
 
+    renderPagination += `
+    <li class="page-item" onclick="showPreviousPage(${pageNumber-2})"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" onclick="showFirstPage(${0})"><a class="page-link" href="#">First</a></li>
+    <li class="page-item" onclick="showLastPage(${nextPageNumber})"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"onclick="showNextPage(${pages-1})"><a class="page-link" href="#">Last</a></li>`
 
-//     getData(`/countallevents`).then((data) => {
-//         paginationBoxes = Math.ceil(data / 2)
-//         onlyFivePaginationBoxes = 0;
+    document.getElementById("pagination").innerHTML = renderPagination
+}
 
-//         if (paginationBoxes > 5) {
-//             onlyFivePaginationBoxes = 5
-//         }
-//         else {
-//             onlyFivePaginationBoxes = paginationBoxes;
-//         }
-
-//         renderPagination += `
-//         <li class="page-item" onclick="getEvent(${1},${2},${false})"><a class="page-link" href="#">Previous</a></li>`
-//         for (let i = 0; i < onlyFivePaginationBoxes; i++) {
-//             renderPagination += `
-//             <li class="page-item" onclick="getEvent(${i},${2})"><a class="page-link" href="#">${i + 1}</a></li>
-//             `
-//         }
-
-//         renderPagination += `<li class="page-item"><a class="page-link" >--</a></li>
-//         <li class="page-item" onclick="getEvent(${paginationBoxes - 1},${2})"><a class="page-link" href="#">${paginationBoxes}</a></li>
-//         <li class="page-item"onclick="getEvent(${paginationBoxes},${2},${true})"><a class="page-link" href="#">Next</a></li>`
-
-
-//         document.getElementById("pagination").innerHTML = renderPagination
-//     })
-// }
-// renderPagination()
-
-
-
+function showPreviousPage(pageNumber){
+    getEvent(pageNumber)
+}
+function showFirstPage(pageNumber){
+    getEvent(pageNumber)
+}
+function showLastPage(pageNumber){
+    getEvent(pageNumber)
+}
+function showNextPage(pageNumber){
+    getEvent(pageNumber)
+}

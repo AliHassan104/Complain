@@ -6,31 +6,32 @@ function getBlock() {
     getData(`/block`)
     .then((data)=> {
         table += `
-        <tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-        <th style="width: 33%;" class="toptable ">Area</th>
-        <th style="width: 33%;" class="toptable ">Block</th>
-        <th style="width: 34%;" class="toptable ">Action</th>
+        <tr class="tablepoint">
+        <th class="toptable ">Area</th>
+        <th class="toptable ">Block</th>
+        <th class="toptable ">Action</th>
         </tr>`
     
         for (let i = 0; i < data.length; i++) {
             table += `
 
-        <tr class="tablepoint " style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 33%;" class="datatable">${data[i].area.name}</td>
-            <td style="width: 33%;" class="datatable">${data[i].block_name}</td>
-            <td style="width: 34%;" class="datatable">
+        <tr class="tablepoint " >
+            <td class="datatable">${data[i].area.name}</td>
+            <td class="datatable">${data[i].block_name}</td>
+            <td class="datatable">
             
             <a  href="/area/addblock.html?id=${data[i].id}">
             <i
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
 
-            <i onclick="deleteBlock(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
+            <i onclick="deleteBlock(${data[i].id})"  class="fa fa-close"></i>
     </td>
         </tr>`
         }
     
     document.getElementById("datatables-reponsive").innerHTML = table;
+    // renderPagination(data) 
 
     if(data.length === 0){
         noBlockFound = ""
@@ -115,4 +116,42 @@ function getArea() {
         }
         document.getElementById("dropdownarea").innerHTML = table;
     })
+}
+
+function  renderPagination(data) {
+    let pages = data.totalPages;
+    let renderPagination = ""
+    let renderPageOf = ""
+    let pageNumber = data.number
+    let nextPageNumber = pageNumber+1
+
+    if(nextPageNumber == pages){
+       nextPageNumber = -1
+    }
+    if(data.numberOfElements != 0){
+        pageNumber += 1
+    }
+   
+    document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
+
+    renderPagination += `
+    <li class="page-item" onclick="showPreviousPage(${pageNumber-2})"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" onclick="showFirstPage(${0})"><a class="page-link" href="#">First</a></li>
+    <li class="page-item" onclick="showLastPage(${nextPageNumber})"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"onclick="showNextPage(${pages-1})"><a class="page-link" href="#">Last</a></li>`
+
+    document.getElementById("pagination").innerHTML = renderPagination
+}
+
+function showPreviousPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showFirstPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showLastPage(pageNumber){
+    getAchievement(pageNumber)
+}
+function showNextPage(pageNumber){
+    getAchievement(pageNumber)
 }

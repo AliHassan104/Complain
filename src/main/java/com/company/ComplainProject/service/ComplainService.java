@@ -48,10 +48,11 @@ public class ComplainService {
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
     }
 
-    public Page<ComplainDetailsResponse> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
+    public Page<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
-        return (Page<ComplainDetailsResponse>) complainPage.stream().map(complain -> complainToComplainDetailsResponse(complain)).collect(Collectors.toList());
+        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
+        return complainPage;
     }
 
     public ComplainDetailsResponse getComplainById(Long id) {
@@ -218,4 +219,19 @@ public class ComplainService {
         return complain.stream().map(complain1 -> complainToComplainDetailsResponse(complain1)).collect(Collectors.toList());
     }
 
+    public Page<Complain> getallComplainByArea(Long area_id,Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Complain> complainbyarea = complainRepository.getAllComplainByArea(area_id,pageable);
+        complainbyarea.stream().forEach(complain -> complain.getUser().setPassword(null));
+
+        return complainbyarea;
+    }
+
+    public Page<Complain> getallComplainByComplainType(Long c_type_id,Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Complain> complainPage = complainRepository.getAllComplainByComplainType(c_type_id,pageable);
+        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
+
+        return complainPage;
+    }
 }

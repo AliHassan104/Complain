@@ -48,9 +48,9 @@ public class ComplainController {
 
 
     @GetMapping("/complain")
-    public ResponseEntity<Page<ComplainDetailsResponse>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+    public ResponseEntity<Page<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                                      @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
-        Page<ComplainDetailsResponse> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
+        Page<Complain> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
         if(!complain.getContent().isEmpty()){
             return ResponseEntity.ok(complain);
         }
@@ -130,7 +130,7 @@ public class ComplainController {
         }
     }
 
-    @GetMapping("/complain/search")
+    @PostMapping("/complain/search")
     public ResponseEntity<List<ComplainDetailsResponse>>  filteredComplain(@RequestBody SearchCriteria searchCriteria){
         List<ComplainDetailsResponse> complain = complainService.getFilteredComplain(searchCriteria);
         if(!complain.isEmpty()){
@@ -200,5 +200,41 @@ public class ComplainController {
         }
     }
 
+    /**
+     * Get Complain By arae
+     * @param area_id
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+
+    @GetMapping("getcomplainbyarea/{area_id}")
+    public ResponseEntity<Page<Complain>> getAllComplainByArea(@PathVariable("area_id") Long area_id,
+                                                                @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                               @RequestParam(value = "pageSize",defaultValue = "30",required = false) Integer pageSize){
+        try{
+            return ResponseEntity.ok(complainService.getallComplainByArea(area_id,pageNumber,pageSize));
+        }catch (Exception e){
+            throw new ContentNotFoundException("No Complain Found");
+        }
+    }
+
+
+    /**
+     * Get Complain By Complain Type
+     * @param complainType_id
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("getcomplainbycomplaintype/{c_type_id}")
+    public ResponseEntity<Page<Complain>> getAllComplainByComplainType(@PathVariable("c_type_id") Long complainType_id,
+                                                                @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "30",required = false) Integer pageSize){
+        try{
+            return ResponseEntity.ok(complainService.getallComplainByComplainType(complainType_id,pageNumber,pageSize));
+        }catch (Exception e){
+            throw new ContentNotFoundException("No Complain Found");
+        }
+    }
 
 }
