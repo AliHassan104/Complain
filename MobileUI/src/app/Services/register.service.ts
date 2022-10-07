@@ -19,12 +19,12 @@ export class RegisterService {
     return this.http.get(`${this.url}/api/blockByArea/${areaId}`)
   }
 
-  postAddress(data: any): Observable<any> {
-    const headers = { 'content-type': 'application/json' }
-    const body = JSON.stringify(data);
-    console.log(body);
-    return this.http.post(`${this.url}/api/address`, body, { 'headers': headers })
-  }
+  // postAddress(data: any): Observable<any> {
+  //   const headers = { 'content-type': 'application/json' }
+  //   const body = JSON.stringify(data);
+  //   console.log(body);
+  //   return this.http.post(`${this.url}/api/address`, body, { 'headers': headers })
+  // }
 
   postUser(data: any): Observable<any> {
     const headers = { 'content-type': 'application/json' }
