@@ -2,7 +2,7 @@
 function logOut() {
     let token = localStorage.getItem("jwtToken")
     localStorage.clear();
-    location.href = `${loginUrl}/loginPage/loginpage.html`
+    location.href = `${loginUrl}/cpanel/loginpage.html`
 }
 
 function showUserData() {
