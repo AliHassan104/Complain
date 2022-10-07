@@ -51,7 +51,7 @@ public class UserService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
-        userPage.getContent().stream().forEach(user -> user.setPassword(null));
+//        userPage.getContent().stream().forEach(user -> user.setPassword(null));
         return userPage;
     }
 

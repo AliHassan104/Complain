@@ -2,14 +2,14 @@
 
 <div class="appHeader bg-primary text-light">
     <div class="left">
-        <a (click)="goBack()" class="headerButton goBack">
-            <ion-icon src="assets/left-arrow.svg"></ion-icon>
+        <a  class="headerButton goBack">
+            <!-- <ion-icon src="assets/left-arrow.svg"></ion-icon> -->
         </a>
     </div>
     <div class="pageTitle">{{userName}}</div>
-    <div *ngIf="isFriends" (click)="routeToChat()" class="right" >
+    <div *ngIf="isFriends"  class="right" >
         <a href="javascript:;" class="headerButton">
-            <ion-icon src="assets/email.svg"></ion-icon>
+            <!-- <ion-icon src="assets/email.svg"></ion-icon> -->
         </a>
 
     </div>
@@ -23,7 +23,7 @@
         <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
         <div class="section mt-2">
             <div class="profile-head">
-                <div class="avatar" data-toggle="modal" data-target="#actionSheet" (click)="showClose()">
+                <div class="avatar" data-toggle="modal" data-target="#actionSheet">
                     <img [src]="
                     profileObj.profilePicture != null
                       ? 'data:image/jpeg;base64,' + profileObj.profilePicture
@@ -39,13 +39,13 @@
                         </div>
                         <div class="subtext" *ngIf="!notificationBtns && !isFriends">
                             <button type="button" [class]="btnColor"
-                                (click)="friendsButtonClick()">{{friendStatus}}</button>
+                                >{{friendStatus}}</button>
                         </div>
                         <div class="subtext" *ngIf="notificationBtns && !isFriends">
                             <button type="button" class="btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1"
-                                (click)="acceptRequest()">Accept</button>
+                                >Accept</button>
                             <button type="button" class="btn btn-outline-danger btn-sm rounded shadowed mr-1 mb-1"
-                                (click)="deleteRequest()">Delete</button>
+                                >Delete</button>
                         </div>
                     </div>
 
@@ -55,15 +55,15 @@
 
         <div class="section full mt-2">
             <div class="row profile-stats">
-                <a href="#feed" class="item item lined" data-toggle="tab" (click)="addClassToFriendsTab('#f1','#f2')" style="margin-left: 30%;">
+                <a href="#feed" class="item item lined" data-toggle="tab"  style="margin-left: 30%;">
                     <strong>{{picturesCount}}</strong>photos
                 </a>
                 <!-- <a href="#" class="item">
                     <strong>52</strong>albums
                 </a> -->
-                <a href="#friends" class="nav-link item lined" (click)="addClassToFriendsTab('#f2','#f1')" data-toggle="tab"   style="margin-right: 30%;" role="tab">
+                <!-- <a href="#friends" class="nav-link item lined"  data-toggle="tab"   style="margin-right: 30%;" role="tab">
                     <strong>{{noOfFriends}}</strong>friends
-                </a>
+                </a> -->
 
                 <!-- <a href="#" class="item">
                     <strong>506</strong>following
@@ -78,10 +78,10 @@
                 </div>
                 <div class="link" *ngIf="!hideRequestButtons">
 
-                    <button type="button" class="btn btn-sm  rounded shadowed mr-1 mb-1" data-toggle="modal"
+                    <!-- <button type="button" class="btn btn-sm  rounded shadowed mr-1 mb-1" data-toggle="modal"
                         data-target="#ModalForm" style="width: 50px;height: 25px;margin-top: 2%;">
                         <ion-icon style="font-size: 20px;" src="assets/edit1.svg"></ion-icon>
-                    </button>
+                    </button> -->
 
                     <div class="modal fade modalbox" id="ModalForm" data-backdrop="static" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
@@ -89,7 +89,7 @@
 
                                 <div class="modal-header">
                                     <h5 class="modal-title">{{userName}}</h5>
-                                    <a style="margin-left: 60%;" (click)="saveDescription()" data-dismiss="modal">Save
+                                    <a style="margin-left: 60%;" data-dismiss="modal">Save
                                     </a>
                                     <a data-dismiss="modal"> Close</a>
 
@@ -109,7 +109,7 @@
                                                             Description</label>
                                                         <textarea type="text" rows="1" class="form-control"
                                                             name="description" id="bio"
-                                                            [(ngModel)]="description"></textarea>
+                                                           ></textarea>
 
                                                     </div>
                                                 </div>
@@ -134,7 +134,7 @@
             </div>
         </div>
         <div *ngIf="showHideprivateProfile || !hideRequestButtons">
-        <div class="section full">
+        <!-- <div class="section full">
             <div class="wide-block transparent p-0">
                 <ul class="nav nav-tabs lined iconed" role="tablist">
                     <li class="nav-item">
@@ -154,7 +154,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 
 
         <!-- tab content -->
@@ -166,28 +166,19 @@
                     <div class="mt-2 pr-2 pl-2">
                         <div class="row">
                             <div *ngFor="let image of profileGalleryArr" class="col-4 mb-2" >
-                                <img [src]="image.galleryImage" alt="image" class="imaged w-100 galleryImg"  (click)="showPicture(image.id)">
+                                <img [src]="image.galleryImage" alt="image" class="imaged w-100 galleryImg"  >
 
-                                
+
                             </div>
-                            <!-- <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
-                            </div> -->
-                            
+
                         </div>
                     </div>
                     <div class="pr-2 pl-2" *ngIf="!hideRequestButtons">
-                        <!-- <button class="btn btn-primary btn-block">More Photo                         
-                        </button> -->
                         <label for="file" class="btn btn-primary btn-block">
                             <span>Add Picture
 
                             </span>
-                            <input type="file" (change)="handleCategoryBanner($event.target.files)" id="file" style="display: none" (click)="onAddPictureClick()"
-                            name="image" accept="image/gif,image/jpeg,image/jpg,image/png" data-toggle="modal" data-target="#DialogImage">
+                            <input type="file" (change)="handleCategoryBanner($event.target.files)" id="file" style="display: none"                             name="image" accept="image/gif,image/jpeg,image/jpg,image/png" data-toggle="modal" data-target="#DialogImage">
 
                         </label>
                     </div>
@@ -195,14 +186,14 @@
                 <!-- * feed -->
 
                 <!-- * friends -->
-                
+
                 <div class="tab-pane fade" id="friends" role="tabpanel" >
                     <ul class="listview image-listview flush transparent pt-1" >
 
 
 
 
-                        <li *ngFor="let friend of friendsArray" data-dismiss="modal" (click)="gotoProfile(friend.id)">
+                        <li *ngFor="let friend of friendsArray" data-dismiss="modal" >
                             <a class="item">
                                 <img [src]=" friend.profilePicture
                                 ? 'data:image/jpeg;base64,' + friend.profilePicture
@@ -217,7 +208,7 @@
                         </li>
                     </ul>
                 </div>
-            
+
                 <!-- * friends -->
 
                 <!--  bookmarks -->
@@ -321,7 +312,7 @@
 </div>
 </div>
 
-<app-bottom-menu></app-bottom-menu>
+<!-- <app-bottom-menu></app-bottom-menu> -->
 <div class="modal fade dialogbox" id="DialogBasic" data-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -331,7 +322,7 @@
             <div class="modal-footer">
                 <div class="btn-inline">
                     <a href="#" class="btn btn-text-secondary" data-dismiss="modal">No</a>
-                    <a (click)="deleteRequest()" class="btn btn-text-primary" data-dismiss="modal">Yes</a>
+                    <a  class="btn btn-text-primary" data-dismiss="modal">Yes</a>
                 </div>
             </div>
         </div>
@@ -359,7 +350,7 @@
 
                     <li class="action-divider"></li>
                     <li *ngIf="!showCloseOnAction">
-                        <a (click)="saveProfilePicture()" class="btn btn-list text-primary" data-dismiss="modal">
+                        <a  class="btn btn-list text-primary" data-dismiss="modal">
                             <span>Save</span>
                         </a>
                     </li>
@@ -377,14 +368,14 @@
 <div class="modal fade dialogbox" id="DialogImage" data-backdrop="static" tabindex="-1" role="dialog" *ngIf="!hideRequestButtons">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-          
+
             <img [hidden]="loaderOnImageDialog || !showDialogOnAddPicture" [src]="imgURL" alt="image" class="img-fluid">
-        
+
         <!-- <div *ngIf="loaderOnImageDialog" class="spinner-grow text-primary" role="status"> -->
             <div class="modal-footer">
                 <div class="btn-inline">
                     <a data-dismiss="modal" class="btn btn-text-danger" data-dismiss="modal">Cancel</a>
-                    <a data-dismiss="modal" (click)="uploadPicture()" class="btn btn-text-primary">Upload</a>
+                    <a data-dismiss="modal" class="btn btn-text-primary">Upload</a>
                 </div>
             </div>
         </div>

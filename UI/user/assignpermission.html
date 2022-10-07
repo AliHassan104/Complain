@@ -16,18 +16,19 @@
 		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com/">
-	<link rel="shortcut icon" href="/cpanel/img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
 
-	<link rel="canonical" href="/cpanel/index-2.html" />
+	<link rel="canonical" href="/index-2.html" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
 
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 
 
-	<link class="js-stylesheet" href="/cpanel/css/light.css" rel="stylesheet">
-    <link class="js-stylesheet" href="/cpanel/css/permission.css" rel="stylesheet">
+	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
+    <link class="js-stylesheet" href="/css/permission.css" rel="stylesheet">
 
 	<style>
 		body {
@@ -35,40 +36,70 @@
 		}
 	</style>
 	
-	<script src="/cpanel/js/properties.js"></script>
-	<script src="/cpanel/js/customFetch.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+	<script src="/js/properties.js"></script>
+	<script src="/js/customFetch.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
+		gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
+	</script>
 </head>
-
+<!--
+  HOW TO USE: 
+  data-theme: default (default), dark, light, colored
+  data-layout: fluid (default), boxed
+  data-sidebar-position: left (default), right
+  data-sidebar-layout: default (default), compact
+-->
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="/cpanel/index.html">
+				<a class="sidebar-brand" href="/index.html">
 					<span class="sidebar-brand-text align-middle">
 						<b>Complain</b>
 						<!-- <sup><small class="badge bg-primary text-uppercase">Pro</small></sup> -->
 					</span>
-
+					<svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24"
+						fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"
+						color="#FFFFFF" style="margin-left: -3px">
+						<path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
+						<path d="M20 12L12 16L4 12"></path>
+						<path d="M20 16L12 20L4 16"></path>
+					</svg>
 				</a>
 
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="/cpanel/img/photos/userAvatar.png" class="avatar img-fluid rounded me-1"
+							<img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
 								alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
-							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" id="username">
-
+							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+								Charles Hall
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
-
-								<a class="dropdown-item" href="#" onclick="logOut()">Log out</a>
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+										data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="pie-chart"></i> Analytics</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1"
+										data-feather="settings"></i> Settings &
+									Privacy</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="help-circle"></i> Help Center</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Log out</a>
 							</div>
 
-							<div class="sidebar-user-subtitle">Admin</div>
+							<div class="sidebar-user-subtitle">Designer</div>
 						</div>
 					</div>
 				</div>
@@ -79,7 +110,7 @@
 					</li>
 
 					<li class="sidebar-item ">
-						<a href="/cpanel/index.html" data-bs-target="#dashboards" class="sidebar-link">
+						<a href="/index.html" data-bs-target="#dashboards" class="sidebar-link">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">Dashboards</span>
 						</a>
@@ -95,9 +126,9 @@
 						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse "
 							data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/cpanel/addcomplaintype.html">Add Complain Type</a></li>
+									href="/complaintype/addcomplaintype.html">Add Complain Type</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/cpanel/viewcomplaintype.html">View Complain Type</a></li>
+									href="/complaintype/viewcomplaintype.html">View Complain Type</a></li>
 						</ul>
 					</li>
 
@@ -108,12 +139,12 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Area</span>
 						</a>
 						<ul id="area" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/addarea.html">Add Area</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/viewarea.html">View Area</a>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/addarea.html">Add Area</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewarea.html">View Area</a>
 							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/addblock.html">Add Block</a>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/addblock.html">Add Block</a>
 							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/viewblock.html">View Block</a>
+							<li class="sidebar-item"><a class="sidebar-link" href="/area/viewblock.html">View Block</a>
 							</li>
 						</ul>
 					</li>
@@ -125,12 +156,11 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">User</span>
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/viewuser.html">View User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/pendingRequest.html">Pending Users</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/permission.html">Permission</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/assignpermission.html">Assign Permissions</a></li>
-
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="/user/permission.html">Permission</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="/user/assignpermission.html">Assign Permissions</a></li>
 						</ul>
 					</li>
 
@@ -142,10 +172,10 @@
 								Timing</span>
 						</a>
 						<ul id="watertiming" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/addwatertiming.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/watertiming/addwatertiming.html">Add
 									Water Timing</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/cpanel/viewwatertiming.html">View Water Timing</a></li>
+									href="/watertiming/viewwatertiming.html">View Water Timing</a></li>
 						</ul>
 					</li>
 
@@ -157,9 +187,9 @@
 								class="align-middle">Document</span>
 						</a>
 						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/adddocument.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Add
 									Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/viewdocument.html">View
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">View
 									Document</a></li>
 						</ul>
 					</li>
@@ -170,9 +200,9 @@
 								class="align-middle">Complain</span>
 						</a>
 						<ul id="complain" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/addcomplain.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/complain/addcomplain.html">Add
 									Complain</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/viewcomplain.html">View
+							<li class="sidebar-item"><a class="sidebar-link" href="/complain/viewcomplain.html">View
 									Complain</a></li>
 						</ul>
 					</li>
@@ -183,10 +213,10 @@
 								class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/addachievement.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Add
 									Achievement</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/cpanel/viewachievement.html">View Achievement</a></li>
+									href="/achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
@@ -199,9 +229,9 @@
 						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse "
 							data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/cpanel/addpollingquestion.html">Add Polling Question</a></li>
+									href="/pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/cpanel/viewpollingquestion.html">View Polling Question</a></li>
+									href="/pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
 						</ul>
 					</li>
 
@@ -210,9 +240,9 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Events</span>
 						</a>
 						<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/addevents.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/addevents.html">Add
 									Events</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/cpanel/viewevents.html">View
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/viewevents.html">View
 									Events</a></li>
 						</ul>
 					</li>
@@ -501,62 +531,25 @@
 
 
             <main class="content">
+                <span class = "label label-default">Select Roles</span>
+                <select id="dropdownarea" class="form-select">
+                    
+                </select>
                 
-				<div class="container-fluid p-4">
+                <div  class="row d-flex justify-content pt-5">
+                    <div class="col-md-6"> 
+                        <span class = "label label-default">Select URL'S</span>
+                        <select id="choices-multiple-remove-button" multiple>
 
-                    <div id="formSubmitted" style="height: 5vh;">
-                        
+                        </select> 
                     </div>
-
-					<div class="row mb-2 mb-xxl-4" >
-						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Add Permissions</strong> </h3>
-						</div>
-					</div>
-                    
-					<div class="row">
-
-                        <form>
-                            <fieldset>
-                                <div id="myDiv" class="row mb-3">
-
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Add Permissions</label>
-                                    
-                                    <div class="col-sm-10">  
-                                  	<input type="text" class="form-control" id="myInput" aria-describedby="emailHelp" placeholder="Enter Permissions">
-                                   
-                                    </div>
-                                  
-
-                                </div>
-                                <ul id="myUL">
-                                    
-                                  </ul>
-                            </fieldset>
-                        </form>
-                        <div style="width: 100%;text-align: center; justify-content: center;">
-	
-                           <button  style="width: 12%;" type="submit" onclick="addPermission()" id="complaintypebtn" class="btn btn-primary" >Add</button>
-                        <br>
-                        </div>
-
-                        <table id="myTable">
-                           
-                        </table>
-                        
-                        
-                        
-                    </div>
-                    
-				</div>
                                         
-                </div>
 			</main>
 
-		<script src="/cpanel/js/app.js"></script>
-		<script src="/cpanel/js/properties.js"></script>
-		<script src="/cpanel/js/adduser.js"></script>
-        <script src="/cpanel/js/permission.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/properties.js"></script>
+		<script src="/user/adduser.js"></script>
+        <script src="/user/assignpermission.js"></script>
 
 </body>
 

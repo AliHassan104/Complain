@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { MainService } from '../Services/main.service';
-import { ChatService } from '../Services/chat.service';
+// import { MainService } from '../Services/main.service';
+// import { ChatService } from '../Services/chat.service';
 
 @Component({
   selector: 'app-app-side-bar',
@@ -10,12 +10,13 @@ import { ChatService } from '../Services/chat.service';
 })
 export class AppSideBarComponent implements OnInit {
 
+
   userName;
   id;
   friendsArray = [];
   profilePicture;
 
-  constructor(private router: Router, private service: MainService, private chatService: ChatService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.id = sessionStorage.getItem('userId');
@@ -33,22 +34,19 @@ export class AppSideBarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  goToMyProfile() {
-    this.router.navigate(['profiles/', this.id])
-  }
 
-  getAllFriends() {
-    this.friendsArray = [];
-    this.id = sessionStorage.getItem('userId')
-    this.service.getAllFriends(this.id).subscribe(d => {
-      if (d.status == 200) {
-        d.result.map(u => {
-          this.friendsArray.push(u.friend);
-        })
-      }
+  // getAllFriends() {
+  //   this.friendsArray = [];
+  //   this.id = sessionStorage.getItem('userId')
+  //   this.service.getAllFriends(this.id).subscribe(d => {
+  //     if (d.status == 200) {
+  //       d.result.map(u => {
+  //         this.friendsArray.push(u.friend);
+  //       })
+  //     }
 
-    })
-  }
+  //   })
+  // }
 
 
 
@@ -56,12 +54,12 @@ export class AppSideBarComponent implements OnInit {
     this.router.navigate(['notifications'])
   }
 
-  gotoChatroom(friendId) {
-    this.chatService.initiateChat(this.id, friendId)
-      .subscribe((chatroom) => {
-        this.router.navigate([`chat/${chatroom}/${friendId}`])
-      })
-  }
+  // gotoChatroom(friendId) {
+  //   this.chatService.initiateChat(this.id, friendId)
+  //     .subscribe((chatroom) => {
+  //       this.router.navigate([`chat/${chatroom}/${friendId}`])
+  //     })
+  // }
 
 
 }

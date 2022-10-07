@@ -2,8 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../Services/login.service';
 import { ToastUtilService } from '../Services/toast-util.service';
-import { MainService } from '../Services/main.service';
-import { Profile } from '../profile/profile';
+// import { MainService } from '../Services/main.service';
+// import { Profile } from '../profile/profile';
 import * as $ from 'jquery';
 import { profile } from 'console';
 import { MessagingService } from '../services/messaging.service';
@@ -16,8 +16,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
   public innerHeight: any = window.innerHeight - 100;
-  profileObj: Profile = new Profile();
+  // profileObj: Profile = new Profile();
   token;
+  deferredPrompt: any;
   typeChange = "password";
   constructor(private router: Router,
      private loginService: LoginService
@@ -33,6 +34,23 @@ export class LoginPageComponent implements OnInit {
     // this.messagingService.requestPermission()
     // this.messagingService.receiveMessage()
     // this.getToken();
+    this.addToHomeScreen();
+
+  }
+
+  addToHomeScreen() {
+    // hide our user interface that shows our A2HS button
+    // Show the prompt
+    this.deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    this.deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the A2HS prompt");
+      } else {
+        console.log("User dismissed the A2HS prompt");
+      }
+      this.deferredPrompt = null;
+    });
   }
 
   login = new FormGroup({

@@ -10,6 +10,8 @@ import com.company.ComplainProject.repository.OTPRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -30,7 +32,8 @@ public class EmailService {
     @Value("${email.path.url}")
     private String emailPath;
 
-
+    @Autowired
+    private JavaMailSender javaMailSender;
 
 
 
@@ -103,7 +106,17 @@ public class EmailService {
         String message="hello dear your url " + url;
         String subject="Confirmation code";
 
-        sendEmail(subject,message,user.getEmail());
+        //sendEmail(subject,message,user.getEmail());
+        sendEmailWithNoAttachment(subject,message,user.getEmail());
+    }
+
+    private void sendEmailWithNoAttachment(String subject, String message, String email) {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(email);
+        msg.setSubject(subject);
+        msg.setText(message);
+
+        javaMailSender.send(msg);
     }
 }
 
