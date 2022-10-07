@@ -2,9 +2,13 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ExceptionInFirebaseMessaging;
 import com.company.ComplainProject.dto.*;
+import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.model.WaterTiming;
+import com.company.ComplainProject.repository.ComplainRepository;
+import com.company.ComplainProject.repository.EventRepository;
+import com.company.ComplainProject.repository.WaterTimingRepository;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FirebaseMessagingService {
@@ -22,11 +27,11 @@ public class FirebaseMessagingService {
     @Autowired
     UserService userService;
     @Autowired
-    ComplainService complainService;
+    ComplainRepository complainRepository;
     @Autowired
-    WaterTimingService waterTimingService;
+    WaterTimingRepository waterTimingRepository;
     @Autowired
-    EventService eventService;
+    EventRepository eventRepository;
 
     public FirebaseMessagingService(FirebaseMessaging firebaseMessaging) {
         this.firebaseMessaging = firebaseMessaging;
@@ -53,42 +58,44 @@ public class FirebaseMessagingService {
 
 
     public String sendNotificationToUserOnComplainStatusChange(Long c_id) throws FirebaseMessagingException {
-        ComplainDto complainDto = complainService.getAllComplain().stream().filter(complain -> complain.getId().equals(c_id)).findAny().get();
+        Optional<Complain> complain = complainRepository.findById(c_id);
 
         Note note  = new Note();
-        note.setSubject("Your Complain is in "+complainDto.getStatus());
-        note.setContent("Your Complain of "+complainDto.getComplainType().getName()+" is in "+complainDto.getStatus());
+        note.setSubject("Your Complain is in "+complain.get().getStatus());
+        note.setContent("Your Complain of "+complain.get().getComplainType().getName()+" is in "+complain.get().getStatus());
 
-        return sendNotification(note,complainDto.getUser().getDeviceToken());
+        return sendNotification(note,complain.get().getUser().getDeviceToken());
     }
 
     public void sendNotificationOnWaterTiming(Long id) throws FirebaseMessagingException {
-        WaterTimingDto waterTimingDto = waterTimingService.toDto(waterTimingService.getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getId().equals(id)).findAny().get());
+        Optional<WaterTiming> waterTiming = waterTimingRepository.findById(id);
 
         Note note = new Note();
         note.setSubject("Water timing Updates");
-        note.setContent(waterTimingDto.getDay()+" at "+waterTimingDto.getStart_time()+" till "+waterTimingDto.getEnd_time());
+        note.setContent(waterTiming.get().getDay()+" at "+waterTiming.get().getStart_time()+" till "+waterTiming.get().getEnd_time());
 
-        List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block",":",waterTimingDto.getBlock()));
+        List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block",":",waterTiming.get().getBlock()));
 
-//        for (UserDetailsResponse users:userList) {
-//            sendNotification(note,users.getDeviceToken());
-//        }
+        for (UserDetailsResponse users:userList) {
+            System.out.println(users);
+            sendNotification(note,users.getDeviceToken());
+        }
 
     }
 
     public void sendNotificationOnEventUpload(Long event_id) throws FirebaseMessagingException {
-        Event event = eventService.getAllEvent().stream().filter(event1 -> event1.getId().equals(event_id)).findAny().get();
+        Optional<Event> event = eventRepository.findById(event_id);
 
         Note note = new Note();
         note.setSubject("Event is added");
-        note.setContent("Event name "+event.getTitle());
+        note.setContent("Event name "+event.get().getTitle());
 
-        List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area",":",event.getArea()));
+        List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area",":",event.get().getArea()));
 
-//        for (UserDetailsResponse users:userList) {
-//            sendNotification(note,users.getDeviceToken());
-//        }
+        for (UserDetailsResponse users:userList) {
+            System.out.println(users);
+            sendNotification(note,users.getDeviceToken());
+        }
     }
 
 

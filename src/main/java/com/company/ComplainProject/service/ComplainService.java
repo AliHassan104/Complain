@@ -51,7 +51,7 @@ public class ComplainService {
     public Page<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
-        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
+//        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
         return complainPage;
     }
 
