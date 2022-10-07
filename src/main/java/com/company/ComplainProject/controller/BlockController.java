@@ -31,7 +31,7 @@ public class BlockController {
     }
 //                                                                      Get Blocks with Area
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
+   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("blockByArea/{area}")
     public ResponseEntity<List<Block>> getAllBlockByArea(@PathVariable("area") Long areaid){
         try {
