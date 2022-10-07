@@ -37,7 +37,7 @@ function renderUser(data) {
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area.name}</td>
 
             <td  class="datatable"> 
-            <a href="/user/adduser.html?id=${data[i].id}">
+            <a href="/cpanel/adduser.html?id=${data[i].id}">
             <i data-bs-toggle="modal" style="padding-right: 15px; margin-right: 5px;"  data-bs-target="#exampleModal"  
              class="fa fa-pencil"></i>
             </a>

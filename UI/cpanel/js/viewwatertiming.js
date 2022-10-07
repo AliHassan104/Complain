@@ -46,7 +46,7 @@ function renderWaterTiming(data) {
                 <td style="width: 20%;" class="datatable">${endTimeToHr}</td>
                 <td style="width: 20%;" class="datatable">
                 
-        <a  href="/watertiming/addwatertiming.html?id=${data[i].id}">
+        <a  href="/cpanel/addwatertiming.html?id=${data[i].id}">
         <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
         </a>

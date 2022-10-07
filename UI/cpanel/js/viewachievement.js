@@ -30,7 +30,7 @@ function renderAchievement(data){
         </td>
         <td class="datatable"> 
 
-        <a  href="/achievement/addachievement.html?id=${data[i].id}">
+        <a  href="/cpanel/addachievement.html?id=${data[i].id}">
         <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
         </a>

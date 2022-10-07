@@ -65,7 +65,7 @@ function renderPollingQuestion(data) {
     <td style="width: 20%;" class="datatable mouseHand" onclick="showPollingQuestionDetails(${data[i].id})">${data[i].area.name}</td>
     <td style="width: 15%;" class="datatable"> 
 
-    <a  href="/pollingquestion/addpollingquestion.html?id=${data[i].id}">
+    <a  href="/cpanel/addpollingquestion.html?id=${data[i].id}">
     <i onclick="modal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
     style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
     </a>

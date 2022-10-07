@@ -121,7 +121,7 @@ function renderComplainData(data) {
             <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].area.name}</td>
            
             <td class="datatable"> 
-            <a  href="/complain/addcomplain.html?id=${data[i].id}">
+            <a  href="/cpanel/addcomplain.html?id=${data[i].id}">
             <i style="margin-right: 5px;"  onclick="updateComplain(${data[i].id})"  
             class="fa fa-pencil"></i>
             </a>
