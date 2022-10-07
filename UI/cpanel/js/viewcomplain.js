@@ -150,11 +150,11 @@ function renderComplainData(data) {
 }
 
 function assignComplainToUser(complain_id){
-    location.href = `${loginUrl}/complain/assigncomplain.html?c_id=${complain_id}`
+    location.href = `${loginUrl}/cpanel/assigncomplain.html?c_id=${complain_id}`
 }
 
 function showComplainDetails(id) {
-    location.href = `${loginUrl}/complain/complaindetails.html?c_id=${id}`
+    location.href = `${loginUrl}/cpanel/complaindetails.html?c_id=${id}`
 }
                                                                         //  get Complain With Pagination
 

@@ -8,7 +8,7 @@ if (queryString != "") {
 
     getData(`/block/${urlId}`)
         .then(data => {
-            console.log(data);
+           
             document.getElementById("blockbtn").innerText = "Update";
             document.getElementById("block").value = data.block_name;
         })

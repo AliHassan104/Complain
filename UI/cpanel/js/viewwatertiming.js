@@ -95,8 +95,6 @@ function deleteWaterTiming(id) {
             }, 2000)
             getWaterTiming()
         })
-
-
 }
 
 

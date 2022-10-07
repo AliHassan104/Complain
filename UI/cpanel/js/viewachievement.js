@@ -61,7 +61,7 @@ getAchievement(0);
 
 
 function showAchievementDetails(id){
-    location.href = `${loginUrl}/achievement/achievementdetails.html?a_id=${id}`
+    location.href = `${loginUrl}/cpanel/achievementdetails.html?a_id=${id}`
 }
 
 function deleteAchievement(id){

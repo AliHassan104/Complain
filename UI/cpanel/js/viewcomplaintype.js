@@ -33,7 +33,7 @@ function renderComplainType(data){
             </a>
             
             <i onclick="deleteComplainType(${data[i].id})" 
-             href="addcomplaintype.html" style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
+             href="/cpanel/addcomplaintype.html" style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
             </td>
         </tr>`
         }else{

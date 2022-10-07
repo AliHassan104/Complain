@@ -49,7 +49,7 @@ function createAnnouncement(){
         area:area_id
     }
 
-    console.log(announcement);
+   
 
         
 }

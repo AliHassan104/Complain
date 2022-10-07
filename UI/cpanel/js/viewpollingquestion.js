@@ -81,7 +81,7 @@ function renderPollingQuestion(data) {
 }
 
 function showPollingQuestionDetails(id) {
-    location.href = `${loginUrl}/pollingquestion/pollingquestiondetails.html?p_id=${id}`
+    location.href = `${loginUrl}/cpanel/pollingquestiondetails.html?p_id=${id}`
 }
 
 

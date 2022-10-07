@@ -28,7 +28,7 @@ function renderUser(data) {
             for (let i = 0; i < data.length; i++) {
                 table += `
 
-        <tr class="tablepoint"" >
+        <tr class="tablepoint">
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].firstname + " " + data[i].lastname}</td>
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].phoneNumber}</td>
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].email}</td>
@@ -62,7 +62,7 @@ getUser()
 
 
 function userDetails(id){
-    location.href = `${loginUrl}/user/userdetails.html?u_id=${id}`
+    location.href = `${loginUrl}/cpanel/userdetails.html?u_id=${id}`
 }
 
 

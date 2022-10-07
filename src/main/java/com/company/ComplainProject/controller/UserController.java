@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -30,6 +31,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/user")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_WORKER')")
     public ResponseEntity<Page<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
                                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         Page<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
@@ -40,6 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     public ResponseEntity<UserDetailsResponse> getUserById(@PathVariable Long id){
         UserDetailsResponse user = userService.getUserById(id);
         return ResponseEntity.ok(user);
@@ -61,6 +64,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteUserById(@PathVariable Long id){
         try{
             userService.deleteUserById(id);
@@ -83,6 +87,7 @@ public class UserController {
     }
 
     @GetMapping("/user/search")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     public ResponseEntity<List<UserDetailsResponse>>  filteredUser(@RequestBody SearchCriteria searchCriteria){
         List<UserDetailsResponse> user = userService.getFilteredUser(searchCriteria);
         if(!user.isEmpty()){
@@ -115,6 +120,7 @@ public class UserController {
     }
 
     @GetMapping("/user/userbystatus/{status}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     public ResponseEntity<List<UserDetailsResponse>> getUserByStatus(@PathVariable("status") String status){
         try{
             return ResponseEntity.ok(userService.getUserByStatus(status));
@@ -140,6 +146,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/user/getallworker")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserDetailsResponse>> getAllWorker(){
         try{
             return ResponseEntity.ok(userService.getAllWorkers());
@@ -150,9 +157,10 @@ public class UserController {
     }
 
     /**
-     *
+     *  Get Worker By Area
      */
     @GetMapping("/user/getallworkerbyarea/{area_id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserDetailsResponse>> getAllWorkerByArea(@PathVariable("area_id") Long area_id){
         try{
             return ResponseEntity.ok(userService.getAllWorkerByArea(area_id));

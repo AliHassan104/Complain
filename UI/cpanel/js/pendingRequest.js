@@ -112,7 +112,7 @@ function deleteUser(id) {
 }
 
 function exportDataToExcel() {
-    fetch("http://localhost:8081/api/user/export", {
+    fetch(`${baseUrl}/api/user/export`, {
         headers: {
             "Content-Type": "application/octet-stream",
 

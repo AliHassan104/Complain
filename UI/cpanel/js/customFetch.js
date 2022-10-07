@@ -69,9 +69,17 @@ function sendData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
-            if(!response.ok){
-                return response.text().then(text => { throw new Error(text) })
-            }
+            // if(!response.ok){
+            //     return response.text().then(text => { throw new Error(text) })
+            // }
+            switch(response.status) {
+                case 404:
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                  break;
+                case 500:
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                  break;
+              }
             return response.json()
         .then((data) => {
                 return data;
@@ -94,6 +102,15 @@ function sendDataWithFormData(url, data) {
         body: data
     })
         .then((response) => {
+            switch(response.status) {
+                case 404:
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                  break;
+                case 500:
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                  break;
+              }
+
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -129,6 +146,15 @@ function updateData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
+            switch(response.status) {
+                case 404:
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                  break;
+                case 500:
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                  break;
+              }
+
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -150,6 +176,15 @@ function updateDataWithFormData(url, data) {
         body: data
     })
         .then((response) => {
+            switch(response.status) {
+                case 404:
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                  break;
+                case 500:
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                  break;
+              }
+
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -172,6 +207,14 @@ function patchData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
+            switch(response.status) {
+                case 404:
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                  break;
+                case 500:
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                  break;
+              }
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {

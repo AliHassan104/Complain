@@ -63,7 +63,7 @@ function renderEvent(data) {
 
 function viewEventDetails(event_id){
     
-    location.href = `${loginUrl}/events/eventdetails.html?e_id=${event_id}`
+    location.href = `${loginUrl}/cpanel/eventdetails.html?e_id=${event_id}`
 }
 
 // var previousPageNumber = 0;

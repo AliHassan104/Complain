@@ -64,11 +64,16 @@ function formSubmit() {
                     </div>`
                     document.getElementById("formSubmitted").innerHTML = table
 
+
                     document.getElementById("eventtitle").value = "";
                     document.getElementById("description").value = "";
                     document.getElementById("start_date").value = "";
                     document.getElementById("start_time").value = "";
                     document.getElementById("inpFile").value.files = "";
+
+                    setTimeout(()=>{
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    },2000)
                 })
                 .catch((error) => console.log(error))
 
@@ -91,6 +96,10 @@ function formSubmit() {
                     <b> Event Is Updated  Successfully <b>
                     </div>`
                     document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(()=>{
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    },2000)
 
                     document.getElementById("eventtitle").value = "";
                     document.getElementById("description").value = "";
@@ -124,6 +133,10 @@ function formSubmit() {
             </div>`
 
             document.getElementById("formSubmitted").innerHTML = invalidData
+
+            setTimeout(()=>{
+                document.getElementById("formSubmitted").innerHTML = ""
+            },2000)
     }
 }
 

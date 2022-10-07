@@ -119,7 +119,7 @@ function updateStatus() {
     patchData(`/admin/complain/${complain_id}`,updatedstatusData)
         .then(data => {
                                                                         //  Send Notification to that customer about complain status
-                // giveNotificationToUserOnComplainStatus(data.id)
+                giveNotificationToUserOnComplainStatus(data.id)
                 assignComplain(data.id)
             })
         .catch((error) => {
