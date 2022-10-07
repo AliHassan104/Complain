@@ -175,9 +175,9 @@ export class BottomMenuComponent implements OnInit {
 
   notifyMe(msg) {
     this.notificationObj.notification.title =
-      "New notification from Montreal Sauvage";
+      "New notification from JI COMPLAIN";
     this.notificationObj.notification.body = msg;
-    this.notificationObj.notification.icon = "assets/MTLSAUVAGE-LOGO.png";
+    // this.notificationObj.notification.icon = "assets/MTLSAUVAGE-LOGO.png";
     this.notificationObj.to = this.token;
     this.messagingService.sendNotification(this.notificationObj).subscribe();
   }
@@ -252,9 +252,9 @@ export class BottomMenuComponent implements OnInit {
 
 
   showNotification(msg) {
-    const notification = new Notification("Montreal Sauvage", {
+    const notification = new Notification("JI COMPLAIN", {
       body: msg,
-      icon: "assets/MTLSAUVAGE-LOGO.png",
+      // icon: "assets/MTLSAUVAGE-LOGO.png",
     });
   }
 
