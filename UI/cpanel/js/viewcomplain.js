@@ -162,7 +162,7 @@ function showComplainDetails(id) {
 function getComplain(number) {
         
         if(number >= 0 ){
-            getData(`/admin/complain?pageNumber=${number}&pageSize=${2}`)
+            getData(`/admin/complain?pageNumber=${number}&pageSize=${10}`)
                 .then((data) => {
                     renderComplainData(data.content)
                     renderPagination(data) 
@@ -194,9 +194,9 @@ function updateStatus() {
         });
 }
 //                                                                            give notification to user on change of complain Status
-function giveNotificationToUserOnComplainStatus(complain_id){
-    sendData(`/send-notification-touser/${complain_id}`)
-}
+// function giveNotificationToUserOnComplainStatus(complain_id){
+//     sendData(`/send-notification-touser/${complain_id}`)
+// }
 
 // function updateComplainLog(complain_id){
     

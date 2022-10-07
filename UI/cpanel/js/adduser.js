@@ -24,7 +24,7 @@ if (queryString != "") {
                 
                     document.getElementById("housenumber").value = address.houseNumber;
                     document.getElementById("floornumber").value = address.floorNumber;
-                    document.getElementById("street").value = address.street;
+                    // document.getElementById("street").value = address.street;
                 })
         })
 }
@@ -35,20 +35,20 @@ let areaId;
 var blockId;
 
 
-function formSubmit() {
+// function formSubmit() {
+   
+
+// }
+
+
+function addUser() {
+
     var select = document.getElementById('dropdownarea');
     var value = select.options[select.selectedIndex].value;
     areaId = value
 
     var selectBlock = document.getElementById("dropdownblock");
     blockId = selectBlock.options[selectBlock.selectedIndex].value;
-
-    addAddress()
-   
-}
-
-
-function addUser() {
 
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
@@ -64,6 +64,11 @@ function addUser() {
     let usertype = document.getElementById("usertype").value
 
 
+    let housenumber = document.getElementById("housenumber").value;
+    let floornumber = document.getElementById("floornumber").value;
+    
+
+
     newUser = {
         firstname: firstname, lastname: lastname, cnic: cnic, phoneNumber: phonenumber
         , email: email, password: password, numberOfFamilyMembers: family,
@@ -71,7 +76,9 @@ function addUser() {
             id: areaId
         },
         address: {
-            id: addressId
+            city:"Karachi",
+            houseNumber:housenumber,
+            floorNumber:floornumber
         },
         block: {
             id: blockId
@@ -146,47 +153,47 @@ function addUser() {
     document.getElementById("family").value = "";
 }
 
-function addAddress() {
+// function addAddress() {
 
-    let housenumber = document.getElementById("housenumber").value;
-    let floornumber = document.getElementById("floornumber").value;
-    let street = document.getElementById("street").value;
+//     let housenumber = document.getElementById("housenumber").value;
+//     let floornumber = document.getElementById("floornumber").value;
+//     let street = document.getElementById("street").value;
 
-    newAddress = { city: "karachi", houseNumber: housenumber, floorNumber: floornumber, street: street };
+//     newAddress = { city: "karachi", houseNumber: housenumber, floorNumber: floornumber, street: street };
 
-    if (queryString == "") {
+//     if (queryString == "") {
    
-            sendData(`/address`,newAddress)
-            .then(data => {
+//             sendData(`/address`,newAddress)
+//             .then(data => {
 
-                addressId = data.id
-                addUser()
+//                 addressId = data.id
+//                 addUser()
 
-                document.getElementById("housenumber").value = "";
-                document.getElementById("floornumber").value = "";
-                document.getElementById("street").value = "";
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-    } else {
+//                 document.getElementById("housenumber").value = "";
+//                 document.getElementById("floornumber").value = "";
+//                 document.getElementById("street").value = "";
+//             })
+//             .catch((error) => {
+//                 console.error('Error:', error);
+//             })
+//     } else {
        
-            updateData(`/address/${addressId}`,newAddress)
-            .then(data => {
+//             updateData(`/address/${addressId}`,newAddress)
+//             .then(data => {
 
-                addressId = data.id
-                addUser()
+//                 addressId = data.id
+//                 addUser()
 
-                document.getElementById("housenumber").value = "";
-                document.getElementById("floornumber").value = "";
-                document.getElementById("street").value = "";
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-    }
+//                 document.getElementById("housenumber").value = "";
+//                 document.getElementById("floornumber").value = "";
+//                 document.getElementById("street").value = "";
+//             })
+//             .catch((error) => {
+//                 console.error('Error:', error);
+//             })
+//     }
 
-}
+// }
 var areaIdToGetBlock;
 
 

@@ -23,22 +23,24 @@ function deletePollingQuestion(id) {
             setTimeout(() => {
                 document.getElementById("formSubmitted").innerHTML = ""
             }, 2000)
-            getPollingQuestion()
+            getPollingQuestion(0)
         })
 
 
 
 }
 
-getPollingQuestion()
+getPollingQuestion(0)
 
-function getPollingQuestion() {
-    let table = ""
-
-    getData(`/admin/pollingquestion`)
+function getPollingQuestion(pageNumber) {
+   
+if(pageNumber >= 0 ){
+    getData(`/admin/pollingquestion?pageNumber=${pageNumber}&pageSize=${10}`)
         .then((data) => {
             renderPollingQuestion(data.content)
+            renderPagination(data)
         })
+    }
 }
 
 function renderPollingQuestion(data) {
@@ -111,16 +113,16 @@ function  renderPagination(data,) {
 }
 
 function showPreviousPage(pageNumber){
-    getAchievement(pageNumber)
+    getPollingQuestion(pageNumber)
 }
 function showFirstPage(pageNumber){
-    getAchievement(pageNumber)
+    getPollingQuestion(pageNumber)
 }
 function showLastPage(pageNumber){
-    getAchievement(pageNumber)
+    getPollingQuestion(pageNumber)
 }
 function showNextPage(pageNumber){
-    getAchievement(pageNumber)
+    getPollingQuestion(pageNumber)
 }
 
 

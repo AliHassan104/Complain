@@ -232,40 +232,40 @@ function tokenNotExist() {
 
     if (token != null) {
       
-        // userDetails = decodeJwtToken(token.substring(7))
-        // var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
+        userDetails = decodeJwtToken(token.substring(7))
+        var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
                                                                     // Converting roles (string) into array 
-        // var arrayOfRoles = roles.split(",");                                    
+        var arrayOfRoles = roles.split(",");                                    
 
-        // for (let i = 0; i < arrayOfRoles.length; i++) {
-        //                                                     // Removing white spaces from array of role using trim()  
-        //     getRoles[i] = arrayOfRoles[i].trim()
-        // }
+        for (let i = 0; i < arrayOfRoles.length; i++) {
+                                                      // Removing white spaces from array of role using trim()  
+            getRoles[i] = arrayOfRoles[i].trim()
+        }
 
-        getUserData().then((data)=>{
-            data.roles.forEach(element => {
-                 getRoles.push(element.name)
-            });
+        // getUserData().then((data)=>{
+        //     data.roles.forEach(element => {
+        //          getRoles.push(element.name)
+        //     });
 
-            if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-                if(getRoles.includes("ROLE_WORKER")){
-                   window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
-                }
-           }
-           else {
-                window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
-           }
-
-        })
-
-        // if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-        //      if(getRoles.includes("ROLE_WORKER")){
+        //     if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
+        //         if(getRoles.includes("ROLE_WORKER")){
+        //            window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+        //         }
+        //    }
+        //    else {
         //         window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
-        //      }
-        // }
-        // else {
-        //      window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
-        // }
+        //    }
+
+        // })
+
+        if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
+             if(getRoles.includes("ROLE_WORKER")){
+                window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+             }
+        }
+        else {
+             window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+        }
     }
     else {
         window.open(`${loginUrl}/cpanel/loginpage.html`, "_self")
