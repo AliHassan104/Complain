@@ -16,7 +16,7 @@ if (queryString != "") {
             for (let i = 0; i < data.pollingOptions.length - 1; i++) {
                 arr.push(i + 1)
             }
-
+            
                 option()
         
                 for (let i = 0; i < arr.length; i++) {

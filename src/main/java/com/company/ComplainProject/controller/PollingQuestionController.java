@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/api")
 public class PollingQuestionController {
+
     @Autowired
     PollingQuestionService pollingQuestionService;
 
@@ -75,7 +76,7 @@ public class PollingQuestionController {
         }
     }
 
-    @GetMapping("/pollingquestionByArea/{area_id}")
+    @GetMapping("/pollingquestionbyarea/{area_id}")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestionArea(@PathVariable("area_id") Long areaId){
         try{
             return ResponseEntity.ok(pollingQuestionService.getPollingQuestionByArea(areaId));
