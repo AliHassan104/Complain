@@ -219,10 +219,12 @@
                 </div>
             </div>
 
+          <div class="input-wrapper" formGroupName="address">
+
             <div class="form-group boxed">
               <div class="input-wrapper">
                   <input type="text" formControlName="houseNumber" class="form-control" name="email"  placeholder="House Number">
-                  <div class="alert alert-danger"
+                  <!-- <div class="alert alert-danger"
                         *ngIf="registerForm.controls['houseNumber'].invalid &&
                         registerForm.controls['houseNumber'].touched">
 
@@ -230,13 +232,13 @@
                           House Number Required
                         </div>
 
-                       </div>
+                       </div> -->
               </div>
           </div>
           <div class="form-group boxed">
             <div class="input-wrapper">
                 <input type="text" formControlName="floorNumber" class="form-control" name="email"  placeholder="Floor Number">
-                <div class="alert alert-danger"
+                <!-- <div class="alert alert-danger"
                         *ngIf="registerForm.controls['floorNumber'].invalid &&
                         registerForm.controls['floorNumber'].touched">
 
@@ -244,14 +246,14 @@
                           Floor Number Required
                         </div>
 
-                </div>
+                </div> -->
 
             </div>
         </div>
         <div class="form-group boxed">
           <div class="input-wrapper">
               <input type="text" formControlName="street" class="form-control" name="email"  placeholder="Street">
-              <div class="alert alert-danger"
+              <!-- <div class="alert alert-danger"
                         *ngIf="registerForm.controls['street'].invalid &&
                         registerForm.controls['street'].touched">
 
@@ -259,10 +261,11 @@
                           Street Required
                         </div>
 
-                </div>
+                </div> -->
           </div>
       </div>
 
+    </div>
             <div class="form-button-group">
                 <button type="submit" [disabled]="!registerForm.valid"  class="btn btn-primary btn-block btn-lg">Register</button>
             </div>

@@ -112,9 +112,7 @@ onToggleShowPassword(){
 
 
 registerForm = new FormGroup({
-  address : new FormGroup({
-    id : new FormControl()
-  }),
+
   area : new FormGroup({
     id : new FormControl(null,[ Validators.required])
   }),
@@ -126,54 +124,59 @@ registerForm = new FormGroup({
   lastname : new FormControl('',[ Validators.required , Validators.minLength(3) , Validators.pattern("[a-zA-Z]*")]), // ,Validators.minLength(3) , Validators.maxLength(15)]
   // cnic : new FormControl('',[ Validators.required , Validators.pattern('/^([0-9]{5})[\-]([0-9]{7})[\-]([0-9]{1})+/')]), // ,Validators.minLength(9)]
   cnic : new FormControl('',[ Validators.required , Validators.pattern('^[0-9]{13}$')]), // ,Validators.minLength(9)]
-  phoneNumber : new FormControl('',[ Validators.required, Validators.pattern('^[0-3]{2}[0-9]{8}$')]), // ,Validators.minLength(10) , Validators.maxLength(10)]
+  phoneNumber : new FormControl('',[ Validators.required, Validators.pattern('^[0-9]{10}$')]), // ,Validators.minLength(10) , Validators.maxLength(10)]
   email : new FormControl('',[ Validators.required , Validators.email]), // , Validators.email
   password : new FormControl('',[ Validators.required , Validators.minLength(8)]),
   numberOfFamilyMembers : new FormControl('',[ Validators.required]), // Validators.pattern('^[1-9][0-9]{2}$')
   property : new FormControl(null,[ Validators.required]),
-  houseNumber : new FormControl('',[ Validators.required]),
-  floorNumber : new FormControl('',[ Validators.required]),
-  street : new FormControl('',[ Validators.required])
-
-})
-
-
-
-
-
-
-user = new FormGroup({
-  address : new FormGroup({
-    id : new FormControl()
-  }),
-  area : new FormGroup({
-    id : new FormControl()
-  }),
-  block : new FormGroup({
-    id : new FormControl()
-  }),
-  // roles : new FormGroup({
-  //   id : new FormControl()
-  // }),
-
-  firstname : new FormControl(),
-  lastname : new FormControl(),
-  cnic : new FormControl(),
-  phoneNumber : new FormControl(),
-  email : new FormControl(),
-  password : new FormControl(),
-  numberOfFamilyMembers : new FormControl(),
-  property : new FormControl(),
   userType : new FormControl(),
   deviceToken : new FormControl(),
+  address : new FormGroup({
+    // id : new FormControl()
+    houseNumber : new FormControl('',[ Validators.required]),
+    floorNumber : new FormControl('',[ Validators.required]),
+    street : new FormControl('',[ Validators.required])
+  }),
+
 })
 
 
-address = new FormGroup({
-  houseNumber : new FormControl(),
-  floorNumber : new FormControl(),
-  street : new FormControl(),
-})
+
+
+
+
+// user = new FormGroup({
+//   address : new FormGroup({
+//     id : new FormControl()
+//   }),
+//   area : new FormGroup({
+//     id : new FormControl()
+//   }),
+//   block : new FormGroup({
+//     id : new FormControl()
+//   }),
+//   // roles : new FormGroup({
+//   //   id : new FormControl()
+//   // }),
+
+//   firstname : new FormControl(),
+//   lastname : new FormControl(),
+//   cnic : new FormControl(),
+//   phoneNumber : new FormControl(),
+//   email : new FormControl(),
+//   password : new FormControl(),
+//   numberOfFamilyMembers : new FormControl(),
+//   property : new FormControl(),
+//   userType : new FormControl(),
+//   deviceToken : new FormControl(),
+// })
+
+
+// address = new FormGroup({
+//   houseNumber : new FormControl(),
+//   floorNumber : new FormControl(),
+//   street : new FormControl(),
+// })
 
 
   areas : any
@@ -200,79 +203,54 @@ address = new FormGroup({
 
   userSubmit(userData: any){
 
-    this.address.value.floorNumber = userData.floorNumber
-    this.address.value.houseNumber = userData.houseNumber
-    this.address.value.street = userData.street
+    // this.address.value.floorNumber = userData.floorNumber
+    // this.address.value.houseNumber = userData.houseNumber
+    // this.address.value.street = userData.street
 
-    this.user.value.firstname = userData.firstname
-    this.user.value.lastname = userData.lastname
-    this.user.value.cnic = userData.cnic
-    this.user.value.phoneNumber = userData.phoneNumber
-    this.user.value.email = userData.email
-    this.user.value.password = userData.password
-    this.user.value.numberOfFamilyMembers = userData.numberOfFamilyMembers
-    this.user.value.property = userData.property
-    this.user.value.userType = "Customer"
-    this.user.value.deviceToken = localStorage.getItem("deviceId")
+    // this.user.value.firstname = userData.firstname
+    // this.user.value.lastname = userData.lastname
+    // this.user.value.cnic = userData.cnic
+    // this.user.value.phoneNumber = userData.phoneNumber
+    // this.user.value.email = userData.email
+    // this.user.value.password = userData.password
+    // this.user.value.numberOfFamilyMembers = userData.numberOfFamilyMembers
+    // this.user.value.property = userData.property
+    this.registerForm.value.userType = "Customer"
+    this.registerForm.value.deviceToken = localStorage.getItem("deviceId")
 
-    this.user.value.address.id = userData.address.id
-    this.user.value.area.id = userData.area.id
-    this.user.value.block.id = userData.block.id
-    // this.user.value.roles.id = 1
+    // this.user.value.address.id = userData.address.id
+    // this.user.value.area.id = userData.area.id
+    // this.user.value.block.id = userData.block.id
 
-// admin
-// address:{id: 6}
-// area:{id: '1'}
-// block:{id: '1'}
-// cnic:"22222222222222"
-// email:"Fahd@gmail.com"
-// firstname:"Fahd"
-// lastname:"Khan"
-// numberOfFamilyMembers:"3"
-// password:"password"
-// phoneNumber:"22222222222222"
-// property:"Owner"
-// userType:"Customer"
+    // this.registerService.postAddress(this.address.value).subscribe(addressData => {
+    //     this.blocks = addressData
+    //     console.log(addressData);
+    //       this.user.value.address.id = 1
+    //       this.userPost(this.registerForm)
+    //       this.toastService.showToast("Registered Successfully Your Account Will Be Active With In 24 Hours", "#toast-15")
 
-// mobile
-// {"address":{"id":1},
-// "area":{"id":"1"},
-// "block":{"id":"1"},
-// "firstname":"muhammad",
-// "lastname":"sheri",
-// "cnic":"333333",
-// "phoneNumber":"333333",
-// "email":"sheri@gmail.com",
-// "password":"password",
-// "numberOfFamilyMember":"2",
-// "property":"Owner",
-// "userType":"Customer"}
+    //   }, error => {
+    //     console.log(error);
+    //     this.toastService.showToast("Not Registered", "#toast-16");
+    //   });
 
 
+    this.userPost(this.registerForm)
 
+  }
 
-    this.registerService.postAddress(this.address.value).subscribe(addressData => {
-        this.blocks = addressData
-        console.log(addressData);
-          this.user.value.address.id = 1
-          this.userPost(this.user)
-          this.toastService.showToast("Registered Successfully Your Account Will Be Active With In 24 Hours", "#toast-15")
+  userPost(data: any){
+    // setTimeout(() => {
+      this.registerService.postUser(data.value).subscribe(userData => {
+        this.toastService.showToast("Registered Successfully Your Account Will Be Active With In 24 Hours", "#toast-15")
 
+        // this.router.navigate(['login']);
+        // console.log(userData);
       }, error => {
         console.log(error);
         this.toastService.showToast("Not Registered", "#toast-16");
       });
-  }
-
-  userPost(data: any){
-    // console.log(data.value);
-    setTimeout(() => {
-      this.registerService.postUser(data.value).subscribe(userData => {
-        this.router.navigate(['survey']);
-      }, error => {
-        console.log(error);
-      });
-    }, 1500);
+    // }, 1500);
   }
 
 }
