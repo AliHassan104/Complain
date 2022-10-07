@@ -8,12 +8,13 @@ import com.company.ComplainProject.service.WaterTimingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/api")
 public class WaterTimingController {
@@ -21,7 +22,7 @@ public class WaterTimingController {
     @Autowired
     WaterTimingService waterTimingService;
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/watertiming")
     public ResponseEntity<List<WaterTiming>> getWaterTiming(){
         List<WaterTiming> waterTiming = waterTimingService.getAllWaterTiming();
@@ -33,6 +34,7 @@ public class WaterTimingController {
 
 
     @GetMapping("/watertiming/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     public ResponseEntity<Optional<WaterTiming>> getWaterTimingById(@PathVariable Long id){
         Optional<WaterTiming> waterTiming = waterTimingService.getWaterTimingById(id);
         if(waterTiming.isPresent()){
@@ -90,8 +92,8 @@ public class WaterTimingController {
         }
     }
 //                                                          get water timing by block
-    @GetMapping("watertimingByBlock/{block}")
-    public ResponseEntity<List<WaterTiming>> getWaterTimingsByBlock(@PathVariable("block") Long blockId){
+    @GetMapping("watertimingByBlock/{block_id}")
+    public ResponseEntity<List<WaterTiming>> getWaterTimingsByBlock(@PathVariable("block_id") Long blockId){
         try {
             return ResponseEntity.ok(waterTimingService.getWaterTimingByBlock(blockId));
         }

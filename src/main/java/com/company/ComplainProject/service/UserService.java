@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -39,6 +40,8 @@ public class UserService {
     SessionService service;
     @Autowired
     AreaRepository areaRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -48,7 +51,7 @@ public class UserService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
-        userPage.getContent().stream().forEach(user -> user.setPassword(null));
+//        userPage.getContent().stream().forEach(user -> user.setPassword(null));
         return userPage;
     }
 
@@ -65,9 +68,11 @@ public class UserService {
     }
 
     public UserDetailsResponse addUser(UserDto userDto) {
+
         if(userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)){
             userDto.setStatus(UserStatus.PUBLISHED);
         }
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userDto.setRoles(assignRolesToUser(userDto));
         return userToUserDetailsResponse(userRepository.save(dto(userDto)));
     }
