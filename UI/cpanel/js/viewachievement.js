@@ -50,12 +50,14 @@ function renderAchievement(data){
 }
 
 function getAchievement(number) {
-    let table = ""
+   
+    if (number >= 0) {
     getData(`/admin/achievement?pageNumber=${number}&pageSize=${2}`)
     .then((data)=> {
         renderAchievement(data.content)
         renderPagination(data) 
     })
+}
 }
 getAchievement(0);
 

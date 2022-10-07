@@ -178,10 +178,10 @@ function updateDataWithFormData(url, data) {
         .then((response) => {
             switch(response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                    window.open(`${loginUrl}/cpanel/pages-404.html`, "_self") 
                   break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                    window.open(`${loginUrl}/cpanel/pages-500.html`, "_self") 
                   break;
               }
 
@@ -209,10 +209,10 @@ function patchData(url, data) {
         .then((response) => {
             switch(response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                    window.open(`${loginUrl}/cpanel/pages-404.html`, "_self") 
                   break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
+                    window.open(`${loginUrl}/cpanel/pages-500.html`, "_self") 
                   break;
               }
             return response.json().then((data) => {
@@ -232,27 +232,43 @@ function tokenNotExist() {
 
     if (token != null) {
       
-        userDetails = decodeJwtToken(token.substring(7))
-        var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
+        // userDetails = decodeJwtToken(token.substring(7))
+        // var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
                                                                     // Converting roles (string) into array 
-        var arrayOfRoles = roles.split(",");                                    
+        // var arrayOfRoles = roles.split(",");                                    
 
-        for (let i = 0; i < arrayOfRoles.length; i++) {
-                                                            // Removing white spaces from array of role using trim()  
-            getRoles[i] = arrayOfRoles[i].trim()
-        }
+        // for (let i = 0; i < arrayOfRoles.length; i++) {
+        //                                                     // Removing white spaces from array of role using trim()  
+        //     getRoles[i] = arrayOfRoles[i].trim()
+        // }
 
-        if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-             if(getRoles.includes("ROLE_WORKER")){
-                window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") 
-             }
-        }
-        else {
-             window.open(`${loginUrl}/loginPage/loginpage.html`, "_self") 
-        }
+        getUserData().then((data)=>{
+            data.roles.forEach(element => {
+                 getRoles.push(element.name)
+            });
+
+            if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
+                if(getRoles.includes("ROLE_WORKER")){
+                   window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+                }
+           }
+           else {
+                window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+           }
+
+        })
+
+        // if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
+        //      if(getRoles.includes("ROLE_WORKER")){
+        //         window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+        //      }
+        // }
+        // else {
+        //      window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+        // }
     }
     else {
-        window.open(`${loginUrl}/loginPage/loginpage.html`, "_self")
+        window.open(`${loginUrl}/cpanel/loginpage.html`, "_self")
     }
 }
 

@@ -4,12 +4,14 @@ var mainAddressId;
 var allArea = []
 
 
-function getUser(){
-
-    getData(`/admin/user`)
-    .then((data)=>{
-        renderUser(data.content)
-    })
+function getUser(pageNumber){
+    if (pageNumber >= 0) {
+        getData(`/admin/user?pageNumber=${pageNumber}&pageSize=${10}`)
+        .then((data)=>{
+            renderUser(data.content)
+            renderPagination(data) 
+        })
+    }
 
 }
 function renderUser(data) {
@@ -29,12 +31,12 @@ function renderUser(data) {
                 table += `
 
         <tr class="tablepoint">
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].firstname + " " + data[i].lastname}</td>
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].phoneNumber}</td>
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].email}</td>
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].property}</td>
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].cnic}</td>
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area.name}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i]?.firstname + " " + data[i]?.lastname}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i]?.phoneNumber}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i]?.email}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i]?.property}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i]?.cnic}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area?.name}</td>
 
             <td  class="datatable"> 
             <a href="/cpanel/adduser.html?id=${data[i].id}">
@@ -58,7 +60,7 @@ function renderUser(data) {
                 document.getElementById("noRecordFound").innerHTML = ""
             }
 }
-getUser()
+getUser(0)
 
 
 function userDetails(id){
@@ -104,7 +106,7 @@ function deleteUser(id) {
         setTimeout(()=>{
             document.getElementById("formSubmitted").innerHTML = ""
         },2000)
-        getUser()
+        getUser(0)
     })
 
 }
@@ -133,7 +135,7 @@ function exportDataToExcel() {
 
 }
 
-function  renderPagination(data,) {
+function  renderPagination(data) {
     let pages = data.totalPages;
     let renderPagination = ""
     let renderPageOf = ""
@@ -159,15 +161,15 @@ function  renderPagination(data,) {
 }
 
 function showPreviousPage(pageNumber){
-    getAchievement(pageNumber)
+    getUser(pageNumber)
 }
 function showFirstPage(pageNumber){
-    getAchievement(pageNumber)
+    getUser(pageNumber)
 }
 function showLastPage(pageNumber){
-    getAchievement(pageNumber)
+    getUser(pageNumber)
 }
 function showNextPage(pageNumber){
-    getAchievement(pageNumber)
+    getUser(pageNumber)
 }
 
