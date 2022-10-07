@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit,AfterViewChecked {
       ) { }
 
   ngAfterViewChecked(): void {
-   
+
   }
 
 
@@ -55,12 +55,12 @@ export class LoginPageComponent implements OnInit,AfterViewChecked {
     this.router.navigate(['register'])
   }
   goToForgetPassword(){
-    this.router.navigate(['forget']);
+    this.router.navigate(['forget-password']);
   }
 
 
 loginSubmit(loginCredentials: any){
-  
+
   this.login.value.deviceToken = localStorage.getItem("deviceId")
   // console.log(this.login.value);
   console.log(this.login.value);
