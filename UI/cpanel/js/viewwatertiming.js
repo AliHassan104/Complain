@@ -1,15 +1,17 @@
-getWaterTiming()
+getWaterTiming(0)
 
 let uid;
 
-function getWaterTiming() {
+function getWaterTiming(pageNumber) {
 
-    getData(`/admin/watertiming`)
+    if (pageNumber >= 0) {
+    getData(`/admin/watertiming?pageNumber=${pageNumber}&pageSize=${10}`)
         .then((data) => {
-           
+            // console.log(data);
             renderWaterTiming(data.content)
-            // pagination method
+            renderPagination(data) 
         })
+    }
 }
 
 function renderWaterTiming(data) {
@@ -93,32 +95,32 @@ function deleteWaterTiming(id) {
             setTimeout(() => {
                 document.getElementById("formSubmitted").innerHTML = ""
             }, 2000)
-            getWaterTiming()
+            getWaterTiming(0)
         })
 }
 
 
-getArea()
+// getArea()
 
-function getArea() {
-    let table = ""
+// function getArea() {
+//     let table = ""
 
-    getData(`/area`)
-        .then((data) => {
-            allArea = data;
-            table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
-            table += `<option value="ALL" selected>Select Area</option>`
-            for (let i = 0; i < data.length; i++) {
-                table += `
-            <option value="${data[i].id}">${data[i].name}</option>
-        `
-            }
-            table += `</select>`
-            document.getElementById("dropdownarea1").innerHTML = table;
-        })
-}
+//     getData(`/area`)
+//         .then((data) => {
+//             allArea = data;
+//             table += `<select onchange="filterByArea()" id="dropdownareafilter"  class="form-control form-control-sm">`
+//             table += `<option value="ALL" selected>Select Area</option>`
+//             for (let i = 0; i < data.length; i++) {
+//                 table += `
+//             <option value="${data[i].id}">${data[i].name}</option>
+//         `
+//             }
+//             table += `</select>`
+//             document.getElementById("dropdownarea1").innerHTML = table;
+//         })
+// }
 
-function  renderPagination(data,) {
+function  renderPagination(data) {
     let pages = data.totalPages;
     let renderPagination = ""
     let renderPageOf = ""
@@ -144,15 +146,15 @@ function  renderPagination(data,) {
 }
 
 function showPreviousPage(pageNumber){
-    getAchievement(pageNumber)
+    getWaterTiming(pageNumber)
 }
 function showFirstPage(pageNumber){
-    getAchievement(pageNumber)
+    getWaterTiming(pageNumber)
 }
 function showLastPage(pageNumber){
-    getAchievement(pageNumber)
+    getWaterTiming(pageNumber)
 }
 function showNextPage(pageNumber){
-    getAchievement(pageNumber)
+    getWaterTiming(pageNumber)
 }
 

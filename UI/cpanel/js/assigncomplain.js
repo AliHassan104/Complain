@@ -1,23 +1,3 @@
-// var area_id; 
-
-// getAllArea();
-
-// function getAllArea(){
-//     renderArea = ''
-//     getData(`/area`).then((data)=>{
-//         area_id = data[0].id
-//         for (let i = 0; i < data.length; i++) {
-//             renderArea += `
-//                     <option onclick="getAllWorkerByArea()" value="${data[i].id}">${data[i].name}</option>` 
-//         }
-//         document.getElementById("areadropdown").innerHTML = renderArea;
-//         getAllWorkerByArea()
-//     })
-// }
-
-// document.getElementById("areadropdown").addEventListener('change',function(){
-//     getAllWorkerByArea()
-// })
 
 
 var queryString = window.location.search
@@ -107,24 +87,28 @@ function assignComplainModal(worker_id){
 }
 
 function updateStatus() {
+    console.log("yes");
     let complain_id = document.getElementById("complain_id").value
     let updatedstatus = document.getElementById("updatedstatus").value;
 
     
-
     let updatedstatusData = {
         status: updatedstatus
     }
 
     patchData(`/admin/complain/${complain_id}`,updatedstatusData)
         .then(data => {
-                                                                        //  Send Notification to that customer about complain status
-                giveNotificationToUserOnComplainStatus(data.id)
-                assignComplain(data.id)
+            assignComplain(data.id)                                                           //  Send Notification to that customer about complain status
+            giveNotificationToUserOnComplainStatus(data.id)
+            
             })
         .catch((error) => {
             console.error('Error:', error);
         });
+}
+
+function giveNotificationToUserOnComplainStatus(complain_id){
+    sendData(`/send-notification-touser/${complain_id}`)
 }
 
 function assignComplain(complain_id){
@@ -137,6 +121,7 @@ function assignComplain(complain_id){
             id:document.getElementById("worker_id").value
         }  
     }
+     console.log(complainLog)
     sendData(`/complainlog/${complain_id}`,complainLog)
     .then((data)=>{
         
