@@ -21,7 +21,7 @@ public class Address {
     @Column(name = "id")
     private Long id;
     private String houseNumber;
-    private String street;
+    // private String street;
     private String floorNumber;
     private String city;
 

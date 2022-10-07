@@ -66,8 +66,8 @@ public class UserExcelExporter {
         cell = row.createCell(9);
         cell.setCellValue("House Number");
 
-        cell = row.createCell(10);
-        cell.setCellValue("Street");
+        // cell = row.createCell(10);
+        // cell.setCellValue("Street");
 
         cell = row.createCell(11);
         cell.setCellValue("Role");
@@ -110,8 +110,8 @@ public class UserExcelExporter {
             cell = row.createCell(9);
             cell.setCellValue(user.getAddress().getHouseNumber());
 
-            cell = row.createCell(10);
-            cell.setCellValue(user.getAddress().getStreet());
+            // cell = row.createCell(10);
+            // cell.setCellValue(user.getAddress().getStreet());
 
             ArrayList<String> listOfRoles = new ArrayList<>();
             for (Roles role:user.getRoles()) {
