@@ -97,7 +97,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // ServiceWorkerModule.register('ngsw-worker.js',{enabled: true}),
+    ServiceWorkerModule.register('ngsw-worker.js',{enabled: true}),
     HttpClientModule,
     FormsModule,
     IonicModule.forRoot(),
