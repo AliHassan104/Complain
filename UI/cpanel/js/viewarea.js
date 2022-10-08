@@ -25,7 +25,7 @@ function getArea() {
             <td  class="datatable">${data.content[i].postalCode}</td>
             <td  class="datatable"> 
 
-            <a  href="/cpanel/addarea.html?id=${data.content[i].id}"> 
+            <a  href="/addarea.html?id=${data.content[i].id}"> 
             <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>

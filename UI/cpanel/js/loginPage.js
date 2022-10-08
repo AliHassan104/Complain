@@ -45,7 +45,7 @@ function loginData() {
             .then((data) => {
                 if (data.jwt != null) {
                     localStorage.setItem("jwtToken", data.jwt)
-                    location.href = `${loginUrl}/cpanel/index.html`
+                    location.href = `${loginUrl}/index.html`
                     document.getElementById('password').value = ""
                 }
             })

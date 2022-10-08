@@ -29,7 +29,7 @@ function renderEvent(data) {
             </td>
             <td class="datatable"> 
 
-            <a  href="/cpanel/addevents.html?id=${data[i].id}">
+            <a  href="/addevents.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
@@ -63,7 +63,7 @@ function renderEvent(data) {
 
 function viewEventDetails(event_id){
     
-    location.href = `${loginUrl}/cpanel/eventdetails.html?e_id=${event_id}`
+    location.href = `${loginUrl}/eventdetails.html?e_id=${event_id}`
 }
 
 // var previousPageNumber = 0;

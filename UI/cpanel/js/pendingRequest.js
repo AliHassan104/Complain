@@ -30,7 +30,7 @@ function getUser() {
             <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
 
             <td style="width: 15%;" class="datatable"> 
-            <a href="/cpanel/adduser.html?id=${data[i].id}">
+            <a href="/adduser.html?id=${data[i].id}">
             <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 5px; margin-right: 7px;"  class="fa fa-pencil"></i>
             </a>

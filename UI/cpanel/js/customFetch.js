@@ -178,10 +178,10 @@ function updateDataWithFormData(url, data) {
         .then((response) => {
             switch(response.status) {
                 case 404:
-                    window.open(`${loginUrl}/cpanel/pages-404.html`, "_self") 
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
                   break;
                 case 500:
-                    window.open(`${loginUrl}/cpanel/pages-500.html`, "_self") 
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
 
@@ -209,10 +209,10 @@ function patchData(url, data) {
         .then((response) => {
             switch(response.status) {
                 case 404:
-                    window.open(`${loginUrl}/cpanel/pages-404.html`, "_self") 
+                    window.open(`${loginUrl}/pages-404.html`, "_self") 
                   break;
                 case 500:
-                    window.open(`${loginUrl}/cpanel/pages-500.html`, "_self") 
+                    window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
             return response.json().then((data) => {
@@ -249,26 +249,26 @@ function tokenNotExist() {
 
         //     if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
         //         if(getRoles.includes("ROLE_WORKER")){
-        //            window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+        //            window.open(`${loginUrl}/loginpage.html`, "_self") 
         //         }
         //    }
         //    else {
-        //         window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+        //         window.open(`${loginUrl}/loginpage.html`, "_self") 
         //    }
 
         // })
 
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
              if(getRoles.includes("ROLE_WORKER")){
-                window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+                window.open(`${loginUrl}/loginpage.html`, "_self") 
              }
         }
         else {
-             window.open(`${loginUrl}/cpanel/loginpage.html`, "_self") 
+             window.open(`${loginUrl}/loginpage.html`, "_self") 
         }
     }
     else {
-        window.open(`${loginUrl}/cpanel/loginpage.html`, "_self")
+        window.open(`${loginUrl}/loginpage.html`, "_self")
     }
 }
 

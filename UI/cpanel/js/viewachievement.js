@@ -30,7 +30,7 @@ function renderAchievement(data){
         </td>
         <td class="datatable"> 
 
-        <a  href="/cpanel/addachievement.html?id=${data[i].id}">
+        <a  href="/addachievement.html?id=${data[i].id}">
         <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
         </a>
@@ -63,7 +63,7 @@ getAchievement(0);
 
 
 function showAchievementDetails(id){
-    location.href = `${loginUrl}/cpanel/achievementdetails.html?a_id=${id}`
+    location.href = `${loginUrl}/achievementdetails.html?a_id=${id}`
 }
 
 function deleteAchievement(id){

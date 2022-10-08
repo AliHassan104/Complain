@@ -121,7 +121,7 @@ function renderComplainData(data) {
             <td  class="datatable mouseHand" onclick=showComplainDetails(${data[i].id})>${data[i].area.name}</td>
            
             <td class="datatable"> 
-            <a  href="/cpanel/addcomplain.html?id=${data[i].id}">
+            <a  href="/addcomplain.html?id=${data[i].id}">
             <i style="margin-right: 5px;"  onclick="updateComplain(${data[i].id})"  
             class="fa fa-pencil"></i>
             </a>
@@ -150,11 +150,11 @@ function renderComplainData(data) {
 }
 
 function assignComplainToUser(complain_id){
-    location.href = `${loginUrl}/cpanel/assigncomplain.html?c_id=${complain_id}`
+    location.href = `${loginUrl}/assigncomplain.html?c_id=${complain_id}`
 }
 
 function showComplainDetails(id) {
-    location.href = `${loginUrl}/cpanel/complaindetails.html?c_id=${id}`
+    location.href = `${loginUrl}/complaindetails.html?c_id=${id}`
 }
                                                                         //  get Complain With Pagination
 

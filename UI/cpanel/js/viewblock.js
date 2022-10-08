@@ -20,7 +20,7 @@ function getBlock() {
             <td class="datatable">${data[i].block_name}</td>
             <td class="datatable">
             
-            <a  href="/cpanel/addblock.html?id=${data[i].id}">
+            <a  href="/addblock.html?id=${data[i].id}">
             <i
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
             </a>
