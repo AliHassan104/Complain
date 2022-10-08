@@ -1,2 +1,2 @@
-baseUrl = `http://${window.location.hostname}:8081`
-loginUrl = `http://${window.location.hostname}:5500`
+baseUrl = `https://api.jicomplain.com`
+loginUrl = `https://admin.jicomplain.com/`

@@ -3,8 +3,18 @@ package com.company.ComplainProject.controller;
 import com.company.ComplainProject.service.AchievementService;
 import com.company.ComplainProject.service.ComplainService;
 import com.company.ComplainProject.service.EventService;
+import com.company.ComplainProject.service.ImageService;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,36 +28,16 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("/api")
 public class ImageController {
-    @Autowired
-    AchievementService achievementService;
-    @Autowired
-    ComplainService complainService;
-    @Autowired
-    EventService eventService;
 
-    @GetMapping("/achievement/images/{fileName}") //achievementimage
-    public void getUserImage(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
-        InputStream inputStream = achievementService.getImageByName(fileName);
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        StreamUtils.copy(inputStream,response.getOutputStream());
-        inputStream.close();
+    private static final Logger logger = LoggerFactory.getLogger(ImageController.class);
+
+    @Autowired
+    ImageService imageService;
+
+    @GetMapping("/view/image/{filename:.+}")
+    public ResponseEntity<InputStreamResource> getImageApiUrl(@PathVariable String filename) {
+       return imageService.getImage(filename);
     }
 
-    //                                                                  Api to get Asset Image
-    @GetMapping("/complain/images/{fileName}") //complainimage
-    public void getAssetImage(@PathVariable("fileName") String fileName,HttpServletResponse response) throws IOException {
-        InputStream inputStream = complainService.getImageByName(fileName);
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        StreamUtils.copy(inputStream,response.getOutputStream());
-        inputStream.close();
-    }
 
-    @GetMapping("/event/images/{fileName}")
-    public void getEventImage(@PathVariable("fileName") String fileName,HttpServletResponse response) throws IOException {
-        InputStream inputStream = eventService.getImageByName(fileName);
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        StreamUtils.copy(inputStream,response.getOutputStream());
-        inputStream.close();
-        response.getOutputStream().close();
-    }
 }

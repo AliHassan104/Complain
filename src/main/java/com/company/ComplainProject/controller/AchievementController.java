@@ -6,6 +6,7 @@ import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.service.AchievementService;
+import com.company.ComplainProject.service.ImageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,10 +30,9 @@ public class AchievementController {
     private AchievementService achievementService;
     @Autowired
     private AchievementImageImplementation achievementImageImplementation;
-    @Value("${achievement.image}")
-    private String achievementPath;
-    @Value("${image.path.url}")
-    private String imagePathUrl;
+
+    @Autowired
+    ImageService imageService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     @GetMapping("/achievement")
@@ -87,16 +87,12 @@ public class AchievementController {
             AchievementsDto achievementsDto1 = mapper.readValue(achievementdto,AchievementsDto.class);
 
 //                                                                                   first the image should be deleted
-            Boolean achievementImageDeleted = achievementImageImplementation.deleteImage(id);
+//            Boolean achievementImageDeleted = achievementImageImplementation.deleteImage(id);
 
-            if(achievementImageDeleted){
-                String fileName = achievementImageImplementation.uploadImage(image);
-                achievementsDto1.setPictureUrl(imagePathUrl+"api/"+achievementPath+fileName);
+                String pictureUrl = imageService.uploadImageAndGetApiPath(image);
+                achievementsDto1.setPictureUrl(pictureUrl);
                 return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto1));
-            }
-            else{
-                throw new CannotDeleteImage("Achievement Image having id "+id+" cannot be deleted");
-            }
+
 
         }catch (Exception e){
             System.out.println(e);
@@ -112,8 +108,8 @@ public class AchievementController {
             ObjectMapper mapper = new ObjectMapper();
             AchievementsDto achievementsDto = mapper.readValue(userdata,AchievementsDto.class);
 //                                                                                              Save Image in Database
-            String fileName = achievementImageImplementation.uploadImage(image);
-            achievementsDto.setPictureUrl(imagePathUrl+"api/"+achievementPath+fileName);
+            String fileName = imageService.uploadImageAndGetApiPath(image);
+            achievementsDto.setPictureUrl(fileName);
 
             return ResponseEntity.ok(achievementService.addAchievement(achievementsDto));
         }catch (Exception e){

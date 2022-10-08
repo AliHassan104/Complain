@@ -77,9 +77,6 @@ const routes: Routes = [
   {
     path: "register", component: RegisterPageComponent
   },
-  // {
-  //   path: "forget", component: ForgetPasswordComponent
-  // },
   {
     path: "forget-password", component: ForgetPasswordComponent
   },
@@ -100,7 +97,9 @@ const routes: Routes = [
 
 
 
-
+  // {
+  //   path: "newsfeed", component: NewsfeedPageComponent
+  // },
   // {
   //   path: "notifications", component: NotificationsComponent
   // },
@@ -112,7 +111,7 @@ const routes: Routes = [
   // }, {
   //   path: 'viewimage/:id', component: ViewImageComponent
   // },
-  
+
 
   // {
   //   path: 'chat/:chatroom/:friendId', component: ChatComponent
@@ -142,7 +141,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash: true})],
+  imports: [RouterModule.forRoot(routes,{useHash: false})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
