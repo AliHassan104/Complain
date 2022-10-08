@@ -113,6 +113,7 @@ const routes: Routes = [
   //   path: 'viewimage/:id', component: ViewImageComponent
   // },
   
+
   // {
   //   path: 'chat/:chatroom/:friendId', component: ChatComponent
   // },
