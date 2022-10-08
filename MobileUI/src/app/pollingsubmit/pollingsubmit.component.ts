@@ -106,8 +106,9 @@ getEmailByToken(){
 getUser() {
     let user: any
     const email = this.getEmailByToken()
-    this.userService.getUserByEmail(email).subscribe(data => {
+    this.userService.getUser().subscribe(data => {
       // console.log(data);
+      
       user = data
       this.userId = user.id
       // this.toastService.showToast("Success", "#toast-15")

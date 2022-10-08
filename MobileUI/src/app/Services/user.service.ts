@@ -34,15 +34,15 @@ getEmailByToken(){
   return encodedToken.sub;
 }
 
-  getUserByEmail(email: any) {
+  // getUserByEmail(email: any) {
 
-    // const email = this.getEmailByToken()
-    return this.http.get(`${this.url}/api/userbyemail/${email}`)
-  }
+  //   // const email = this.getEmailByToken()
+  //   return this.http.get(`${this.url}/api/userbyemail/${email}`)
+  // }
+
 
   getUser() {
-    const email = this.getEmailByToken()
-    return this.http.get(`${this.url}/api/userbyemail/${email}`)
+    return this.http.get(`${this.url}/api/get-logged-in-user`)
   }
 
 

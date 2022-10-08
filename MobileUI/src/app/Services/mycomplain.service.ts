@@ -24,7 +24,7 @@ export class MycomplainService {
   }
 
   getComplainByEmail(email: any){
-    return this.http.get(`${this.url}/api/complain/complainbyuser/${email}`)
+    return this.http.get(`${this.url}/api/complain/complainbyuser`)
   }
 
   postComplain(data: any): Observable<any> {
@@ -34,6 +34,7 @@ export class MycomplainService {
     //console.log(body);
     return this.http.post(`${this.url}/api/complain`, data) //
   }
+  
   postComplainLog(id: any , data: any): Observable<any> {
     return this.http.post(`${this.url}/api/complainlog/${id}`,data) //
   }

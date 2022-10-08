@@ -364,13 +364,14 @@ userAreaName: any = []
 getUser() {
     // let user: any
     const email = this.getEmailByToken()
-    this.userService.getUserByEmail(email).subscribe(data => {
+    this.userService.getUser().subscribe(data => {
       // console.log(data);
       this.userAreaName = data
       // console.log(this.userAreaName);
     }, error => {
       console.log(error);
     });
+    
   }
 
 }

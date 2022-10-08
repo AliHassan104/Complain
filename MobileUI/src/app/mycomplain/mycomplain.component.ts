@@ -189,7 +189,7 @@ getEmailByToken(){
 getUser() {
   const email = this.getEmailByToken()
   let user: any
-  this.userService.getUserByEmail(email).subscribe(data => {
+  this.userService.getUser().subscribe(data => {
     console.log(data);
 
     user = data

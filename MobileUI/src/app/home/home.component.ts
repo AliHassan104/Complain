@@ -137,7 +137,8 @@ getEmailByToken(){
 getUser() {
   let user : any
   const email = this.getEmailByToken()
-  this.userService.getUserByEmail(email).subscribe(data => {
+  this.userService.getUser().subscribe(data => {
+    
     user = data
     this.areaId = user.area.id
 
