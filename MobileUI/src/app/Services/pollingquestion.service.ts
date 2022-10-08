@@ -27,8 +27,8 @@ export class PollingquestionService {
     return this.http.get(`${this.url}/api/pollingquestionByArea/${areaId}`)
   }
 
-  getPollingQuestionNotAnswered(userId: any) {
-    return this.http.get(`${this.url}/api/pollingquestion/notansweredbyuser/${userId}`)
+  getPollingQuestionNotAnswered() {
+    return this.http.get(`${this.url}/api/pollingquestion/get-all-pollingquestion-for-user`)
   }
 
   postPollingQuestion(data: any): Observable<any> {
