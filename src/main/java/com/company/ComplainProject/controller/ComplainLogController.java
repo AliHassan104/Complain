@@ -48,7 +48,7 @@ public class ComplainLogController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/complainlog/{c_id}")
     public ResponseEntity<ComplainLogDto> addComplainLogByComplain(@PathVariable("c_id") Long id,@RequestBody ComplainLogDto complainLogDto){
         try{
