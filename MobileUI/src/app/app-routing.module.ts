@@ -4,15 +4,16 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 // import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
 // import { NotificationsComponent } from './notifications/notifications.component';
-import { PostComponent } from './post/post.component';
+// import { PostComponent } from './post/post.component';
 // import { BlogpostComponent } from './blogpost/blogpost.component';
 // import { ViewImageComponent } from './view-image/view-image.component';
 // import { ChatComponent } from './chat/chat.component';
 // import { AddEventComponent } from './add-event/add-event.component';
-// import { DiscoverEventsComponent } from './discover-events/discover-events.component';
+// import { DiscoverEventsComponent } from './discover-events/discover-events.component'
+;
 // import { EventPreviewComponent } from './event-preview/event-preview.component';
 // import { ChatroomComponent } from './chatroom/chatroom.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+// import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { HomeComponent } from './home/home.component';
 import { MycomplainComponent } from './mycomplain/mycomplain.component';
 import { AchievementComponent } from './achievement/achievement.component';
@@ -111,6 +112,7 @@ const routes: Routes = [
   // }, {
   //   path: 'viewimage/:id', component: ViewImageComponent
   // },
+  
   // {
   //   path: 'chat/:chatroom/:friendId', component: ChatComponent
   // },
@@ -135,6 +137,7 @@ const routes: Routes = [
   // {
   //   path:'resetlink/:uuid',component:ResetPasswordComponent
   // },
+
 ];
 
 @NgModule({

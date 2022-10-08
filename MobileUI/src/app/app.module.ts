@@ -9,23 +9,23 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-// import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
 import { IonicModule } from '@ionic/angular';
 import { OwlModule } from 'ngx-owl-carousel';
 // import { ProfileComponent } from './profile/profile.component';
-import { AppSideBarComponent } from './app-side-bar/app-side-bar.component';
+// import { AppSideBarComponent } from './app-side-bar/app-side-bar.component';
 import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
 // import { NotificationsComponent } from './notifications/notifications.component';
-import { PostComponent } from './post/post.component';
+// import { PostComponent } from './post/post.component';
 // import { BlogpostComponent } from './blogpost/blogpost.component';
-import { ViewImageComponent } from './view-image/view-image.component';
+// import { ViewImageComponent } from './view-image/view-image.component';
 // import { ChatComponent } from './chat/chat.component';
+
 // import { AddEventComponent } from './add-event/add-event.component';
 // import { DiscoverEventsComponent } from './discover-events/discover-events.component';
 // import { EventPreviewComponent } from './event-preview/event-preview.component';
 // import { ChatroomComponent } from './chatroom/chatroom.component';
 // import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+// import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -64,18 +64,18 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     RegisterPageComponent,
     // NewsfeedPageComponent,
     // ProfileComponent,
-    AppSideBarComponent,
+    // AppSideBarComponent,
     BottomMenuComponent,
     // NotificationsComponent,
-    PostComponent,
+    // PostComponent,
     // BlogpostComponent,
-    ViewImageComponent,
+    // ViewImageComponent,
     // ChatComponent,
     // AddEventComponent,
     // DiscoverEventsComponent,
     // EventPreviewComponent,
     // ChatroomComponent,
-    ResetPasswordComponent,
+    // ResetPasswordComponent,
     HomeComponent,
     MycomplainComponent,
     AchievementComponent,
