@@ -156,11 +156,11 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">User</span>
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/adduser.html">Add User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/viewuser.html">View User</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/user/pendingRequest.html">Pending Users</a></li>
-                            <li class="sidebar-item"><a class="sidebar-link" href="/user/permission.html">Permission</a></li>
-                            <li class="sidebar-item"><a class="sidebar-link" href="/user/assignpermission.html">Assign Permissions</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="adduser.html">Add User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="viewuser.html">View User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="pendingRequest.html">Pending Users</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="permission.html">Permission</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="assignpermission.html">Assign Permissions</a></li>
 						</ul>
 					</li>
 
@@ -531,25 +531,35 @@
 
 
             <main class="content">
-                <span class = "label label-default">Select Roles</span>
-                <select id="dropdownarea" class="form-select">
+                <form>
+					<span class = "label label-default">Select Roles</span>
+                <select id="Roles" class="form-select" onchange="showPermissionUrls()">
                     
                 </select>
-                
-                <div  class="row d-flex justify-content pt-5">
-                    <div class="col-md-6"> 
-                        <span class = "label label-default">Select URL'S</span>
-                        <select id="choices-multiple-remove-button" multiple>
+   
+				<table class="table">
+					<thead>
+					  <tr>
+						<th scope="col">#</th>
+						<th scope="col">URL</th>
+						<th scope="col">Can Active</th>
+						<th scope="col">Can Delete</th>
+						<th scope="col">Assign</th>
+					  </tr>
+					</thead>
+					<tbody id="UrlTable">
 
-                        </select> 
-                    </div>
-                                        
+					
+					</tbody>
+				  </table>
+				  <button onclick="publish()" type="button" class="btn btn-info">submit</button>
+				</form>            
 			</main>
 
 		<script src="/js/app.js"></script>
 		<script src="/js/properties.js"></script>
-		<script src="/user/adduser.js"></script>
-        <script src="/user/assignpermission.js"></script>
+		<script src="/js/adduser.js"></script>
+        <script src="/js/assignpermission.js"></script>
 
 </body>
 

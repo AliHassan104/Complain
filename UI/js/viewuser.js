@@ -34,7 +34,7 @@ function renderUser(data) {
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].email}</td>
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].property}</td>
             <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].cnic}</td>
-            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area.name}</td>
+            <td class="datatable mouseHand" onclick="userDetails(${data[i].id})">${data[i].area?.name}</td>
 
             <td  class="datatable"> 
             <a href="/user/adduser.html?id=${data[i].id}">

@@ -17,6 +17,6 @@ public class PermissionRoleDto {
     private Long id;
     private Roles roles;
     private Permission permission;
-    private Boolean canActive;
+    private Boolean canEdit;
     private Boolean canDelete;
 }

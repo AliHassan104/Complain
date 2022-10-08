@@ -26,9 +26,9 @@ public class PermissionController {
         }
     }
 
-    @GetMapping("/permission")
-    public ResponseEntity<List<PermissionDto>> getAllPermisssions(){
-        return ResponseEntity.ok(permissionService.getAllPermissions());
+    @GetMapping("/permission/{id}")
+    public ResponseEntity<List<PermissionDto>> getAllPermisssions(@PathVariable Long id){
+        return ResponseEntity.ok(permissionService.getAllPermissions(id));
     }
 
 //    @GetMapping("/permission/{id}")

@@ -41,12 +41,18 @@ public class PermissionRoleService {
             throw new ContentNotFoundException("Roles Permission Not Found");
         }
     }
-
-    public List<PermissionDto> getAssignPermissionRolesById(Long id) {
-        List<PermissionRole> permissionRole = permissionRoleRepository.findByRoleId(id);
-        List<Permission> permissionList = permissionRole.stream()
-                                         .map(permissionRole1 -> permissionRepository.findById(permissionRole1.getPermission().getId()).get()).collect(Collectors.toList());
-        return permissionList.stream().map(permission -> permissionService.toDto(permission)).collect(Collectors.toList());
+//
+//    public List<PermissionDto> getAssignPermissionRolesById(Long id) {
+//        List<PermissionRole> permissionRole = permissionRoleRepository.findByRoleId(id);
+//        List<Permission> permissionList = permissionRole.stream()
+//                                         .map(permissionRole1 -> permissionRepository.findById(permissionRole1.getPermission().getId()).get()).collect(Collectors.toList());
+//        return permissionList.stream().map(permission -> toDto(permission)).collect(Collectors.toList());
+//    }
+        public PermissionDto toDto(Permission permission){
+        return new PermissionDto().builder()
+                .id(permission.getId())
+                .url(permission.getUrl())
+                .build();
     }
 
     private PermissionRoleDto toDto(PermissionRole permissionRole){
@@ -54,7 +60,7 @@ public class PermissionRoleService {
                                       .id(permissionRole.getId())
                                       .roles(permissionRole.getRoles())
                                       .permission(permissionRole.getPermission())
-                                      .canActive(permissionRole.getCanActive())
+                                      .canEdit(permissionRole.getCanEdit())
                                       .canDelete(permissionRole.getCanDelete())
                                       .build();
     }
@@ -64,7 +70,7 @@ public class PermissionRoleService {
         return new PermissionRole().builder()
                 .roles(permissionRoleDto.getRoles())
                 .permission(permissionRoleDto.getPermission())
-                .canActive(permissionRoleDto.getCanActive())
+                .canEdit(permissionRoleDto.getCanEdit())
                 .canDelete(permissionRoleDto.getCanDelete())
                 .build();
     }
