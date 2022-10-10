@@ -35,6 +35,7 @@ import { RegisterpendingComponent } from './registerpending/registerpending.comp
 const routes: Routes = [
   {
     path: "", component: HomeComponent
+    
   },
   {
     path: "login", component: LoginPageComponent
