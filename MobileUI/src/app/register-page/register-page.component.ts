@@ -69,13 +69,13 @@ export class RegisterPageComponent implements OnInit {
 
   insertValue1(){
       this.registerObj.userType = "USER"
-      console.log(this.registerObj.userType)
+      // console.log(this.registerObj.userType)
 
   }
 
   insertValue2(){
     this.registerObj.userType = "ADMIN"
-    console.log(this.registerObj.userType)
+    // console.log(this.registerObj.userType)
   }
 
   emptyObj(){
@@ -93,7 +93,7 @@ export class RegisterPageComponent implements OnInit {
 
 onChecked(){
   this.checked = !this.checked;
-  console.log("checked ", this.checked)
+  // console.log("checked ", this.checked)
 }
 
 onToggleShowPassword(){
@@ -187,7 +187,7 @@ registerForm = new FormGroup({
       this.areas = data
       // console.log(data);
     }, error => {
-      console.log(error);
+      // console.log(error);
     });
   }
 
@@ -197,7 +197,7 @@ registerForm = new FormGroup({
       this.blocks = data
       // console.log(data);
     }, error => {
-      console.log(error);
+      // console.log(error);
     });
   }
 
@@ -247,7 +247,7 @@ registerForm = new FormGroup({
         this.router.navigate(['register-pending']);
         // console.log(userData);
       }, error => {
-        console.log(error);
+        // console.log(error);
         this.toastService.showToast("Not Registered", "#toast-16");
       });
     // }, 1500);

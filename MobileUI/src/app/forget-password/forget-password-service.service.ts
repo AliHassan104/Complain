@@ -13,7 +13,6 @@ export class ForgetPasswordServiceService {
 
  sendingOtp(email){
   // debugger;
-  console.log(email)
   const body=JSON.stringify(email)
     let url=this.url+"/api/send/otp";
     return this.http.post(url,email);

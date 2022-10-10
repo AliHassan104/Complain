@@ -19,9 +19,7 @@ export class DocumentComponent implements OnInit {
   getDocuments() {
     this.documentService.getAllDocuments().subscribe(data => {
       this.lists = data
-      // console.log(data);
     }, error => {
-      console.log(error);
     });
   }
 

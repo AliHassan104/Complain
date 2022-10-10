@@ -34,7 +34,7 @@ import { RegisterpendingComponent } from './registerpending/registerpending.comp
 
 const routes: Routes = [
   {
-    path: "", component: LoginPageComponent
+    path: "", component: HomeComponent
   },
   {
     path: "login", component: LoginPageComponent
@@ -85,7 +85,7 @@ const routes: Routes = [
     path: "forget-password", component: ForgetPasswordComponent
   },
   {
-    path: "**", redirectTo: 'login' , pathMatch: 'full'
+    path: "**", redirectTo: 'home' , pathMatch: 'full'
   },
 
 

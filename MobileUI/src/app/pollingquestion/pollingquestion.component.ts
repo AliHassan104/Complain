@@ -47,11 +47,7 @@ export class PollingquestionComponent implements OnInit {
   getPollingQuestionNotAnswered(area : any) {
     this.pollingQuestion.getPollingQuestionNotAnswered().subscribe(data => {
       this.lists = data
-      // console.log(this.lists);
-
-      // console.log(data);
     }, error => {
-      console.log(error);
     });
   }
 
@@ -85,12 +81,10 @@ getUser() {
     // console.log(data);
     user = data
     this.areaName = user.area.name
-    console.log(this.areaName);
 
     // this.getPollingQuestionByArea(user.area.id)
     this.getPollingQuestionNotAnswered(user.id)
   }, error => {
-    console.log(error);
   });
 }
 

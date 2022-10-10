@@ -26,11 +26,7 @@ export class AchievementComponent implements OnInit {
 
       this.achievements = data
       this.achievements = this.achievements.content
-
-      // console.log(this.achievements);
-
     }, error => {
-      console.log(error);
     });
   }
 

@@ -62,13 +62,10 @@ export class LoginPageComponent implements OnInit,AfterViewChecked {
 loginSubmit(loginCredentials: any){
 
   this.login.value.deviceToken = localStorage.getItem("deviceId")
-  // console.log(this.login.value);
-  console.log(this.login.value);
 
 
     this.loginService.login(this.login.value).subscribe(data => {
         if (data.jwt != null) {
-          console.log(data);
 
             localStorage.setItem("jwtToken", data.jwt)
             this.toastService.showToast("Login Successfully", "#toast-15")
@@ -82,8 +79,6 @@ loginSubmit(loginCredentials: any){
 
 @HostListener('window:beforeinstallprompt', ['$event'])
   onbeforeinstallprompt(e) {
-    console.log(e);
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
     // Stash the event so it can be triggered later.
     this.deferredPrompt = e;
@@ -98,9 +93,9 @@ loginSubmit(loginCredentials: any){
     this.deferredPrompt.userChoice
     .then((choiceResult) => {
     if (choiceResult.outcome === 'accepted') {
-      console.log('User accepted the A2HS prompt');
+      // console.log('User accepted the A2HS prompt');
     } else {
-      console.log('User dismissed the A2HS prompt');
+      // console.log('User dismissed the A2HS prompt');
     }
     this.deferredPrompt = null;
   });

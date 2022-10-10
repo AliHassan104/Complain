@@ -82,8 +82,8 @@ export class HomeComponent implements OnInit {
   getAchievements() {
     this.achievementService.getAllAchievement().subscribe(data => {
       this.achievement = data
+      this.achievement = this.achievement.content
     }, error => {
-      console.log(error);
     });
   }
 
@@ -102,9 +102,7 @@ export class HomeComponent implements OnInit {
     this.eventService.getEventByArea(this.areaId).subscribe(data => {
       this.events = data
       this.Images.push(data)
-      // console.log(data);
     }, error => {
-      console.log(error);
     });
   }
 
@@ -112,7 +110,6 @@ export class HomeComponent implements OnInit {
   getToken() {
     let token = localStorage.getItem("jwtToken")
     if(token != null){
-        // console.log("Bearer "+token);
         return "Bearer "+token
     }
     return null;
@@ -138,14 +135,12 @@ getUser() {
   let user : any
   const email = this.getEmailByToken()
   this.userService.getUser().subscribe(data => {
-    
+
     user = data
     this.areaId = user.area.id
 
     this.getEventsByArea()
-    // console.log(data);
   }, error => {
-    console.log(error);
   });
 }
 
