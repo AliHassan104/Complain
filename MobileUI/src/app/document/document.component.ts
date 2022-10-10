@@ -14,7 +14,7 @@ export class DocumentComponent implements OnInit {
     this.getDocuments()
   }
 
-  lists : any
+  lists : any = []
 
   getDocuments() {
     this.documentService.getAllDocuments().subscribe(data => {

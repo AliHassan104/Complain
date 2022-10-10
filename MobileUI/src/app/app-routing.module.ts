@@ -29,6 +29,7 @@ import { PollingsubmitComponent } from './pollingsubmit/pollingsubmit.component'
 import { HomeGuard } from './Guards/home.guard';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { RegisterpendingComponent } from './registerpending/registerpending.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,9 @@ const routes: Routes = [
   },
   {
     path: "register", component: RegisterPageComponent
+  },
+  {
+    path: "register-pending", component: RegisterpendingComponent
   },
   {
     path: "forget-password", component: ForgetPasswordComponent

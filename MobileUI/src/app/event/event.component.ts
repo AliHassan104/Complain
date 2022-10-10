@@ -46,6 +46,8 @@ export class EventComponent implements OnInit {
   getEventsByArea(area: any) {
     // console.log(area);
       this.eventService.getEventByArea(area).subscribe(data => {
+        console.log(data);
+
         this.lists = data
         // console.log(data);
         // this.checkListLength()
