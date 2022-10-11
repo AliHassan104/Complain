@@ -117,9 +117,6 @@
                   <li *ngIf="!checkUserType()">
                       <a [routerLink]="['/achievement']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
-                              <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
-                              <!-- <ion-icon name="trophy-outline"></ion-icon> -->
-                              <!-- <img src="https://img.icons8.com/external-regular-kawalan-studio/24/1A1A1A/external-achievement-business-regular-kawalan-studio-2.png"/> -->
                               <img width="24px" src="assets/icons/achievement.png"/>
                           </div>
                           <div class="in">
@@ -230,8 +227,7 @@
 
           <!-- sidebar buttons -->
           <div class="sidebar-buttons">
-              <a  class="button" (click)="logout()" data-dismiss="modal">
-                  <!-- <ion-icon src="assets/logout.svg"></ion-icon> -->
+              <a  class="button" data-dismiss="modal">
                   <img width="25px" src="assets/icons/logout2.png"/>
               </a>
           </div>
@@ -239,6 +235,7 @@
       </div>
   </div>
 </div>
+
 
 <!-- Notification -->
 <div id="notification-7" class="notification-box">

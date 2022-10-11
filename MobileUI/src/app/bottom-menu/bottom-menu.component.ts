@@ -112,11 +112,11 @@ export class BottomMenuComponent implements OnInit {
   // }
 
   openGlobalSocketForRequestNotification() {
-    console.log("open global socket");
+    // console.log("open global socket");
     let that = this;
 
     this.stompClient.subscribe(`/topic/notification/${this.id}`, (message) => {
-      console.log(JSON.parse(message.body), "   =========message");
+      // console.log(JSON.parse(message.body), "   =========message");
       let notificationMsg = JSON.parse(message.body).result.message;
       let notificationId = JSON.parse(message.body).result.id;
       if (JSON.parse(message.body).status == 200) {
@@ -130,12 +130,12 @@ export class BottomMenuComponent implements OnInit {
   }
 
   openGlobalSocketForPostNotification() {
-    console.log("open global socket");
+    // console.log("open global socket");
     let that = this;
     this.stompClient.subscribe(
       `/topic/post-notification/${this.id}`,
       (message) => {
-        console.log(JSON.parse(message.body), "   =========message");
+        // console.log(JSON.parse(message.body), "   =========message");
         let notificationMsg = JSON.parse(message.body).result.message;
         let notificationId = JSON.parse(message.body).result.id;
         let userId = JSON.parse(message.body).result.notificationFrom.id;
@@ -200,9 +200,13 @@ export class BottomMenuComponent implements OnInit {
 
   // goToMyProfile() {
   //   this.router.navigate(["profiles/", this.id]);
-  // }
+// }
+
+confirmation(){
+
+}
+
   logout() {
-    // this.stompClient.unsubscribe();
     sessionStorage.clear();
     localStorage.clear();
     this.router.navigate([""]);
@@ -216,7 +220,6 @@ export class BottomMenuComponent implements OnInit {
 
   updateNotificationCount() {
     this.notificationService.updateNotification$.subscribe(() => {
-      console.log("heyhey");
       this.getNotificationCount();
     });
   }
@@ -224,11 +227,11 @@ export class BottomMenuComponent implements OnInit {
     this.notificationService
       .getNumberOfNotifications(this.id)
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
         this.notificationCount = res.result.numberOfNotifications;
         this.reqCount = res.result.numberOfFriendRequests;
-        console.log("notification count ",res.result.numberOfNotifications);
-        console.log("req count ",res.result.numberOfFriendRequests);
+        // console.log("notification count ",res.result.numberOfNotifications);
+        // console.log("req count ",res.result.numberOfFriendRequests);
 
       });
 
@@ -260,7 +263,7 @@ export class BottomMenuComponent implements OnInit {
 
   @HostListener("window:beforeinstallprompt", ["$event"])
   onbeforeinstallprompt(e) {
-    console.log(e);
+    // console.log(e);
     // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
     // Stash the event so it can be triggered later.
@@ -276,9 +279,9 @@ export class BottomMenuComponent implements OnInit {
     // Wait for the user to respond to the prompt
     this.deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === "accepted") {
-        console.log("User accepted the A2HS prompt");
+        // console.log("User accepted the A2HS prompt");
       } else {
-        console.log("User dismissed the A2HS prompt");
+        // console.log("User dismissed the A2HS prompt");
       }
       this.deferredPrompt = null;
     });
@@ -369,9 +372,9 @@ getUser() {
       this.userAreaName = data
       // console.log(this.userAreaName);
     }, error => {
-      console.log(error);
+      // console.log(error);
     });
-    
+
   }
 
 }

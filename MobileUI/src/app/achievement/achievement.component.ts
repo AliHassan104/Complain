@@ -20,9 +20,13 @@ export class AchievementComponent implements OnInit {
 
   getAchievements() {
     this.achievementService.getAllAchievement().subscribe(data => {
+      // console.log(123);
+
+      // console.log(data);
+
       this.achievements = data
+      this.achievements = this.achievements.content
     }, error => {
-      console.log(error);
     });
   }
 

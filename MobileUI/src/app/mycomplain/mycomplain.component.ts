@@ -56,7 +56,6 @@ export class MycomplainComponent implements OnInit {
     this.myComplainService.getAllComplainType().subscribe(data => {
       this.lists = data
     },error => {
-      console.log(error);
     });
   }
 
@@ -66,7 +65,6 @@ export class MycomplainComponent implements OnInit {
     this.myComplainService.getComplainByEmail(this.userEmail).subscribe(data => {
       this.complainList = data
     },error => {
-      console.log(error);
     });
   }
 
@@ -94,8 +92,6 @@ export class MycomplainComponent implements OnInit {
 
   complainSubmit(data: any){
 
-    // console.log(data);
-
     // data.value
     this.object.value.date = formatDate(new Date(), 'yyyy-MM-dd', 'en')
     this.object.value.time = formatDate(new Date(), 'hh:mm', 'en-US')
@@ -108,19 +104,16 @@ export class MycomplainComponent implements OnInit {
 
     formData.append('data', newComplain);
     // debugger
-    console.log(newComplain);
 
     formData.append('pictureUrl', this.userFile);
 
     this.myComplainService.postComplain(formData).subscribe(data => {
-      console.log(data);
       this.getComplainByEmail()
       this.newComplain = true
       this.postComplainLog(data)
       this.toastService.showToast("Complain Submitted", "#toast-15")
 
       },error => {
-        console.log(error);
         this.toastService.showToast("Complain Not Submitted", "#toast-16");
       });
 
@@ -158,9 +151,7 @@ export class MycomplainComponent implements OnInit {
       description : 'Your complain is in Review'
     }
     this.myComplainService.postComplainLog(data.id , details).subscribe(data => {
-        console.log(data);
       },error => {
-        console.log(error);
       });
   }
 
@@ -190,7 +181,6 @@ getUser() {
   const email = this.getEmailByToken()
   let user: any
   this.userService.getUser().subscribe(data => {
-    console.log(data);
 
     user = data
 
@@ -200,7 +190,6 @@ getUser() {
     this.userEmail = user.email
 
   }, error => {
-    console.log(error);
   });
 }
 
@@ -208,8 +197,6 @@ onChange(e: any) {
 
   this.selectedFile = e.target.files[0];
   this.userFile = e.target.files[0];
-  console.log(this.userFile);
- // this.imageSrc = URL.createObjectURL(this.userFile)
   const reader = new FileReader();
         reader.onload = e => this.imageSrc = reader.result;
 

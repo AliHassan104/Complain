@@ -7,74 +7,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
-    <title>Cantonment Board Faisal Ward 2</title>
+    <title >Cantonment Board Faisal Ward 2</title>
     <link rel="stylesheet" href="/css/loginpage.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
+  <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/loginpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-    <section class="vh-100">
-      <h2 class="heading">Cantonment Board Faisal Ward 2</h2>
-        <div class="container-fluid h-custom">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
+  <div class="limiter"  >
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<!-- <img src="images/img-01.png" alt="IMG"> -->
+          <img src="./img/photos/Jamaat-e-Islami_Pakistan_Logo.svg.png">
+				</div>
 
-              <img src="/img/photos/Jamaat-e-Islami_Pakistan_Logo.svg.png"
-                class="img-fluid" alt="Sample image">
+				<form class="login100-form validate-form" >
+					<span class="login100-form-title">
+            <h2 style="font-style: italic;">Cantonment Board Faisal Ward 2</h2>
+					</span>
 
-            </div>
-            
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 box">
-              <div id="notAllowed">
-              
-              </div>
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email" placeholder="Email" id="email">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+						<i class="fa fa-envelope"></i>
+						</span>
+					</div>
 
-              <form>
-                
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3">Email address</label>
-                  <input type="email" class="form-control form-control-lg"
-                    placeholder="Enter a valid email address" id="email">
-                </div>
-      
-              
-                <div class="form-outline mb-3">
-                  <label class="form-label" for="form3Example4">Password</label>
-                  <input type="password" class="form-control form-control-lg"
-                    placeholder="Enter password" id="password">
-              
-                </div>
-      
-                <div class="d-flex justify-content-between align-items-center">
-                 
-                  <div class="form-check mb-0">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                    <label class="form-check-label" for="form2Example3">
-                      Remember me
-                    </label>
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" placeholder="Password" id="password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type ="button" onclick="loginData()">
+							Login
+						</button>
+           
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-                  </div>
-                  <a href="#!" class="text-body">Forgot password?</a>
-                </div>
-      
-                <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-primary btn-lg"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem;" onclick="loginData()">Login</button>
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                      class="link-danger">Register</a></p>
-                </div>
-            
-              </form>
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
 
-             
-            </div>
-          </div>
-        </div>
-       
-      </section>
-
-<script src="/js/app.js"></script>
 <script src="/js/loginPage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist./js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>

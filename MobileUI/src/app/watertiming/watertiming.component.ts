@@ -22,12 +22,8 @@ export class WatertimingComponent implements OnInit {
   getWaterTiming() {
     this.waterTimingService.getAllWaterTiming().subscribe(data => {
       this.areaWaterTimimg = data
-      console.log(123);
-      console.log(this.areaWaterTimimg);
-      console.log(this.areaWaterTimimg[0].area_name);
       this.areaName = this.areaWaterTimimg[0].area_name
     }, error => {
-      console.log(error);
     });
   }
 }

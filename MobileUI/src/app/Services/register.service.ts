@@ -29,7 +29,7 @@ export class RegisterService {
   postUser(data: any): Observable<any> {
     const headers = { 'content-type': 'application/json' }
     const body = JSON.stringify(data);
-    console.log(body);
+    // console.log(body);
     return this.http.post(`${this.url}/api/user`, body, { 'headers': headers })
   }
 

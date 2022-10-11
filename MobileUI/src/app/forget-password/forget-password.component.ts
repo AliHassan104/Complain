@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ForgetPasswordServiceService } from './forget-password-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,11 +13,18 @@ export class ForgetPasswordComponent implements OnInit {
 
 
 
-  constructor( private ForgetPasswordServiceService:ForgetPasswordServiceService) {
+  constructor(
+    private ForgetPasswordServiceService:ForgetPasswordServiceService,
+    private router:Router
+
+    ) {
    }
 
-  ngOnInit(): void {
+   goToLogin(){
+    this.router.navigate([""]);
+  }
 
+  ngOnInit(): void {
 
   }
 
@@ -27,11 +34,7 @@ export class ForgetPasswordComponent implements OnInit {
 
 
     sendOtp(form: any){
-
-      // debugger;
-     console.log(form.email)
     this.ForgetPasswordServiceService.sendingOtp(form.email).subscribe(data=>{
-      console.log(data)
         return data;
     })
     }

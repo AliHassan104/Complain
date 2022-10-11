@@ -49,11 +49,9 @@ export class PollingsubmitComponent implements OnInit {
   pollingquestion : any = []
 
   getPollingQuestion(id: number) {
-    console.log(this.pollingAnswer.value);
     this.pollingquestionService.getPollingQuestionById(id).subscribe(data => {
       this.pollingquestion = data
     }, error => {
-      console.log(error);
     });
   }
 
@@ -77,7 +75,6 @@ export class PollingsubmitComponent implements OnInit {
 
         this.toastService.showToast("Answer Not Submitted", "#toast-16");
 
-        console.log(error);
       });
 
   }
@@ -115,7 +112,6 @@ getUser() {
       this.userId = user.id
       // this.toastService.showToast("Success", "#toast-15")
     }, error => {
-      console.log(error);
       // this.toastService.showToast("Wrong Email Or Password", "#toast-16");
     });
   }
