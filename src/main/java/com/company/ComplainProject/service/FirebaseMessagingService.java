@@ -56,6 +56,7 @@ public class FirebaseMessagingService {
             note.setSubject("Your Complain is in " + complainDto.getStatus());
             note.setContent("Your Complain of " +complainDto.getComplainType().getName() + " is in " + complainDto.getStatus());
 
+
             return sendNotification(note, complainDto.getUser().getDeviceToken());
 
         }catch (Exception e){

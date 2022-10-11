@@ -36,10 +36,7 @@ public class EventController {
     @GetMapping("/event")
     public ResponseEntity<List<Event>> getAllEvent(){
         List<Event> events = eventService.getAllEvent();
-
         return ResponseEntity.ok(eventService.getAllEvent());
-
-
     }
 
     @GetMapping("/paginatedEvents")
@@ -83,8 +80,6 @@ public class EventController {
     @PutMapping("/event/{id}")
     public ResponseEntity<EventDto> updateEventById(@PathVariable Long id,@RequestParam("image") MultipartFile image,@RequestParam("data") String eventData){
         try{
-//                                                                      Delete the previous image
-          //  Boolean eventImageDeleted = eventImageImplementation.deleteImage(id);
 
             if(image.isEmpty()){
                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -92,8 +87,7 @@ public class EventController {
 
             ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
             EventDto eventDto = objectMapper.readValue(eventData,EventDto.class);
-//
-//                                                                                     upload the image in the disk
+
                 String imageUrl = imageService.uploadImageAndGetApiPath(image);
                 eventDto.setImage(imageUrl);
                 return ResponseEntity.ok(eventService.updateEventById(id, eventDto));

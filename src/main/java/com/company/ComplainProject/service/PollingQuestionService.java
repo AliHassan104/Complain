@@ -29,8 +29,7 @@ public class PollingQuestionService {
     AreaService areaService;
     @Autowired
     PollingAnswerRepository pollingAnswerRepository;
-    @Autowired
-    UserService userService;
+
     @Autowired
     SessionService service;
     @Autowired

@@ -33,10 +33,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    AreaService areaService;
-    @Autowired
-    AddressService addressService;
-    @Autowired
     RolesRepository rolesRepository;
     @Autowired
     SessionService service;
@@ -53,16 +49,16 @@ public class UserService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
-//        userPage.getContent().stream().forEach(user -> user.setPassword(null));
         return userPage;
     }
 
     public UserDetailsResponse getUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if(!user.isPresent()){
-            throw new ContentNotFoundException("No User Exist Having id "+id);
+        try {
+            Optional<User> user = userRepository.findById(id);
+            return userToUserDetailsResponse(user.get());
+        }catch (Exception e){
+            throw new ContentNotFoundException("No user Exist Having id "+id);
         }
-        return userToUserDetailsResponse(user.get());
     }
 
 
@@ -95,25 +91,27 @@ public class UserService {
     }
 
     public Optional<UserDetailsResponse> updateUserById(Long id, UserDto userDto) {
-        System.out.println(userDto);
-        User updateUser = getAllUser().stream().filter(el->el.getId().equals(id)).findAny().get();
+        try {
+            User updateUser = getAllUser().stream().filter(el -> el.getId().equals(id)).findAny().get();
+            Optional<Area> updatedArea = areaRepository.findById(userDto.getArea().getId());
 
-        Area updatedArea =  areaService.getAllArea().stream().filter(area -> area.getId().equals(userDto.getArea().getId())).findAny().get();
-        Address updatedAddress = addressService.getAllAddress().stream().filter(address -> address.getId().equals(userDto.getAddress().getId())).findAny().get();
-
-        if(updateUser != null){
-            updateUser.setFirstname(userDto.getFirstname());
-            updateUser.setLastname(userDto.getLastname());
-            updateUser.setEmail(userDto.getEmail());
-            updateUser.setCnic(userDto.getCnic());
-            updateUser.setPhoneNumber(userDto.getPhoneNumber());
-            updateUser.setNumberOfFamilyMembers(userDto.getNumberOfFamilyMembers());
-            updateUser.setArea(updatedArea);
-            updateUser.setAddress(updatedAddress);
-            updateUser.setProperty(userDto.getProperty());
-            updateUser.setBlock(userDto.getBlock());
+            if (updateUser != null) {
+                updateUser.setFirstname(userDto.getFirstname());
+                updateUser.setLastname(userDto.getLastname());
+                updateUser.setEmail(userDto.getEmail());
+                updateUser.setCnic(userDto.getCnic());
+                updateUser.setPhoneNumber(userDto.getPhoneNumber());
+                updateUser.setNumberOfFamilyMembers(userDto.getNumberOfFamilyMembers());
+                updateUser.setArea(updatedArea.get());
+                updateUser.setAddress(userDto.getAddress());
+                updateUser.setProperty(userDto.getProperty());
+                updateUser.setBlock(userDto.getBlock());
+            }
+            return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
         }
-        return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong while updating user "+e);
+        }
     }
 
 

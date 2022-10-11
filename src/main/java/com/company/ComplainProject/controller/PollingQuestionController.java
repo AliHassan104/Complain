@@ -21,25 +21,18 @@ public class PollingQuestionController {
     @Autowired
     PollingQuestionService pollingQuestionService;
 
-
-
     @GetMapping("/pollingquestion")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber,
                                                                     @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize){
         List<PollingQuestion> pollingQuestion = pollingQuestionService.getAllPollingQuestionWithPagination(pageNumber,pageSize);
-        if(!pollingQuestion.isEmpty()){
-            return ResponseEntity.ok(pollingQuestion);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(pollingQuestion);
+
     }
 
     @GetMapping("/pollingquestion/{id}")
     public ResponseEntity<Optional<PollingQuestion>> getPollingQuestionById(@PathVariable Long id){
         Optional<PollingQuestion> pollingQuestion = pollingQuestionService.getPollingQuestionById(id);
-        if(pollingQuestion.isPresent()){
-            return  ResponseEntity.ok(pollingQuestion);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return  ResponseEntity.ok(pollingQuestion);
     }
 
     @PostMapping("/pollingquestion")

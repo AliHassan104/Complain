@@ -31,9 +31,6 @@ public class AchievementService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Achievements> achievementsPage = achievementRepository.findAll(pageable);
-        if(achievementsPage.getContent().isEmpty()){
-            throw new ContentNotFoundException("No Achievements Exist");
-        }
         return achievementsPage;
     }
 

@@ -112,7 +112,7 @@ function addUser() {
     })  
 
     } else {
-    
+            console.log(newUser)
             updateData(`/user/${urlId}`,newUser)
             .then(data => {
 
