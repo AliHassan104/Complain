@@ -13,8 +13,6 @@ export class WatertimingService {
   url = environment.baseUrl
 
   getAllWaterTiming() {
-
     return this.http.get(`${this.url}/api/watertiming/allWatertimingByBlock`)
-
   }
 }

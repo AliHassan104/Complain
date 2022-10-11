@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Register } from './register';
 // import { MainService } from '../Services/main.service';
 import { ToastUtilService } from '../Services/toast-util.service';
-import { AreaService } from '../Services/area.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../Services/register.service';
 
@@ -32,55 +31,6 @@ export class RegisterPageComponent implements OnInit {
   goToLogin(){
     this.router.navigate([""]);
   }
-
-  // registerUser(){
-  //   if(this.checked === false && this.registerObj.password === this.confirmPassword){
-  //     this.toastService.showToast("Agree to terms and conditions first","#toast-16")
-  //   }
-  //   else if(this.checked && this.registerObj.password !== this.confirmPassword){
-  //     this.toastService.showToast("You entered wrong password","#toast-16")
-  //   }
-  //   else if(this.checked === false && this.registerObj.password !== this.confirmPassword){
-  //     this.toastService.showToast("You entered wrong password","#toast-16")
-  //   }
-  //   else if(this.checked && this.registerObj.password === this.confirmPassword){
-  //   this.service.registerUser(this.registerObj).subscribe(d=>{
-  //     if(d.status == 200){
-  //       this.toastService.showToast("Success","#toast-15");
-  //       this.emptyObj();
-  //       setTimeout(()=>this.router.navigate(['']),3000);
-  //     }
-  //     else{
-  //       this.toastService.showToast("User Already Exists","#toast-16")
-  //     }
-
-  //   })
-  // }else{
-  //   this.toastService.showToast("Enter all required fields","#toast-16")
-  // }
-
-  // }
-
-  // emptyValue(){
-  //   this.registerObj.userType = null;
-  // }
-
-  // insertValue1(){
-  //     this.registerObj.userType = "USER"
-  //     // console.log(this.registerObj.userType)
-
-  // }
-
-  // insertValue2(){
-  //   this.registerObj.userType = "ADMIN"
-  //   // console.log(this.registerObj.userType)
-  // }
-
-  // emptyObj(){
-  //   this.registerObj.email = null;
-  //   this.registerObj.name = null;
-  //   this.registerObj.password = null;
-  // }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
