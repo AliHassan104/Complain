@@ -37,10 +37,7 @@ public class WaterTimingController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     public ResponseEntity<Optional<WaterTiming>> getWaterTimingById(@PathVariable Long id){
         Optional<WaterTiming> waterTiming = waterTimingService.getWaterTimingById(id);
-        if(waterTiming.isPresent()){
-            return  ResponseEntity.ok(waterTiming);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return  ResponseEntity.ok(waterTiming);
     }
 
 

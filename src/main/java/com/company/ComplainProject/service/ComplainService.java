@@ -2,7 +2,6 @@ package com.company.ComplainProject.service;
 
 //import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.config.image.ComplainImageImplementation;
 import com.company.ComplainProject.dto.ComplainDetailsResponse;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ProjectEnums.Status;

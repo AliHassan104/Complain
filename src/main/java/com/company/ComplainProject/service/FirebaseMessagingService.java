@@ -24,14 +24,7 @@ public class FirebaseMessagingService {
     private final FirebaseMessaging firebaseMessaging;
     @Autowired
     UserService userService;
-    @Autowired
-    ComplainRepository complainRepository;
-    @Autowired
-    WaterTimingRepository waterTimingRepository;
-    @Autowired
-    EventRepository eventRepository;
-    @Autowired
-    PollingQuestionRepository pollingQuestionRepository;
+
 
     public FirebaseMessagingService(FirebaseMessaging firebaseMessaging) {
         this.firebaseMessaging = firebaseMessaging;
@@ -56,32 +49,30 @@ public class FirebaseMessagingService {
     }
 
 
-    public String sendNotificationToUserOnComplainStatusChange(Long c_id) {
+    public String sendNotificationToUserOnComplainStatusChange(ComplainDto complainDto) {
         try {
-            Optional<Complain> complain = complainRepository.findById(c_id);
 
             Note note = new Note();
-            note.setSubject("Your Complain is in " + complain.get().getStatus());
-            note.setContent("Your Complain of " + complain.get().getComplainType().getName() + " is in " + complain.get().getStatus());
+            note.setSubject("Your Complain is in " + complainDto.getStatus());
+            note.setContent("Your Complain of " +complainDto.getComplainType().getName() + " is in " + complainDto.getStatus());
 
-            return sendNotification(note, complain.get().getUser().getDeviceToken());
+            return sendNotification(note, complainDto.getUser().getDeviceToken());
+
         }catch (Exception e){
             throw new ExceptionInFirebaseMessaging("Cannot send Notification to user on complain status change "+e);
         }
     }
 
-    public void sendNotificationOnWaterTiming(Long id){
+    public void sendNotificationOnWaterTiming(WaterTimingDto waterTiming){
         try {
-            Optional<WaterTiming> waterTiming = waterTimingRepository.findById(id);
 
             Note note = new Note();
             note.setSubject("Water timing Updates");
-            note.setContent(waterTiming.get().getDay() + " at " + waterTiming.get().getStart_time() + " till " + waterTiming.get().getEnd_time());
+            note.setContent(waterTiming.getDay() + " at " + waterTiming.getStart_time() + " till " + waterTiming.getEnd_time());
 
-            List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block", ":", waterTiming.get().getBlock()));
+            List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block", ":", waterTiming.getBlock()));
 
             for (UserDetailsResponse users : userList) {
-
                 sendNotification(note, users.getDeviceToken());
             }
         }
@@ -90,15 +81,14 @@ public class FirebaseMessagingService {
         }
     }
 
-    public void sendNotificationOnEventUpload(Long event_id) {
+    public void sendNotificationOnEventUpload(EventDto event) {
         try {
-            Optional<Event> event = eventRepository.findById(event_id);
 
             Note note = new Note();
             note.setSubject("Event is added");
-            note.setContent("Event name " + event.get().getTitle());
+            note.setContent("Event name " + event.getTitle());
 
-            List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", event.get().getArea()));
+            List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", event.getArea()));
 
             for (UserDetailsResponse users : userList) {
                 sendNotification(note, users.getDeviceToken());
@@ -109,15 +99,14 @@ public class FirebaseMessagingService {
         }
     }
 
-    public void sendNotificationOnNewPollingQuestion(Long pollingQuestion_id)  {
+    public void sendNotificationOnNewPollingQuestion(PollingQuestionDto pollingQuestion)  {
         try {
-            Optional<PollingQuestion> pollingQuestion = pollingQuestionRepository.findById(pollingQuestion_id);
 
             Note note = new Note();
-            note.setSubject("Polling Question is added");
-            note.setContent("Question : " + pollingQuestion.get().getQuestion());
+            note.setSubject("New Polling Question is added");
+            note.setContent("Question : " + pollingQuestion.getQuestion());
 
-            List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", pollingQuestion.get().getArea()));
+            List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", pollingQuestion.getArea()));
 
             for (UserDetailsResponse users : userList) {
                 sendNotification(note, users.getDeviceToken());

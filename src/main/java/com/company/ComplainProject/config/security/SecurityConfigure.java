@@ -54,12 +54,12 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/blockByArea/**").permitAll()
                 .antMatchers("/api/block").permitAll()
 
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/configuration/ui").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/configuration/security").permitAll()
-                .antMatchers("/webjars/**").permitAll()
+//                .antMatchers("/swagger-ui.html").permitAll()
+//                .antMatchers("/v2/api-docs").permitAll()
+//                .antMatchers("/configuration/ui").permitAll()
+//                .antMatchers("/swagger-resources/**").permitAll()
+//                .antMatchers("/configuration/security").permitAll()
+//                .antMatchers("/webjars/**").permitAll()
 
                 .antMatchers(HttpMethod.OPTIONS,"/**")
                 .permitAll().anyRequest().authenticated()

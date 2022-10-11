@@ -35,10 +35,9 @@ public class UserController {
     public ResponseEntity<Page<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
                                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         Page<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
-        if(!user.isEmpty()){
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.ok(user);
+
     }
 
     @GetMapping("/user/{id}")

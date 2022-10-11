@@ -2,7 +2,6 @@ package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.CannotDeleteImage;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.service.AchievementService;
@@ -27,8 +26,7 @@ public class AchievementController {
 
     @Autowired
     private AchievementService achievementService;
-    @Autowired
-    private AchievementImageImplementation achievementImageImplementation;
+
 
     @Autowired
     ImageService imageService;

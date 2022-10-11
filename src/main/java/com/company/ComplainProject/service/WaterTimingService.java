@@ -23,6 +23,8 @@ public class WaterTimingService {
     WaterTimingRepository waterTimingRepository;
     @Autowired
     BlockService blockService;
+    @Autowired
+    FirebaseMessagingService notificationService;
 
     public List<WaterTiming> getAllWaterTiming() {
         List<WaterTiming> waterTimings = waterTimingRepository.findAll();
@@ -49,7 +51,11 @@ public class WaterTimingService {
         Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
         waterTimingDto.setBlock(block);
 
-        return toDto(waterTimingRepository.save(dto(waterTimingDto)));
+        WaterTimingDto _waterTimingDto = toDto(waterTimingRepository.save(dto(waterTimingDto)));
+        if(_waterTimingDto != null){
+            notificationService.sendNotificationOnWaterTiming(_waterTimingDto);
+        }
+        return  waterTimingDto;
     }
 
     public Optional<WaterTimingDto> updateWaterTimingById(Long id, WaterTimingDto waterTimingDto) {

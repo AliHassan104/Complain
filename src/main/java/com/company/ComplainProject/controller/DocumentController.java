@@ -25,19 +25,17 @@ public class DocumentController {
     @GetMapping("/document")
     public ResponseEntity<List<Document>> getDocument(){
         List<Document> document = documentService.getAllDocument();
-        if(!document.isEmpty()){
-            return ResponseEntity.ok(document);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.ok(document);
+
     }
 
     @GetMapping("/document/{id}")
     public ResponseEntity<Optional<Document>> getAchievementsById(@PathVariable Long id){
         Optional<Document> document = documentService.getDocumentById(id);
-        if(document.isPresent()){
-            return  ResponseEntity.ok(document);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return  ResponseEntity.ok(document);
+
     }
 
     @PostMapping("/document")

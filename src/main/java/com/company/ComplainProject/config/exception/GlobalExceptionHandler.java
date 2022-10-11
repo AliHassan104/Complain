@@ -1,6 +1,7 @@
 package com.company.ComplainProject.config.exception;
 
 import com.company.ComplainProject.dto.ExceptionResponseDto;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -74,9 +75,10 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(JwtTokenIsExpiredException.class)
-    public ResponseEntity<Object> jwtTokenIsExpiredException(JwtTokenIsExpiredException ex){
-        ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.FORBIDDEN,LocalDateTime.now().toString(),ex.getMessage());
-        return new ResponseEntity<>(errors,HttpStatus.FORBIDDEN);
-    }
+//    @ExceptionHandler(ExpiredJwtException.class)
+//    public ResponseEntity<Object> jwtTokenIsExpiredException(ExpiredJwtException ex){
+//        ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.FORBIDDEN,LocalDateTime.now().toString(),ex.getMessage());
+//        return new ResponseEntity<>(errors,HttpStatus.FORBIDDEN);
+//    }
+
 }

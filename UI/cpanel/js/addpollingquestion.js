@@ -157,7 +157,7 @@ function formSubmit() {
         updateData(`/pollingquestion/${urlId}`, newPollingQuestion)
             .then(data => {
 
-                sendNotificationToUsersOnNewPollingQuestion(data.id)
+             
                 
                 messageRender += `
                     <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
@@ -182,9 +182,7 @@ function formSubmit() {
     }
 }
 
-function sendNotificationToUsersOnNewPollingQuestion(question_id){
-    getData(`/send-notification-on-new-pollingquestion/${question_id}`)
-}
+
 
 function getArea() {
     let renderData = ""

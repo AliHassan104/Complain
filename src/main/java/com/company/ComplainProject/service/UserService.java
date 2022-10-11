@@ -95,6 +95,7 @@ public class UserService {
     }
 
     public Optional<UserDetailsResponse> updateUserById(Long id, UserDto userDto) {
+        System.out.println(userDto);
         User updateUser = getAllUser().stream().filter(el->el.getId().equals(id)).findAny().get();
 
         Area updatedArea =  areaService.getAllArea().stream().filter(area -> area.getId().equals(userDto.getArea().getId())).findAny().get();

@@ -33,6 +33,8 @@ public class PollingQuestionService {
     UserService userService;
     @Autowired
     SessionService service;
+    @Autowired
+    FirebaseMessagingService notificationService;
 
     public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
@@ -55,7 +57,11 @@ public class PollingQuestionService {
     }
 
     public PollingQuestionDto addPollingQuestion(PollingQuestionDto pollingQuestionDto) {
-        return toDto(pollingQuestionRepository.save(dto(pollingQuestionDto)));
+        PollingQuestionDto _pollingQuestionDto = toDto(pollingQuestionRepository.save(dto(pollingQuestionDto)));
+        if(_pollingQuestionDto != null){
+            notificationService.sendNotificationOnNewPollingQuestion(_pollingQuestionDto);
+        }
+        return _pollingQuestionDto;
     }
 
     public Optional<PollingQuestionDto> updatePollingQuestionById(Long id, PollingQuestionDto pollingQuestionDto) {

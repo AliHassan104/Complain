@@ -28,7 +28,10 @@ public class AdminService {
     private PollingQuestionRepository pollingQuestionRepository;
     private PollingOptionRepository pollingOptionRepository;
 
-    //                                                                          Construction injection of Services
+
+    //
+    //                                                                          prConstruction injection of Services
+    private FirebaseMessagingService notificatonService;
     private UserService userService;
     private ComplainService complainService;
     private EventService eventService;
@@ -37,8 +40,9 @@ public class AdminService {
     private AreaService areaService;
     private BlockService blockService;
 
-    public AdminService(UserRepository userRepository, AddressRepository addressRepository, AchievementRepository achievementRepository, AreaRepository areaRepository, ComplainRepository complainRepository, ComplainTypeRepository complainTypeRepository, DocumentRepository documentRepository, WaterTimingRepository waterTimingRepository, PollingAnswerRepository pollingAnswerRepository, PollingQuestionRepository pollingQuestionRepository, PollingOptionRepository pollingOptionRepository, UserService userService, ComplainService complainService, EventService eventService, AchievementService achievementService, AddressService addressService, AreaService areaService, BlockService blockService) {
+    public AdminService(UserRepository userRepository,FirebaseMessagingService notificatonService, AddressRepository addressRepository, AchievementRepository achievementRepository, AreaRepository areaRepository, ComplainRepository complainRepository, ComplainTypeRepository complainTypeRepository, DocumentRepository documentRepository, WaterTimingRepository waterTimingRepository, PollingAnswerRepository pollingAnswerRepository, PollingQuestionRepository pollingQuestionRepository, PollingOptionRepository pollingOptionRepository, UserService userService, ComplainService complainService, EventService eventService, AchievementService achievementService, AddressService addressService, AreaService areaService, BlockService blockService) {
         this.userRepository = userRepository;
+        this.notificatonService =  notificatonService;
         this.addressRepository = addressRepository;
         this.achievementRepository = achievementRepository;
         this.areaRepository = areaRepository;
@@ -177,7 +181,13 @@ public class AdminService {
             else{
                 throw new ContentNotFoundException("No Complain Exist Having id "+id);
             }
-            return complainService.toDto(complainRepository.save(updateComplain.get()));
+            ComplainDto _complainDto = complainService.toDto(complainRepository.save(updateComplain.get()));
+            if(_complainDto != null){
+                notificatonService.sendNotificationToUserOnComplainStatusChange(_complainDto);
+            }
+
+            return _complainDto;
+
         }
         catch (Exception e){
             throw new RuntimeException("Some thing went wrong Cannot update complain Status "+e);
@@ -199,7 +209,14 @@ public class AdminService {
             else{
                 throw new ContentNotFoundException("Cannot update status No user Exist Having id "+id);
             }
-            return userService.toDto(userRepository.save(user.get()));
+            UserDto _userDto = userService.toDto(userRepository.save(user.get()));
+            if(_userDto!=null){
+                Note note = Note.builder()
+                        .subject("Welcome")
+                        .content("you can now login to jicomplain").build();
+                notificatonService.sendNotification(note,_userDto.getDeviceToken());
+            }
+            return _userDto;
         }
         catch (Exception e){
             throw new RuntimeException("Some thing went wrong Cannot update user Status "+e);

@@ -1,16 +1,16 @@
 package com.company.ComplainProject.controller;
 
-import com.company.ComplainProject.config.exception.CannotDeleteImage;
+
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.config.image.EventImageImplementation;
+
 import com.company.ComplainProject.dto.EventDto;
 import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.service.EventService;
 import com.company.ComplainProject.service.ImageService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,10 +36,10 @@ public class EventController {
     @GetMapping("/event")
     public ResponseEntity<List<Event>> getAllEvent(){
         List<Event> events = eventService.getAllEvent();
-        if(!events.isEmpty()) {
-            return ResponseEntity.ok(eventService.getAllEvent());
-        }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        return ResponseEntity.ok(eventService.getAllEvent());
+
+
     }
 
     @GetMapping("/paginatedEvents")
@@ -55,12 +55,8 @@ public class EventController {
 
     @GetMapping("/event/{id}")
     public  ResponseEntity<Optional<Event>> getEventWithId(@PathVariable Long id){
-        try{
+
             return ResponseEntity.ok(eventService.getEventById(id));
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
     @PostMapping("/event")

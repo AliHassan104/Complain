@@ -123,7 +123,7 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/complain/{id}")
-    public ResponseEntity<ComplainDto> updateComplainTypeById(@PathVariable Long id, @RequestBody ComplainDto complainDto){
+    public ResponseEntity<ComplainDto> updateComplainById(@PathVariable Long id, @RequestBody ComplainDto complainDto){
 
             return ResponseEntity.ok(adminService.updateComplainById(id,complainDto));
     }

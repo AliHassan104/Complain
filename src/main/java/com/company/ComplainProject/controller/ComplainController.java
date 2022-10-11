@@ -1,9 +1,6 @@
 package com.company.ComplainProject.controller;
 
-import com.company.ComplainProject.config.exception.CannotDeleteImage;
-import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.config.image.ComplainImageImplementation;
-import com.company.ComplainProject.config.image.FileService;
+
 import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;

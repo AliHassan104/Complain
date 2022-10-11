@@ -87,7 +87,7 @@ function assignComplainModal(worker_id){
 }
 
 function updateStatus() {
-    console.log("yes");
+
     let complain_id = document.getElementById("complain_id").value
     let updatedstatus = document.getElementById("updatedstatus").value;
 
@@ -99,8 +99,7 @@ function updateStatus() {
     patchData(`/admin/complain/${complain_id}`,updatedstatusData)
         .then(data => {
             assignComplain(data.id)                                                           //  Send Notification to that customer about complain status
-            giveNotificationToUserOnComplainStatus(data.id)
-            
+        
             })
         .catch((error) => {
             console.error('Error:', error);

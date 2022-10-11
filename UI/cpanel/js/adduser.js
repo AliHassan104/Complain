@@ -1,6 +1,7 @@
 let queryString;
 
 queryString = window.location.search;
+
 if (queryString != "") {
     const urlParams = new URLSearchParams(queryString)
     var urlId = urlParams.get("id")
@@ -13,7 +14,7 @@ if (queryString != "") {
             document.getElementById("cnic").value = data.cnic;
             document.getElementById("phonenumber").value = data.phoneNumber;
             document.getElementById("email").value = data.email;
-            document.getElementById("password").value = data.password;
+            // document.getElementById("password").value = data.password;
             document.getElementById("family").value = data.numberOfFamilyMembers;
             addressId = data.address.id
             document.getElementById("housenumber").value = data.address.houseNumber;
@@ -22,7 +23,6 @@ if (queryString != "") {
             document.getElementById("formButton").innerText = "Update";
 
                
-           
         })
 }
 
