@@ -15,6 +15,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,8 +33,8 @@ public class UserDto{
     private String lastname;
 
     @UniqueEmail
-    @NotBlank(message = "email should not be blank")
-        private String email;
+    @NotBlank(message = "Email should not be blank")
+    private String email;
 
     private String password;
 

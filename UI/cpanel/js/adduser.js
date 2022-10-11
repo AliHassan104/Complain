@@ -16,16 +16,16 @@ if (queryString != "") {
             document.getElementById("password").value = data.password;
             document.getElementById("family").value = data.numberOfFamilyMembers;
             addressId = data.address.id
+            document.getElementById("housenumber").value = data.address.houseNumber;
+            document.getElementById("floornumber").value = data.address.floorNumber;
 
             document.getElementById("formButton").innerText = "Update";
 
-                getData(`/address/`+data.address.id)
-                .then(address => {
+         
                 
-                    document.getElementById("housenumber").value = address.houseNumber;
-                    document.getElementById("floornumber").value = address.floorNumber;
-                    // document.getElementById("street").value = address.street;
-                })
+           
+                  
+           
         })
 }
 

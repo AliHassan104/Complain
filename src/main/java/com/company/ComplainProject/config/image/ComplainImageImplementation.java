@@ -1,21 +1,19 @@
 package com.company.ComplainProject.config.image;
 
-import com.company.ComplainProject.model.Achievements;
+
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.service.ComplainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.UUID;
+
 
 @Service
 public class ComplainImageImplementation implements FileService {

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/api")
 public class ComplainController {
@@ -50,10 +50,8 @@ public class ComplainController {
     public ResponseEntity<Page<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                                      @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         Page<Complain> complain = complainService.getAllComplainsWithPagination(pageNumber,pageSize);
-        if(!complain.getContent().isEmpty()){
-            return ResponseEntity.ok(complain);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(complain);
+
     }
 
     @GetMapping("/complain/{id}")
@@ -89,7 +87,6 @@ public class ComplainController {
 
                 complainService.deleteComplainById(id);
                 return ResponseEntity.ok().build();
-
     }
 
     @PutMapping("/complain/{id}")
@@ -117,23 +114,15 @@ public class ComplainController {
     @PostMapping("/complain/search")
     public ResponseEntity<List<ComplainDetailsResponse>>  filteredComplain(@RequestBody SearchCriteria searchCriteria){
         List<ComplainDetailsResponse> complain = complainService.getFilteredComplain(searchCriteria);
-        if(!complain.isEmpty()){
-            return ResponseEntity.ok(complain);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.ok(complain);
     }
 
     @PostMapping("/complain/searchByStatus")
     public ResponseEntity<List<ComplainDetailsResponse>> filteredComplainByStatus(@RequestBody SearchCriteria searchCriteria)  {
 
-        try{
             List<ComplainDetailsResponse> complain = complainService.getFilteredComplainByStatus(searchCriteria);
             return ResponseEntity.ok(complain);
-        }catch (Exception e){
-            System.out.println(e);
-            throw new ContentNotFoundException("Complain Having Status = "+searchCriteria.getValue()+" Not Exist");
-        }
-
     }
 
 
@@ -156,32 +145,21 @@ public class ComplainController {
 
     @GetMapping("complain/complainbyuser")
     public ResponseEntity<List<ComplainDetailsResponse>> getComplainByUser(){
-        try{
+
             return ResponseEntity.ok(complainService.getComplainByUser());
-        }catch (Exception e){
-            System.out.println(e);
-            throw new ContentNotFoundException("No complain Found with user "+service.getLoggedInUser().getEmail());
-        }
     }
 
 //    The api for this method will be http://localhost:8081/api/complain/usercomplainbystatus?status=in_review
 
     @GetMapping("/complain/usercomplainbystatus")
     public ResponseEntity<List<ComplainDetailsResponse>> getComplainByUserAndStatus(@RequestParam(name = "status") String status){
-        try{
+
             return ResponseEntity.ok(complainService.getComplainByUserAndStatus(status));
-        }catch (Exception e){
-            System.out.println(e);
-            throw new ContentNotFoundException("No Complain Found having status "+status);
-        }
     }
     @GetMapping("/countallcomplains")
     public ResponseEntity<Long> countAllComplains(){
-        try{
+
             return ResponseEntity.ok(complainService.countAllComplains_Service());
-        }catch (Exception e){
-            throw new ContentNotFoundException("No Complain Found");
-        }
     }
 
     /**
@@ -196,11 +174,8 @@ public class ComplainController {
     public ResponseEntity<Page<Complain>> getAllComplainByArea(@PathVariable("area_id") Long area_id,
                                                                 @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                                @RequestParam(value = "pageSize",defaultValue = "30",required = false) Integer pageSize){
-        try{
+
             return ResponseEntity.ok(complainService.getallComplainByArea(area_id,pageNumber,pageSize));
-        }catch (Exception e){
-            throw new ContentNotFoundException("No Complain Found");
-        }
     }
 
 
@@ -214,11 +189,8 @@ public class ComplainController {
     @GetMapping("getcomplainbycomplaintype/{c_type_id}")
     public ResponseEntity<Page<Complain>> getAllComplainByComplainType(@PathVariable("c_type_id") Long complainType_id,
                                                                 @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "30",required = false) Integer pageSize){
-        try{
+
             return ResponseEntity.ok(complainService.getallComplainByComplainType(complainType_id,pageNumber,pageSize));
-        }catch (Exception e){
-            throw new ContentNotFoundException("No Complain Found");
-        }
     }
 
 }

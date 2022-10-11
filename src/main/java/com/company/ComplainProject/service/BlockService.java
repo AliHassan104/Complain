@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +30,12 @@ public class BlockService {
     }
 
     public List<Block> getAllBlocks(){
-        List<Block> block = blockRepository.findAll();
-        if(!block.isEmpty()){
+        try {
+            List<Block> block = blockRepository.findAll();
             return block;
+        }catch (Exception e){
+            throw new RuntimeException("Some Thing went wrong Cannot get the blocks");
         }
-        throw new ContentNotFoundException("No Block Exist");
     }
 
     public Page<Block> getAllBlocksWithPagination(Integer pageNumber,Integer pageSize) {

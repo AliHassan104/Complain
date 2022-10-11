@@ -1,5 +1,7 @@
 package com.company.ComplainProject.config.util;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.config.exception.JwtTokenIsExpiredException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +18,12 @@ public class JwtUtil {
     private String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        try {
+            return extractClaim(token, Claims::getSubject);
+        }
+        catch (Exception e){
+            throw new JwtTokenIsExpiredException("Jwt Token Is Expired");
+        }
     }
 
     public Date extractExpiration(String token) {
@@ -28,7 +35,12 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        }
+        catch (Exception e){
+            throw new JwtTokenIsExpiredException("Jwt Token Is Expired");
+        }
     }
 
     private Boolean isTokenExpired(String token) {

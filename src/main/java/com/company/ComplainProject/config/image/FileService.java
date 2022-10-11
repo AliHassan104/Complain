@@ -1,6 +1,6 @@
 package com.company.ComplainProject.config.image;
 
-import org.springframework.stereotype.Service;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,13 +9,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-@Service
+
 public interface FileService {
 
     String uploadImage(MultipartFile file) throws IOException;
     Boolean deleteImage(Long id);
 
-    public static void createStaticFolder()  {
+    static void createStaticFolder()  {
         try {
             String resourcespath = Paths.get("src/main/resources").toAbsolutePath().toString();
             String path = resourcespath+ File.separator+"static";
@@ -30,7 +30,7 @@ public interface FileService {
         }
     }
 
-    public static String generateRandomImageName(MultipartFile file){
+    static String generateRandomImageName(MultipartFile file){
         String randomId = UUID.randomUUID().toString();
         String filename = file.getOriginalFilename();
         String generatedfilename = randomId.concat(filename.substring(filename.lastIndexOf(".")));

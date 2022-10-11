@@ -45,10 +45,15 @@ public class ComplainService {
     }
 
     public Page<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Complain> complainPage = complainRepository.findAll(pageable);
-//        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
-        return complainPage;
+        try{
+            Pageable pageable = PageRequest.of(pageNumber,pageSize);
+            Page<Complain> complainPage = complainRepository.findAll(pageable);
+            return complainPage;
+        }
+        catch (Exception e){
+            throw new RuntimeException("No Complain Exist"+e);
+        }
+
     }
 
     public ComplainDetailsResponse getComplainById(Long id) {
@@ -61,31 +66,47 @@ public class ComplainService {
     }
 
     public void deleteComplainById(Long id) {
-        complainRepository.deleteById(id);
+        try{
+            complainRepository.deleteById(id);
+        }
+        catch (Exception e){
+            throw new RuntimeException("No Complain Exist having id "+id+"   "+e);
+        }
+
     }
 
     public ComplainDetailsResponse addComplain(ComplainDto complainDto) {
-        User user = service.getLoggedInUser();
-        complainDto.setUser(user);
-        return complainToComplainDetailsResponse(complainRepository.save(dto(complainDto)));
+        try {
+            User user = service.getLoggedInUser();
+            complainDto.setUser(user);
+            return complainToComplainDetailsResponse(complainRepository.save(dto(complainDto)));
+        }
+        catch (Exception e ){
+            throw new RuntimeException("Cannot Save Complain  "+e);
+        }
     }
 
     public ComplainDetailsResponse updateComplainById(Long id, ComplainDto complainDto) {
-        Complain updateComplain = dto(getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get());
-        User user = service.getLoggedInUser();
-        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
-        ComplainType complainType = complainTypeService.getAllComplainType().stream().filter(complainType1 -> complainType1.getId().equals(complainDto.getComplainType().getId())).findAny().get();
+        try {
+            Complain updateComplain = dto(getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get());
+            User user = service.getLoggedInUser();
+            Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
+            ComplainType complainType = complainTypeService.getAllComplainType().stream().filter(complainType1 -> complainType1.getId().equals(complainDto.getComplainType().getId())).findAny().get();
 
-        if(updateComplain != null){
-            updateComplain.setDescription(complainDto.getDescription());
-            updateComplain.setPicture(complainDto.getPicture());
-            updateComplain.setArea(area);
-            updateComplain.setUser(user);
-            updateComplain.setComplainType(complainType);
-            updateComplain.setDate(complainDto.getDate());
-            updateComplain.setTime(complainDto.getTime());
+            if (updateComplain != null) {
+                updateComplain.setDescription(complainDto.getDescription());
+                updateComplain.setPicture(complainDto.getPicture());
+                updateComplain.setArea(area);
+                updateComplain.setUser(user);
+                updateComplain.setComplainType(complainType);
+                updateComplain.setDate(complainDto.getDate());
+                updateComplain.setTime(complainDto.getTime());
+            }
+            return complainToComplainDetailsResponse(complainRepository.save(updateComplain));
         }
-        return complainToComplainDetailsResponse(complainRepository.save(updateComplain));
+        catch (Exception e){
+            throw new RuntimeException("Cannot Update Complain  "+e);
+        }
     }
 
     public Complain dto(ComplainDto complainDto){
@@ -120,29 +141,36 @@ public class ComplainService {
     }
 
     public List<ComplainDetailsResponse> getFilteredComplain(SearchCriteria searchCriteria) {
-        ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
-        List<Complain> complains = complainRepository.findAll(complainSpecification);
-        return complainListToComplainDetailsResponseList(complains);
+        try {
+            ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
+            List<Complain> complains = complainRepository.findAll(complainSpecification);
+            return complainListToComplainDetailsResponseList(complains);
+        }
+        catch (Exception e){
+            throw new RuntimeException("No Complain Exist "+e);
+        }
     }
 //                                                                                              filter complain by status
     public List<ComplainDetailsResponse> getFilteredComplainByStatus(SearchCriteria searchCriteria) {
 
-        if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_REVIEW")){
-            searchCriteria.setValue(Status.IN_REVIEW);
-        }
-        else if(searchCriteria.getValue().toString().equalsIgnoreCase("COMPLETED")){
-            searchCriteria.setValue(Status.COMPLETED);
-        }
-        else if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_PROGRESS")){
-            searchCriteria.setValue(Status.IN_PROGRESS);
-        }
-        else if(searchCriteria.getValue().toString().equalsIgnoreCase("REJECTED")){
-            searchCriteria.setValue(Status.REJECTED);
-        }
         try{
+            if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_REVIEW")){
+                searchCriteria.setValue(Status.IN_REVIEW);
+            }
+            else if(searchCriteria.getValue().toString().equalsIgnoreCase("COMPLETED")){
+                searchCriteria.setValue(Status.COMPLETED);
+            }
+            else if(searchCriteria.getValue().toString().equalsIgnoreCase("IN_PROGRESS")){
+                searchCriteria.setValue(Status.IN_PROGRESS);
+            }
+            else if(searchCriteria.getValue().toString().equalsIgnoreCase("REJECTED")){
+                searchCriteria.setValue(Status.REJECTED);
+            }
+
             ComplainSpecification complainSpecification = new ComplainSpecification(searchCriteria);
             List<Complain> complains = complainRepository.findAll(complainSpecification);
             return complainListToComplainDetailsResponseList(complains);
+
         }catch (Exception e){
             System.out.println(e);
             throw new ContentNotFoundException("No data Exist having "+searchCriteria.getKey()+" = "+searchCriteria.getValue());
@@ -165,31 +193,37 @@ public class ComplainService {
 
     public List<ComplainDetailsResponse> getComplainByUser() {
         User user = service.getLoggedInUser();
-        List<Complain> complains = complainRepository.getComplainByUser(user);
-        return complainListToComplainDetailsResponseList(complains);
+        try {
+            List<Complain> complains = complainRepository.getComplainByUser(user);
+            return complainListToComplainDetailsResponseList(complains);
+        }
+        catch (Exception e){
+            throw new ContentNotFoundException("No Complain Exist with user email "+user.getEmail()+"  "+e);
+        }
     }
 
 //                                                                                      complain user by status
     public List<ComplainDetailsResponse> getComplainByUserAndStatus(String status){
-        User user = service.getLoggedInUser();
-        List<Complain> complains;
+        try {
+            User user = service.getLoggedInUser();
+            List<Complain> complains;
 
-        if(status.equalsIgnoreCase("IN_REVIEW")){
-            complains = complainRepository.getComplainByUserAndStatus(user,Status.IN_REVIEW);
+            if (status.equalsIgnoreCase("IN_REVIEW")) {
+                complains = complainRepository.getComplainByUserAndStatus(user, Status.IN_REVIEW);
+            } else if (status.equalsIgnoreCase("COMPLETED")) {
+                complains = complainRepository.getComplainByUserAndStatus(user, Status.COMPLETED);
+            } else if (status.equalsIgnoreCase("REJECTED")) {
+                complains = complainRepository.getComplainByUserAndStatus(user, Status.REJECTED);
+            } else if (status.equalsIgnoreCase("IN_PROGRESS")) {
+                complains = complainRepository.getComplainByUserAndStatus(user, Status.IN_PROGRESS);
+            } else {
+                throw new ContentNotFoundException("No Complain found of user having status " + status);
+            }
+            return complainListToComplainDetailsResponseList(complains);
         }
-        else if(status.equalsIgnoreCase("COMPLETED")){
-            complains = complainRepository.getComplainByUserAndStatus(user,Status.COMPLETED);
+        catch (Exception e){
+            throw new RuntimeException("No Complain Exist "+e);
         }
-        else if(status.equalsIgnoreCase("REJECTED")){
-            complains =  complainRepository.getComplainByUserAndStatus(user,Status.REJECTED);
-        }
-        else if(status.equalsIgnoreCase("IN_PROGRESS")){
-            complains = complainRepository.getComplainByUserAndStatus(user,Status.IN_PROGRESS);
-        }
-        else{
-            throw new ContentNotFoundException("No Complain found of user having status "+status);
-        }
-        return complainListToComplainDetailsResponseList(complains);
     }
 
     public Long countAllComplains_Service() {
@@ -216,18 +250,27 @@ public class ComplainService {
     }
 
     public Page<Complain> getallComplainByArea(Long area_id,Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Complain> complainbyarea = complainRepository.getAllComplainByArea(area_id,pageable);
-        complainbyarea.stream().forEach(complain -> complain.getUser().setPassword(null));
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<Complain> complainbyarea = complainRepository.getAllComplainByArea(area_id, pageable);
+            complainbyarea.stream().forEach(complain -> complain.getUser().setPassword(null));
 
-        return complainbyarea;
+            return complainbyarea;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong cannot get complains by area "+e);
+        }
     }
 
     public Page<Complain> getallComplainByComplainType(Long c_type_id,Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Complain> complainPage = complainRepository.getAllComplainByComplainType(c_type_id,pageable);
-        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
+        try {
 
-        return complainPage;
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<Complain> complainPage = complainRepository.getAllComplainByComplainType(c_type_id, pageable);
+            complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
+            return complainPage;
+
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong cannot get complains by complain type "+e);
+        }
     }
 }

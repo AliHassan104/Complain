@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-//@CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
 public class AchievementController {
@@ -39,10 +38,7 @@ public class AchievementController {
     public ResponseEntity<Page<Achievements>> getAchievements(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
                                                               @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         Page<Achievements> achievements= achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
-        if(!achievements.isEmpty()){
-            return ResponseEntity.ok(achievements);
-        }
-        throw new ContentNotFoundException("No Achievement Exist ");
+        return ResponseEntity.ok(achievements);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
@@ -50,34 +46,20 @@ public class AchievementController {
     public ResponseEntity<AchievementsDto> getAchievementsById(@PathVariable Long id){
         AchievementsDto achievement = achievementService.getAchievementById(id);
         return  ResponseEntity.ok(achievement);
-
-
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/achievement/{id}")
     public ResponseEntity<Void> deleteAchievementById(@PathVariable Long id){
-        try{
-//                                                  First we will delete the image
-            Boolean achievementImageDeleted = achievementImageImplementation.deleteImage(id);
-            if(achievementImageDeleted){
-                achievementService.deleteAchievementById(id);
-                return ResponseEntity.ok().build();
-            }
-            else{
-                throw new CannotDeleteImage("Cannot delete Achievement Image having id "+id);
-            }
-        }
-        catch (Exception e){
-            System.out.println(e);
-            throw new ContentNotFoundException("No Achievement Exist having id "+id);
-        }
+        achievementService.deleteAchievementById(id);
+        return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/achievement/{id}")
     public ResponseEntity<AchievementsDto> updateAchievementById(@PathVariable Long id
                                                                     ,@RequestParam("pictureUrl") MultipartFile image,
-                                                                           @RequestParam("data") String achievementdto){
+                                                                     @RequestParam("data") String achievementdto){
         try{
             if(image.isEmpty()){
                 return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

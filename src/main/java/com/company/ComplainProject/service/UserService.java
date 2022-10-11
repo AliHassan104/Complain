@@ -1,6 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.config.exception.InputMisMatchException;
 import com.company.ComplainProject.config.exception.UserNotFoundException;
 import com.company.ComplainProject.dto.ForgetPasswordDto;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -63,15 +65,21 @@ public class UserService {
         return userToUserDetailsResponse(user.get());
     }
 
+
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
     public UserDetailsResponse addUser(UserDto userDto) {
 
-        if(userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)){
-            userDto.setStatus(UserStatus.PUBLISHED);
+        try {
+            if (userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)) {
+                userDto.setStatus(UserStatus.PUBLISHED);
+            }
+        }catch (Exception e){
+            throw new InputMisMatchException("No user type assigned to "+userDto.getEmail());
         }
+
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userDto.setRoles(assignRolesToUser(userDto));
         return userToUserDetailsResponse(userRepository.save(dto(userDto)));

@@ -31,6 +31,9 @@ public class AchievementService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Achievements> achievementsPage = achievementRepository.findAll(pageable);
+        if(achievementsPage.getContent().isEmpty()){
+            throw new ContentNotFoundException("No Achievements Exist");
+        }
         return achievementsPage;
     }
 
@@ -47,7 +50,12 @@ public class AchievementService {
     }
 
     public void deleteAchievementById(Long id) {
-        achievementRepository.deleteById(id);
+        try {
+//         First we will delete the image
+            achievementRepository.deleteById(id);
+        }catch (Exception e){
+            throw new ContentNotFoundException("Cannot Delete No Achievement Exist Having id "+id);
+        }
     }
 
     public AchievementsDto addAchievement(AchievementsDto achievementsDto) {

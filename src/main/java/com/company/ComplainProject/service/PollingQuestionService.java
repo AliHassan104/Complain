@@ -131,4 +131,10 @@ public class PollingQuestionService {
 
         return showPollingQuestions;
     }
+
+
+//    public List<PollingQuestion> getAllPollingQuestionByUser(){
+//        User user = service.getLoggedInUser();
+//        return pollingQuestionRepository.findAllPollingQuestionByUser(user.getArea().getId(),user.getId());
+//    }
 }

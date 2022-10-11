@@ -1,5 +1,7 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.UnAuthorizedException;
+import com.company.ComplainProject.config.exception.UserNotFoundException;
 import com.company.ComplainProject.dto.CustomUserDetail;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.model.User;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class MyUserDetailService implements UserDetailsService {
@@ -22,16 +25,12 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        try{
-            User user = userRepository.findByEmailAndStatus(username,UserStatus.PUBLISHED);
+
+           User user = userRepository.findByEmailAndStatus(username, UserStatus.PUBLISHED);
             if(user == null){
-                throw new UsernameNotFoundException("No User Found Having Email "+username);
+                throw new UserNotFoundException("Wrong Email Address "+username);
             }
             return new CustomUserDetail(user);
-        }catch (Exception e){
-            System.out.println(e);
-            throw new UsernameNotFoundException("No User Found Having Email "+username);
-        }
     }
 
 }

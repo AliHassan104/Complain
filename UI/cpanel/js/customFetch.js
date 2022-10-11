@@ -37,7 +37,7 @@ function getData(url) {
      .then((response) => {
             switch(response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
+                    window.open(`${exception404}`, "_self") 
                   break;
                 case 500:
                     window.open(`${loginUrl}/pages-500.html`, "_self") 

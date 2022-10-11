@@ -1,12 +1,8 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.dto.PollingQuestionDto;
-import com.company.ComplainProject.model.Area;
-import com.company.ComplainProject.model.ComplainType;
 import com.company.ComplainProject.model.PollingQuestion;
-import com.company.ComplainProject.service.ComplainTypeService;
 import com.company.ComplainProject.service.PollingQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +13,15 @@ import java.util.List;
 import java.util.Optional;
 
 
+
 @RestController
 @RequestMapping("/api")
 public class PollingQuestionController {
 
     @Autowired
     PollingQuestionService pollingQuestionService;
+
+
 
     @GetMapping("/pollingquestion")
     public ResponseEntity<List<PollingQuestion>> getPollingQuestion(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber,
@@ -35,7 +34,7 @@ public class PollingQuestionController {
     }
 
     @GetMapping("/pollingquestion/{id}")
-    public ResponseEntity<Optional<PollingQuestion>> getComplainTypeById(@PathVariable Long id){
+    public ResponseEntity<Optional<PollingQuestion>> getPollingQuestionById(@PathVariable Long id){
         Optional<PollingQuestion> pollingQuestion = pollingQuestionService.getPollingQuestionById(id);
         if(pollingQuestion.isPresent()){
             return  ResponseEntity.ok(pollingQuestion);
@@ -44,7 +43,7 @@ public class PollingQuestionController {
     }
 
     @PostMapping("/pollingquestion")
-    public ResponseEntity<PollingQuestionDto> addComplainType(@RequestBody PollingQuestionDto pollingQuestionDto){
+    public ResponseEntity<PollingQuestionDto> addPollingQuestion(@RequestBody PollingQuestionDto pollingQuestionDto){
 
         try{
             return ResponseEntity.ok(pollingQuestionService.addPollingQuestion(pollingQuestionDto));
@@ -67,7 +66,7 @@ public class PollingQuestionController {
     }
 
     @PutMapping("/pollingquestion/{id}")
-    public ResponseEntity<Optional<PollingQuestionDto>> updateComplainTypeById(@PathVariable Long id,@RequestBody PollingQuestionDto pollingQuestionDto){
+    public ResponseEntity<Optional<PollingQuestionDto>> updatePollingQuestionById(@PathVariable Long id,@RequestBody PollingQuestionDto pollingQuestionDto){
         try{
             return ResponseEntity.ok(pollingQuestionService.updatePollingQuestionById(id,pollingQuestionDto));
         }catch (Exception e){
@@ -98,6 +97,13 @@ public class PollingQuestionController {
             throw new ContentNotFoundException("No questions for user id ");
         }
     }
+
+
+//    @GetMapping("/getpollingquestions")
+//    public ResponseEntity<List<PollingQuestion>> getAllPollingQuestionsByUser(){
+//        return ResponseEntity.ok(pollingQuestionService.getAllPollingQuestionByUser());
+//    }
+
 
 
 

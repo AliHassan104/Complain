@@ -1,17 +1,15 @@
 package com.company.ComplainProject.config.image;
 
 import com.company.ComplainProject.model.Achievements;
-import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.service.AchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.UUID;
+
 
 @Service
 public class AchievementImageImplementation implements FileService {

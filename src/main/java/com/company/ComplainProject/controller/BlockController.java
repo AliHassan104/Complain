@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api")
 public class BlockController {
@@ -23,15 +23,12 @@ public class BlockController {
 
     @GetMapping("/block")
     public ResponseEntity<List<Block>> getAllBlocks(){
-        try{
             return ResponseEntity.ok(blockService.getAllBlocks());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
-//                                                                      Get Blocks with Area
 
-   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
+    /**
+     * Get Block By Area
+     */
     @GetMapping("blockByArea/{area}")
     public ResponseEntity<List<Block>> getAllBlockByArea(@PathVariable("area") Long areaid){
         try {
@@ -41,6 +38,7 @@ public class BlockController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
     @GetMapping("block/{id}")
     public ResponseEntity<Optional<Block>> getBlockById(@PathVariable("id") Long id){
         try {
