@@ -76,6 +76,7 @@ registerForm = new FormGroup({
   numberOfFamilyMembers : new FormControl('',[ Validators.required]), // Validators.pattern('^[1-9][0-9]{2}$')
   property : new FormControl(null,[ Validators.required]),
   userType : new FormControl(),
+  status : new FormControl(),
   deviceToken : new FormControl(),
   address : new FormGroup({
     // id : new FormControl()
@@ -116,6 +117,7 @@ registerForm = new FormGroup({
   userSubmit(userData: any){
 
     this.registerForm.value.userType = "Customer"
+    this.registerForm.value.status = "IN_REVIEW"
     this.registerForm.value.deviceToken = localStorage.getItem("deviceId")
 
     this.userPost(this.registerForm)
