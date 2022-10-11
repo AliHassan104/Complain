@@ -79,9 +79,9 @@ export class AppComponent {
 
 
   showNotification(msg) {
-    const notification = new Notification('Montreal Sauvage', {
+    const notification = new Notification('JI COMPLAIN', {
       body: msg,
-      icon: 'assets/MTLSAUVAGE-LOGO.png'
+      // icon: 'assets/MTLSAUVAGE-LOGO.png'
 
     })
   }

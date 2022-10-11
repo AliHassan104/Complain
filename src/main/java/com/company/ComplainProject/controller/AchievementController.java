@@ -6,6 +6,7 @@ import com.company.ComplainProject.config.image.AchievementImageImplementation;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.model.Achievements;
 import com.company.ComplainProject.service.AchievementService;
+import com.company.ComplainProject.service.ImageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

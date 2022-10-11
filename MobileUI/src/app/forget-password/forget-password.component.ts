@@ -11,16 +11,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class ForgetPasswordComponent implements OnInit {
 
-  
-    
-  constructor( private ForgetPasswordServiceService:ForgetPasswordServiceService
-    
-    ) {
+
+
+  constructor( private ForgetPasswordServiceService:ForgetPasswordServiceService) {
    }
 
   ngOnInit(): void {
-   
-   
+
+
   }
 
   form = new FormGroup({

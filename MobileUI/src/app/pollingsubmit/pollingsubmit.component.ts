@@ -67,14 +67,16 @@ export class PollingsubmitComponent implements OnInit {
     this.pollingAnswer.value.pollingQuestion.id = parseInt(this.questionId)
     this.pollingAnswer.value.user.id = this.userId
 
-    console.log(this.pollingAnswer);
-
     this.pollingquestionService.postPollingQuestion(data).subscribe((data) =>{
-          this.toastService.showToast("Success", "#toast-15")
+
+          this.toastService.showToast("Answer Submited", "#toast-15")
+
           this.router.navigate(['home']);
+
       }, error => {
 
-        this.toastService.showToast("Complain Not Submitted", "#toast-16");
+        this.toastService.showToast("Answer Not Submitted", "#toast-16");
+
         console.log(error);
       });
 
@@ -106,8 +108,9 @@ getEmailByToken(){
 getUser() {
     let user: any
     const email = this.getEmailByToken()
-    this.userService.getUserByEmail(email).subscribe(data => {
+    this.userService.getUser().subscribe(data => {
       // console.log(data);
+
       user = data
       this.userId = user.id
       // this.toastService.showToast("Success", "#toast-15")

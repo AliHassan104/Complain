@@ -32,7 +32,7 @@ public class UserDto{
 
     @UniqueEmail
     @NotBlank(message = "email should not be blank")
-    private String email;
+        private String email;
 
     private String password;
 

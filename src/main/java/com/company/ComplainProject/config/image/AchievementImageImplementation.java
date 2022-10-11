@@ -18,8 +18,8 @@ public class AchievementImageImplementation implements FileService {
     @Autowired
     AchievementService achievementService;
 
-
     final String achievementImagePath = Paths.get("src/main/resources/static/achievement/images").toAbsolutePath().toString();
+
     @Override
     public String uploadImage(MultipartFile file) {
 //                                                 First it will create static folder if not present
@@ -75,6 +75,7 @@ public class AchievementImageImplementation implements FileService {
             System.out.println("Cannot create achievement Folder"+e);
         }
     }
+
     public void imageFolderInsideAchievementFolder(){
         try{
             String complainpaths = Paths.get("src/main/resources/static/achievement").toAbsolutePath().toString();

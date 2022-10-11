@@ -50,21 +50,21 @@ public class AddressService {
             updateAddress.get().setCity(addressDto.getCity());
             updateAddress.get().setFloorNumber(addressDto.getFloorNumber());
             updateAddress.get().setHouseNumber(addressDto.getHouseNumber());
-            updateAddress.get().setStreet(addressDto.getStreet());
+            // updateAddress.get().setStreet(addressDto.getStreet());
         }
         return toDto(addressRepository.save(updateAddress.get()));
     }
 
     public Address dto(AddressDto addressDto){
         return Address.builder().id(addressDto.getId()).city(addressDto.getCity())
-                .houseNumber(addressDto.getHouseNumber()).floorNumber(addressDto.getFloorNumber())
-                .street(addressDto.getStreet()).build();
+                .houseNumber(addressDto.getHouseNumber()).floorNumber(addressDto.getFloorNumber()).build();
+                // .street(addressDto.getStreet()).build();
     }
 
     public AddressDto toDto(Address address){
         return  AddressDto.builder().id(address.getId()).city(address.getCity())
-                .houseNumber(address.getHouseNumber()).floorNumber(address.getFloorNumber())
-                .street(address.getStreet()).build();
+                .houseNumber(address.getHouseNumber()).floorNumber(address.getFloorNumber()).build();
+                // .street(address.getStreet()).build();
     }
 
     public List<AddressDto> addressListToAddressDtoList(List<Address> address){

@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
 public class ComplainService {
     @Autowired
     ComplainRepository complainRepository;
-
     @Autowired
     UserService userService;
     @Autowired
@@ -40,9 +39,6 @@ public class ComplainService {
     @Autowired
     SessionService service;
 
-
-    private final String imageFolderPath = Paths.get("src/main/resources/static/complain/images").toAbsolutePath().toString();
-
     public List<ComplainDto> getAllComplain() {
         List<Complain> complains = complainRepository.findAll();
         return complains.stream().map(complain -> toDto(complain)).collect(Collectors.toList());
@@ -51,7 +47,7 @@ public class ComplainService {
     public Page<Complain> getAllComplainsWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Complain> complainPage = complainRepository.findAll(pageable);
-        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
+//        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
         return complainPage;
     }
 
@@ -154,18 +150,18 @@ public class ComplainService {
 
     }
 
-    public InputStream getImageByName(String filename) throws IOException {
-        InputStream inputStream = null;
-        try{
-            String assetImagePath = imageFolderPath+ File.separator+filename;
-            inputStream = new FileInputStream(assetImagePath);
-            return inputStream;
-        }
-        catch (Exception e){
-            System.out.println("Image not exist in Complain "+e);
-            throw new FileNotFoundException("Image not exist in Complain");
-        }
-    }
+//    public InputStream getImageByName(String filename) throws IOException {
+//        InputStream inputStream = null;
+//        try{
+//            String assetImagePath = imageFolderPath+ File.separator+filename;
+//            inputStream = new FileInputStream(assetImagePath);
+//            return inputStream;
+//        }
+//        catch (Exception e){
+//            System.out.println("Image not exist in Complain "+e);
+//            throw new FileNotFoundException("Image not exist in Complain");
+//        }
+//    }
 
     public List<ComplainDetailsResponse> getComplainByUser() {
         User user = service.getLoggedInUser();

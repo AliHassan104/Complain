@@ -2,12 +2,14 @@
 
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'ROLE_ADMIN');
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_WORKER'),
+(3, 'ROLE_CUSTOMER');
 
 
 
 INSERT INTO `users` (`id`, `cnic`, `device_token`, `email`, `firstname`, `lastname`, `number_of_family_members`, `password`, `phone_number`, `property`, `status`, `user_type`, `address_id`, `area_id`, `block_id`) VALUES
-(1, NULL, NULL, 'saifkhan11999@gmail.com', 'saif', 'khan', NULL, '$2a$10$Qq.zMqoWgsX5i.LR3soWRONGaAS9lfVp/TvFGhsAkH.WX1q2BCiR6', NULL, NULL, 'PUBLISHED', NULL, NULL, NULL, NULL);
+(1, NULL, NULL, 'jicomplain@admin.com', 'saif', 'khan', NULL, '$2a$10$Qq.zMqoWgsX5i.LR3soWRONGaAS9lfVp/TvFGhsAkH.WX1q2BCiR6', NULL, NULL, 'PUBLISHED', NULL, NULL, NULL, NULL);
 
 
 

@@ -45,7 +45,7 @@ export class PollingquestionComponent implements OnInit {
   //   });
   // }
   getPollingQuestionNotAnswered(area : any) {
-    this.pollingQuestion.getPollingQuestionNotAnswered(area).subscribe(data => {
+    this.pollingQuestion.getPollingQuestionNotAnswered().subscribe(data => {
       this.lists = data
       // console.log(this.lists);
 
@@ -81,7 +81,7 @@ getEmailByToken(){
 getUser() {
   let user: any
   const email = this.getEmailByToken()
-  this.userService.getUserByEmail(email).subscribe(data => {
+  this.userService.getUser().subscribe(data => {
     // console.log(data);
     user = data
     this.areaName = user.area.name
