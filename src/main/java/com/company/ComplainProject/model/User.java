@@ -37,7 +37,7 @@ public class User {
     private UserType userType;
 
     @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.IN_REVIEW;
+    private UserStatus status;
 //                                                      owner/tenant
     @Enumerated(EnumType.STRING)
     private PropertyEnum property;

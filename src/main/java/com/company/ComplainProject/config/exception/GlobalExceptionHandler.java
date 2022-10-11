@@ -19,8 +19,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ContentNotFoundException.class)
     public ResponseEntity<Object> contentNotFoundException(ContentNotFoundException ex){
-        ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.OK,LocalDateTime.now().toString(),ex.getMessage());
-        return new ResponseEntity<>(errors,HttpStatus.OK);
+        ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.NOT_FOUND,LocalDateTime.now().toString(),ex.getMessage());
+        return new ResponseEntity<>(errors,HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ImageStorageException.class)

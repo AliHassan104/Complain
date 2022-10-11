@@ -89,7 +89,7 @@ public class AdminService {
 
     public Page<Area> getAllArea(Integer pageNumber,Integer pageSize){
         try {
-            Page<Area> areaList = areaService.getAllAreaDtoWithPagination(pageNumber, pageSize);
+            Page<Area> areaList = areaService.getAllAreaDtoWithPagination(pageNumber,pageSize);
             return areaList;
         }
          catch (Exception e){

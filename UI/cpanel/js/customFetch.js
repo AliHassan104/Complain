@@ -35,6 +35,7 @@ function getData(url) {
         }
     })
      .then((response) => {
+             console.log(response.status)
             switch(response.status) {
                 case 404:
                     window.open(`${exception404}`, "_self") 
@@ -42,14 +43,17 @@ function getData(url) {
                 case 500:
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
+                case 403:
+                     console.log("Forbidden")
               }
+
             return response.json()
 
             .then((data) => {
                 return data;
             })
             .catch((err) => {
-                console.log(err)
+                 console.log(response.status) 
             })
         })
         .catch((error)=>{
@@ -241,22 +245,6 @@ function tokenNotExist() {
                                                       // Removing white spaces from array of role using trim()  
             getRoles[i] = arrayOfRoles[i].trim()
         }
-
-        // getUserData().then((data)=>{
-        //     data.roles.forEach(element => {
-        //          getRoles.push(element.name)
-        //     });
-
-        //     if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-        //         if(getRoles.includes("ROLE_WORKER")){
-        //            window.open(`${loginUrl}/loginpage.html`, "_self") 
-        //         }
-        //    }
-        //    else {
-        //         window.open(`${loginUrl}/loginpage.html`, "_self") 
-        //    }
-
-        // })
 
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
              if(getRoles.includes("ROLE_WORKER")){

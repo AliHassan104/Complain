@@ -61,7 +61,8 @@ public class AreaService {
             areaRepository.deleteById(id);
         }
         catch (Exception e){
-           throw new ContentNotFoundException("Cannot Delete Area id "+id+" Not Exist "+e);
+            System.out.println(e);
+           throw new ContentNotFoundException("Cannot Delete Area id "+id+" Not Exist ");
         }
 
     }

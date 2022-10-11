@@ -72,17 +72,10 @@ public class UserService {
 
     public UserDetailsResponse addUser(UserDto userDto) {
 
-        try {
-            if (userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)) {
-                userDto.setStatus(UserStatus.PUBLISHED);
-            }
-        }catch (Exception e){
-            throw new InputMisMatchException("No user type assigned to "+userDto.getEmail());
-        }
-
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userDto.setRoles(assignRolesToUser(userDto));
         return userToUserDetailsResponse(userRepository.save(dto(userDto)));
+
     }
 
     public Set<Roles> assignRolesToUser(UserDto userDto){

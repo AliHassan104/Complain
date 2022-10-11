@@ -131,7 +131,9 @@ function formSubmit() {
 
         sendData(`/pollingquestion`, newPollingQuestion)
             .then(data => {
-                console.log(data);
+                
+                sendNotificationToUsersOnNewPollingQuestion(data.id)
+
                 messageRender += `
                     <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
                     justify-content: center;font-size: large" class="alert alert-success" role="alert">
@@ -155,6 +157,8 @@ function formSubmit() {
         updateData(`/pollingquestion/${urlId}`, newPollingQuestion)
             .then(data => {
 
+                sendNotificationToUsersOnNewPollingQuestion(data.id)
+                
                 messageRender += `
                     <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
                     justify-content: center;font-size: large" class="alert alert-success" role="alert">
@@ -176,6 +180,10 @@ function formSubmit() {
                 console.error('Error:', error);
             });
     }
+}
+
+function sendNotificationToUsersOnNewPollingQuestion(question_id){
+    getData(`/send-notification-on-new-pollingquestion/${question_id}`)
 }
 
 function getArea() {

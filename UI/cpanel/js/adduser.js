@@ -21,10 +21,7 @@ if (queryString != "") {
 
             document.getElementById("formButton").innerText = "Update";
 
-         
-                
-           
-                  
+               
            
         })
 }
@@ -35,10 +32,7 @@ let areaId;
 var blockId;
 
 
-// function formSubmit() {
-   
 
-// }
 
 
 function addUser() {
@@ -63,7 +57,6 @@ function addUser() {
     
     let usertype = document.getElementById("usertype").value
 
-
     let housenumber = document.getElementById("housenumber").value;
     let floornumber = document.getElementById("floornumber").value;
     
@@ -71,7 +64,7 @@ function addUser() {
 
     newUser = {
         firstname: firstname, lastname: lastname, cnic: cnic, phoneNumber: phonenumber
-        , email: email, password: password, numberOfFamilyMembers: family,
+        , email: email, password: password, numberOfFamilyMembers: family,status:'PUBLISHED',
         area: {
             id: areaId
         },
@@ -153,47 +146,7 @@ function addUser() {
     document.getElementById("family").value = "";
 }
 
-// function addAddress() {
 
-//     let housenumber = document.getElementById("housenumber").value;
-//     let floornumber = document.getElementById("floornumber").value;
-//     let street = document.getElementById("street").value;
-
-//     newAddress = { city: "karachi", houseNumber: housenumber, floorNumber: floornumber, street: street };
-
-//     if (queryString == "") {
-   
-//             sendData(`/address`,newAddress)
-//             .then(data => {
-
-//                 addressId = data.id
-//                 addUser()
-
-//                 document.getElementById("housenumber").value = "";
-//                 document.getElementById("floornumber").value = "";
-//                 document.getElementById("street").value = "";
-//             })
-//             .catch((error) => {
-//                 console.error('Error:', error);
-//             })
-//     } else {
-       
-//             updateData(`/address/${addressId}`,newAddress)
-//             .then(data => {
-
-//                 addressId = data.id
-//                 addUser()
-
-//                 document.getElementById("housenumber").value = "";
-//                 document.getElementById("floornumber").value = "";
-//                 document.getElementById("street").value = "";
-//             })
-//             .catch((error) => {
-//                 console.error('Error:', error);
-//             })
-//     }
-
-// }
 var areaIdToGetBlock;
 
 

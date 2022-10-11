@@ -53,7 +53,7 @@ public class AdminController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/complain")
     public ResponseEntity<Page<Complain>> getComplain(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize){
+                                                      @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
 
             Page<Complain> complain = adminService.getAllComplain(pageNumber,pageSize);
             return ResponseEntity.ok(complain);

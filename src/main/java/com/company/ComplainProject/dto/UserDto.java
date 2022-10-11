@@ -56,5 +56,5 @@ public class UserDto{
     private Set<Roles> roles = new HashSet<>();
 //                                                          Enums for user Status
     @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.IN_REVIEW;
+    private UserStatus status;
 }

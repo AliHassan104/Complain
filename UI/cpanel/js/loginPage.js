@@ -57,7 +57,7 @@ function loginData() {
 
     }
     else {
-         console.log("yes")
+        
         var wrongEmailAndPass=''
         wrongEmailAndPass +=
                         `
