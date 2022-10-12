@@ -22,6 +22,6 @@ public class PermissionRole {
     private Roles roles;
     @ManyToOne
     private Permission permission;
-    private Boolean canActive;
+    private Boolean canEdit;
     private Boolean canDelete;
 }

@@ -4,6 +4,7 @@ import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.PermissionDto;
 import com.company.ComplainProject.dto.PermissionRoleDto;
 import com.company.ComplainProject.model.PermissionRole;
+import com.company.ComplainProject.service.PermissionByRoleIdService;
 import com.company.ComplainProject.service.PermissionRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ public class PermissionRoleController {
 
     @Autowired
     PermissionRoleService permissionRoleService;
+    @Autowired
+    PermissionByRoleIdService permission;
 
     @PostMapping("/permission/role")
     public ResponseEntity<PermissionRoleDto> assignPermissionToRole(@RequestBody PermissionRoleDto permissionRoleDto){
@@ -34,7 +37,8 @@ public class PermissionRoleController {
     }
 
     @GetMapping("/permission/role/{id}")
-    public ResponseEntity<List<PermissionDto>> getAssignPermissionRolesById(@PathVariable Long id){
-        return ResponseEntity.ok(permissionRoleService.getAssignPermissionRolesById(id));
+    public ResponseEntity<List<PermissionRoleDto>> getAssignPermissionRolesById(@PathVariable Long id){
+
+        return ResponseEntity.ok(permission.getAssignPermissionRolesById(id));
     }
 }
