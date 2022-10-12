@@ -34,9 +34,8 @@ public class PollingQuestion {
     @JsonFormat(pattern = "HH:mm")
     private LocalTime end_time;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pollingQuestion_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<PollingOption> pollingOptions;
 
 }

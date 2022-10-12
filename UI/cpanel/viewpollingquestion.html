@@ -22,7 +22,7 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 	
-
+	<link class="js-stylesheet" href="/css/index.css" rel="stylesheet">
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/pollingquestiondetail.css">
 	<style>
@@ -37,6 +37,7 @@
 </head>
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+	<div id="preloader"></div>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -279,9 +280,16 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
+									<div style="overflow-x:auto;">
+										
+									
 									<table id="datatables-reponsive" class="table table-striped" style="width:100%">
 										
 									</table>
+									<div id="noRecordFound">
+
+									</div>
+								</div>
 								</div>
 							</div>
 						</div>

@@ -33,6 +33,8 @@ public class FirebaseMessagingService {
         this.firebaseMessaging = firebaseMessaging;
     }
 
+//     worker ko bhe notify
+//
 
     public void sendNotification(Note note, String token) throws FirebaseMessagingException {
         try{

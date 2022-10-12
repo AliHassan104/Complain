@@ -22,6 +22,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
 
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
+	<link class="js-stylesheet" href="/css/index.css" rel="stylesheet">
+
 
 	<style>
 		body {
@@ -37,7 +39,14 @@
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 
-	
+	<!-- <div class="preloader-wrapper " id="paginationDiv"> -->
+		<!-- <div  class="spinner-grow" role="status" id="calling">
+		<span class="sr-only">Loading...</span>
+	 	 </div> -->
+	<!-- </div> -->
+	<div id="preloader"></div>
+
+
 
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
@@ -244,7 +253,7 @@
 								<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded" alt="Charles Hall" /> 
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								
+
 								<a class="dropdown-item"  onclick="logOut()">Log out</a>
 							</div>
 						</li>
@@ -383,7 +392,7 @@
 														<span class="badge badge-danger-light" id="rejectperc"> <i
 																class="mdi mdi-arrow-bottom-right"></i>
 														</span>
-														<span class="text-muted">Complains Got Rejected</span>
+														<span class="text-muted">Total Complains</span>
 													</div>
 												</div>
 											</div>
@@ -483,7 +492,7 @@
 
 
 
-					
+
 
 
 						<div class="col-12 col-lg-6 col-xxl-6 d-flex">
