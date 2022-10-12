@@ -118,29 +118,28 @@
 </div> -->
 
         <div class="container-fluid">
-          <div class="card-header" style="display: flex;justify-content: center;"><h4>Achievements</h4></div>
+          <div style="display: flex;justify-content: center;"><h4>Achievements</h4></div>
           <div class="card" style="padding: 15px;" *ngIf="achievement.length > 0; else noachievement">
-            <div [routerLink]="['/achivementdetails/',list.id]" class="row" *ngFor="let list of achievement">
-              <!-- <a [routerLink]="['/achivementdetails/',list.id]"> -->
+
+            <div style="margin-bottom: 20px;" [routerLink]="['/achivementdetails/',list.id]" *ngFor="let list of achievement">
+              <div class="row" >
                 <div class="col-4">
                   <img style="height: 25vh;width: 100%;" src={{list.pictureUrl}} class="image" alt="image">
                 </div>
-                <div style="display: inline;" class="col-7">
-                  <h2 class="title">{{list.title}}</h2>
-                  <p class="">{{list.date | date:"fullDate"}}</p>
-                  <p class="">{{list.description | slice:0:150}} <b *ngIf="list.description.length > 150"> ...ReadMore</b> </p>
-                  <!-- <div>
-                    <button [routerLink]="['/achivementdetails/',list.id]" type="button" style="width: 35%;" class= "btn btn-outline-primary rounded shadowed me-1 mb-1">Details</button>
-                  </div> -->
+                <div style="display: inline;" class="col-8">
+                  <p style="font-size: 12px;" class="title"><b>{{list.title}}</b></p>
+                  <p style="font-size: 10px;" class="">{{list.date | date:"fullDate"}}</p>
                 </div>
-              <!-- </a> -->
               </div>
+
             </div>
+
+          </div>
           </div>
 
 
         <ng-template #noachievement>
-                  <p class="text-center">No Achievement Yet</p>
+            <p class="text-center">No Achievement Yet</p>
         </ng-template>
 
 
