@@ -3,8 +3,6 @@ var loginUserName = "";
 var loginUserId;
 
 tokenNotExist();
-// getUserData();
-
 
 
 function getToken() {
@@ -24,6 +22,8 @@ function decodeJwtToken(token) {
 
     return JSON.parse(jsonPayload);
 };
+
+
 
 
 function getData(url) {
@@ -47,6 +47,7 @@ function getData(url) {
                     window.open(exception500, "_self")
                     break;
                 case 401:
+                    localStorage.clear()
                     window.open(loginPage, "_self")
                     break;
             }
@@ -61,7 +62,6 @@ function getData(url) {
         })
         .catch((error) => {
             window.open(exception503, "_self")
-            console.log(error)
         })
 
 }
@@ -87,6 +87,7 @@ function sendData(url, data) {
                     window.open(exception500, "_self")
                     break;
                 case 401:
+                    localStorage.clear()
                     window.open(loginPage, "_self")
                     break;
 
@@ -105,6 +106,9 @@ function sendData(url, data) {
             console.log(error)
         });
 }
+
+
+
 
 function sendDataWithFormData(url, data) {
     var paginationDiv=document.getElementById('preloader')
@@ -126,6 +130,7 @@ function sendDataWithFormData(url, data) {
                     window.open(exception500, "_self")
                     break;
                 case 401:
+                    localStorage.clear()
                     window.open(loginPage, "_self")
                     break;
             }
@@ -180,6 +185,7 @@ function updateData(url, data) {
                     window.open(exception500, "_self")
                     break;
                 case 401:
+                    localStorage.clear()
                     window.open(loginPage, "_self")
                     break;
             }
@@ -217,6 +223,7 @@ function updateDataWithFormData(url, data) {
                     window.open(exception500, "_self")
                     break;
                 case 401:
+                    localStorage.clear()
                     window.open(loginPage, "_self")
                     break;
             }
@@ -255,6 +262,7 @@ function patchData(url, data) {
                     window.open(exception500, "_self")
                     break;
                 case 401:
+                    localStorage.clear()
                     window.open(loginPage, "_self")
                     break;
             }
@@ -276,7 +284,7 @@ function tokenNotExist() {
     let getRoles = []
 
     if (token != null) {
-      
+
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
         // Converting roles (string) into array
@@ -287,15 +295,14 @@ function tokenNotExist() {
             getRoles[i] = arrayOfRoles[i].trim()
         }
 
-        if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-            if (getRoles.includes("ROLE_WORKER")) {
-                window.open(loginPage, "_self")
-            }
-        }
-        else {
-            window.open(loginPage, "_self")
 
+        if(!getRoles.includes("ROLE_WORKER") && !getRoles.includes("ROLE_ADMIN")){
+            window.open(loginPage, "_self")
         }
+        else if(getRoles.includes("ROLE_WORKER")){
+            window.open(loginPage, "_self")
+        }
+
     }
     else {
         window.open(loginPage, "_self")

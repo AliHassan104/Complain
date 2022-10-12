@@ -1,6 +1,6 @@
 
 function loginData() {
-    debugger
+    
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
 
@@ -19,8 +19,9 @@ function loginData() {
             },
             body: JSON.stringify(loginCredentials)
         })
-            .then((response) => {
+        .then((response) => {
                 wrongEmailAndPass = '';
+
                     if(!response.ok){
                         wrongEmailAndPass +=
                         `
@@ -48,11 +49,12 @@ function loginData() {
                 if (data.jwt != null) {
                     localStorage.setItem("jwtToken", data.jwt)
                     location.href = `${loginUrl}/index.html`
+                    getUserData();
                     document.getElementById('password').value = ""
                 }
             })
-            .catch((response) => {
-                console.log("Only Admin Allow")
+            .catch((error) => {
+                console.log(error);
             });
         })
 
@@ -80,6 +82,9 @@ function loginData() {
                         },2000)
         }
 }
+
+
+
 
 
 

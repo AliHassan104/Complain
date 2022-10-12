@@ -178,17 +178,16 @@ public class UserService {
         return userListToUserDetailsResponseList(userList);
     }
 
-    public UserDetailsResponse updateLoginUserDeviceToken(String email,String deviceToken){
+    public void updateLoginUserDeviceToken(String email,String deviceToken){
         try {
             User user = userRepository.findUserByEmail(email);
             if(user != null && deviceToken != null){
                 user.setDeviceToken(deviceToken);
+                userToUserDetailsResponse(userRepository.save(user));
             }
             else {
                 logger.error("Device Token of user "+email+" is null cannot update it (device token)");
             }
-
-            return userToUserDetailsResponse(userRepository.save(user));
         }
         catch (Exception e){
             throw new UserNotFoundException("User having Email "+email+" not found");

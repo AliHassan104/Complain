@@ -44,8 +44,9 @@ public class LoginController {
         UserDetails userDetails = myUserDetailService.loadUserByUsername(loginCredentials.getEmail());
         String jwtToken = jwtUtil.generateToken(userDetails);
 //                                                                          Update device token
-        userService.updateLoginUserDeviceToken(loginCredentials.getEmail(),loginCredentials.getDeviceToken());
-
+        if(!jwtToken.isEmpty()) {
+            userService.updateLoginUserDeviceToken(loginCredentials.getEmail(), loginCredentials.getDeviceToken());
+        }
         return ResponseEntity.ok(new AuthenticationResponse(jwtToken));
 
         }
