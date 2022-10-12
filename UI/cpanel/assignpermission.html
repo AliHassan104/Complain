@@ -7,13 +7,13 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
-	
 
 	<link rel="preconnect" href="https://fonts.gstatic.com/">
 	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
 
 	<link rel="canonical" href="/index-2.html" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
 
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
@@ -22,21 +22,34 @@
 
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
     <link class="js-stylesheet" href="/css/permission.css" rel="stylesheet">
-	<link class="js-stylesheet" href="/css/index.css" rel="stylesheet">
+
 	<style>
 		body {
 			opacity: 0;
 		}
 	</style>
 	
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 	<script src="/js/properties.js"></script>
 	<script src="/js/customFetch.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
+		gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
+	</script>
 </head>
-
+<!--
+  HOW TO USE: 
+  data-theme: default (default), dark, light, colored
+  data-layout: fluid (default), boxed
+  data-sidebar-position: left (default), right
+  data-sidebar-layout: default (default), compact
+-->
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
-	<div id="preloader"></div>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -45,25 +58,41 @@
 						<b>Complain</b>
 						<!-- <sup><small class="badge bg-primary text-uppercase">Pro</small></sup> -->
 					</span>
-
+					<svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24"
+						fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"
+						color="#FFFFFF" style="margin-left: -3px">
+						<path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
+						<path d="M20 12L12 16L4 12"></path>
+						<path d="M20 16L12 20L4 16"></path>
+					</svg>
 				</a>
 
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded me-1"
+							<img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
 								alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
-							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" id="username">
-
+							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+								Charles Hall
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
-
-								<a class="dropdown-item" href="#" onclick="logOut()">Log out</a>
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+										data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="pie-chart"></i> Analytics</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1"
+										data-feather="settings"></i> Settings &
+									Privacy</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="help-circle"></i> Help Center</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Log out</a>
 							</div>
 
-							<div class="sidebar-user-subtitle">Admin</div>
+							<div class="sidebar-user-subtitle">Designer</div>
 						</div>
 					</div>
 				</div>
@@ -90,9 +119,9 @@
 						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse "
 							data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/addcomplaintype.html">Add Complain Type</a></li>
+									href="/complaintype/addcomplaintype.html">Add Complain Type</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewcomplaintype.html">View Complain Type</a></li>
+									href="/complaintype/viewcomplaintype.html">View Complain Type</a></li>
 						</ul>
 					</li>
 
@@ -120,12 +149,11 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">User</span>
 						</a>
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/adduser.html">Add User</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="adduser.html">Add User</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/viewuser.html">View User</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/pendingRequest.html">Pending Users</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/permission.html">Permission</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/assignpermission.html">Assign Permissions</a></li>
-
+                            <li class="sidebar-item"><a class="sidebar-link" href="/permission.html">Permission</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="/assignpermission.html">Assign Permissions</a></li>
 						</ul>
 					</li>
 
@@ -137,10 +165,10 @@
 								Timing</span>
 						</a>
 						<ul id="watertiming" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addwatertiming.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/watertiming/addwatertiming.html">Add
 									Water Timing</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewwatertiming.html">View Water Timing</a></li>
+									href="/watertiming/viewwatertiming.html">View Water Timing</a></li>
 						</ul>
 					</li>
 
@@ -152,9 +180,9 @@
 								class="align-middle">Document</span>
 						</a>
 						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/adddocument.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/adddocument.html">Add
 									Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/viewdocument.html">View
+							<li class="sidebar-item"><a class="sidebar-link" href="/document/viewdocument.html">View
 									Document</a></li>
 						</ul>
 					</li>
@@ -165,9 +193,9 @@
 								class="align-middle">Complain</span>
 						</a>
 						<ul id="complain" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addcomplain.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/complain/addcomplain.html">Add
 									Complain</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/viewcomplain.html">View
+							<li class="sidebar-item"><a class="sidebar-link" href="/complain/viewcomplain.html">View
 									Complain</a></li>
 						</ul>
 					</li>
@@ -178,10 +206,10 @@
 								class="align-middle">Achievement</span>
 						</a>
 						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addachievement.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/achievement/addachievement.html">Add
 									Achievement</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewachievement.html">View Achievement</a></li>
+									href="/achievement/viewachievement.html">View Achievement</a></li>
 						</ul>
 					</li>
 
@@ -194,9 +222,9 @@
 						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse "
 							data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/addpollingquestion.html">Add Polling Question</a></li>
+									href="/pollingquestion/addpollingquestion.html">Add Polling Question</a></li>
 							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewpollingquestion.html">View Polling Question</a></li>
+									href="/pollingquestion/viewpollingquestion.html">View Polling Question</a></li>
 						</ul>
 					</li>
 
@@ -205,9 +233,9 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Events</span>
 						</a>
 						<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addevents.html">Add
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/addevents.html">Add
 									Events</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/viewevents.html">View
+							<li class="sidebar-item"><a class="sidebar-link" href="/events/viewevents.html">View
 									Events</a></li>
 						</ul>
 					</li>
@@ -494,71 +522,34 @@
 				</div>
 			</nav>
 
-
             <main class="content">
-                
-				<div class="container-fluid p-4">
-
-                    <div id="formSubmitted" style="height: 5vh;">
-                        
-                    </div>
-
-					<div class="row mb-2 mb-xxl-4" >
-						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Add Permissions</strong> </h3>
-						</div>
-					</div>
+                <form>
+					<span class = "label label-default">Select Roles</span>
+                <select id="Roles" class="form-select" onchange="showPermissionUrls()">
                     
-					<div class="row">
+                </select>
+   
+				<table class="table">
+					<thead>
+					  <tr>
+						<th scope="col">#</th>
+						<th scope="col">URL</th>
+						<th scope="col">Can Active</th>
+						<th scope="col">Can Delete</th>
+						<th scope="col">Assign</th>
+					  </tr>
+					</thead>
+					<tbody id="UrlTable">
 
-                        <form>
-                            <fieldset>
-                                <div id="myDiv" class="row mb-3">
-
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Add Permissions</label>
-                                    
-                                    <div class="col-sm-10">  
-                                  	<input type="text" class="form-control" id="myInput" aria-describedby="emailHelp" placeholder="Enter Permissions">
-                                   
-                                    </div>
-                                  
-
-                                </div>
-                                <ul id="myUL">
-                                    
-                                </ul>
-                            </fieldset>
-                        </form>
-                        <div style="width: 100%;text-align: center; justify-content: center;">
-	
-                           <button  style="width: 12%;" type="submit" onclick="addPermission()" id="complaintypebtn" class="btn btn-primary" >Add</button>
-                        <br>
-                        </div>
-
-						<table class="UrlTable">
-							<thead>
-							  <tr>
-								<th scope="col">URL</th>
-							  </tr>
-							</thead>
-							<tbody id="UrlTable">
-		
-							
-							</tbody>
-						  </table>
-                        
-                        
-                        
-                    </div>
-                    
-				</div>
-                                        
-                </div>
+					
+					</tbody>
+				  </table>
+				  <button onclick="publish()" type="button" class="btn btn-info">submit</button>
+				</form>            
 			</main>
-
 		<script src="/js/app.js"></script>
 		<script src="/js/properties.js"></script>
-        <script src="/js/permission.js"></script>
+        <script src="/js/assignpermission.js"></script>
 
 </body>
 

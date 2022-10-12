@@ -26,13 +26,13 @@ public class PermissionController {
         }
     }
 
-    @GetMapping("/permission")
-    public ResponseEntity<List<PermissionDto>> getAllPermisssions(){
-        return ResponseEntity.ok(permissionService.getAllPermissions());
-    }
-
 //    @GetMapping("/permission/{id}")
-//    public ResponseEntity<List<PermissionDto>> getPermissionsByRoleId(@PathVariable Long id){
-//        return ResponseEntity.ok(permissionService.getPermissionsByRoleId(id));
+//    public ResponseEntity<List<PermissionDto>> getAllPermisssionsById(@PathVariable Long id){
+//        return ResponseEntity.ok(permissionService.getAllPermissionsById(id));
 //    }
+
+    @GetMapping("/permission")
+    public ResponseEntity<List<PermissionDto>> getAllPermission(){
+        return ResponseEntity.ok(permissionService.getAllPermission());
+    }
 }
