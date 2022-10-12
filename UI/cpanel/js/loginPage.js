@@ -1,6 +1,6 @@
 
 function loginData() {
-    debugger
+    
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
 
@@ -10,7 +10,8 @@ function loginData() {
             email: email,
             password: password
         }
-
+        // var paginationDiv=document.getElementById('preloader')
+        // paginationDiv.style.display='flex'
         fetch(`${baseUrl}/api/login`, {
             method: "POST",
             headers: {
@@ -18,8 +19,9 @@ function loginData() {
             },
             body: JSON.stringify(loginCredentials)
         })
-            .then((response) => {
+        .then((response) => {
                 wrongEmailAndPass = '';
+
                     if(!response.ok){
                         wrongEmailAndPass +=
                         `
@@ -40,24 +42,25 @@ function loginData() {
                             document.getElementById("notAllowed").innerHTML = ""
                         },2000)
                     }
-
+                    // paginationDiv.style.display='none'
                 response.json()
             
             .then((data) => {
                 if (data.jwt != null) {
                     localStorage.setItem("jwtToken", data.jwt)
                     location.href = `${loginUrl}/index.html`
+                    getUserData();
                     document.getElementById('password').value = ""
                 }
             })
-            .catch((response) => {
-                console.log("Only Admin Allow")
+            .catch((error) => {
+                console.log(error);
             });
         })
 
     }
     else {
-         console.log("yes")
+        
         var wrongEmailAndPass=''
         wrongEmailAndPass +=
                         `
@@ -69,7 +72,7 @@ function loginData() {
                         justify-content: center;
                         font-size: large" 
                         class="alert alert-danger" role="alert">
-                        Email Or Password Cannot be Empty
+                         Email Or Password is Empty 
                         </div>`
 
                         document.getElementById("notAllowed").innerHTML = wrongEmailAndPass
@@ -79,6 +82,9 @@ function loginData() {
                         },2000)
         }
 }
+
+
+
 
 
 

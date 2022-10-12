@@ -80,7 +80,7 @@ function deleteAchievement(id){
             height: 5vh; text-align: center; 
             justify-content: center;
             font-size: large" 
-            class="alert alert-danger" role="alert">
+            class="alert alert-success" role="alert">
             Achievement Deleted Successfully
             </div>`
 

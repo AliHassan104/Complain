@@ -35,10 +35,8 @@ public class UserController {
     public ResponseEntity<Page<User>> getUser(@RequestParam(value = "pageNumber" ,defaultValue = "0",required = false) Integer pageNumber ,
                                                              @RequestParam(value = "pageSize",defaultValue = "10",required = false) Integer pageSize){
         Page<User> user = userService.getAllUserWithPagination(pageNumber,pageSize);
-        if(!user.isEmpty()){
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(user);
+
     }
 
     @GetMapping("/user/{id}")
@@ -78,22 +76,15 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public ResponseEntity<Optional<UserDetailsResponse>> updateComplainTypeById(@PathVariable Long id,@RequestBody UserDto userDto){
-        try{
             return ResponseEntity.ok(userService.updateUserById(id,userDto));
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @GetMapping("/user/search")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
     public ResponseEntity<List<UserDetailsResponse>>  filteredUser(@RequestBody SearchCriteria searchCriteria){
         List<UserDetailsResponse> user = userService.getFilteredUser(searchCriteria);
-        if(!user.isEmpty()){
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(user);
+
     }
 
     @GetMapping("/user/export")
@@ -147,7 +138,7 @@ public class UserController {
      */
     @GetMapping("/user/getallworker")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<UserDetailsResponse>> getAllWorker(){
+    public ResponseEntity<List<UserDetailsResponse>> getAllWorkers(){
         try{
             return ResponseEntity.ok(userService.getAllWorkers());
         }catch (Exception e){

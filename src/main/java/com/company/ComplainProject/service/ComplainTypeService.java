@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AreaDto;
 import com.company.ComplainProject.dto.ComplainTypeDto;
 import com.company.ComplainProject.model.Area;
@@ -23,7 +24,12 @@ public class ComplainTypeService {
     }
 
     public Optional<ComplainType> getComplainTypeById(Long id) {
-        return complainTypeRepository.findById(id);
+        try {
+            return complainTypeRepository.findById(id);
+        }
+        catch (Exception e){
+            throw new ContentNotFoundException("No Complain Type Found having id "+id);
+        }
     }
 
     public void deleteComplainTypeById(Long id) {

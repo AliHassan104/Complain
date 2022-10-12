@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Register } from './register';
 // import { MainService } from '../Services/main.service';
 import { ToastUtilService } from '../Services/toast-util.service';
-import { AreaService } from '../Services/area.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from '../Services/register.service';
 
@@ -32,55 +31,6 @@ export class RegisterPageComponent implements OnInit {
   goToLogin(){
     this.router.navigate([""]);
   }
-
-  // registerUser(){
-  //   if(this.checked === false && this.registerObj.password === this.confirmPassword){
-  //     this.toastService.showToast("Agree to terms and conditions first","#toast-16")
-  //   }
-  //   else if(this.checked && this.registerObj.password !== this.confirmPassword){
-  //     this.toastService.showToast("You entered wrong password","#toast-16")
-  //   }
-  //   else if(this.checked === false && this.registerObj.password !== this.confirmPassword){
-  //     this.toastService.showToast("You entered wrong password","#toast-16")
-  //   }
-  //   else if(this.checked && this.registerObj.password === this.confirmPassword){
-  //   this.service.registerUser(this.registerObj).subscribe(d=>{
-  //     if(d.status == 200){
-  //       this.toastService.showToast("Success","#toast-15");
-  //       this.emptyObj();
-  //       setTimeout(()=>this.router.navigate(['']),3000);
-  //     }
-  //     else{
-  //       this.toastService.showToast("User Already Exists","#toast-16")
-  //     }
-
-  //   })
-  // }else{
-  //   this.toastService.showToast("Enter all required fields","#toast-16")
-  // }
-
-  // }
-
-  // emptyValue(){
-  //   this.registerObj.userType = null;
-  // }
-
-  // insertValue1(){
-  //     this.registerObj.userType = "USER"
-  //     // console.log(this.registerObj.userType)
-
-  // }
-
-  // insertValue2(){
-  //   this.registerObj.userType = "ADMIN"
-  //   // console.log(this.registerObj.userType)
-  // }
-
-  // emptyObj(){
-  //   this.registerObj.email = null;
-  //   this.registerObj.name = null;
-  //   this.registerObj.password = null;
-  // }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -126,6 +76,7 @@ registerForm = new FormGroup({
   numberOfFamilyMembers : new FormControl('',[ Validators.required]), // Validators.pattern('^[1-9][0-9]{2}$')
   property : new FormControl(null,[ Validators.required]),
   userType : new FormControl(),
+  status : new FormControl(),
   deviceToken : new FormControl(),
   address : new FormGroup({
     // id : new FormControl()
@@ -166,6 +117,7 @@ registerForm = new FormGroup({
   userSubmit(userData: any){
 
     this.registerForm.value.userType = "Customer"
+    this.registerForm.value.status = "IN_REVIEW"
     this.registerForm.value.deviceToken = localStorage.getItem("deviceId")
 
     this.userPost(this.registerForm)
@@ -174,12 +126,15 @@ registerForm = new FormGroup({
 
   userPost(data: any){
     // setTimeout(() => {
+      // console.log(123);
+
+      // console.log(data.value);
+
       this.registerService.postUser(data.value).subscribe(userData => {
         this.toastService.showToast("Registered Successfully Your Account Will Be Active With In 24 Hours", "#toast-15")
         this.router.navigate(['register-pending']);
       }, error => {
-        console.log(error.message);
-        this.toastService.showToast("Not Registered", "#toast-16");
+        this.toastService.showToast(error.error[0].message, "#toast-16");
       });
   }
 

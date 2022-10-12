@@ -47,7 +47,12 @@ public class AchievementService {
     }
 
     public void deleteAchievementById(Long id) {
-        achievementRepository.deleteById(id);
+        try {
+//         First we will delete the image
+            achievementRepository.deleteById(id);
+        }catch (Exception e){
+            throw new ContentNotFoundException("Cannot Delete No Achievement Exist Having id "+id);
+        }
     }
 
     public AchievementsDto addAchievement(AchievementsDto achievementsDto) {
@@ -59,14 +64,18 @@ public class AchievementService {
     }
 
     public AchievementsDto updateAchievementById(Long id, AchievementsDto achievementsDto) {
-        Achievements updateAchievement = getAllAchievement().stream().filter(el->el.getId().equals(id)).findAny().get();
-        if(updateAchievement != null){
-            updateAchievement.setTitle(achievementsDto.getTitle());
-            updateAchievement.setDescription(achievementsDto.getDescription());
-            updateAchievement.setPictureUrl(achievementsDto.getPictureUrl());
-            updateAchievement.setDate(achievementsDto.getDate());
+        try {
+            Achievements updateAchievement = getAllAchievement().stream().filter(el -> el.getId().equals(id)).findAny().get();
+            if (updateAchievement != null) {
+                updateAchievement.setTitle(achievementsDto.getTitle());
+                updateAchievement.setDescription(achievementsDto.getDescription());
+                updateAchievement.setPictureUrl(achievementsDto.getPictureUrl());
+                updateAchievement.setDate(achievementsDto.getDate());
+            }
+            return toDto(achievementRepository.save(updateAchievement));
+        }catch (Exception e){
+            throw new RuntimeException("Cannot Update Achievement "+e);
         }
-        return toDto(achievementRepository.save(updateAchievement));
     }
 
     public Achievements dto(AchievementsDto achievementsDto){

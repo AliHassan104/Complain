@@ -24,7 +24,7 @@
 
 
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
-
+	<link class="js-stylesheet" href="/css/index.css" rel="stylesheet">
 	<style>
 		body {
 			opacity: 0;
@@ -36,6 +36,7 @@
 </head>
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+	<div id="preloader"></div>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -223,7 +224,9 @@
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
-                
+                <a class="sidebar-toggle js-sidebar-toggle">
+					<i class="hamburger align-self-center"></i>
+				</a>
             
 
                 <div class="navbar-collapse collapse">

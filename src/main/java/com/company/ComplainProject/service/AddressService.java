@@ -25,7 +25,11 @@ public class AddressService {
     }
 
     public List<AddressDto> getAllAddressDto() {
-        return addressListToAddressDtoList(addressRepository.findAll());
+        List<AddressDto> addressDtoList =  addressListToAddressDtoList(addressRepository.findAll());
+        if(!addressDtoList.isEmpty()){
+            return addressDtoList;
+        }
+        throw new ContentNotFoundException("No Address Exist");
     }
 
     public AddressDto getAddressById(Long id) {
@@ -37,7 +41,12 @@ public class AddressService {
     }
 
     public void deleteAddressById(Long id) {
-        addressRepository.deleteById(id);
+        try{
+            addressRepository.deleteById(id);
+        }catch (Exception e){
+            throw new ContentNotFoundException("Cannot Delete No Address Exist Having id "+id);
+        }
+
     }
 
     public AddressDto addAddress(AddressDto addressDto) {
@@ -45,26 +54,33 @@ public class AddressService {
     }
 
     public AddressDto updateAddressById(Long id, AddressDto addressDto) {
-        Optional<Address> updateAddress = addressRepository.findById(id);
-        if(updateAddress.isPresent()){
-            updateAddress.get().setCity(addressDto.getCity());
-            updateAddress.get().setFloorNumber(addressDto.getFloorNumber());
-            updateAddress.get().setHouseNumber(addressDto.getHouseNumber());
-            // updateAddress.get().setStreet(addressDto.getStreet());
+        try {
+            Optional<Address> updateAddress = addressRepository.findById(id);
+            if (updateAddress.isPresent()) {
+                updateAddress.get().setCity(addressDto.getCity());
+                updateAddress.get().setFloorNumber(addressDto.getFloorNumber());
+                updateAddress.get().setHouseNumber(addressDto.getHouseNumber());
+            }
+            else{
+                throw new ContentNotFoundException("Cannot Update No Address Exist having id "+id);
+            }
+            return toDto(addressRepository.save(updateAddress.get()));
         }
-        return toDto(addressRepository.save(updateAddress.get()));
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong while updating address");
+        }
     }
 
     public Address dto(AddressDto addressDto){
         return Address.builder().id(addressDto.getId()).city(addressDto.getCity())
                 .houseNumber(addressDto.getHouseNumber()).floorNumber(addressDto.getFloorNumber()).build();
-                // .street(addressDto.getStreet()).build();
+
     }
 
     public AddressDto toDto(Address address){
         return  AddressDto.builder().id(address.getId()).city(address.getCity())
                 .houseNumber(address.getHouseNumber()).floorNumber(address.getFloorNumber()).build();
-                // .street(address.getStreet()).build();
+
     }
 
     public List<AddressDto> addressListToAddressDtoList(List<Address> address){

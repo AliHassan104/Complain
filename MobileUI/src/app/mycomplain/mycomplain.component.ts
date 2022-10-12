@@ -114,7 +114,7 @@ export class MycomplainComponent implements OnInit {
       this.toastService.showToast("Complain Submitted", "#toast-15")
 
       },error => {
-        this.toastService.showToast("Complain Not Submitted", "#toast-16");
+        this.toastService.showToast(error.error[0].message, "#toast-16");
       });
 
 
@@ -163,22 +163,22 @@ getToken() {
     return null;
   }
 
-decodeJwtToken(token: string) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-};
+// decodeJwtToken(token: string) {
+//     var base64Url = token.split('.')[1];
+//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//     }).join(''));
+//     return JSON.parse(jsonPayload);
+// };
 
-getEmailByToken(){
-  let  encodedToken = this.decodeJwtToken(this.getToken())
-  return encodedToken.sub;
-}
+// getEmailByToken(){
+//   let  encodedToken = this.decodeJwtToken(this.getToken())
+//   return encodedToken.sub;
+// }
 
 getUser() {
-  const email = this.getEmailByToken()
+  // const email = this.getEmailByToken()
   let user: any
   this.userService.getUser().subscribe(data => {
 

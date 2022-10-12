@@ -11,10 +11,10 @@ import { NewPasswordService } from './new-password.service';
 })
 export class NewPasswordComponent implements OnInit {
 
-  constructor(private NewPasswordService:NewPasswordService 
+  constructor(private NewPasswordService:NewPasswordService
     ,private routes:ActivatedRoute
     , private toastService:ToastUtilService) {
-      
+
      }
 
   form = new FormGroup({
@@ -36,8 +36,8 @@ export class NewPasswordComponent implements OnInit {
     this.routes.queryParams.subscribe(params=>this.id=params.userId)
     this.routes.queryParams.subscribe(params=>this.otp1=params.otp)
 
-  
-    
+
+
   }
 
   updatePassword(newPass:any){
@@ -45,8 +45,8 @@ export class NewPasswordComponent implements OnInit {
     // console.log(this.id)
     // console.log(this.otp1);
     // console.log(newPass);
-    
-    
+
+
     this.forgetPasswordDetails={
         id: this.id,
         otp:this.otp1,
@@ -55,7 +55,7 @@ export class NewPasswordComponent implements OnInit {
         if(newPass.newpassword==newPass.confirmpassword){
 this.NewPasswordService.updatePasswordInDb(this.forgetPasswordDetails).subscribe(
             data=>{
-              console.log(data)
+              // console.log(data)
               this.toastService.showToast("PASWORD UPDATED", "#toast-15")
             },error=>{
               this.toastService.showToast("INVALID", "#toast-16");
@@ -65,20 +65,20 @@ this.NewPasswordService.updatePasswordInDb(this.forgetPasswordDetails).subscribe
           this.toastService.showToast("PASSWORD DIDN'T MATCH", "#toast-16");
         }
 
-          
-          
-       
+
+
+
   }
 
         // getAllOtpFromDb(){
         //   return this.NewPasswordService.getAllOtp().subscribe((data)=>{
-            
+
         //     this.myArray = data;
         //     console.log(this.myArray);
-            
+
         //     return data;
         //   })
 
-  //} 
+  //}
 
 }

@@ -46,4 +46,8 @@ public interface UserRepository extends JpaRepository<User,Long> ,JpaSpecificati
 
     @Query("SELECT u FROM User u where u.userType = :type AND u.area = :area")
     List<User> getAllWorkerByArea(@Param("type") UserType userType, @Param("area")Area area);
+
+    @Query("SELECT u FROM User u where u.cnic = :cnic")
+    User getAllUserByCnic(@Param("cnic") String cnic);
+
 }

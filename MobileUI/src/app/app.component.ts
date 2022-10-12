@@ -33,7 +33,7 @@ export class AppComponent {
     this.id = sessionStorage.getItem("userId");
     if(sessionStorage.length > 0 && this.id != null){
       this.service.getAllNotifications(this.id).subscribe(d=>{
-        console.log("notifications on app component")
+        // console.log("notifications on app component")
         if(d.status == 200){
 
           d.result.map(data=>{
@@ -41,7 +41,7 @@ export class AppComponent {
           })
         }
         else{
-          console.log("no new notifications");
+          // console.log("no new notifications");
 
         }
 
@@ -66,7 +66,7 @@ export class AppComponent {
     else if (Notification.permission !== "denied") {
       Notification.requestPermission().then(function (permission) {
         // If the user accepts, let's create a notification
-        console.log(permission)
+        // console.log(permission)
         if (permission === "granted") {
           // console.log(notification)
           this.showNotification(msg);

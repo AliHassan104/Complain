@@ -54,14 +54,14 @@ function renderComplainDetails(){
                 renderComplainLogs += `
                 <div class="card">
                 <div class="card-header">
-                    <h4>${data.complainLog[i].status}</h4>
+                    <li><b>${data.complainLog[i].status}</b></li>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon3">Assigned From</span>
+                                    <span class="input-group-text" id="basic-addon3"><b>Assigned From</b></span>
                                  </div>
                             <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${adminfirstname}" disabled>
                               </div>
@@ -70,7 +70,7 @@ function renderComplainDetails(){
                         <div class="col-4">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon3">Assigned To</span>
+                                    <span class="input-group-text" id="basic-addon3"><b>Assigned To</b></span>
                                  </div>
                             <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${workerfirstname}"  disabled>
                               </div>
@@ -79,7 +79,7 @@ function renderComplainDetails(){
                         <div class="col-4">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon3">Date</span>
+                                    <span class="input-group-text" id="basic-addon3"><b>Date</b></span>
                                  </div>
                             <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${data.complainLog[i].date}"  disabled>
                               </div>
@@ -89,7 +89,7 @@ function renderComplainDetails(){
                                 
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">Description</span>
+                          <span class="input-group-text"><b>Description</b></span>
                         </div>
                         <textarea class="form-control" aria-label="With textarea" placeholder="${data.complainLog[i].description}"  disabled ></textarea>
                       </div>

@@ -2,8 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AchievementService } from '../Services/achievement.service';
 import { EventsService } from '../Services/events.service';
-import { PostService } from '../Services/post.service';
-import { ToastUtilService } from '../Services/toast-util.service';
 import { UserService } from '../Services/user.service';
 
 @Component({
@@ -61,23 +59,10 @@ export class HomeComponent implements OnInit {
    }
    ngOnInit(): void {
     this.getAchievements()
-    // this.getEvents()
-    // this.getToken()
-    // this.decodeJwtToken(this.getToken())
-    // this.getEmailByToken()
     this.getUser()
   }
 
   achievement : any = []
-
-  // lengthOfAchievements : any
-  // lengthOfAchivement(){
-  //   if (this.achievement.length == null) {
-  //     this.lengthOfAchievements = false
-  //   }else{
-  //     this.lengthOfAchievements = true
-  //   }
-  // }
 
   getAchievements() {
     this.achievementService.getAllAchievement().subscribe(data => {
@@ -89,15 +74,6 @@ export class HomeComponent implements OnInit {
 
   events : any = []
 
-  // getEvents() {
-  //   this.eventService.getAllEvent().subscribe(data => {
-  //     this.events = data
-  //     this.Images.push(data)
-  //     // console.log(data);
-  //   }, error => {
-  //     console.log(error);
-  //   });
-  // }
   getEventsByArea() {
     this.eventService.getEventByArea(this.areaId).subscribe(data => {
       this.events = data
@@ -117,23 +93,23 @@ export class HomeComponent implements OnInit {
 
 
 
-decodeJwtToken(token: string) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-};
+// decodeJwtToken(token: string) {
+//     var base64Url = token.split('.')[1];
+//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//     }).join(''));
+//     return JSON.parse(jsonPayload);
+// };
 
-getEmailByToken(){
-  let  encodedToken = this.decodeJwtToken(this.getToken())
-  return encodedToken.sub;
-}
+// getEmailByToken(){
+//   let  encodedToken = this.decodeJwtToken(this.getToken())
+//   return encodedToken.sub;
+// }
 
 getUser() {
   let user : any
-  const email = this.getEmailByToken()
+  // const email = this.getEmailByToken()
   this.userService.getUser().subscribe(data => {
 
     user = data

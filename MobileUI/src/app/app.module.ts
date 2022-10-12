@@ -10,21 +10,7 @@ import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { OwlModule } from 'ngx-owl-carousel';
-// import { ProfileComponent } from './profile/profile.component';
-// import { AppSideBarComponent } from './app-side-bar/app-side-bar.component';
 import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
-// import { NotificationsComponent } from './notifications/notifications.component';
-// import { PostComponent } from './post/post.component';
-// import { BlogpostComponent } from './blogpost/blogpost.component';
-// import { ViewImageComponent } from './view-image/view-image.component';
-// import { ChatComponent } from './chat/chat.component';
-
-// import { AddEventComponent } from './add-event/add-event.component';
-// import { DiscoverEventsComponent } from './discover-events/discover-events.component';
-// import { EventPreviewComponent } from './event-preview/event-preview.component';
-// import { ChatroomComponent } from './chatroom/chatroom.component';
-// import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-// import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -45,16 +31,12 @@ import { AchievementdetailedComponent } from './achievementdetailed/achievementd
 import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
 import { PollingsubmitComponent } from './pollingsubmit/pollingsubmit.component';
 import { HomeGuard } from './Guards/home.guard';
-// import { Header} from './interceptor/header.interceptor';
 import { TimePipe } from './Pipes/time.pipe';
 import { HeaderInterceptor } from './Interceptor/header.interceptor';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { RegisterpendingComponent } from './registerpending/registerpending.component';
-
-
-
-
+import { ResponseInterceptor } from './Interceptor/response.interceptor';
 
 
 @NgModule({
@@ -62,20 +44,7 @@ import { RegisterpendingComponent } from './registerpending/registerpending.comp
     AppComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    // NewsfeedPageComponent,
-    // ProfileComponent,
-    // AppSideBarComponent,
     BottomMenuComponent,
-    // NotificationsComponent,
-    // PostComponent,
-    // BlogpostComponent,
-    // ViewImageComponent,
-    // ChatComponent,
-    // AddEventComponent,
-    // DiscoverEventsComponent,
-    // EventPreviewComponent,
-    // ChatroomComponent,
-    // ResetPasswordComponent,
     HomeComponent,
     MycomplainComponent,
     AchievementComponent,

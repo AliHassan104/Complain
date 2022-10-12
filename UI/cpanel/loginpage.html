@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="/js/properties.js"></script>
+  
+	<script src="/js/properties.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,22 +25,25 @@
     <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
   <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/loginpage.css">
+	<link class="js-stylesheet" href="/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
 </head>
 <body>
-
+	<!-- <div id="preloader"></div> -->
   <div class="limiter"  >
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<!-- <img src="images/img-01.png" alt="IMG"> -->
+					
           <img src="./img/photos/Jamaat-e-Islami_Pakistan_Logo.svg.png">
 				</div>
 
 				<form class="login100-form validate-form" >
 					<span class="login100-form-title">
-            <h2 style="font-style: italic;">Cantonment Board Faisal Ward 2</h2>
+            	<h2 style="font-style: italic;">Cantonment Board Faisal Ward 2</h2>
 					</span>
+					<div id="notAllowed"></div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email" id="email">
@@ -48,6 +52,7 @@
 						<i class="fa fa-envelope"></i>
 						</span>
 					</div>
+					<!-- <div style="font-size:smaller; color: red;" >Email is wrong</div> -->
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
 						<input class="input100" type="password" name="pass" placeholder="Password" id="password">

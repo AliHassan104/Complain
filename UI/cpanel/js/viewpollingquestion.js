@@ -80,6 +80,16 @@ function renderPollingQuestion(data) {
     }
 
     document.getElementById("datatables-reponsive").innerHTML = table;
+
+    if (data.length === 0) {
+        notimings = ""
+        notimings += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+                class="alert alert-danger" role="alert" >No Polling Question Found</span> `
+        document.getElementById("noRecordFound").innerHTML = notimings
+    }
+    else{
+        document.getElementById("noRecordFound").innerHTML = ""
+    }
 }
 
 function showPollingQuestionDetails(id) {
