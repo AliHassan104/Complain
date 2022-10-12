@@ -11,6 +11,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,23 +27,29 @@ public class FirebaseMessagingService {
     @Autowired
     UserService userService;
 
+    private final Logger logger = LoggerFactory.getLogger(FirebaseMessagingService.class);
 
     public FirebaseMessagingService(FirebaseMessaging firebaseMessaging) {
         this.firebaseMessaging = firebaseMessaging;
     }
 
 
-    public String sendNotification(Note note, String token) throws FirebaseMessagingException {
+    public void sendNotification(Note note, String token) throws FirebaseMessagingException {
         try{
-            Notification notification = new Notification(note.getSubject(),note.getContent());
+            if(token != null) {
+                Notification notification = new Notification(note.getSubject(), note.getContent());
 
-            Message message = Message
-                    .builder()
-                    .setToken(token)
-                    .setNotification(notification)
-                    .build();
+                Message message = Message
+                        .builder()
+                        .setToken(token)
+                        .setNotification(notification)
+                        .build();
 
-            return firebaseMessaging.send(message);
+                firebaseMessaging.send(message);
+            }
+            else{
+                logger.error("Device Token is null");
+            }
         }
         catch (Exception e){
             throw new ExceptionInFirebaseMessaging("Cannot Send Message Firebase message Exception "+e);
@@ -49,15 +57,18 @@ public class FirebaseMessagingService {
     }
 
 
-    public String sendNotificationToUserOnComplainStatusChange(ComplainDto complainDto) {
+    public void sendNotificationToUserOnComplainStatusChange(ComplainDto complainDto) {
         try {
+            if(complainDto.getUser().getDeviceToken() != null) {
+                Note note = new Note();
+                note.setSubject("Your Complain is in " + complainDto.getStatus());
+                note.setContent("Your Complain of " + complainDto.getComplainType().getName() + " is in " + complainDto.getStatus());
 
-            Note note = new Note();
-            note.setSubject("Your Complain is in " + complainDto.getStatus());
-            note.setContent("Your Complain of " +complainDto.getComplainType().getName() + " is in " + complainDto.getStatus());
-
-
-            return sendNotification(note, complainDto.getUser().getDeviceToken());
+                sendNotification(note, complainDto.getUser().getDeviceToken());
+            }
+            else{
+                logger.error("Device Token of "+complainDto.getUser().getEmail()+" is null");
+            }
 
         }catch (Exception e){
             throw new ExceptionInFirebaseMessaging("Cannot send Notification to user on complain status change "+e);
@@ -74,7 +85,12 @@ public class FirebaseMessagingService {
             List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block", ":", waterTiming.getBlock()));
 
             for (UserDetailsResponse users : userList) {
-                sendNotification(note, users.getDeviceToken());
+                if(users.getDeviceToken() != null) {
+                    sendNotification(note, users.getDeviceToken());
+                }
+                else{
+                    logger.error("Device Token of "+users.getEmail()+" is null");
+                }
             }
         }
         catch (Exception e){
@@ -92,7 +108,12 @@ public class FirebaseMessagingService {
             List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", event.getArea()));
 
             for (UserDetailsResponse users : userList) {
-                sendNotification(note, users.getDeviceToken());
+                if(users.getDeviceToken() != null) {
+                    sendNotification(note, users.getDeviceToken());
+                }
+                else{
+                    logger.error("Device Token of "+users.getEmail()+" is null");
+                }
             }
         }
         catch (Exception e){
@@ -110,7 +131,12 @@ public class FirebaseMessagingService {
             List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", pollingQuestion.getArea()));
 
             for (UserDetailsResponse users : userList) {
-                sendNotification(note, users.getDeviceToken());
+                if(users.getDeviceToken() != null) {
+                    sendNotification(note, users.getDeviceToken());
+                }
+                else{
+                    logger.error("Device Token of "+users.getEmail()+" is null");
+                }
             }
         }
         catch (Exception e){

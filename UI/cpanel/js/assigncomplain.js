@@ -98,20 +98,17 @@ function updateStatus() {
 
     patchData(`/admin/complain/${complain_id}`,updatedstatusData)
         .then(data => {
-            assignComplain(data.id)                                                           //  Send Notification to that customer about complain status
-        
+            assignComplain(data.id)                                                      
             })
         .catch((error) => {
             console.error('Error:', error);
         });
 }
 
-function giveNotificationToUserOnComplainStatus(complain_id){
-    sendData(`/send-notification-touser/${complain_id}`)
-}
+
 
 function assignComplain(complain_id){
-
+    
     let complainLog = {
         assignedFrom:{
             id:loginUserId
@@ -120,10 +117,14 @@ function assignComplain(complain_id){
             id:document.getElementById("worker_id").value
         }  
     }
-     console.log(complainLog)
+
     sendData(`/complainlog/${complain_id}`,complainLog)
     .then((data)=>{
-        
+        $('#assignStatusModal').modal('show');
+
+        setTimeout(()=>{
+            $('#assignStatusModal').modal('hide');
+        },2000)
     })
 
 }

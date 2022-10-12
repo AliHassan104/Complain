@@ -132,7 +132,6 @@ function formSubmit() {
         sendData(`/pollingquestion`, newPollingQuestion)
             .then(data => {
                 
-                sendNotificationToUsersOnNewPollingQuestion(data.id)
 
                 messageRender += `
                     <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 

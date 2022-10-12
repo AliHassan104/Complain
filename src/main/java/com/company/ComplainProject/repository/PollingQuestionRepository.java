@@ -19,11 +19,10 @@ public interface PollingQuestionRepository extends JpaRepository<PollingQuestion
     PollingQuestion findPollingQuestionById(@Param("id") Long id);
 
 
+    @Query(value = "SELECT * FROM polling_question as p  WHERE p.area_id = :area_id  AND Timestamp(p.end_date,p.end_time) > CURRENT_TIMESTAMP()\n" +
+            "AND p.id not in (SELECT ans.question_id FROM polling_answer as ans WHERE ans.user_id = :user_id );",nativeQuery = true)
+    List<PollingQuestion> getAllPollingQuestionForUser(@Param("area_id") Long area_id,@Param("user_id") Long user_id);
 
 
 
-
-    @Query("SELECT p FROM PollingQuestion p  WHERE p.area.id = :area_id AND DATE(p.end_date) >= CURDATE() AND p.end_time >= CURRENT_TIME()\n" +
-            "AND p.id not in (SELECT ans.pollingQuestion FROM PollingAnswer ans WHERE ans.user.id = :user_id)")
-    List<PollingQuestion> findAllPollingQuestionByUser(@Param("area_id") Long area_id,@Param("user_id") Long user_id);
 }

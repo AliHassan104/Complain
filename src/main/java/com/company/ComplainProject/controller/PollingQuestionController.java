@@ -78,24 +78,12 @@ public class PollingQuestionController {
         }
     }
 
-//                                                     Show this api in get all polling question by user
-//                                                     Polling questions for customer
+//                      get the polling questions for customers
 
     @GetMapping("/pollingquestion/get-all-pollingquestion-for-user")
-    public ResponseEntity<List<PollingQuestion>> getPollingQuestionsNotAnsweredByUser(){
-        try{
-            return ResponseEntity.ok(pollingQuestionService.getPollingQuestionsNotAnsweredByUserService());
-        }catch (Exception e){
-            System.out.println(e);
-            throw new ContentNotFoundException("No questions for user id ");
-        }
+    public ResponseEntity<List<PollingQuestion>> getAllPollingQuestionsByUser(){
+        return ResponseEntity.ok(pollingQuestionService.getAllPollingQuestionByUser());
     }
-
-
-//    @GetMapping("/getpollingquestions")
-//    public ResponseEntity<List<PollingQuestion>> getAllPollingQuestionsByUser(){
-//        return ResponseEntity.ok(pollingQuestionService.getAllPollingQuestionByUser());
-//    }
 
 
 

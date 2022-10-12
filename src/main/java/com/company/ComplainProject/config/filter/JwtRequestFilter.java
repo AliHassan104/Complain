@@ -61,8 +61,7 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 
         filterChain.doFilter(request, response);
         } catch (Exception e) {
-
-            ExceptionResponseDto exception= new ExceptionResponseDto(HttpStatus.BAD_REQUEST, LocalDateTime.now().toString(),"Jwt Token is Expired");
+            ExceptionResponseDto exception= new ExceptionResponseDto(HttpStatus.UNAUTHORIZED, LocalDateTime.now().toString(),"Jwt Token is Expired");
             response.setStatus(401);
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().write(new Gson().toJson(exception));

@@ -37,8 +37,6 @@ public class UserDto{
     private String email;
 
     private String password;
-
-    @UniqueContactNumber
     private Long phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;

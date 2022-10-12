@@ -170,8 +170,7 @@ public class ComplainController {
     @GetMapping("getcomplainbyarea/{area_id}")
     public ResponseEntity<Page<Complain>> getAllComplainByArea(@PathVariable("area_id") Long area_id,
                                                                 @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                               @RequestParam(value = "pageSize",defaultValue = "30",required = false) Integer pageSize){
-
+                                                               @RequestParam(value = "pageSize",defaultValue = "50",required = false) Integer pageSize){
             return ResponseEntity.ok(complainService.getallComplainByArea(area_id,pageNumber,pageSize));
     }
 
@@ -185,7 +184,7 @@ public class ComplainController {
      */
     @GetMapping("getcomplainbycomplaintype/{c_type_id}")
     public ResponseEntity<Page<Complain>> getAllComplainByComplainType(@PathVariable("c_type_id") Long complainType_id,
-                                                                @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "30",required = false) Integer pageSize){
+                                                                @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "50",required = false) Integer pageSize){
 
             return ResponseEntity.ok(complainService.getallComplainByComplainType(complainType_id,pageNumber,pageSize));
     }

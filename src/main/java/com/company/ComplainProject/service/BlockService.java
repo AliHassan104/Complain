@@ -24,9 +24,14 @@ public class BlockService {
 
 
     public BlockDto addBlockInRecord(BlockDto blockDto) {
-        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(blockDto.getArea().getId())).findAny().get();
-        blockDto.setArea(area);
-        return todto(blockRepository.save(dto(blockDto)));
+        try {
+            Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(blockDto.getArea().getId())).findAny().get();
+            blockDto.setArea(area);
+            return todto(blockRepository.save(dto(blockDto)));
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong cannot add block "+e);
+        }
     }
 
     public List<Block> getAllBlocks(){
@@ -73,9 +78,13 @@ public class BlockService {
      * @return
      */
     public List<Block> getBlockByArea(Long areaid) {
-        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
-        List<Block> getBlockByArea = blockRepository.getAllBlockByArea(area);
-        return getBlockByArea;
+        try {
+            Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
+            List<Block> getBlockByArea = blockRepository.getAllBlockByArea(area);
+            return getBlockByArea;
+        }catch (Exception e){
+            throw new RuntimeException("No Block exist having area id "+areaid+"  "+e);
+        }
     }
 
 

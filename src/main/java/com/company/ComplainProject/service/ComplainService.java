@@ -69,7 +69,7 @@ public class ComplainService {
             complainRepository.deleteById(id);
         }
         catch (Exception e){
-            throw new RuntimeException("No Complain Exist having id "+id+"   "+e);
+            throw new ContentNotFoundException("No Complain Exist having id "+id);
         }
 
     }

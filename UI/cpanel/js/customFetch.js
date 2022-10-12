@@ -2,8 +2,10 @@ var userDetails = "";
 var loginUserName = "";
 var loginUserId;
 
+
+
 tokenNotExist();
-// getUserData();
+getUserData();
 
 
 function getToken() {
@@ -38,28 +40,27 @@ function getData(url) {
 
             switch (response.status) {
                 case 404:
-                    window.open(`${exception404}`, "_self")
+                    window.open(exception404,"_self")
                     break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self")
+                    window.open(exception500,"_self")
                     break;
                 case 401:
-                    window.open(loginPage, "_self")
+                    window.open(loginPage,"_self")
                     break;
             }
 
             return response.json()
-
                 .then((data) => {
                     return data;
                 })
                 .catch((err) => {
-                    console.log(response.status)
+                    
                 })
         })
         .catch((error) => {
+            window.open(exception503,"_self")
             console.log(error)
-        
         })
 
 }
@@ -76,13 +77,13 @@ function sendData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self")
+                    window.open(exception404,"_self")
                     break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self")
+                    window.open(exception500,"_self")
                     break;
                 case 401:
-                    window.open(loginPage, "_self")
+                    window.open(loginPage,"_self")
                     break;
             }
             return response.json()
@@ -94,6 +95,7 @@ function sendData(url, data) {
                 })
         })
         .catch((error) => {
+            window.open(exception503,"_self")
             console.log(error)
         });
 }
@@ -109,13 +111,13 @@ function sendDataWithFormData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self")
+                    window.open(exception404,"_self")
                     break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self")
+                    window.open(exception500,"_self")
                     break;
                 case 401:
-                    window.open(loginPage, "_self")
+                    window.open(loginPage,"_self")
                     break;
             }
 
@@ -126,6 +128,7 @@ function sendDataWithFormData(url, data) {
             })
         })
         .catch((error) => {
+            window.open(exception503,"_self")
             console.log(error)
         });
 }
@@ -156,13 +159,13 @@ function updateData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self")
+                    window.open(exception404,"_self")
                     break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self")
+                    window.open(exception500,"_self")
                     break;
                 case 401:
-                    window.open(loginPage, "_self")
+                    window.open(loginPage,"_self")
                     break;
             }
 
@@ -173,6 +176,7 @@ function updateData(url, data) {
             })
         })
         .catch((error) => {
+            window.open(exception503,"_self")
             console.log(error)
         });
 }
@@ -189,13 +193,13 @@ function updateDataWithFormData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self")
-                    break;
+                    window.open(exception404,"_self")
+                   break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self")
+                    window.open(exception500,"_self")
                     break;
                 case 401:
-                    window.open(loginPage, "_self")
+                    window.open(loginPage,"_self")
                     break;
             }
 
@@ -206,6 +210,7 @@ function updateDataWithFormData(url, data) {
             })
         })
         .catch((error) => {
+            window.open(exception503,"_self")
             console.log(error)
         });
 }
@@ -223,13 +228,13 @@ function patchData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self")
+                    window.open(exception404,"_self")
                     break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self")
+                    window.open(exception500,"_self")
                     break;
                 case 401:
-                    window.open(loginPage, "_self")
+                    window.open(loginPage,"_self")
                     break;
             }
             return response.json().then((data) => {
@@ -239,6 +244,7 @@ function patchData(url, data) {
             })
         })
         .catch((error) => {
+            window.open(exception503,"_self")
             console.log(error)
         });
 }
@@ -251,25 +257,26 @@ function tokenNotExist() {
 
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
-                                // Converting roles (string) into array 
+                                                            // Converting roles (string) into array 
         var arrayOfRoles = roles.split(",");
 
         for (let i = 0; i < arrayOfRoles.length; i++) {
-                                // Removing white spaces from array of role using trim()  
+                                                            // Removing white spaces from array of role using trim()  
             getRoles[i] = arrayOfRoles[i].trim()
         }
 
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
             if (getRoles.includes("ROLE_WORKER")) {
-                window.open(`${loginUrl}/loginpage.html`, "_self")
+                window.open(loginPage, "_self")
             }
         }
         else {
-            window.open(`${loginUrl}/loginpage.html`, "_self")
+            window.open(loginPage, "_self")
+            
         }
     }
     else {
-        window.open(`${loginUrl}/loginpage.html`, "_self")
+        window.open(loginPage, "_self")
     }
 }
 

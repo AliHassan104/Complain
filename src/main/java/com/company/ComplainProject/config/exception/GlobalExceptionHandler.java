@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExceptionInFirebaseMessaging.class)
     public ResponseEntity<Object> exceptionInFirebaseMessaging(ExceptionInFirebaseMessaging ex){
         ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.INTERNAL_SERVER_ERROR,LocalDateTime.now().toString(),ex.getMessage());
-        return new ResponseEntity<>(errors,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errors,HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -73,12 +73,5 @@ public class GlobalExceptionHandler {
         ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.BAD_REQUEST,LocalDateTime.now().toString(),ex.getMessage());
         return new ResponseEntity<>(errors,HttpStatus.BAD_REQUEST);
     }
-
-
-//    @ExceptionHandler(ExpiredJwtException.class)
-//    public ResponseEntity<Object> jwtTokenIsExpiredException(ExpiredJwtException ex){
-//        ExceptionResponseDto errors  = new ExceptionResponseDto(HttpStatus.FORBIDDEN,LocalDateTime.now().toString(),ex.getMessage());
-//        return new ResponseEntity<>(errors,HttpStatus.FORBIDDEN);
-//    }
 
 }

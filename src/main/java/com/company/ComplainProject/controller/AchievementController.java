@@ -16,9 +16,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -65,14 +62,12 @@ public class AchievementController {
 
             ObjectMapper mapper = new ObjectMapper();
             AchievementsDto achievementsDto1 = mapper.readValue(achievementdto,AchievementsDto.class);
-
 //                                                                                   first the image should be deleted
 //            Boolean achievementImageDeleted = achievementImageImplementation.deleteImage(id);
 
                 String pictureUrl = imageService.uploadImageAndGetApiPath(image);
                 achievementsDto1.setPictureUrl(pictureUrl);
                 return ResponseEntity.ok(achievementService.updateAchievementById(id,achievementsDto1));
-
 
         }catch (Exception e){
             System.out.println(e);

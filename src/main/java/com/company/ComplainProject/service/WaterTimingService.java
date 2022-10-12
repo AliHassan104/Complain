@@ -6,6 +6,7 @@ import com.company.ComplainProject.dto.WaterTimingDetails;
 import com.company.ComplainProject.dto.WaterTimingDto;
 import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.model.WaterTiming;
+import com.company.ComplainProject.repository.BlockRepository;
 import com.company.ComplainProject.repository.WaterTimingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class WaterTimingService {
     BlockService blockService;
     @Autowired
     FirebaseMessagingService notificationService;
+    @Autowired
+    BlockRepository blockRepository;
 
     public List<WaterTiming> getAllWaterTiming() {
         try {
@@ -56,8 +59,8 @@ public class WaterTimingService {
     public WaterTimingDto addWaterTiming(WaterTimingDto waterTimingDto) {
 
         try {
-            Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
-            waterTimingDto.setBlock(block);
+            Optional<Block> block = blockRepository.findById(waterTimingDto.getBlock().getId());
+            waterTimingDto.setBlock(block.get());
 
             WaterTimingDto _waterTimingDto = toDto(waterTimingRepository.save(dto(waterTimingDto)));
             if (_waterTimingDto != null) {
@@ -73,13 +76,13 @@ public class WaterTimingService {
     public WaterTimingDto updateWaterTimingById(Long id, WaterTimingDto waterTimingDto) {
         try {
             WaterTiming updateWaterTiming = getAllWaterTiming().stream().filter(el -> el.getId().equals(id)).findAny().get();
-            Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
+            Optional<Block> block = blockRepository.findById(waterTimingDto.getBlock().getId());
 
             if (updateWaterTiming != null) {
                 updateWaterTiming.setStart_time(waterTimingDto.getStart_time());
                 updateWaterTiming.setEnd_time(waterTimingDto.getEnd_time());
                 updateWaterTiming.setDay(waterTimingDto.getDay());
-                updateWaterTiming.setBlock(block);
+                updateWaterTiming.setBlock(block.get());
                 updateWaterTiming.setDate(waterTimingDto.getDate());
             }
             return toDto(waterTimingRepository.save(updateWaterTiming));

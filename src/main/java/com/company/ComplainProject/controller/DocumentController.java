@@ -25,7 +25,6 @@ public class DocumentController {
     @GetMapping("/document")
     public ResponseEntity<List<Document>> getDocument(){
         List<Document> document = documentService.getAllDocument();
-
         return ResponseEntity.ok(document);
 
     }
@@ -33,7 +32,6 @@ public class DocumentController {
     @GetMapping("/document/{id}")
     public ResponseEntity<Optional<Document>> getAchievementsById(@PathVariable Long id){
         Optional<Document> document = documentService.getDocumentById(id);
-
         return  ResponseEntity.ok(document);
 
     }

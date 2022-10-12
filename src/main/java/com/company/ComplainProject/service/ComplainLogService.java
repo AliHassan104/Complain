@@ -48,6 +48,7 @@ public class ComplainLogService {
 
     public ComplainLogDto addComplainLogByComplainService(Long id, ComplainLogDto complainLogDto) {
 //                                                                                          get the user (admin) object
+
         if(complainLogDto.getAssignedFrom() != null){
            Optional<User> admin = userRepository.findById(complainLogDto.getAssignedFrom().getId());
            complainLogDto.setAssignedFrom(admin.get());

@@ -34,17 +34,23 @@ public class AreaService {
     }
 
     public List<AreaDto> getAllAreaDto() {
-        List<Area> areaList = areaRepository.findAll();
-        if(!areaList.isEmpty()){
-            return areaList.stream().map(area1->toDto(area1)).collect(Collectors.toList());
+        try {
+            List<Area> areaList = areaRepository.findAll();
+            return areaList.stream().map(area1 -> toDto(area1)).collect(Collectors.toList());
         }
-        throw new ContentNotFoundException("No Area Exist");
+        catch (Exception e){
+            throw new RuntimeException("No Area Exist "+e);
+        }
     }
 
     public Page<Area> getAllAreaDtoWithPagination(Integer pageNumber,Integer pageSize){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Area> areaPage = areaRepository.findAll(pageable);
-        return areaPage;
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<Area> areaPage = areaRepository.findAll(pageable);
+            return areaPage;
+        }catch (Exception e){
+            throw new RuntimeException("No Area Exist "+e);
+        }
     }
 
 

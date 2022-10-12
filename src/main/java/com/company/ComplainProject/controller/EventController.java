@@ -85,8 +85,8 @@ public class EventController {
                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
 
-            ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
-            EventDto eventDto = objectMapper.readValue(eventData,EventDto.class);
+                ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
+                EventDto eventDto = objectMapper.readValue(eventData,EventDto.class);
 
                 String imageUrl = imageService.uploadImageAndGetApiPath(image);
                 eventDto.setImage(imageUrl);
