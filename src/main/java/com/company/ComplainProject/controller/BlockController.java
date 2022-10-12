@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api")
 public class BlockController {
@@ -23,24 +23,18 @@ public class BlockController {
 
     @GetMapping("/block")
     public ResponseEntity<List<Block>> getAllBlocks(){
-        try{
             return ResponseEntity.ok(blockService.getAllBlocks());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
-//                                                                      Get Blocks with Area
 
-   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
+    /**
+     * Get Block By Area
+     */
     @GetMapping("blockByArea/{area}")
     public ResponseEntity<List<Block>> getAllBlockByArea(@PathVariable("area") Long areaid){
-        try {
+
             return ResponseEntity.ok(blockService.getBlockByArea(areaid));
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
+
     @GetMapping("block/{id}")
     public ResponseEntity<Optional<Block>> getBlockById(@PathVariable("id") Long id){
         try {
@@ -52,7 +46,7 @@ public class BlockController {
     }
 
     @PutMapping("block/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<BlockDto> updateBlockById(@PathVariable("id") Long id,@RequestBody BlockDto blockDto){
         try{
             return ResponseEntity.ok(blockService.updateBlockById(id,blockDto));
@@ -63,7 +57,7 @@ public class BlockController {
     }
 
     @DeleteMapping("block/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteBlockById(@PathVariable Long id){
         try{
             blockService.deleteBlockById(id);
@@ -76,14 +70,11 @@ public class BlockController {
 
 
     @PostMapping("/block")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<BlockDto> addBlock(@RequestBody BlockDto blockDto){
-        try{
+
             return  ResponseEntity.ok(blockService.addBlockInRecord(blockDto));
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
 }

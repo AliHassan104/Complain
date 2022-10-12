@@ -27,25 +27,16 @@ public class DashboardService {
 
     public ArrayList<ComplainByComplainType> getComplainByComplainType(){
       ArrayList<ComplainByComplainType> complainByComplainType = complainRepository.findComplainByComplain();
-      if(complainByComplainType.isEmpty()){
-          System.out.println("No Complain by complain type found");
-      }
       return  complainByComplainType;
     }
 
     public ArrayList<ComplainByStatus> getComplainByStatus(){
         ArrayList<ComplainByStatus> complainByStatus = complainRepository.findComplainByStatus();
-        if(complainByStatus.isEmpty()){
-            System.out.println("No Complain by complain type found");
-        }
         return  complainByStatus;
     }
 
     public ArrayList<ComplainByMonth> getComplainByMonth() {
         ArrayList<ComplainByMonth> complainByMonth = complainRepository.findComplainByMonth();
-        if(complainByMonth.isEmpty()){
-            System.out.println("No Complain by complain type found");
-        }
         return  complainByMonth;
     }
 }

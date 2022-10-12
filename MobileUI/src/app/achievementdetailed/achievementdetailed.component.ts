@@ -21,10 +21,7 @@ export class AchievementdetailedComponent implements OnInit {
   getAchievementsById(id: number) {
     this.achievementService.getAchievementById(id).subscribe(data => {
       this.achievement = data
-      // console.log(data);
-      // this.checkListLength()
     }, error => {
-      console.log(error);
     });
   }
 

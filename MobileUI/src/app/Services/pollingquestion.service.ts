@@ -13,19 +13,19 @@ export class PollingquestionService {
   // url = "http://localhost:8081"
   url = environment.baseUrl
 
-  getAllPollingQuestion() {
-    return this.http.get(`${this.url}/api/pollingquestion`)
-  }
+  // getAllPollingQuestion() {
+  //   return this.http.get(`${this.url}/api/pollingquestion`)
+  // }
 
   getPollingQuestionById(id: any) {
     return this.http.get(`${this.url}/api/pollingquestion/${id}`)
   }
 
-  getPollingQuestionByArea(areaId: any) {
-    console.log(areaId);
+  // getPollingQuestionByArea(areaId: any) {
+  //   console.log(areaId);
 
-    return this.http.get(`${this.url}/api/pollingquestionByArea/${areaId}`)
-  }
+  //   return this.http.get(`${this.url}/api/pollingquestionByArea/${areaId}`)
+  // }
 
   getPollingQuestionNotAnswered() {
     return this.http.get(`${this.url}/api/pollingquestion/get-all-pollingquestion-for-user`)
@@ -34,7 +34,6 @@ export class PollingquestionService {
   postPollingQuestion(data: any): Observable<any> {
     const headers = { 'content-type': 'application/json' }
     const body = JSON.stringify(data);
-    console.log(body);
     return this.http.post(`${this.url}/api/pollinganswer`, body, { 'headers': headers })
   }
 

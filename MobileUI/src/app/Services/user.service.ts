@@ -34,13 +34,6 @@ getEmailByToken(){
   return encodedToken.sub;
 }
 
-  // getUserByEmail(email: any) {
-
-  //   // const email = this.getEmailByToken()
-  //   return this.http.get(`${this.url}/api/userbyemail/${email}`)
-  // }
-
-
   getUser() {
     return this.http.get(`${this.url}/api/get-logged-in-user`)
   }

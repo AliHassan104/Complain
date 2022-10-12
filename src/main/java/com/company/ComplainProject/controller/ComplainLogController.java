@@ -44,7 +44,7 @@ public class ComplainLogController {
             return ResponseEntity.ok(complainLogService.getComplainLogsByComplain(id));
         }catch (Exception e){
             System.out.println(e);
-            throw new ContentNotFoundException("No Complain Log Exist with complain id "+id);
+            throw new RuntimeException("No Complain Log Exist with complain id "+id);
         }
     }
 
@@ -66,7 +66,7 @@ public class ComplainLogController {
             return ResponseEntity.ok().build();
         }catch (Exception e){
             System.out.println(e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ContentNotFoundException("Cannot delete Complain log having with complain id "+id);
         }
     }
 

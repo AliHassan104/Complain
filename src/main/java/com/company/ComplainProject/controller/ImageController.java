@@ -24,7 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/api")
 public class ImageController {

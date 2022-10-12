@@ -129,9 +129,9 @@ function formSubmit() {
 
     if (queryString == "") {
 
-
         sendData(`/pollingquestion`, newPollingQuestion)
             .then(data => {
+                
 
                 messageRender += `
                     <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
@@ -156,6 +156,8 @@ function formSubmit() {
         updateData(`/pollingquestion/${urlId}`, newPollingQuestion)
             .then(data => {
 
+             
+                
                 messageRender += `
                     <div  style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; 
                     justify-content: center;font-size: large" class="alert alert-success" role="alert">
@@ -178,6 +180,8 @@ function formSubmit() {
             });
     }
 }
+
+
 
 function getArea() {
     let renderData = ""

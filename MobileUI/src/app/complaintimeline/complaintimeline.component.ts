@@ -24,10 +24,8 @@ export class ComplaintimelineComponent implements OnInit {
 
     this.mycomplainService.getAllComplainById(id).subscribe(data => {
       this.complain = data
-      // console.log(data);
       this.TimeToTakeComplete()
     }, error => {
-      console.log(error);
     });
   }
 
@@ -35,10 +33,8 @@ export class ComplaintimelineComponent implements OnInit {
   getComplainLog(id: number) {
     this.mycomplainService.getComplainLogById(id).subscribe(data => {
       this.items = data
-      console.log(data);
       this.TimeToTakeComplete()
     }, error => {
-      console.log(error);
     });
   }
 

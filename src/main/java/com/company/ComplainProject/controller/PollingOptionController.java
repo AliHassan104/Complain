@@ -24,10 +24,9 @@ public class PollingOptionController {
     @GetMapping("/pollingoption")
     public ResponseEntity<List<PollingOption>> getPollingOption(){
         List<PollingOption> pollingOption = pollingOptionService.getAllPollingOption();
-        if(!pollingOption.isEmpty()){
-            return ResponseEntity.ok(pollingOption);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.ok(pollingOption);
+
     }
 
     @GetMapping("/pollingoption/{id}")

@@ -17,40 +17,15 @@ export class EventComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.getEvents()
-    // this.getEventsByArea()
     this.getUser()
   }
 
   lists : any = []
 
-  // getEvents() {
-  //   this.eventService.getAllEvent().subscribe(data => {
-  //     this.lists = data
-  //     console.log(data);
-  //     this.checkListLength()
-  //   }, error => {
-  //     console.log(error);
-  //   });
-  // }
-
-  // sizeOfList : boolean;
-  // checkListLength(){
-  //   if (this.lists.length == 0) {
-  //     this.sizeOfList = false;
-  //   }else{
-  //     this.sizeOfList = false;
-  //   }
-  // }
-
   getEventsByArea(area: any) {
-    // console.log(area);
       this.eventService.getEventByArea(area).subscribe(data => {
         this.lists = data
-        // console.log(data);
-        // this.checkListLength()
       }, error => {
-        console.log(error);
       });
 
     }
@@ -58,7 +33,6 @@ export class EventComponent implements OnInit {
     getToken() {
       let token = localStorage.getItem("jwtToken")
       if(token != null){
-          // console.log("Bearer "+token);
           return "Bearer "+token
       }
       return null;
@@ -80,16 +54,10 @@ export class EventComponent implements OnInit {
 
   getUser() {
     let user: any
-    // const email = this.getEmailByToken()
     this.userService.getUser().subscribe(data => {
-      // console.log(data);
       user = data
-      // console.log(user);
       this.getEventsByArea(user.area.id)
-      // this.getAreaByUser()
-      // return data;
     }, error => {
-      console.log(error);
     });
   }
 

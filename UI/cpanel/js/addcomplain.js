@@ -1,6 +1,6 @@
 getComplain()
 getArea()
-// getUser()
+
 
 
 let queryString = window.location.search;
@@ -103,8 +103,6 @@ function formSubmit() {
     var complaintype = select.options[select.selectedIndex].value;
     var select = document.getElementById('droparea');
     var area = select.options[select.selectedIndex].value;
-    // var select = document.getElementById('dropuser');
-    // var user = select.options[select.selectedIndex].value;
     let image = document.getElementById("inpFile");
     var selectBlock = document.getElementById("dropdownblock");
     var block_id = selectBlock.value;
@@ -119,9 +117,7 @@ function formSubmit() {
         area: {
             id: area
         },
-        // user: {
-        //     id: user
-        // },
+    
         block: {
             id:block_id
         }

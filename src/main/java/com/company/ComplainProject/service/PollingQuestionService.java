@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.PollingQuestionDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.PollingAnswerRepository;
@@ -29,10 +30,11 @@ public class PollingQuestionService {
     AreaService areaService;
     @Autowired
     PollingAnswerRepository pollingAnswerRepository;
-    @Autowired
-    UserService userService;
+
     @Autowired
     SessionService service;
+    @Autowired
+    FirebaseMessagingService notificationService;
 
     public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
@@ -55,7 +57,11 @@ public class PollingQuestionService {
     }
 
     public PollingQuestionDto addPollingQuestion(PollingQuestionDto pollingQuestionDto) {
-        return toDto(pollingQuestionRepository.save(dto(pollingQuestionDto)));
+        PollingQuestionDto _pollingQuestionDto = toDto(pollingQuestionRepository.save(dto(pollingQuestionDto)));
+        if(_pollingQuestionDto != null){
+            notificationService.sendNotificationOnNewPollingQuestion(_pollingQuestionDto);
+        }
+        return _pollingQuestionDto;
     }
 
     public Optional<PollingQuestionDto> updatePollingQuestionById(Long id, PollingQuestionDto pollingQuestionDto) {
@@ -90,45 +96,15 @@ public class PollingQuestionService {
         return pollingQuestionRepository.findPollingQuestionByArea(area);
     }
 
-    public List<PollingQuestion> getPollingQuestionsNotAnsweredByUserService() {
-        List<PollingQuestion> showPollingQuestions = new ArrayList<>();
 
-        User user = service.getLoggedInUser();
-        List<PollingQuestion> attemptedQuestions = pollingAnswerRepository.getAttemptedPollingQuestionsByUser(user);
-
-//                                                                      Attempted Polling Questions
-        List<Long> attemptedPollingQuestionsId = new ArrayList<>();
-        if(!attemptedQuestions.isEmpty()) {
-            attemptedQuestions.stream().forEach(pollingAnswer -> attemptedPollingQuestionsId.add(pollingAnswer.getId()));
+    public List<PollingQuestion> getAllPollingQuestionByUser() {
+        try {
+            User user = service.getLoggedInUser();
+            return pollingQuestionRepository.getAllPollingQuestionForUser(user.getArea().getId(), user.getId());
         }
-//                                                                      All Polling Questions by area
-        List<Long> getPollingQuestionId = new ArrayList<>();
-        List<PollingQuestion> pollingQuestionsByArea = getPollingQuestionByArea(user.getArea().getId());
-
-        if(!pollingQuestionsByArea.isEmpty()) {
-            for (PollingQuestion pollingQuestion:pollingQuestionsByArea) {
-
-                if(pollingQuestion.getEnd_date().isEqual(LocalDate.now())){
-                    if(LocalTime.now().isBefore(pollingQuestion.getEnd_time())){
-                        getPollingQuestionId.add(pollingQuestion.getId());
-                    }
-                }
-                else{
-                    if(LocalDate.now().isBefore(pollingQuestion.getEnd_date())){
-                        getPollingQuestionId.add(pollingQuestion.getId());
-                    }
-                }
-            }
+        catch (Exception e){
+            throw new ContentNotFoundException("No Survey question Exist ");
         }
-
-        getPollingQuestionId.removeAll(attemptedPollingQuestionsId);
-
-        if(!getPollingQuestionId.isEmpty()) {
-            for (Long pollingQuestionId : getPollingQuestionId) {
-                showPollingQuestions.add(pollingQuestionRepository.findPollingQuestionById(pollingQuestionId));
-            }
-        }
-
-        return showPollingQuestions;
     }
+
 }

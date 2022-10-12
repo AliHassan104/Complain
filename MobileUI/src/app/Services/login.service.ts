@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MessagingService } from './messaging.service';
@@ -10,16 +10,21 @@ import { MessagingService } from './messaging.service';
 })
 export class LoginService {
 
-  constructor(private http:HttpClient , private token : MessagingService) { }
-
-  checkUserandPass(name: string, pwd: string):Observable <any> {
-    let user = {
-      username:name,
-      password:pwd
+  private http:HttpClient
+  constructor(private handler:HttpBackend ,
+        private token : MessagingService) {
+       this.http = new HttpClient(handler)
     }
 
-    return this.http.post(environment.baseUrl+"token/generate-token",user);
-  }
+
+  // checkUserandPass(name: string, pwd: string):Observable <any> {
+  //   let user = {
+  //     username:name,
+  //     password:pwd
+  //   }
+
+  //   return this.http.post(environment.baseUrl+"token/generate-token",user);
+  // }
   url = environment.baseUrl
 
   login(data):Observable <any> {

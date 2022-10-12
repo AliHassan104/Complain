@@ -28,7 +28,7 @@ function decodeJwtToken(token) {
 
 function getData(url) {
    var paginationDiv=document.getElementById('preloader')
-   
+
    paginationDiv.style.display='flex'
 
     return fetch(`${baseUrl}/api${url}`, {
@@ -41,26 +41,27 @@ function getData(url) {
      .then((response) => {
             switch(response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
-                  break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
-                  break;
-              }
-              paginationDiv.style.display='none'
+                    window.open(exception500, "_self")
+                    break;
+                case 401:
+                    window.open(loginPage, "_self")
+                    break;
+            }
+            paginationDiv.style.display='none'
             return response.json()
-
-            .then((data) => {
-                
-                return data;
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .then((data) => {
+                    return data;
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         })
-        .catch((error)=>{
-             console.log("Server Not Working 503")
-            // window.open(`${loginUrl}/pages-500.html`, "_self") 
+        .catch((error) => {
+            window.open(exception503, "_self")
+            console.log(error)
         })
 
 }
@@ -78,29 +79,31 @@ function sendData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
-            // if(!response.ok){
-            //     return response.text().then(text => { throw new Error(text) })
-            // }
-            switch(response.status) {
+            switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
-                  break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
-                  break;
-              }
-              paginationDiv.style.display='none'
+                    window.open(exception500, "_self")
+                    break;
+                case 401:
+                    window.open(loginPage, "_self")
+                    break;
+
+            }
+             paginationDiv.style.display='none'
             return response.json()
-        .then((data) => {
-                return data;
-            })
-        .catch((err) => {
-                console.log("Caught it "+err);
-            })
+                .then((data) => {
+                    return data;
+                })
+                .catch((err) => {
+                    console.log("Caught it " + err);
+                })
         })
-        .catch((error)=>{
+        .catch((error) => {
+            window.open(exception503, "_self")
             console.log(error)
-       });
+        });
 }
 
 function sendDataWithFormData(url, data) {
@@ -115,24 +118,29 @@ function sendDataWithFormData(url, data) {
         body: data
     })
         .then((response) => {
-            switch(response.status) {
+            switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
-                  break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
-                  break;
-              }
-              paginationDiv.style.display='none'
-            return response.json().then((data) => {
-                return data;
-            }).catch((err) => {
-                console.log(err);
-            })
+                    window.open(exception500, "_self")
+                    break;
+                case 401:
+                    window.open(loginPage, "_self")
+                    break;
+            }
+         paginationDiv.style.display='none'
+            return response.json()
+                .then((data) => {
+                    return data;
+                }).catch((err) => {
+                    console.log(err);
+                })
         })
-        .catch((error)=>{
+        .catch((error) => {
+            window.open(exception503, "_self")
             console.log(error)
-       });
+        });
 }
 
 
@@ -146,7 +154,7 @@ function deleteData(url) {
             "Authorization": getToken()
         }
     })
-    .catch((error) => {
+        .catch((error) => {
             console.log(error);
         });
 }
@@ -164,24 +172,29 @@ function updateData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
-            switch(response.status) {
+            switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
-                  break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
-                  break;
-              }
-              paginationDiv.style.display='none'
-            return response.json().then((data) => {
-                return data;
-            }).catch((err) => {
-                console.log(err);
-            })
+                    window.open(exception500, "_self")
+                    break;
+                case 401:
+                    window.open(loginPage, "_self")
+                    break;
+            }
+         paginationDiv.style.display='none'
+            return response.json()
+                .then((data) => {
+                    return data;
+                }).catch((err) => {
+                    console.log(err);
+                })
         })
-        .catch((error)=>{
+        .catch((error) => {
+            window.open(exception503, "_self")
             console.log(error)
-       });
+        });
 }
 
 function updateDataWithFormData(url, data) {
@@ -196,24 +209,29 @@ function updateDataWithFormData(url, data) {
         body: data
     })
         .then((response) => {
-            switch(response.status) {
+            switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
-                  break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
-                  break;
-              }
-              paginationDiv.style.display='none'
-            return response.json().then((data) => {
+                    window.open(exception500, "_self")
+                    break;
+                case 401:
+                    window.open(loginPage, "_self")
+                    break;
+            }
+                     paginationDiv.style.display='none'
+            return response.json()
+            .then((data) => {
                 return data;
             }).catch((err) => {
                 console.log(err);
             })
         })
-        .catch((error)=>{
+        .catch((error) => {
+            window.open(exception503, "_self")
             console.log(error)
-       });
+        });
 }
 
 function patchData(url, data) {
@@ -229,24 +247,28 @@ function patchData(url, data) {
         body: JSON.stringify(data)
     })
         .then((response) => {
-            switch(response.status) {
+            switch (response.status) {
                 case 404:
-                    window.open(`${loginUrl}/pages-404.html`, "_self") 
-                  break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(`${loginUrl}/pages-500.html`, "_self") 
-                  break;
-              }
-              paginationDiv.style.display='none'
+                    window.open(exception500, "_self")
+                    break;
+                case 401:
+                    window.open(loginPage, "_self")
+                    break;
+            }
+                     paginationDiv.style.display='none'
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
                 console.log(err);
             })
         })
-        .catch((error)=>{
+        .catch((error) => {
+            window.open(exception503, "_self")
             console.log(error)
-       });
+        });
 }
 
 function tokenNotExist() {
@@ -257,41 +279,26 @@ function tokenNotExist() {
       
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
-                                                                    // Converting roles (string) into array 
-        var arrayOfRoles = roles.split(",");                                    
+        // Converting roles (string) into array
+        var arrayOfRoles = roles.split(",");
 
         for (let i = 0; i < arrayOfRoles.length; i++) {
-                                                      // Removing white spaces from array of role using trim()  
+            // Removing white spaces from array of role using trim()
             getRoles[i] = arrayOfRoles[i].trim()
         }
 
-        // getUserData().then((data)=>{
-        //     data.roles.forEach(element => {
-        //          getRoles.push(element.name)
-        //     });
-
-        //     if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-        //         if(getRoles.includes("ROLE_WORKER")){
-        //            window.open(`${loginUrl}/loginpage.html`, "_self") 
-        //         }
-        //    }
-        //    else {
-        //         window.open(`${loginUrl}/loginpage.html`, "_self") 
-        //    }
-
-        // })
-
         if (getRoles.includes("ROLE_WORKER") || getRoles.includes("ROLE_ADMIN")) {
-             if(getRoles.includes("ROLE_WORKER")){
-                window.open(`${loginUrl}/loginpage.html`, "_self") 
-             }
+            if (getRoles.includes("ROLE_WORKER")) {
+                window.open(loginPage, "_self")
+            }
         }
         else {
-             window.open(`${loginUrl}/loginpage.html`, "_self") 
+            window.open(loginPage, "_self")
+
         }
     }
     else {
-        window.open(`${loginUrl}/loginpage.html`, "_self")
+        window.open(loginPage, "_self")
     }
 }
 
@@ -300,12 +307,12 @@ function tokenNotExist() {
 function getUserData() {
     return getData(`/get-logged-in-user`)
         .then((data) => {
-            loginUserName = data.firstname+" "+data.lastname
-            loginUserId =data.id;
+            loginUserName = data.firstname + " " + data.lastname
+            loginUserId = data.id;
             return data
         })
-        .catch((error)=>{
-            
+        .catch((error) => {
+
         })
 }
 

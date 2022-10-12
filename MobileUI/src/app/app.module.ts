@@ -50,6 +50,7 @@ import { TimePipe } from './Pipes/time.pipe';
 import { HeaderInterceptor } from './Interceptor/header.interceptor';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
+import { RegisterpendingComponent } from './registerpending/registerpending.component';
 
 
 
@@ -90,6 +91,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     TimePipe,
     ForgetPasswordComponent,
     NewPasswordComponent,
+    RegisterpendingComponent,
 
 
   ],

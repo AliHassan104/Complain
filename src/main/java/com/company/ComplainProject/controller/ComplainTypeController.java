@@ -21,24 +21,20 @@ public class ComplainTypeController {
     @GetMapping("/complaintype")
     public ResponseEntity<List<ComplainType>> getComplainType(){
         List<ComplainType> complainType = complainTypeService.getAllComplainType();
-        if(!complainType.isEmpty()){
-            return ResponseEntity.ok(complainType);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(complainType);
+
     }
 
     @GetMapping("/complaintype/{id}")
     public ResponseEntity<Optional<ComplainType>> getComplainById(@PathVariable Long id){
         Optional<ComplainType> complainType = complainTypeService.getComplainTypeById(id);
-        if(complainType.isPresent()){
-            return  ResponseEntity.ok(complainType);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return  ResponseEntity.ok(complainType);
+
     }
 
     @PostMapping("/complaintype")
     public ResponseEntity<ComplainTypeDto> addComplainType(@RequestBody ComplainTypeDto complainTypeDto){
-        System.out.println(complainTypeDto);
+
         try{
             return ResponseEntity.ok(complainTypeService.addComplainType(complainTypeDto));
         }catch (Exception e){

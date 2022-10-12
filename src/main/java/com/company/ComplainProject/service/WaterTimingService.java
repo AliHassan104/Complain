@@ -6,6 +6,7 @@ import com.company.ComplainProject.dto.WaterTimingDetails;
 import com.company.ComplainProject.dto.WaterTimingDto;
 import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.model.WaterTiming;
+import com.company.ComplainProject.repository.BlockRepository;
 import com.company.ComplainProject.repository.WaterTimingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,19 @@ public class WaterTimingService {
     WaterTimingRepository waterTimingRepository;
     @Autowired
     BlockService blockService;
+    @Autowired
+    FirebaseMessagingService notificationService;
+    @Autowired
+    BlockRepository blockRepository;
 
     public List<WaterTiming> getAllWaterTiming() {
-        List<WaterTiming> waterTimings = waterTimingRepository.findAll();
-        if(waterTimings.isEmpty()){
-            throw new ContentNotFoundException("No water Timing Exist");
+        try {
+            List<WaterTiming> waterTimings = waterTimingRepository.findAll();
+            return waterTimings;
         }
-        return waterTimings;
+        catch (Exception e){
+            throw new RuntimeException("No water timing exist "+e);
+        }
     }
 
     public Optional<WaterTiming> getWaterTimingById(Long id) {
@@ -41,31 +48,48 @@ public class WaterTimingService {
     }
 
     public void deleteWaterTimingById(Long id) {
-        waterTimingRepository.deleteById(id);
+        try {
+            waterTimingRepository.deleteById(id);
+        }
+        catch (Exception e){
+            throw  new ContentNotFoundException("Cannot Delete No water timing exist having id "+id);
+        }
     }
 
     public WaterTimingDto addWaterTiming(WaterTimingDto waterTimingDto) {
 
-        Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
-        waterTimingDto.setBlock(block);
+        try {
+            Optional<Block> block = blockRepository.findById(waterTimingDto.getBlock().getId());
+            waterTimingDto.setBlock(block.get());
 
-        return toDto(waterTimingRepository.save(dto(waterTimingDto)));
+            WaterTimingDto _waterTimingDto = toDto(waterTimingRepository.save(dto(waterTimingDto)));
+            if (_waterTimingDto != null) {
+                notificationService.sendNotificationOnWaterTiming(_waterTimingDto);
+            }
+            return waterTimingDto;
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong on adding new water timing "+e);
+        }
     }
 
-    public Optional<WaterTimingDto> updateWaterTimingById(Long id, WaterTimingDto waterTimingDto) {
-        WaterTiming updateWaterTiming = getAllWaterTiming().stream().filter(el->el.getId().equals(id)).findAny().get();
-//                                    get all data of block from waterTimingDto
-        Block block = blockService.getAllBlocks().stream().filter(block1 -> block1.getId().equals(waterTimingDto.getBlock().getId())).findAny().get();
+    public WaterTimingDto updateWaterTimingById(Long id, WaterTimingDto waterTimingDto) {
+        try {
+            WaterTiming updateWaterTiming = getAllWaterTiming().stream().filter(el -> el.getId().equals(id)).findAny().get();
+            Optional<Block> block = blockRepository.findById(waterTimingDto.getBlock().getId());
 
-        if(updateWaterTiming != null){
-            updateWaterTiming.setStart_time(waterTimingDto.getStart_time());
-            updateWaterTiming.setEnd_time(waterTimingDto.getEnd_time());
-            updateWaterTiming.setDay(waterTimingDto.getDay());
-            updateWaterTiming.setBlock(block);
-            updateWaterTiming.setDate(waterTimingDto.getDate());
+            if (updateWaterTiming != null) {
+                updateWaterTiming.setStart_time(waterTimingDto.getStart_time());
+                updateWaterTiming.setEnd_time(waterTimingDto.getEnd_time());
+                updateWaterTiming.setDay(waterTimingDto.getDay());
+                updateWaterTiming.setBlock(block.get());
+                updateWaterTiming.setDate(waterTimingDto.getDate());
+            }
+            return toDto(waterTimingRepository.save(updateWaterTiming));
         }
-        System.out.println("After update "+updateWaterTiming);
-        return Optional.of(toDto(waterTimingRepository.save(updateWaterTiming)));
+        catch (Exception e){
+            throw new RuntimeException("Cannot Update Water timing "+e);
+        }
     }
 
     public WaterTiming dto(WaterTimingDto waterTimingDto){
@@ -91,34 +115,43 @@ public class WaterTimingService {
     }
 
     public List<WaterTiming> getWaterTimingByArea(Long areaId) {
-        List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getArea().getId().equals(areaId)).collect(Collectors.toList());
-        if(waterTimings.isEmpty()){
-            throw new ContentNotFoundException("Water timing having area id "+areaId+" not exist");
+        try {
+            List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getArea().getId().equals(areaId)).collect(Collectors.toList());
+            return waterTimings;
         }
-        return  waterTimings;
+        catch (Exception e){
+            throw new RuntimeException("Water timing by area id "+areaId+" Not Exist "+e );
+        }
     }
 
     public List<WaterTiming> getWaterTimingByBlock(Long blockId) {
-        List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getId().equals(blockId)).collect(Collectors.toList());
-        if(waterTimings.isEmpty()){
-            throw new ContentNotFoundException("Water timing having block id "+blockId+" not exist");
+        try {
+            List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getId().equals(blockId)).collect(Collectors.toList());
+            return waterTimings;
         }
-        return waterTimings;
+        catch (Exception e){
+            throw new RuntimeException("Water timing by block id "+blockId+" Not Exist "+e);
+        }
     }
 
 
     public List<WaterTimingByBlockDto> getAllWaterTimingByBlock() {
-        List<Block> blocks = blockService.getAllBlocks().stream().collect(Collectors.toList());
-        List<WaterTimingByBlockDto>  blockDtos =new ArrayList<>();
-        List<WaterTiming> waterTimings;
-        List<WaterTimingDetails> waterTimingDetails;
+        try {
+            List<Block> blocks = blockService.getAllBlocks().stream().collect(Collectors.toList());
+            List<WaterTimingByBlockDto> blockDtos = new ArrayList<>();
+            List<WaterTiming> waterTimings;
+            List<WaterTimingDetails> waterTimingDetails;
 
-        for (Block block:blocks) {
-            waterTimings= waterTimingRepository.getAllWaterTimingByBlock(block);
-            waterTimingDetails = waterTimings.stream().map(waterTiming -> waterTimingToWaterTimingDetails(waterTiming)).collect(Collectors.toList());
-            blockDtos.add(new WaterTimingByBlockDto(block.getArea().getId(),block.getArea().getName(),block.getId(),block.getBlock_name(),waterTimingDetails));
+            for (Block block : blocks) {
+                waterTimings = waterTimingRepository.getAllWaterTimingByBlock(block);
+                waterTimingDetails = waterTimings.stream().map(waterTiming -> waterTimingToWaterTimingDetails(waterTiming)).collect(Collectors.toList());
+                blockDtos.add(new WaterTimingByBlockDto(block.getArea().getId(), block.getArea().getName(), block.getId(), block.getBlock_name(), waterTimingDetails));
+            }
+            return blockDtos;
         }
-        return blockDtos;
+        catch (Exception e){
+            throw new RuntimeException("Cannot find water timing "+e);
+        }
     }
 
     public WaterTimingDetails waterTimingToWaterTimingDetails(WaterTiming waterTiming){
