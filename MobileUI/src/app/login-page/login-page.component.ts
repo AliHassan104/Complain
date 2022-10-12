@@ -63,7 +63,6 @@ loginSubmit(loginCredentials: any){
 
   this.login.value.deviceToken = localStorage.getItem("deviceId")
 
-
     this.loginService.login(this.login.value).subscribe(data => {
         if (data.jwt != null) {
 
@@ -72,8 +71,6 @@ loginSubmit(loginCredentials: any){
             this.router.navigate(['home'])
         }
     }, error => {
-
-      this.toastService.showToast("dsadawdw", "#toast-16");
       this.toastService.showToast(error.error[0].message, "#toast-16");
     });
 }
