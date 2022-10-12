@@ -121,18 +121,19 @@
           <div style="display: flex;justify-content: center;"><h4>Achievements</h4></div>
           <div class="card" style="padding: 15px;" *ngIf="achievement.length > 0; else noachievement">
 
-            <div style="margin-bottom: 20px;" [routerLink]="['/achivementdetails/',list.id]" *ngFor="let list of achievement">
+            <div style="height: 15vh;margin: 0;padding: 0;" [routerLink]="['/achivementdetails/',list.id]" *ngFor="let list of achievement">
               <div class="row" >
                 <div class="col-4">
-                  <img style="height: 25vh;width: 100%;" src={{list.pictureUrl}} class="image" alt="image">
+                  <img style="height: 12vh;width: 100%;vertical-align: middle;" src={{list.pictureUrl}} class="imaged" alt="image">
                 </div>
-                <div style="display: inline;" class="col-8">
-                  <p style="font-size: 12px;" class="title"><b>{{list.title}}</b></p>
-                  <p style="font-size: 10px;" class="">{{list.date | date:"fullDate"}}</p>
+                <div style="display: inline;margin: 0;padding: 0;" class="col-8">
+                  <p style="font-size: 12px;margin: 0;padding: 0;" class="title"><b>{{list.title}}</b></p>
+                  <p style="font-size: 10px;padding: 0;margin: 0;" class="">{{list.date | date:"fullDate"}}</p>
                 </div>
               </div>
 
             </div>
+
 
           </div>
           </div>
