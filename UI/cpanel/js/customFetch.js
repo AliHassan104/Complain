@@ -2,10 +2,9 @@ var userDetails = "";
 var loginUserName = "";
 var loginUserId;
 
-
-
 tokenNotExist();
-getUserData();
+// getUserData();
+
 
 
 function getToken() {
@@ -28,7 +27,10 @@ function decodeJwtToken(token) {
 
 
 function getData(url) {
-    debugger;
+   var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
+
     return fetch(`${baseUrl}/api${url}`, {
         method: "GET",
         headers: {
@@ -36,9 +38,8 @@ function getData(url) {
             "Authorization": getToken()
         }
     })
-        .then((response) => {
-
-            switch (response.status) {
+     .then((response) => {
+            switch(response.status) {
                 case 404:
                     window.open(exception404, "_self")
                     break;
@@ -49,6 +50,7 @@ function getData(url) {
                     window.open(loginPage, "_self")
                     break;
             }
+            paginationDiv.style.display='none'
             return response.json()
                 .then((data) => {
                     return data;
@@ -65,7 +67,9 @@ function getData(url) {
 }
 
 function sendData(url, data) {
-    debugger;
+    var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "POST",
         headers: {
@@ -87,6 +91,7 @@ function sendData(url, data) {
                     break;
 
             }
+             paginationDiv.style.display='none'
             return response.json()
                 .then((data) => {
                     return data;
@@ -101,15 +106,10 @@ function sendData(url, data) {
         });
 }
 
-// .then((data) => {
-//     return data;
-// })
-// .catch((err) => {
-//     console.log("Caught it " + err);
-// })
-
-
 function sendDataWithFormData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "POST",
         headers: {
@@ -129,7 +129,7 @@ function sendDataWithFormData(url, data) {
                     window.open(loginPage, "_self")
                     break;
             }
-
+         paginationDiv.style.display='none'
             return response.json()
                 .then((data) => {
                     return data;
@@ -145,6 +145,9 @@ function sendDataWithFormData(url, data) {
 
 
 function deleteData(url) {
+    var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: 'DELETE',
         headers: {
@@ -157,7 +160,9 @@ function deleteData(url) {
 }
 
 function updateData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
 
+    paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "PUT",
         headers: {
@@ -178,7 +183,7 @@ function updateData(url, data) {
                     window.open(loginPage, "_self")
                     break;
             }
-
+         paginationDiv.style.display='none'
             return response.json()
                 .then((data) => {
                     return data;
@@ -193,7 +198,9 @@ function updateData(url, data) {
 }
 
 function updateDataWithFormData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
 
+    paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "PUT",
         headers: {
@@ -213,6 +220,7 @@ function updateDataWithFormData(url, data) {
                     window.open(loginPage, "_self")
                     break;
             }
+                     paginationDiv.style.display='none'
             return response.json()
             .then((data) => {
                 return data;
@@ -227,7 +235,9 @@ function updateDataWithFormData(url, data) {
 }
 
 function patchData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
 
+    paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "PATCH",
         headers: {
@@ -248,6 +258,7 @@ function patchData(url, data) {
                     window.open(loginPage, "_self")
                     break;
             }
+                     paginationDiv.style.display='none'
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -265,14 +276,14 @@ function tokenNotExist() {
     let getRoles = []
 
     if (token != null) {
-
+      
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
-        // Converting roles (string) into array 
+        // Converting roles (string) into array
         var arrayOfRoles = roles.split(",");
 
         for (let i = 0; i < arrayOfRoles.length; i++) {
-            // Removing white spaces from array of role using trim()  
+            // Removing white spaces from array of role using trim()
             getRoles[i] = arrayOfRoles[i].trim()
         }
 

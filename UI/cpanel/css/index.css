@@ -1,0 +1,9 @@
+
+#preloader{
+    background: hsl(0, 0%, 100%) url(/img/photos/45124d126d0f0b6d8f5c4d635d466246.gif) no-repeat center center;
+    background-size: 20%;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}

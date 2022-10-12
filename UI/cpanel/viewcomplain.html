@@ -28,7 +28,7 @@
 
 	
 	<link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
-
+	<link class="js-stylesheet" href="/css/index.css" rel="stylesheet">
 	<style>
 		body {
 			opacity: 0;
@@ -41,6 +41,7 @@
 
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+	<div id="preloader"></div>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -319,11 +320,13 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
-									<table id="datatables-reponsive" class="table table-striped" style="width:100%">
+									<div style="overflow-x:auto;">
+									<table style="overflow: scroll;overflow: auto;" id="datatables-reponsive" class="table table-striped scrollit" style="width:100%">
 										
 									
 									
 									</table>
+								</div>
 									<div id="noRecordFound">
             						
             						</div>
