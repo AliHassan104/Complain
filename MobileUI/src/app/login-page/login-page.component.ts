@@ -72,8 +72,7 @@ loginSubmit(loginCredentials: any){
             this.router.navigate(['home'])
         }
     }, error => {
-      this.toastService.showToast("Wrong Email Or Password", "#toast-16");
-      // console.log(error);
+      this.toastService.showToast(error.error[0].message, "#toast-16");
     });
 }
 

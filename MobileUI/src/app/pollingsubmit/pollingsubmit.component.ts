@@ -72,8 +72,7 @@ export class PollingsubmitComponent implements OnInit {
           this.router.navigate(['home']);
 
       }, error => {
-
-        this.toastService.showToast("Answer Not Submitted", "#toast-16");
+          this.toastService.showToast(error.error[0].message, "#toast-16");
 
       });
 
@@ -110,9 +109,7 @@ getUser() {
 
       user = data
       this.userId = user.id
-      // this.toastService.showToast("Success", "#toast-15")
     }, error => {
-      // this.toastService.showToast("Wrong Email Or Password", "#toast-16");
     });
   }
 

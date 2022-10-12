@@ -114,7 +114,7 @@ export class MycomplainComponent implements OnInit {
       this.toastService.showToast("Complain Submitted", "#toast-15")
 
       },error => {
-        this.toastService.showToast("Complain Not Submitted", "#toast-16");
+        this.toastService.showToast(error.error[0].message, "#toast-16");
       });
 
 
