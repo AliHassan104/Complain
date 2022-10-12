@@ -57,7 +57,7 @@ function loginData() {
 
     }
     else {
-         console.log("yes")
+        
         var wrongEmailAndPass=''
         wrongEmailAndPass +=
                         `
@@ -69,7 +69,7 @@ function loginData() {
                         justify-content: center;
                         font-size: large" 
                         class="alert alert-danger" role="alert">
-                        Email Or Password Cannot be Empty
+                         Email Or Password is Empty 
                         </div>`
 
                         document.getElementById("notAllowed").innerHTML = wrongEmailAndPass

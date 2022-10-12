@@ -31,19 +31,19 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginCredentials loginCredentials) throws Exception{
-        System.out.println(loginCredentials);
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginCredentials loginCredentials) throws Exception {
         try {
-        authenticationManager.authenticate(
+                authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginCredentials.getEmail(),loginCredentials.getPassword())
-        );}
+             );
+        }
         catch(BadCredentialsException e){
-            throw new Exception("incorrect username or password ",e);
+                throw new Exception("Incorrect Username or Password ! ",e);
         }
 
         UserDetails userDetails = myUserDetailService.loadUserByUsername(loginCredentials.getEmail());
         String jwtToken = jwtUtil.generateToken(userDetails);
-//                                                      Update device token
+//                                                                          Update device token
         userService.updateLoginUserDeviceToken(loginCredentials.getEmail(),loginCredentials.getDeviceToken());
 
         return ResponseEntity.ok(new AuthenticationResponse(jwtToken));

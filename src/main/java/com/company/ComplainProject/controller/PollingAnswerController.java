@@ -26,10 +26,9 @@ public class PollingAnswerController {
     @GetMapping("/pollinganswer")
     public ResponseEntity<List<PollingAnswer>> getPollingAnswer(){
         List<PollingAnswer> pollingAnswer = pollingAnswerService.getAllPollingAnswer();
-        if(!pollingAnswer.isEmpty()){
-            return ResponseEntity.ok(pollingAnswer);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.ok(pollingAnswer);
+
     }
 
     @GetMapping("/pollinganswer/{id}")
@@ -38,7 +37,7 @@ public class PollingAnswerController {
         if(pollingAnswer.isPresent()){
             return  ResponseEntity.ok(pollingAnswer);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        throw new ContentNotFoundException("Polling answer not exist having id "+id);
     }
 
     @PostMapping("/pollinganswer")

@@ -12,6 +12,8 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,17 +34,23 @@ public class AreaService {
     }
 
     public List<AreaDto> getAllAreaDto() {
-        List<Area> areaList = areaRepository.findAll();
-        if(!areaList.isEmpty()){
-            return areaList.stream().map(area1->toDto(area1)).collect(Collectors.toList());
+        try {
+            List<Area> areaList = areaRepository.findAll();
+            return areaList.stream().map(area1 -> toDto(area1)).collect(Collectors.toList());
         }
-        throw new ContentNotFoundException("No Area Exist");
+        catch (Exception e){
+            throw new RuntimeException("No Area Exist "+e);
+        }
     }
 
     public Page<Area> getAllAreaDtoWithPagination(Integer pageNumber,Integer pageSize){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Area> areaPage = areaRepository.findAll(pageable);
-        return areaPage;
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<Area> areaPage = areaRepository.findAll(pageable);
+            return areaPage;
+        }catch (Exception e){
+            throw new RuntimeException("No Area Exist "+e);
+        }
     }
 
 
@@ -55,20 +63,40 @@ public class AreaService {
     }
 
     public void deleteAreaById(Long id) {
-        areaRepository.deleteById(id);
+        try{
+            areaRepository.deleteById(id);
+        }
+        catch (Exception e){
+            System.out.println(e);
+           throw new ContentNotFoundException("Cannot Delete Area id "+id+" Not Exist ");
+        }
+
     }
 
     public AreaDto addArea(AreaDto areaDto) {
-        return toDto(areaRepository.save(dto(areaDto)));
+        try {
+            return toDto(areaRepository.save(dto(areaDto)));
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong cannot save area "+e);
+        }
+
     }
 
     public AreaDto updateAchievementById(Long id, AreaDto areaDto) {
-        Optional<Area> updateArea = areaRepository.findById(id);
-        if(updateArea.isPresent()){
-            updateArea.get().setName(areaDto.getName());
-            updateArea.get().setPostalCode(areaDto.getPostalCode());
+        try {
+            Optional<Area> updateArea = areaRepository.findById(id);
+            if (updateArea.isPresent()) {
+                updateArea.get().setName(areaDto.getName());
+                updateArea.get().setPostalCode(areaDto.getPostalCode());
+
+                return toDto(areaRepository.save(updateArea.get()));
+            }
+            throw new ContentNotFoundException("Cannot Update no Area Exist Having id "+id);
         }
-        return toDto(areaRepository.save(updateArea.get()));
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong cannot update area "+e);
+        }
     }
 
     public Area dto(AreaDto areaDto){

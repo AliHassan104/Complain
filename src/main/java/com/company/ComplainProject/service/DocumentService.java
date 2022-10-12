@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AchievementsDto;
 import com.company.ComplainProject.dto.DocumentDto;
 import com.company.ComplainProject.model.Achievements;
@@ -26,7 +27,12 @@ public class DocumentService {
     }
 
     public Optional<Document> getDocumentById(Long id) {
-        return documentRepository.findById(id);
+        try {
+            return documentRepository.findById(id);
+        }
+        catch (Exception e){
+            throw new ContentNotFoundException("No Document Found Having id "+id);
+        }
     }
 
     public void deleteDocumentById(Long id) {

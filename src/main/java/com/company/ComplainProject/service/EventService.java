@@ -28,6 +28,8 @@ public class EventService {
     EventRepository eventRepository;
     @Autowired
     AreaService areaService;
+    @Autowired
+    FirebaseMessagingService notificationService;
 
     final String eventImageFolderPath = Paths.get("src/main/resources/static/event/images").toAbsolutePath().toString();
 //                                                                                          get all events
@@ -45,7 +47,11 @@ public class EventService {
 
 //                                                                                           save events in the record
      public EventDto saveEventsInRecord(EventDto eventDto){
-        return todto(eventRepository.save(dto(eventDto)));
+        EventDto _eventDto = todto(eventRepository.save(dto(eventDto)));
+        if(_eventDto != null){
+            notificationService.sendNotificationOnEventUpload(_eventDto);
+        }
+        return _eventDto;
      }
 
 //      `                                                                                     get event by id

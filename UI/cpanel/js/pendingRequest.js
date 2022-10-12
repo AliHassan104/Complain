@@ -9,36 +9,36 @@ function getUser() {
         getData(`/user/userbystatus/in_review`)
         .then((data) => {
 
-            table += `<tr style="width: 100%; display: flex; justify-content: space-between;" class="tablepoint">
-        <th style="width: 15%;" class="toptable ">Name</th>
-        <th style="width: 15%;" class="toptable ">PhoneNumber</th>
-        <th style="width: 23%;" class="toptable ">Email</th>
-        <th style="width: 10%;" class="toptable ">Property</th>
-        <th style="width: 20%;" class="toptable ">Cnic</th>
-        <th style="width: 15%;" class="toptable ">Area Name </th>
-        <th style="width: 15%;" class="toptable ">Action </th>
+            table += `<tr  class="tablepoint">
+        <th class="toptable ">Name</th>
+        <th class="toptable ">PhoneNumber</th>
+        <th class="toptable ">Email</th>
+        <th class="toptable ">Property</th>
+        <th class="toptable ">Cnic</th>
+        <th class="toptable ">Area Name </th>
+        <th class="toptable ">Action </th>
         </tr>`
             for (let i = 0; i < data.length; i++) {
                 table += `
 
-        <tr class="tablepoint" style="width: 100%; display: flex; justify-content: space-between;" >
-            <td style="width: 15%;" class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
-            <td style="width: 15%;" class="datatable">${data[i].phoneNumber}</td>
-            <td style="width: 23%;" class="datatable">${data[i].email}</td>
-            <td style="width: 10%;" class="datatable">${data[i].property}</td>
-            <td style="width: 20%;" class="datatable">${data[i].cnic}</td>
-            <td style="width: 15%;" class="datatable">${data[i].area.name}</td>
+        <tr class="tablepoint"  >
+            <td class="datatable">${data[i].firstname + " " + data[i].lastname}</td>
+            <td class="datatable">${data[i].phoneNumber}</td>
+            <td class="datatable">${data[i].email}</td>
+            <td class="datatable">${data[i].property}</td>
+            <td class="datatable">${data[i].cnic}</td>
+            <td class="datatable">${data[i].area.name}</td>
 
-            <td style="width: 15%;" class="datatable"> 
+            <td  class="datatable"> 
             <a href="/adduser.html?id=${data[i].id}">
             <i data-bs-toggle="modal" data-bs-target="#exampleModal"  
-            style="padding-right: 5px; margin-right: 7px;"  class="fa fa-pencil"></i>
+            style=" margin-right: 4px;"  class="fa fa-pencil"></i>
             </a>
 
             <i onclick="updatedStatusModal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#statusmodal"  
-            style="padding-right: 15px;margin-right: 5px; "  class="fa fa-file"></i>
+            style="margin-right: 4px; "  class="fa fa-file"></i>
 
-            <i onclick="deleteUser(${data[i].id})"  style="padding-right: 2px; margin-right: 2px;" class="fa fa-close"></i>
+            <i onclick="deleteUser(${data[i].id})"  class="fa fa-close"></i>
     </td>
         </tr>`
             }

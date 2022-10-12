@@ -8,15 +8,14 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Optional;
 
-public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail,String> {
+public class UniqueCnicValidator implements ConstraintValidator<UniqueCnic,String> {
 
     @Autowired
     UserRepository userRepository;
 
     @Override
-    public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        Optional<User> user = Optional.ofNullable(userRepository.findUserByEmail(email));
-
+    public boolean isValid(String cnic, ConstraintValidatorContext constraintValidatorContext) {
+        Optional<User> user = Optional.ofNullable(userRepository.getAllUserByCnic(cnic));
         if(user.isPresent()){
             return false;
         }

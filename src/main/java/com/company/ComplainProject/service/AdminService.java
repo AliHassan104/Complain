@@ -27,17 +27,22 @@ public class AdminService {
     private  PollingAnswerRepository pollingAnswerRepository;
     private PollingQuestionRepository pollingQuestionRepository;
     private PollingOptionRepository pollingOptionRepository;
-    //                                                                          Construction injection of Services
+
+
+    //
+    //                                                                          prConstruction injection of Services
+    private FirebaseMessagingService notificatonService;
     private UserService userService;
     private ComplainService complainService;
     private EventService eventService;
     private AchievementService achievementService;
     private AddressService addressService;
     private AreaService areaService;
+    private BlockService blockService;
 
-
-    public AdminService(UserRepository userRepository, AddressRepository addressRepository, AchievementRepository achievementRepository, AreaRepository areaRepository, ComplainRepository complainRepository, ComplainTypeRepository complainTypeRepository, DocumentRepository documentRepository, WaterTimingRepository waterTimingRepository, PollingAnswerRepository pollingAnswerRepository, PollingQuestionRepository pollingQuestionRepository, PollingOptionRepository pollingOptionRepository, UserService userService, ComplainService complainService, EventService eventService, AchievementService achievementService, AddressService addressService, AreaService areaService) {
+    public AdminService(UserRepository userRepository,FirebaseMessagingService notificatonService, AddressRepository addressRepository, AchievementRepository achievementRepository, AreaRepository areaRepository, ComplainRepository complainRepository, ComplainTypeRepository complainTypeRepository, DocumentRepository documentRepository, WaterTimingRepository waterTimingRepository, PollingAnswerRepository pollingAnswerRepository, PollingQuestionRepository pollingQuestionRepository, PollingOptionRepository pollingOptionRepository, UserService userService, ComplainService complainService, EventService eventService, AchievementService achievementService, AddressService addressService, AreaService areaService, BlockService blockService) {
         this.userRepository = userRepository;
+        this.notificatonService =  notificatonService;
         this.addressRepository = addressRepository;
         this.achievementRepository = achievementRepository;
         this.areaRepository = areaRepository;
@@ -54,52 +59,86 @@ public class AdminService {
         this.achievementService = achievementService;
         this.addressService = addressService;
         this.areaService = areaService;
+        this.blockService = blockService;
     }
 
     public Page<User> getAllUsers(Integer pageNumber, Integer pageSize){
-          Page<User> userList =  userService.getAllUserWithPagination(pageNumber,pageSize);
-          return userList;
+        try {
+            Page<User> userList = userService.getAllUserWithPagination(pageNumber, pageSize);
+            return userList;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch user data "+e);
+        }
     }
 
     public Page<Achievements> getAllAchievements(Integer pageNumber,Integer pageSize){
-        Page<Achievements> achievementsDtos =  achievementService.getAllAchievementWithPagination(pageNumber,pageSize);
-        return achievementsDtos;
+        try {
+            Page<Achievements> achievements = achievementService.getAllAchievementWithPagination(pageNumber, pageSize);
+            return achievements;
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch Achievement "+e);
+        }
     }
 
     public List<AddressDto> getAllAddress(){
-        List<AddressDto> addressList = addressService.getAllAddressDto();
-        return addressList;
+        try {
+            List<AddressDto> addressList = addressService.getAllAddressDto();
+            return addressList;
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch Address "+e);
+        }
     }
 
     public Page<Area> getAllArea(Integer pageNumber,Integer pageSize){
-        Page<Area> areaList = areaService.getAllAreaDtoWithPagination(pageNumber,pageSize);
-        return areaList;
+        try {
+            Page<Area> areaList = areaService.getAllAreaDtoWithPagination(pageNumber,pageSize);
+            return areaList;
+        }
+         catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch Area "+e);
+        }
     }
 
     public Page<Complain> getAllComplain(Integer pageNumber,Integer pageSize){
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<Complain> complainPage = complainRepository.findAll(pageable);
+            return complainPage;
 
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Complain> complainPage = complainRepository.findAll(pageable);
-        complainPage.stream().forEach(complain -> complain.getUser().setPassword(null));
-        return complainPage;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot Complains "+e);
+        }
     }
 
     public Page<ComplainType> getAllComplainType(Integer pageNumber,Integer pageSize){
-
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<ComplainType> complainTypePage = complainTypeRepository.findAll(pageable);
-        return  complainTypePage;
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<ComplainType> complainTypePage = complainTypeRepository.findAll(pageable);
+            return complainTypePage;
+        } catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch complain type "+e);
+        }
     }
 
     public Page<Document> getAllDocument(Integer pageNumber,Integer pageSize){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<Document> documentPage = documentRepository.findAll(pageable);
-        return documentPage;
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<Document> documentPage = documentRepository.findAll(pageable);
+            return documentPage;
+        } catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch documents "+e);
+        }
     }
 
     public Page<Event> getAllEvents(Integer pageNumber, Integer pageSize) {
-        Page<Event> eventDtos =  eventService.getAllEventWithPagination(pageNumber,pageSize);
-        return  eventDtos;
+        try {
+            Page<Event> eventDtos = eventService.getAllEventWithPagination(pageNumber, pageSize);
+            return eventDtos;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch events "+e);
+        }
     }
 
     public List<PollingAnswer> getAllPollingAnswer(){return pollingAnswerRepository.findAll();}
@@ -107,17 +146,23 @@ public class AdminService {
     public List<PollingOption> getAllPollingOption(){return pollingOptionRepository.findAll();}
 
     public Page<PollingQuestion> getAllPollingQuestion(Integer pageNumber,Integer pageSize){
-
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<PollingQuestion> pollingQuestionPage = pollingQuestionRepository.findAll(pageable);
-        return pollingQuestionPage;
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<PollingQuestion> pollingQuestionPage = pollingQuestionRepository.findAll(pageable);
+            return pollingQuestionPage;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot polling questions "+e);
+        }
     }
 
     public Page<WaterTiming> getAllWaterTiming(Integer pageNumber,Integer pageSize){
-
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        Page<WaterTiming> waterTimingsPage = waterTimingRepository.findAll(pageable);
-        return waterTimingsPage;
+        try{
+            Pageable pageable = PageRequest.of(pageNumber,pageSize);
+            Page<WaterTiming> waterTimingsPage = waterTimingRepository.findAll(pageable);
+            return waterTimingsPage;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch water timing"+e);
+        }
     }
 
     /**
@@ -127,11 +172,26 @@ public class AdminService {
      * @return
      */
     public ComplainDto updateComplainById(Long id, ComplainDto complainDto) {
-        Complain updateComplain = complainService.dto(complainService.getAllComplain().stream().filter(el->el.getId().equals(id)).findAny().get());
-        if(updateComplain != null){
-            updateComplain.setStatus(complainDto.getStatus());
+        try {
+
+            Optional<Complain> updateComplain = complainRepository.findById(id);
+            if (updateComplain.isPresent()) {
+                updateComplain.get().setStatus(complainDto.getStatus());
+            }
+            else{
+                throw new ContentNotFoundException("No Complain Exist Having id "+id);
+            }
+            ComplainDto _complainDto = complainService.toDto(complainRepository.save(updateComplain.get()));
+            if(_complainDto != null){
+                notificatonService.sendNotificationToUserOnComplainStatusChange(_complainDto);
+            }
+
+            return _complainDto;
+
         }
-        return complainService.toDto(complainRepository.save(updateComplain));
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot update complain Status "+e);
+        }
     }
 
     /**
@@ -141,13 +201,35 @@ public class AdminService {
      * @return
      */
     public UserDto updateUserStatusById(Long id, UserDto userDto){
-        User user = userService.getAllUser().stream().filter(user1 -> user1.getId().equals(id)).findAny().get();
-        if(user != null){
-            System.out.println(user.getStatus());
-            user.setStatus(userDto.getStatus());
+        try {
+            Optional<User> user = userRepository.findById(id);
+            if (user.isPresent()) {
+                user.get().setStatus(userDto.getStatus());
+            }
+            else{
+                throw new ContentNotFoundException("Cannot update status No user Exist Having id "+id);
+            }
+            UserDto _userDto = userService.toDto(userRepository.save(user.get()));
+            if(_userDto!=null){
+                Note note = Note.builder()
+                        .subject("Welcome")
+                        .content("you can now login to jicomplain").build();
+                notificatonService.sendNotification(note,_userDto.getDeviceToken());
+            }
+            return _userDto;
         }
-        return userService.toDto(userRepository.save(user));
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot update user Status "+e);
+        }
     }
 
 
+    public Page<Block> getAllBlocks(Integer pageNumber, Integer pageSize) {
+        try {
+            Page<Block> page = blockService.getAllBlocksWithPagination(pageNumber,pageSize);
+            return page;
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot fetch Blocks"+e);
+        }
+    }
 }

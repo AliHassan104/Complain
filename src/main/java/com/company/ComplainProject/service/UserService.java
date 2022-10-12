@@ -1,6 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.config.exception.InputMisMatchException;
 import com.company.ComplainProject.config.exception.UserNotFoundException;
 import com.company.ComplainProject.dto.ForgetPasswordDto;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
@@ -13,12 +14,15 @@ import com.company.ComplainProject.repository.AreaRepository;
 import com.company.ComplainProject.repository.RolesRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -31,10 +35,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    AreaService areaService;
-    @Autowired
-    AddressService addressService;
-    @Autowired
     RolesRepository rolesRepository;
     @Autowired
     SessionService service;
@@ -42,6 +42,9 @@ public class UserService {
     AreaRepository areaRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -51,17 +54,18 @@ public class UserService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<User> userPage = userRepository.findPublishedUser(pageable,UserStatus.PUBLISHED);
-//        userPage.getContent().stream().forEach(user -> user.setPassword(null));
         return userPage;
     }
 
     public UserDetailsResponse getUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if(!user.isPresent()){
-            throw new ContentNotFoundException("No User Exist Having id "+id);
+        try {
+            Optional<User> user = userRepository.findById(id);
+            return userToUserDetailsResponse(user.get());
+        }catch (Exception e){
+            throw new ContentNotFoundException("No user Exist Having id "+id);
         }
-        return userToUserDetailsResponse(user.get());
     }
+
 
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
@@ -69,12 +73,10 @@ public class UserService {
 
     public UserDetailsResponse addUser(UserDto userDto) {
 
-        if(userDto.getUserType().equals(UserType.Worker) || userDto.getUserType().equals(UserType.Admin)){
-            userDto.setStatus(UserStatus.PUBLISHED);
-        }
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userDto.setRoles(assignRolesToUser(userDto));
         return userToUserDetailsResponse(userRepository.save(dto(userDto)));
+
     }
 
     public Set<Roles> assignRolesToUser(UserDto userDto){
@@ -94,24 +96,31 @@ public class UserService {
     }
 
     public Optional<UserDetailsResponse> updateUserById(Long id, UserDto userDto) {
-        User updateUser = getAllUser().stream().filter(el->el.getId().equals(id)).findAny().get();
+        try {
+            User updateUser = getAllUser().stream().filter(el -> el.getId().equals(id)).findAny().get();
+            Optional<Area> updatedArea = areaRepository.findById(userDto.getArea().getId());
 
-        Area updatedArea =  areaService.getAllArea().stream().filter(area -> area.getId().equals(userDto.getArea().getId())).findAny().get();
-        Address updatedAddress = addressService.getAllAddress().stream().filter(address -> address.getId().equals(userDto.getAddress().getId())).findAny().get();
+            if (updateUser != null) {
+                updateUser.setFirstname(userDto.getFirstname());
+                updateUser.setLastname(userDto.getLastname());
+                updateUser.setEmail(userDto.getEmail());
+                updateUser.setCnic(userDto.getCnic());
+                updateUser.setPhoneNumber(userDto.getPhoneNumber());
+                updateUser.setNumberOfFamilyMembers(userDto.getNumberOfFamilyMembers());
+                updateUser.setArea(updatedArea.get());
+                updateUser.setAddress(userDto.getAddress());
+                updateUser.setProperty(userDto.getProperty());
+                updateUser.setBlock(userDto.getBlock());
 
-        if(updateUser != null){
-            updateUser.setFirstname(userDto.getFirstname());
-            updateUser.setLastname(userDto.getLastname());
-            updateUser.setEmail(userDto.getEmail());
-            updateUser.setCnic(userDto.getCnic());
-            updateUser.setPhoneNumber(userDto.getPhoneNumber());
-            updateUser.setNumberOfFamilyMembers(userDto.getNumberOfFamilyMembers());
-            updateUser.setArea(updatedArea);
-            updateUser.setAddress(updatedAddress);
-            updateUser.setProperty(userDto.getProperty());
-            updateUser.setBlock(userDto.getBlock());
+                if(!userDto.getPassword().isEmpty()){
+                    updateUser.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+                }
+            }
+            return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
         }
-        return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong while updating user "+e);
+        }
     }
 
 
@@ -172,9 +181,13 @@ public class UserService {
     public UserDetailsResponse updateLoginUserDeviceToken(String email,String deviceToken){
         try {
             User user = userRepository.findUserByEmail(email);
-            if(user != null){
+            if(user != null && deviceToken != null){
                 user.setDeviceToken(deviceToken);
             }
+            else {
+                logger.error("Device Token of user "+email+" is null cannot update it (device token)");
+            }
+
             return userToUserDetailsResponse(userRepository.save(user));
         }
         catch (Exception e){
