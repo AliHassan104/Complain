@@ -8,7 +8,7 @@ if (queryString != "") {
 
     getData(`/user/${urlId}`)
         .then(data => {
-           
+
             document.getElementById("firstname").value = data.firstname;
             document.getElementById("lastname").value = data.lastname;
             document.getElementById("cnic").value = data.cnic;
@@ -22,7 +22,7 @@ if (queryString != "") {
 
             document.getElementById("formButton").innerText = "Update";
 
-               
+
         })
 }
 
@@ -54,24 +54,25 @@ function addUser() {
 
     let property = document.getElementById("dropdownproperty");
     let propertyValue = property.value;
-    
+
     let usertype = document.getElementById("usertype").value
 
     let housenumber = document.getElementById("housenumber").value;
     let floornumber = document.getElementById("floornumber").value;
-    
+
+
 
 
     newUser = {
         firstname: firstname, lastname: lastname, cnic: cnic, phoneNumber: phonenumber
-        , email: email, password: password, numberOfFamilyMembers: family,status:'PUBLISHED',
+        , email: email, password: password, numberOfFamilyMembers: family, status: 'PUBLISHED',
         area: {
             id: areaId
         },
         address: {
-            city:"Karachi",
-            houseNumber:housenumber,
-            floorNumber:floornumber
+            city: "Karachi",
+            houseNumber: housenumber,
+            floorNumber: floornumber
         },
         block: {
             id: blockId
@@ -83,41 +84,64 @@ function addUser() {
 
     if (queryString == "") {
 
-   
-            sendData(`/user`,newUser)
+        sendData(`/user`, newUser)
+
             .then(data => {
 
                 let table = ""
-                table += `
-                    <div  style=" 
-                    margin: auto;
-                    text-align: center;
-                    width: 50%;
-                    height: 5vh; text-align: center; 
-                    justify-content: center;
-                    font-size: large" 
-                    class="alert alert-success" role="alert">
-                    <b> ${newUser.firstname + " " + newUser.lastname} </b> &nbsp   Added In User Successfully
-                    </div>`
 
-                document.getElementById("formSubmitted").innerHTML = table
+                if (Object.prototype.toString.call(data) == "[object Object]") {
+                    table += `
+                        <div  style=" 
+                        margin: auto;
+                        text-align: center;
+                        width: 50%;
+                        height: 5vh; text-align: center; 
+                        justify-content: center;
+                        font-size: large" 
+                        class="alert alert-success" role="alert">
+                        <b> ${newUser.firstname + " " + newUser.lastname} </b> &nbsp   Added In User Successfully
+                        </div>`
 
-                setTimeout(()=>{
-                    document.getElementById("formSubmitted").innerHTML = ""
-                },2000)
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                }
+                else {
+                    table += `
+                     <div  style=" 
+                     margin: auto;
+                     text-align: center;
+                     width: 50%;
+                     height: 5vh; text-align: center; 
+                     justify-content: center;
+                     font-size: large" 
+                     class="alert alert-danger" role="alert">
+                     <b>${data[0].message}</b> 
+                     </div>`
+
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                }
+
 
             })
-            .catch((error)=>{
-                console.log(error)
-    })  
+            .catch((error) => {
+                console.log("Error occured " + error)
+            })
 
     } else {
-            console.log(newUser)
-            updateData(`/user/${urlId}`,newUser)
+        console.log(newUser)
+        updateData(`/user/${urlId}`, newUser)
             .then(data => {
-
                 let table = ""
-                table += `
+                if (Object.prototype.toString.call(data) == "[object Object]") {
+                    table += `
                     <div  style=" 
                     margin: auto;
                     text-align: center;
@@ -129,11 +153,32 @@ function addUser() {
                     <b> ${newUser.firstname + " " + newUser.lastname} </b> &nbsp   Updated In User Successfully
                     </div>`
 
-                document.getElementById("formSubmitted").innerHTML = table
-                
-                setTimeout(()=>{
-                    document.getElementById("formSubmitted").innerHTML = ""
-                },2000)
+                    document.getElementById("formSubmitted").innerHTML = table
+
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                }
+                else{
+                    table += `
+                         <div  style=" 
+                         margin: auto;
+                         text-align: center;
+                         width: 50%;
+                         height: 5vh; text-align: center; 
+                         justify-content: center;
+                         font-size: large" 
+                         class="alert alert-danger" role="alert">
+                         <b>${data[0].message}</b> 
+                         </div>`
+    
+    
+                    document.getElementById("formSubmitted").innerHTML = table
+    
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                }
             })
 
     }
@@ -144,6 +189,8 @@ function addUser() {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("family").value = "";
+    document.getElementById("housenumber").valu="";
+    document.getElementById("floornumber").value = "";
 }
 
 
@@ -152,8 +199,8 @@ var areaIdToGetBlock;
 
 function getArea() {
     let table = ""
-   
-        getData(`/area`)
+
+    getData(`/area`)
         .then((data) => {
 
             areaIdToGetBlock = data[0].id;
@@ -175,10 +222,10 @@ document.getElementById('dropdownarea').addEventListener('change', function () {
 
 function getBlock(areaId) {
     let renderData = ""
-    
+
     getData(`/blockByArea/${areaId}`)
         .then((data) => {
-    
+
             if (data.length !== 0) {
                 for (let i = 0; i < data.length; i++) {
                     renderData += `

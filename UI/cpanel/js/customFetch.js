@@ -40,32 +40,32 @@ function getData(url) {
 
             switch (response.status) {
                 case 404:
-                    window.open(exception404,"_self")
+                    window.open(exception404, "_self")
                     break;
                 case 500:
-                    window.open(exception500,"_self")
+                    window.open(exception500, "_self")
                     break;
                 case 401:
-                    window.open(loginPage,"_self")
+                    window.open(loginPage, "_self")
                     break;
             }
-
             return response.json()
                 .then((data) => {
                     return data;
                 })
                 .catch((err) => {
-                    
+                    console.log(err)
                 })
         })
         .catch((error) => {
-            window.open(exception503,"_self")
+            window.open(exception503, "_self")
             console.log(error)
         })
 
 }
 
 function sendData(url, data) {
+    debugger;
     return fetch(`${baseUrl}/api${url}`, {
         method: "POST",
         headers: {
@@ -77,14 +77,15 @@ function sendData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(exception404,"_self")
+                    window.open(exception404, "_self")
                     break;
                 case 500:
-                    window.open(exception500,"_self")
+                    window.open(exception500, "_self")
                     break;
                 case 401:
-                    window.open(loginPage,"_self")
+                    window.open(loginPage, "_self")
                     break;
+
             }
             return response.json()
                 .then((data) => {
@@ -95,10 +96,18 @@ function sendData(url, data) {
                 })
         })
         .catch((error) => {
-            window.open(exception503,"_self")
+            window.open(exception503, "_self")
             console.log(error)
         });
 }
+
+// .then((data) => {
+//     return data;
+// })
+// .catch((err) => {
+//     console.log("Caught it " + err);
+// })
+
 
 function sendDataWithFormData(url, data) {
     return fetch(`${baseUrl}/api${url}`, {
@@ -111,24 +120,25 @@ function sendDataWithFormData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(exception404,"_self")
+                    window.open(exception404, "_self")
                     break;
                 case 500:
-                    window.open(exception500,"_self")
+                    window.open(exception500, "_self")
                     break;
                 case 401:
-                    window.open(loginPage,"_self")
+                    window.open(loginPage, "_self")
                     break;
             }
 
-            return response.json().then((data) => {
-                return data;
-            }).catch((err) => {
-                console.log(err);
-            })
+            return response.json()
+                .then((data) => {
+                    return data;
+                }).catch((err) => {
+                    console.log(err);
+                })
         })
         .catch((error) => {
-            window.open(exception503,"_self")
+            window.open(exception503, "_self")
             console.log(error)
         });
 }
@@ -159,24 +169,25 @@ function updateData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(exception404,"_self")
+                    window.open(exception404, "_self")
                     break;
                 case 500:
-                    window.open(exception500,"_self")
+                    window.open(exception500, "_self")
                     break;
                 case 401:
-                    window.open(loginPage,"_self")
+                    window.open(loginPage, "_self")
                     break;
             }
 
-            return response.json().then((data) => {
-                return data;
-            }).catch((err) => {
-                console.log(err);
-            })
+            return response.json()
+                .then((data) => {
+                    return data;
+                }).catch((err) => {
+                    console.log(err);
+                })
         })
         .catch((error) => {
-            window.open(exception503,"_self")
+            window.open(exception503, "_self")
             console.log(error)
         });
 }
@@ -193,24 +204,24 @@ function updateDataWithFormData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(exception404,"_self")
-                   break;
+                    window.open(exception404, "_self")
+                    break;
                 case 500:
-                    window.open(exception500,"_self")
+                    window.open(exception500, "_self")
                     break;
                 case 401:
-                    window.open(loginPage,"_self")
+                    window.open(loginPage, "_self")
                     break;
             }
-
-            return response.json().then((data) => {
+            return response.json()
+            .then((data) => {
                 return data;
             }).catch((err) => {
                 console.log(err);
             })
         })
         .catch((error) => {
-            window.open(exception503,"_self")
+            window.open(exception503, "_self")
             console.log(error)
         });
 }
@@ -228,13 +239,13 @@ function patchData(url, data) {
         .then((response) => {
             switch (response.status) {
                 case 404:
-                    window.open(exception404,"_self")
+                    window.open(exception404, "_self")
                     break;
                 case 500:
-                    window.open(exception500,"_self")
+                    window.open(exception500, "_self")
                     break;
                 case 401:
-                    window.open(loginPage,"_self")
+                    window.open(loginPage, "_self")
                     break;
             }
             return response.json().then((data) => {
@@ -244,7 +255,7 @@ function patchData(url, data) {
             })
         })
         .catch((error) => {
-            window.open(exception503,"_self")
+            window.open(exception503, "_self")
             console.log(error)
         });
 }
@@ -257,11 +268,11 @@ function tokenNotExist() {
 
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
-                                                            // Converting roles (string) into array 
+        // Converting roles (string) into array 
         var arrayOfRoles = roles.split(",");
 
         for (let i = 0; i < arrayOfRoles.length; i++) {
-                                                            // Removing white spaces from array of role using trim()  
+            // Removing white spaces from array of role using trim()  
             getRoles[i] = arrayOfRoles[i].trim()
         }
 
@@ -272,7 +283,7 @@ function tokenNotExist() {
         }
         else {
             window.open(loginPage, "_self")
-            
+
         }
     }
     else {

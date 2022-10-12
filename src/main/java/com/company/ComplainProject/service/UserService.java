@@ -14,6 +14,8 @@ import com.company.ComplainProject.repository.AreaRepository;
 import com.company.ComplainProject.repository.RolesRepository;
 import com.company.ComplainProject.repository.UserRepository;
 import com.company.ComplainProject.repository.specification.UserSpecification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +42,9 @@ public class UserService {
     AreaRepository areaRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -106,6 +111,10 @@ public class UserService {
                 updateUser.setAddress(userDto.getAddress());
                 updateUser.setProperty(userDto.getProperty());
                 updateUser.setBlock(userDto.getBlock());
+
+                if(!userDto.getPassword().isEmpty()){
+                    updateUser.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+                }
             }
             return Optional.of(userToUserDetailsResponse(userRepository.save(updateUser)));
         }
@@ -172,9 +181,13 @@ public class UserService {
     public UserDetailsResponse updateLoginUserDeviceToken(String email,String deviceToken){
         try {
             User user = userRepository.findUserByEmail(email);
-            if(user != null){
+            if(user != null && deviceToken != null){
                 user.setDeviceToken(deviceToken);
             }
+            else {
+                logger.error("Device Token of user "+email+" is null cannot update it (device token)");
+            }
+
             return userToUserDetailsResponse(userRepository.save(user));
         }
         catch (Exception e){
