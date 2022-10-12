@@ -118,6 +118,7 @@
 </div> -->
 
         <div class="container-fluid">
+          <div class="card-header" style="display: flex;justify-content: center;"><h4>Achievements</h4></div>
           <div class="card" style="padding: 15px;" *ngIf="achievement.length > 0; else noachievement">
             <div [routerLink]="['/achivementdetails/',list.id]" class="row" *ngFor="let list of achievement">
               <!-- <a [routerLink]="['/achivementdetails/',list.id]"> -->

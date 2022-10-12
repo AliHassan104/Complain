@@ -51,7 +51,7 @@ export class BottomMenuComponent implements OnInit , AfterViewInit{
 
   ngAfterViewInit(){
     // throw new Error("Method not implemented.");
-    console.log(this.marker);
+    // console.log(this.marker);
   }
 
   @ViewChild("dbb")marker: ElementRef
@@ -287,57 +287,9 @@ confirmation(){
     });
   }
 
-  goToAddPostNotifications() {
-    this.router.navigate([''])
-
-      // this.updateNotificationsCount('post')
-
-  }
-
-  // updateNotificationsCount(type){
-  //   if(this.notificationCount > 0 || this.reqCount > 0){
-  //   if(type === 'req')
-  //   {
-  //     this.reqCount = 0;
-  //   }
-  //   else if(type == 'post'){
-  //     this.notificationCount = 0;
-  //   }
-
-  //   // this.userObj.numberOfFriendRequests = this.reqCount;
-  //   // this.userObj.numberOfNotifications = this.notificationCount;
-  //   // this.notificationService.updateNoOfNotifications(this.id,this.userObj).subscribe(d=>{
-  //   //   if(d.status == 200){
-  //   //     if(type === 'req'){
-  //   //       this.router.navigate(["notifications"]);
-  //   //     }
-  //   //     else if(type === 'post')
-  //   //     {
-  //   //       this.router.navigate(["addpostnotifications"]);
-  //   //     }
-  //   //     this.getNotificationCount();
-  //   //   }
-  //   // })
-  // }else{
-  //   if(type === 'req'){
-  //     this.router.navigate(["notifications"]);
-  //   }
-  //   else if(type === 'post')
-  //   {
-  //     this.router.navigate(["addpostnotifications"]);
-  //   }
+  // goToAddPostNotifications() {
+  //   this.router.navigate([''])
   // }
-  // }
-
-
-
-
-
-
-
-
-
-
 
 
   getToken() {
@@ -349,24 +301,24 @@ confirmation(){
     return null;
   }
 
-decodeJwtToken(token: string) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-};
+// decodeJwtToken(token: string) {
+//     var base64Url = token.split('.')[1];
+//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//     }).join(''));
+//     return JSON.parse(jsonPayload);
+// };
 
-getEmailByToken(){
-  let  encodedToken = this.decodeJwtToken(this.getToken())
-  return encodedToken.sub;
-}
+// getEmailByToken(){
+//   let  encodedToken = this.decodeJwtToken(this.getToken())
+//   return encodedToken.sub;
+// }
 
 userAreaName: any = []
 getUser() {
     // let user: any
-    const email = this.getEmailByToken()
+    // const email = this.getEmailByToken()
     this.userService.getUser().subscribe(data => {
       // console.log(data);
       this.userAreaName = data
