@@ -10,7 +10,8 @@ function loginData() {
             email: email,
             password: password
         }
-
+        // var paginationDiv=document.getElementById('preloader')
+        // paginationDiv.style.display='flex'
         fetch(`${baseUrl}/api/login`, {
             method: "POST",
             headers: {
@@ -40,7 +41,7 @@ function loginData() {
                             document.getElementById("notAllowed").innerHTML = ""
                         },2000)
                     }
-
+                    // paginationDiv.style.display='none'
                 response.json()
             
             .then((data) => {

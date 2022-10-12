@@ -3,7 +3,8 @@ var loginUserName = "";
 var loginUserId;
 
 tokenNotExist();
-getUserData();
+// getUserData();
+
 
 
 function getToken() {
@@ -26,7 +27,10 @@ function decodeJwtToken(token) {
 
 
 function getData(url) {
+   var paginationDiv=document.getElementById('preloader')
    
+   paginationDiv.style.display='flex'
+
     return fetch(`${baseUrl}/api${url}`, {
         method: "GET",
         headers: {
@@ -43,9 +47,11 @@ function getData(url) {
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
+              paginationDiv.style.display='none'
             return response.json()
 
             .then((data) => {
+                
                 return data;
             })
             .catch((err) => {
@@ -60,6 +66,9 @@ function getData(url) {
 }
 
 function sendData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "POST",
         headers: {
@@ -80,6 +89,7 @@ function sendData(url, data) {
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
+              paginationDiv.style.display='none'
             return response.json()
         .then((data) => {
                 return data;
@@ -94,6 +104,9 @@ function sendData(url, data) {
 }
 
 function sendDataWithFormData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "POST",
         headers: {
@@ -110,7 +123,7 @@ function sendDataWithFormData(url, data) {
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
-
+              paginationDiv.style.display='none'
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -124,6 +137,9 @@ function sendDataWithFormData(url, data) {
 
 
 function deleteData(url) {
+    var paginationDiv=document.getElementById('preloader')
+
+   paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: 'DELETE',
         headers: {
@@ -136,7 +152,9 @@ function deleteData(url) {
 }
 
 function updateData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
 
+    paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "PUT",
         headers: {
@@ -154,7 +172,7 @@ function updateData(url, data) {
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
-
+              paginationDiv.style.display='none'
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -167,7 +185,9 @@ function updateData(url, data) {
 }
 
 function updateDataWithFormData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
 
+    paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "PUT",
         headers: {
@@ -184,7 +204,7 @@ function updateDataWithFormData(url, data) {
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
-
+              paginationDiv.style.display='none'
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
@@ -197,7 +217,9 @@ function updateDataWithFormData(url, data) {
 }
 
 function patchData(url, data) {
+    var paginationDiv=document.getElementById('preloader')
 
+    paginationDiv.style.display='flex'
     return fetch(`${baseUrl}/api${url}`, {
         method: "PATCH",
         headers: {
@@ -215,6 +237,7 @@ function patchData(url, data) {
                     window.open(`${loginUrl}/pages-500.html`, "_self") 
                   break;
               }
+              paginationDiv.style.display='none'
             return response.json().then((data) => {
                 return data;
             }).catch((err) => {
