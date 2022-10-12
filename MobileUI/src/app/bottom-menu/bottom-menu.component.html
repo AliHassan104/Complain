@@ -3,24 +3,22 @@
 
   <a href="javascript:;" class="item" data-toggle="modal"  data-target="#sidebarPanel">
       <div class="col">
-          <!-- <ion-icon  src="assets/menu.svg"></ion-icon> -->
           <img width="30px" src="assets/icons/menu2.png"/>
-          <!-- <ion-icon  src="assets/menu.svg"></ion-icon> -->
-          <!-- <img src="https://img.icons8.com/material-sharp/35/000000/menu--v1.png"/> -->
       </div>
   </a>
 
   <a  class="item" [routerLink]="['/home']" >
       <div class="col">
-
           <img width="30px" src="assets/icons/home2.png"/>
-          <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
-          <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
-          <!-- <img style="width: 40px;" src="assets/home.svg"/> -->
-          <!-- <img src="https://img.icons8.com/material-rounded/24/1A1A1A/home.png"/> -->
-          <!-- <img src="https://img.icons8.com/material-sharp/35/000000/home-page.png"/> -->
       </div>
   </a>
+
+  <!-- <button type="button" class="btn btn-primary" >
+    Launch demo modal
+  </button> -->
+
+  <!-- Dialog Block Button -->
+
 
   <a [routerLink]="['/mycomplain']"  class="item">
 
@@ -34,15 +32,16 @@
           <span  *ngIf="reqCount>0" class="badge badge-danger" >{{reqCount}}</span>
       </div>
   </a>
-  <a (click)="logout()" class="item">
+  <a  data-toggle="modal" data-target="#DialogBlockButton" class="item">
       <div class="col">
-          <!-- <ion-icon src="assets/notification.svg"></ion-icon> -->
           <img width="25px" src="assets/icons/logout2.png"/>
-          <!-- <img src="https://img.icons8.com/material-sharp/35/000000/appointment-reminders--v1.png"/> -->
           <i class="bi bi-bell-fill"></i>
-          <span *ngIf="notificationCount>0" class="badge badge-danger" >{{notificationCount}}</span>
+          <!-- <span *ngIf="notificationCount>0" class="badge badge-danger" >{{notificationCount}}</span> -->
       </div>
   </a>
+
+
+
 </div>
 <!-- * App Bottom Menu -->
 
@@ -72,7 +71,7 @@
 
               <ul class="listview flush transparent no-line image-listview mt-2">
 
-                  <li *ngIf="!checkUserType()">
+                  <li>
                       <a  class="item" data-dismiss="modal" [routerLink]="['/home']">
                           <div class="icon-box bg-primary">
                               <!-- <ion-icon src="assets/home.svg"></ion-icon> -->
@@ -84,22 +83,18 @@
                           </div>
                       </a>
                   </li>
-                  <li *ngIf="!checkUserType()">
+                  <li>
                       <a class="item" [routerLink]="['/mycomplain']" data-dismiss="modal">
                           <div class="icon-box bg-primary">
                             <img width="24px" src="assets/icons/complain.png"/>
-                              <!-- <ion-icon src="assets/message.svg"></ion-icon> -->
-                              <!-- <ion-icon name="chatbubbles-outline"></ion-icon> -->
-                              <!-- <img src="https://img.icons8.com/ios-glyphs/30/1A1A1A/complaint.png"/> -->
-                              <!-- <img src="https://img.icons8.com/material-sharp/24/1A1A1A/complaint.png"/> -->
-                          </div>
+                               </div>
                           <div class="in">
                               <div>My Complain</div>
                               <span *ngIf="chatCount>0" class="badge badge-danger">{{chatCount}}</span>
                           </div>
                       </a>
                   </li>
-                  <li *ngIf="!checkUserType()">
+                  <li>
                       <a [routerLink]="['/watertiming']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
                               <!-- <ion-icon src="assets/article.svg"></ion-icon> -->
@@ -114,7 +109,7 @@
                           </div>
                       </a>
                   </li>
-                  <li *ngIf="!checkUserType()">
+                  <li>
                       <a [routerLink]="['/achievement']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
                               <img width="24px" src="assets/icons/achievement.png"/>
@@ -124,13 +119,9 @@
                           </div>
                       </a>
                   </li>
-                  <li *ngIf="!checkUserType()">
+                  <li>
                       <a [routerLink]="['/event']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
-                            <!-- <ion-icon name="calendar-number-outline"></ion-icon> -->
-                            <!-- <ion-icon name="calendar-clear-outline"></ion-icon> -->
-                            <!-- <ion-icon name="calendar-outline"></ion-icon> -->
-                            <!-- <img src="https://img.icons8.com/material-rounded/24/1A1A1A/event-accepted-tentatively.png"/> -->
                             <img width="24px" src="assets/icons/event.png"/>
                           </div>
                           <div class="in">
@@ -139,7 +130,7 @@
                           </div>
                       </a>
                   </li>
-                  <li *ngIf="!checkUserType()">
+                  <li>
                       <a [routerLink]="['/document']" class="item" data-dismiss="modal">
                           <div class="icon-box bg-primary">
                             <img width="24px" src="assets/icons/document.png"/>
@@ -269,5 +260,22 @@
           Centered Toast
       </div>
   </div>
-  <!-- <button type="button" class="btn btn-sm btn-text-light close-button">CLOSE</button> -->
+</div>
+<div class="modal fade dialogbox" #dbb id="DialogBlockButton"  data-keyboard="false" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Confirmation</h5>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to logout
+          </div>
+          <div class="modal-footer">
+              <div class="btn-list">
+                  <a (click)="logout()" class="btn btn-text-danger btn-block" data-bs-dismiss="modal">LOG OUT</a>
+                  <a (click)="closeDialogue()" class="btn btn-text-secondary btn-block " data-bs-dismiss="modal">CLOSE</a>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>

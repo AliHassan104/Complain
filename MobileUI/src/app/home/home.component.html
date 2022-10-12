@@ -21,7 +21,7 @@
     </div>
 
     <div class="section full mt-3 mb-3">
-      <div style="margin-left: 5%; ">
+      <div>
         <div class="col-12" *ngIf="events.length > 0; else noeventfound">
         <owl-carousel [items]="Images" [carouselClasses]="['carousel-multiple', 'owl-carousel', 'owl-theme']">
 
@@ -47,39 +47,27 @@
       </div>
 
       <ng-template #noeventfound>
-
-        <!-- <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
-          <div class="card-body">
-              <div class="text-center"> -->
                 <p>No Event Yet</p>
                 <br>
-              <!-- </div>
-          </div>
-        </div> -->
-
       </ng-template>
 
 
         <!-- if no business ads are available -->
 
-        <div *ngIf="!businessAds.length" style="width:95%" class="card">
-          <div class="card-header" style="display: flex;justify-content: center;"><h4>Achievement</h4></div>
+        <!-- <div *ngIf="!businessAds.length" style="width:95%" class="card">
+          <div class="card-header" style="display: flex;justify-content: center;"><h4>Achievements</h4></div>
           <div class="card-body" style="text-align: center;">
 
             <div class="section mt-2">
               <div class="row">
 
-
-
-        <div class="col-12" *ngIf="achievement.length > 0; else noachievement">
+              <div class="col-12" *ngIf="achievement.length > 0; else noachievement">
                 <div class="col-12" *ngFor="let list of achievement" >
-                  <a>
                       <div  class="card product-card">
                           <div class="card-body">
                               <img style="width: 100%; height: 50vh;" src={{list.pictureUrl}} class="image" alt="product image">
                               <h2 class="title">{{list.title}}</h2>
                               <p>{{list.date | date:"fullDate"}}</p>
-                              <!-- <p>{{list.description}}</p> -->
                               <p>{{list.description | slice:0:250}} <b *ngIf="list.description.length > 250"> ...ReadMore</b> </p>
                             </div>
 
@@ -87,26 +75,81 @@
                   <button [routerLink]="['/achivementdetails/',list.id]" type="button" style="width: 35%;" class= "btn btn-outline-primary rounded shadowed me-1 mb-1">Details</button>
                 </div>
                           </div>
-                        </a>
                   </div>
         </div>
 
         <ng-template #noachievement>
-
                   <p class="text-center">No Achievement Yet</p>
-
         </ng-template>
 
             </div>
         </div>
 
           </div>
+        </div> -->
+
+        <!-- <div *ngIf="!businessAds.length" style="width:95%;display: inline;" class="card">
+          <div class="card-header" style="display: flex;justify-content: center;"><h4>Achievements</h4></div>
+          <div class="card-body">
+            <div class="section mt-2">
+              <div class="row">
+              <div class="col-12" *ngIf="achievement.length > 0; else noachievement">
+                <div class="col-12" *ngFor="let list of achievement" >
+                      <div class="col-12"  class="card product-card">
+                          <div style="display: inline;" class="col-12" class="card-body">
+                            <div style="display: inline;" class="col-4">
+                              <img  style="height: 25vh;" src={{list.pictureUrl}} class="image col-4" alt="product image">
+                            </div>
+                            <div style="display: inline;" class="col-8">
+                              <h2 style="display: inline;" class="title col-8">{{list.title}}</h2>
+                              <p style="display: inline;" class="col-8">{{list.date | date:"fullDate"}}</p>
+                              <p style="display: inline;" class="col-8">{{list.description | slice:0:250}} <b *ngIf="list.description.length > 250"> ...ReadMore</b> </p>
+                            </div>
+                            </div>
+                          </div>
+                  </div>
         </div>
+
+
       </div>
     </div>
 
+  </div>
+</div> -->
 
-    <!-- //user POsts -->
+        <div class="container-fluid">
+          <div class="card" style="padding: 15px;" *ngIf="achievement.length > 0; else noachievement">
+            <div [routerLink]="['/achivementdetails/',list.id]" class="row" *ngFor="let list of achievement">
+              <!-- <a [routerLink]="['/achivementdetails/',list.id]"> -->
+                <div class="col-4">
+                  <img style="height: 25vh;width: 100%;" src={{list.pictureUrl}} class="image" alt="image">
+                </div>
+                <div style="display: inline;" class="col-7">
+                  <h2 class="title">{{list.title}}</h2>
+                  <p class="">{{list.date | date:"fullDate"}}</p>
+                  <p class="">{{list.description | slice:0:150}} <b *ngIf="list.description.length > 150"> ...ReadMore</b> </p>
+                  <!-- <div>
+                    <button [routerLink]="['/achivementdetails/',list.id]" type="button" style="width: 35%;" class= "btn btn-outline-primary rounded shadowed me-1 mb-1">Details</button>
+                  </div> -->
+                </div>
+              <!-- </a> -->
+              </div>
+            </div>
+          </div>
+
+
+        <ng-template #noachievement>
+                  <p class="text-center">No Achievement Yet</p>
+        </ng-template>
+
+
+
+
+
+
+
+      </div>
+    </div>
 
 
     <div>

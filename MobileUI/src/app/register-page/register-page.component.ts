@@ -126,6 +126,10 @@ registerForm = new FormGroup({
 
   userPost(data: any){
     // setTimeout(() => {
+      console.log(123);
+
+      console.log(data.value);
+
       this.registerService.postUser(data.value).subscribe(userData => {
         this.toastService.showToast("Registered Successfully Your Account Will Be Active With In 24 Hours", "#toast-15")
         this.router.navigate(['register-pending']);

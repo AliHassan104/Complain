@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from "@angular/core";
+import { Component, OnInit, Input, HostListener, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Router } from "@angular/router";
 // import { MainService } from "../Services/main.service";
 import { NotificationService } from "../Services/notification.service";
@@ -19,7 +19,7 @@ import { UserService } from "../Services/user.service";
   templateUrl: "./bottom-menu.component.html",
   styleUrls: ["./bottom-menu.component.css"],
 })
-export class BottomMenuComponent implements OnInit {
+export class BottomMenuComponent implements OnInit , AfterViewInit{
   private stompClient;
   id = sessionStorage.getItem("userId");
   friendsArray = [];
@@ -49,53 +49,53 @@ export class BottomMenuComponent implements OnInit {
     private userService: UserService
   ) {}
 
+  ngAfterViewInit(){
+    // throw new Error("Method not implemented.");
+    console.log(this.marker);
+  }
+
+  @ViewChild("dbb")marker: ElementRef
+
+
+
+
   ngOnInit(): void {
-    // this.id = sessionStorage.getItem("userId");
-    // this.userName = sessionStorage.getItem("username");
-    // this.initializeWebSocketConnection();
-    // this.checkSessionStorage();
-    // this.getProfilePicture();
-    // this.getNotificationCount();
-    // this.getChatsCount();
     this.getUser()
   }
 
-  // getToken() {
-  //   this.messagingService.myMethod$.subscribe((data) => {
-  //     console.log("response of token ", data);
-  //     this.token = data.toString();
-  //     console.log("token is here ", data);
+  // checkUserType() {
+  //   if (this.userType == "admin") return true;
+  //   else return false;
+  // }
+
+  // initializeWebSocketConnection() {
+  //   const url = environment.baseUrl;
+  //   let ws = new SockJS(url + "ws");
+  //   this.stompClient = Stomp.over(ws);
+  //   let that = this;
+  //   this.stompClient.connect({}, function (frame) {
+  //     that.openGlobalSocketForRequestNotification();
+  //     that.openGlobalSocketForPostNotification();
+  //     that.goOnline();
   //   });
   // }
-  checkUserType() {
-    if (this.userType == "admin") return true;
-    else return false;
-  }
 
-  initializeWebSocketConnection() {
-    const url = environment.baseUrl;
-    let ws = new SockJS(url + "ws");
-    this.stompClient = Stomp.over(ws);
-    let that = this;
-    this.stompClient.connect({}, function (frame) {
-      that.openGlobalSocketForRequestNotification();
-      that.openGlobalSocketForPostNotification();
-      that.goOnline();
-    });
-  }
-
-  checkSessionStorage() {
-    this.checkStorage = sessionStorage.getItem("profilePicture");
-    if (this.checkStorage !== "null") {
-      this.profilePicture = sessionStorage.getItem("profilePicture");
-    }
-  }
+  // checkSessionStorage() {
+  //   this.checkStorage = sessionStorage.getItem("profilePicture");
+  //   if (this.checkStorage !== "null") {
+  //     this.profilePicture = sessionStorage.getItem("profilePicture");
+  //   }
+  // }
 
   ngOnDestroy() {
-    if (this.stompClient) {
-      this.goOffline();
-      this.stompClient.unsubscribe();
-    }
+    // if (this.stompClient) {
+    //   this.goOffline();
+    //   this.stompClient.unsubscribe();
+    // }
+  }
+
+  closeDialogue(){
+    this.marker.nativeElement.style.display = 'none'
   }
 
   // getAllFriends() {
