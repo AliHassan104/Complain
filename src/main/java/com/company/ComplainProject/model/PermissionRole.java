@@ -24,4 +24,5 @@ public class PermissionRole {
     private Permission permission;
     private Boolean canEdit;
     private Boolean canDelete;
+    private Boolean assign;
 }
