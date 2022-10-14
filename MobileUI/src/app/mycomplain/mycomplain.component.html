@@ -27,13 +27,18 @@
                    placeholder="Pictures"
                    type="file" name="file" formControlName="pictureUrl" id="fileuploadInput" accept=".png, .jpg, .jpeg">
                     <label for="fileuploadInput">
-                        <span>
+                      <div class="" *ngIf="imageSrc === null; else noimage">
+                      <span>
+
                             <strong>
-                                <ion-icon name="cloud-upload-outline"></ion-icon>
-                                <img [src]="imageSrc" alt="">
-                                <i>Tap to Upload</i>
+                              <i>Tap to Upload</i>
+                              <ion-icon name="cloud-upload-outline"></ion-icon>
                             </strong>
-                        </span>
+                          </span>
+                        </div>
+                        <ng-template #noimage>
+                          <img style="width: 100%;height: 100%;" [src]="imageSrc" alt="">
+                      </ng-template>
                     </label>
                 </div>
 
@@ -65,33 +70,6 @@
                 <button [disabled]="!object.valid" type="submit" class="btn btn-primary">Submit</button>
             </form>
 
-            <!-- <form [formGroup]="form" (submit)="uplaodFile()">
-              <div class="form-group">
-                  <div class="">
-
-                      <input placeholder="Name" formControlName="name" type="text" required>
-                      <span *ngIf="form.controls.name.touched
-                      &&  form.controls.name.invalid">This field is required</span>
-
-                  </div>
-              </div>
-               <div class="form-group">
-                  <div class="">
-
-                      <input
-                      (change)="onChange($event)"
-                       multiple
-                       placeholder="Pictures"
-                       type="file" required>
-                  </div>
-              </div>
-
-              <div class="form-group btn-group">
-
-                  <button class="" type="submit"  >Submit</button>
-              </div>
-          </form> -->
-
         </div>
     </div>
   </div>
@@ -108,7 +86,7 @@
       <a>
           <div  class="card product-card" style="margin-top: 10px; margin-bottom: 10px;">
               <div class="card-body">
-                  <img style="width: 100%; height: 50vh;" src={{list.picture}} class="image" alt="product image">
+                  <img style="width: 100%; height: 50vh;" src={{list.picture}} class="image" alt="image">
                   <h2 class="title">{{list.complainType.name}} </h2>
                   <p>{{list.date | date:"fullDate"}}</p>
                   <!-- <p>{{list.status}}</p> -->

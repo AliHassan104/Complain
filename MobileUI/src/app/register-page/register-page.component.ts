@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Register } from './register';
+// import { Register } from './register';
 // import { MainService } from '../Services/main.service';
 import { ToastUtilService } from '../Services/toast-util.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,11 +13,11 @@ import { RegisterService } from '../Services/register.service';
 })
 export class RegisterPageComponent implements OnInit {
 
-  registerObj: Register = new Register();
+  // registerObj: Register = new Register();
   innerHeight: number = window.innerHeight - 100;
-  checked = false;
-  confirmPassword;
-  typeChange = "password";
+  // checked = false;
+  // confirmPassword;
+  // typeChange = "password";
   constructor(
     private router:Router,
     private toastService:ToastUtilService,
@@ -70,7 +70,7 @@ registerForm = new FormGroup({
   lastname : new FormControl('',[ Validators.required , Validators.minLength(3) , Validators.pattern("[a-zA-Z]*")]), // ,Validators.minLength(3) , Validators.maxLength(15)]
   // cnic : new FormControl('',[ Validators.required , Validators.pattern('/^([0-9]{5})[\-]([0-9]{7})[\-]([0-9]{1})+/')]), // ,Validators.minLength(9)]
   cnic : new FormControl('',[ Validators.required , Validators.pattern('^[0-9]{13}$')]), // ,Validators.minLength(9)]
-  phoneNumber : new FormControl('',[ Validators.required, Validators.pattern('^[0-9]{10}$')]), // ,Validators.minLength(10) , Validators.maxLength(10)]
+  phoneNumber : new FormControl('',[ Validators.required, Validators.pattern('^[0-9]{11}$')]), // ,Validators.minLength(10) , Validators.maxLength(10)]
   email : new FormControl('',[ Validators.required , Validators.email]), // , Validators.email
   password : new FormControl('',[ Validators.required , Validators.minLength(8)]),
   numberOfFamilyMembers : new FormControl('',[ Validators.required]), // Validators.pattern('^[1-9][0-9]{2}$')
@@ -81,7 +81,7 @@ registerForm = new FormGroup({
   address : new FormGroup({
     // id : new FormControl()
     houseNumber : new FormControl('',[ Validators.required]),
-    floorNumber : new FormControl('',[ Validators.required]),
+    floorNumber : new FormControl(null,[ Validators.required]),
     // street : new FormControl('',[ Validators.required])
   }),
 
@@ -98,9 +98,7 @@ registerForm = new FormGroup({
   getAreas() {
     this.registerService.getAllArea().subscribe(data => {
       this.areas = data
-      // console.log(data);
     }, error => {
-      // console.log(error);
     });
   }
 

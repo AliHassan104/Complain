@@ -24,7 +24,7 @@ export class MycomplainComponent implements OnInit {
   blockId: any
   userEmail: any
   userFile: File
-  imageSrc:any
+  imageSrc:any = null
 
   constructor(private myComplainService: MycomplainService ,
               private userService : UserService,
