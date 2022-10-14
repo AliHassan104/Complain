@@ -1,8 +1,8 @@
-export class NotificationBody{
-    notification = {
-        title:"",
-        body:"",
-        icon:""
-    }
-    to:any;
- }
+// export class NotificationBody{
+//     notification = {
+//         title:"",
+//         body:"",
+//         icon:""
+//     }
+//     to:any;
+//  }

@@ -66,9 +66,12 @@ loginSubmit(loginCredentials: any){
     this.loginService.login(this.login.value).subscribe(data => {
         if (data.jwt != null) {
 
-            localStorage.setItem("jwtToken", data.jwt)
-            this.toastService.showToast("Login Successfully", "#toast-15")
-            this.router.navigate(['home'])
+          this.toastService.showToast("Login Successfully", "#toast-15")
+
+          localStorage.setItem("jwtToken", data.jwt)
+
+          this.router.navigate(['home'])
+
         }
     }, error => {
       this.toastService.showToast(error.error[0].message, "#toast-16");
