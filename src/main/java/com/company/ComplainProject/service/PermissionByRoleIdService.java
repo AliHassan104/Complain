@@ -39,6 +39,7 @@ public class PermissionByRoleIdService {
                                                         .roles(permissionRole1.getRoles())
                                                         .canEdit(permissionRole1.getCanEdit())
                                                         .canDelete(permissionRole1.getCanDelete())
+                                                        .assign(permissionRole1.getAssign())
                                                         .build();
                     permissionRoleDtos.add(permissionRoleDto);
                 }
