@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 
+import com.company.ComplainProject.config.scheduler.ScheduleConfig;
 import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
@@ -12,6 +13,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +64,7 @@ public class ComplainController {
     @PostMapping("/complain")
     public ResponseEntity<ComplainDetailsResponse> addComplain(@RequestParam("pictureUrl") MultipartFile image,
                                                    @RequestParam("data") String userdata) {
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(ScheduleConfig.class);
         try{
             ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
             ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
