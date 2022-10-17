@@ -22,6 +22,7 @@ public class PermissionRoleService {
     PermissionRepository permissionRepository;
     @Autowired
     PermissionService permissionService;
+    PermissionRole permissionRole;
     PermissionRoleDto permissionRoleDto1;
     PermissionRoleDto permissionRoleDto2;
 
@@ -29,22 +30,17 @@ public class PermissionRoleService {
         try {
 
 
-             permissionRoleDto2 = toDto(permissionRoleRepository.findByPermissionId(permissionRoleDto.getPermission().getId()));
-            if(permissionRoleDto2!=null){
-                if(permissionRoleDto.getAssign()!=false){
-                    permissionRoleDto.setId(permissionRoleDto2.getId());
-                    permissionRoleDto1 = toDto(permissionRoleRepository.save(toDo(permissionRoleDto)));
-                }
-                else{
-                    permissionRoleDto.setId(permissionRoleDto2.getId());
-                    permissionRoleRepository.delete(toDo(permissionRoleDto));
-                }
+            permissionRole = permissionRoleRepository.findByPermissionId(permissionRoleDto.getPermission().getId());
+            if(permissionRole!=null){
+                permissionRoleDto.setId(permissionRole.getId());
+                permissionRoleDto1 = toDto(permissionRoleRepository.save(toDo(permissionRoleDto)));
+            }
+            else{
+                permissionRoleDto1 = toDto(permissionRoleRepository.save(toDo(permissionRoleDto)));
             }
             return permissionRoleDto;
         }catch (Exception e){
-//            throw new ContentNotFoundException("Cannot Assign Permission");
-            permissionRoleDto1 = toDto(permissionRoleRepository.save(toDo(permissionRoleDto)));
-            return permissionRoleDto1;
+            throw new ContentNotFoundException("Cannot Assign Permission");
         }
     }
 
@@ -78,6 +74,7 @@ public class PermissionRoleService {
                 .permission(permissionRole.getPermission())
                 .canEdit(permissionRole.getCanEdit())
                 .canDelete(permissionRole.getCanDelete())
+                .assign(permissionRole.getAssign())
                 .build();
     }
 
@@ -89,6 +86,7 @@ public class PermissionRoleService {
                 .permission(permissionRoleDto.getPermission())
                 .canEdit(permissionRoleDto.getCanEdit())
                 .canDelete(permissionRoleDto.getCanDelete())
+                .assign(permissionRoleDto.getAssign())
                 .build();
     }
 

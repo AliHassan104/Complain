@@ -6,6 +6,7 @@ var canDelete = false;
 var assign = false;
 
 function roles(){
+    debugger;
     getData(`/roles`)
     .then((data =>{
         let roles = ``;
@@ -22,11 +23,8 @@ roles();
 
 
  function showPermissionUrls(){
-//   debugger
   let roleId = document.getElementById("Roles").value;
-  // let url = `permission/`+roleId
-  // console.log(url);
-  // console.log(roleId);
+
     getData(`/permission/role/`+roleId)
     .then((permissions =>{
         debugger;
@@ -38,7 +36,7 @@ roles();
            <th scope="row">${i+1}</th>
            <td id="p-${permissions[i].id}">${permissions[i].permission.url}</td>
            `
-            if(permissions[i].canEdit!=null && permissions[i].canDelete!=null){
+            if(permissions[i].assign!=null && permissions[i].assign==true){
                 obj={
                     roles:{
                       "id": document.getElementById("Roles").value
@@ -48,7 +46,7 @@ roles();
                     },
                     "canEdit":permissions[i].canEdit,
                     "canDelete":permissions[i].canDelete,
-                    "assign":true
+                    "assign":permissions[i].assign
                   }
                   assignPermissions.push(obj);
                 if(permissions[i].canEdit == true){
@@ -99,82 +97,92 @@ roles();
  }
 
  function Edit(id){
+    // debugger;
   let check = false;
-  // debugger;
-  for(let i = 0; i< assignPermissions.length; i++){
-    if(assignPermissions[i].permission.id == id){
-      let change = document.getElementById('ce-'+id);
-      if(change.checked == true){
-        check = true;
-        assignPermissions[i].canEdit=check;
-      }
-      else{
-        assignPermissions[i].canEdit=check;
+  var check1 = document.getElementById('as-'+id);
+  if (check1.checked == true){  
+    for(let i = 0; i< assignPermissions.length; i++){
+      if(assignPermissions[i].permission.id == id){
+        let change = document.getElementById('ce-'+id);
+        if(change.checked == true){
+          check = true;
+          assignPermissions[i].canEdit=check;
+        }
+        else{
+          assignPermissions[i].canEdit=check;
+        }
       }
     }
-  }
-  console.log(assignPermissions);
+  }  
+  console.log(assignPermissions); 
  }
 
  function Delete(id){
-  let check = false;
-  // debugger;
-  for(let i = 0; i< assignPermissions.length; i++){
-    if(assignPermissions[i].permission.id == id){
-      let change = document.getElementById('cd-'+id);
-      if(change.checked == true){
-         check = true;
-        assignPermissions[i].canDelete=check;
-      }
-      else{
-        assignPermissions[i].canDelete=check;
-      }
-    }
-  }
-  console.log(assignPermissions);
- }
+     // debugger;
+     let check = false;
+     var check1 = document.getElementById('as-'+id);
+     if (check1.checked == true){  
+       for(let i = 0; i< assignPermissions.length; i++){
+         if(assignPermissions[i].permission.id == id){
+           let change = document.getElementById('cd-'+id);
+           if(change.checked == true){
+             check = true;
+             assignPermissions[i].canDelete=check;
+           }
+           else{
+             assignPermissions[i].canDelete=check;
+           }
+         }
+       }
+     }  
+     console.log(assignPermissions); 
+   }
  
  function assignUrl(id){
     debugger;
- 
-    var check3 = document.getElementById('as-'+id);
-    // if(check3.checked == false){
-        
-    //     assign = false;
-    //     // assignPermissions.splice(id-1,1)
-    //     // console.log(assignPermissions);
-
-    // }
-    
+     
         var check1 = document.getElementById('ce-'+id);
         var check2 = document.getElementById('cd-'+id);
-        if (check1.checked == true){  
-          canEdit = true;
-        }   
-       if (check2.checked == true){  
-          canDelete = true;
-        }
+        var check3 = document.getElementById('as-'+id);
+
         if (check3.checked == true){  
             assign = true;
+            if (check1.checked == true){  
+              canEdit = true;
+            }   
+           if (check2.checked == true){  
+              canDelete = true;
+            }
+            obj={
+              roles:{
+                "id": document.getElementById("Roles").value
+              },
+              "permission":{
+                "id": id
+              },
+              "canEdit":canEdit,
+              "canDelete":canDelete,
+              "assign": assign
+            }
+            assignPermissions.push(obj);
+         }
+         else{
+          for(let i = 0; i< assignPermissions.length; i++){
+            if(assignPermissions[i].permission.id == id){
+              assignPermissions[i].canEdit=false;
+              assignPermissions[i].canDelete=false;
+              assignPermissions[i].assign=false;
+            }
           }
-        obj={
-          roles:{
-            "id": document.getElementById("Roles").value
-          },
-          "permission":{
-            "id": id
-          },
-          "canEdit":canEdit,
-          "canDelete":canDelete,
-          "assign": assign
-        }
-        assignPermissions.push(obj);
+         }
+
         console.log(assignPermissions);
     }
 
 
  function publish(){
-    debugger;
+  console.log(assignPermissions);
+   
   
   for(let i=0; i< assignPermissions.length; i++){
     sendData(`/permission/role`,assignPermissions[i])
