@@ -6,9 +6,11 @@ function logOut() {
 }
 
 function showUserData() {
+    debugger;
     getUserData().then(
         (data) => {
             document.getElementById("username").innerText = data.firstname
+            console.log(data)
         })
 }
 

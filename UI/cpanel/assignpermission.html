@@ -7,13 +7,6 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-	<meta name="author" content="AdminKit">
-	<meta name="keywords"
-		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com/">
 	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
@@ -40,7 +33,13 @@
 	<script src="/js/customFetch.js"></script>
 
 </head>
-
+<!--
+  HOW TO USE: 
+  data-theme: default (default), dark, light, colored
+  data-layout: fluid (default), boxed
+  data-sidebar-position: left (default), right
+  data-sidebar-layout: default (default), compact
+-->
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div id="preloader"></div>
@@ -49,10 +48,11 @@
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="/index.html">
 					<span class="sidebar-brand-text align-middle">
-						<b>Complain</b>
-						<!-- <sup><small class="badge bg-primary text-uppercase">Pro</small></sup> -->
+						<b>Cantonment Board</b>
+						<b>Faisal Ward 2</b>
+				
 					</span>
-
+					
 				</a>
 
 				<div class="sidebar-user">
@@ -63,11 +63,10 @@
 						</div>
 						<div class="flex-grow-1 ps-2">
 							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" id="username">
-
+								
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
-
-								<a class="dropdown-item" href="#" onclick="logOut()">Log out</a>
+								<a class="dropdown-item" href="#">Log out</a>
 							</div>
 
 							<div class="sidebar-user-subtitle">Admin</div>
@@ -121,7 +120,7 @@
 
 
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a data-bs-target="#user" data-bs-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle" data-feather="users"></i> <span class="align-middle">User</span>
 						</a>
@@ -216,9 +215,22 @@
 						</ul>
 					</li>
 
+					<!-- <li class="sidebar-item">
+						<a data-bs-target="#announcement" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="target"></i> <span class="align-middle">Announcement</span>
+						</a>
+						<ul id="announcement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="/announcement/addAnnouncement.html">Add
+								Announcement</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/announcement/viewAnnouncement.html">View
+								Announcement</a></li>
+						</ul>
+					</li> -->
+
+				</ul>
+
 			</div>
 		</nav>
-
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
@@ -498,69 +510,34 @@
 				</div>
 			</nav>
 
-
             <main class="content">
-            	<div class="container-fluid p-4">
-
-                    <div id="formSubmitted" style="height: 5vh;">
-                        
-                    </div>
-
-					<div class="row mb-2 mb-xxl-4" >
-						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Add Permissions</strong> </h3>
-						</div>
-					</div>
+                <form>
+					<span class = "label label-default">Select Roles</span>
+                <select id="Roles" class="form-select" onchange="showPermissionUrls()">
                     
-					<div class="row">
+                </select>
+   
+				<table class="table">
+					<thead>
+					  <tr>
+						<th scope="col">#</th>
+						<th scope="col">URL</th>
+						<th scope="col">Can Active</th>
+						<th scope="col">Can Delete</th>
+						<th scope="col">Assign</th>
+					  </tr>
+					</thead>
+					<tbody id="UrlTable">
 
-                        <form>
-                            <fieldset>
-                                <div id="myDiv" class="row mb-3">
-
-                                    <label for="addcomplaintype" class="col-sm-2 col-form-label">Add Permissions</label>
-                                    
-                                    <div class="col-sm-10">  
-                                  	<input type="text" class="form-control" id="myInput" aria-describedby="emailHelp" placeholder="Enter Permissions">
-                                   
-                                    </div>
-                                  
-
-                                </div>
-                                <ul id="myUL">
-                                    
-                                </ul>
-                            </fieldset>
-                        </form>
-                        <div style="width: 100%;text-align: center; justify-content: center;">
-	
-                           <button  style="width: 12%;" type="submit" onclick="addPermission()" id="complaintypebtn" class="btn btn-primary" >Add</button>
-                        <br>
-                        </div>
-
-						<table class="UrlTable">
-							<thead>
-							  <tr>
-								<th scope="col">URL</th>
-							  </tr>
-							</thead>
-							<tbody id="UrlTable">
-
-
-							</tbody>
-						  </table>
-                        
-                        
-                        
-                    </div>
-                    
-				</div>
-                                        
-                </div>
+					
+					</tbody>
+				  </table>
+				  <button onclick="publish()" type="button" class="btn btn-info">submit</button>
+				</form>            
 			</main>
 		<script src="/js/app.js"></script>
 		<script src="/js/dashboard.js"></script>
-        <script src="/js/permission.js"></script>
+        <script src="/js/assignpermission.js"></script>
 
 </body>
 

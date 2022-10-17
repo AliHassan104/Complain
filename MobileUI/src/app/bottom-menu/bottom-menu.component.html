@@ -32,10 +32,11 @@
           <span  *ngIf="reqCount>0" class="badge badge-danger" >{{reqCount}}</span>
       </div>
   </a>
-  <a  data-toggle="modal" data-target="#DialogBlockButton" class="item">
+  <a (click)="logout()"  class="item">
+    <!-- data-toggle="modal" data-target="#DialogBlockButton" -->
       <div class="col">
           <img width="25px" src="assets/icons/logout2.png"/>
-          <i class="bi bi-bell-fill"></i>
+          <!-- <i class="bi bi-bell-fill"></i> -->
           <!-- <span *ngIf="notificationCount>0" class="badge badge-danger" >{{notificationCount}}</span> -->
       </div>
   </a>
@@ -261,7 +262,8 @@
       </div>
   </div>
 </div>
-<div class="modal fade dialogbox" #dbb id="DialogBlockButton"  data-keyboard="false" tabindex="-1" role="dialog">
+
+<!-- <div class="modal fade dialogbox" #dbb id="DialogBlockButton"  data-keyboard="false" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -278,4 +280,4 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->

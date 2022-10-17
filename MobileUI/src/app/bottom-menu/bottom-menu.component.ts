@@ -211,6 +211,7 @@ confirmation(){
     localStorage.clear();
     this.router.navigate([""]);
   }
+  
 
   // getProfilePicture() {
   //   this.service.sendPicture$.subscribe((d) => {

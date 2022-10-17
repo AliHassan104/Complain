@@ -63,7 +63,6 @@ loginSubmit(loginCredentials: any){
 
   this.login.value.deviceToken = localStorage.getItem("deviceId")
 
-
     this.loginService.login(this.login.value).subscribe(data => {
         if (data.jwt != null) {
 

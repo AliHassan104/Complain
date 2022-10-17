@@ -3,7 +3,6 @@ export const environment = {
   production: true,
   baseUrl: 'https://api.jicomplain.com',
  // baseUrl: 'http://localhost:8081',
-    // baseUrl: 'https://d633-101-53-235-105.ap.ngrok.io',
   firebase: {
     apiKey: "AIzaSyB8t7wlWQpISipd9RyOwLIdcw4MNQ5B-aA",
     authDomain: "complain-management-bfaa7.firebaseapp.com",
