@@ -1,8 +1,6 @@
 let uid ;
 
 
-
-
 function getArea(pageNumber) {
     if (pageNumber >= 0) {
         getData(`/admin/area?pageNumber=${pageNumber}&pageSize=${10}`).
@@ -10,6 +8,7 @@ function getArea(pageNumber) {
             
             renderArea(data)
             renderPagination(data) 
+            
 
         })
     }
@@ -37,15 +36,22 @@ function renderArea(data){
         <a  href="/addarea.html?id=${data.content[i].id}"> 
         <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="margin-right: 15px;"  class="fa fa-pencil"></i>
-        </a>
         
-       <i onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
+        </a>
+        ${1==2 ?
+       `<i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
+       `:``
+    }
 </td>
     </tr>`
+
+  
+
     }
     document.getElementById("datatables-reponsive").innerHTML = table;
 
-        
+      
+     
     if(data.content.length === 0){
         noAreaFound = ""
         noAreaFound  += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
@@ -55,7 +61,11 @@ function renderArea(data){
    else{
         document.getElementById("noRecordFound").innerHTML =  "" 
    }
+
+   
+    
 }
+
 
 
 function deleteArea(id){

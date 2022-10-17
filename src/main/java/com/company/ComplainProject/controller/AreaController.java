@@ -36,7 +36,6 @@ public class AreaController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/area")
     public ResponseEntity<AreaDto> addArea(@RequestBody AreaDto areaDto){
-
             return ResponseEntity.ok(areaService.addArea(areaDto));
     }
 
@@ -52,7 +51,7 @@ public class AreaController {
     @PutMapping("/area/{id}")
     public ResponseEntity<AreaDto> updateAreaById(@PathVariable Long id,@RequestBody AreaDto areaDto){
         try{
-            return ResponseEntity.ok(areaService.updateAchievementById(id,areaDto));
+            return ResponseEntity.ok(areaService.updateAreaById(id,areaDto));
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

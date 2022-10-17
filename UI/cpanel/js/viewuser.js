@@ -42,8 +42,9 @@ function renderUser(data) {
             <a href="/adduser.html?id=${data[i].id}">
             <i data-bs-toggle="modal" style="padding-right: 15px; margin-right: 5px;"  data-bs-target="#exampleModal"  
              class="fa fa-pencil"></i>
+             
             </a>
-
+            
             <i onclick="deleteUser(${data[i].id})" class="fa fa-close"></i>
     </td>
         </tr>`

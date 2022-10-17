@@ -60,10 +60,10 @@ public class ComplainController {
 
     @PostMapping("/complain")
     public ResponseEntity<ComplainDetailsResponse> addComplain(@RequestParam("pictureUrl") MultipartFile image,
-                                                   @RequestParam("data") String userdata) {
+                                                   @RequestParam("data") String complainData) {
         try{
             ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-            ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
+            ComplainDto complainDto = mapper.readValue(complainData,ComplainDto.class);
             /**
              *  Upload Image
              */

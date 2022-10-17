@@ -29,8 +29,9 @@ function renderComplainType(data){
             <a  href="/addcomplaintype.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="margin-right: 13px;"  class="fa fa-pencil"></i>
+           
             </a>
-            
+            <i class="fa fa-check-circle" aria-hidden="true"  style="margin-right: 10px;"></i>
             <i onclick="deleteComplainType(${data[i].id})" 
              href="/addcomplaintype.html"  class="fa fa-close"></i>
             </td>
