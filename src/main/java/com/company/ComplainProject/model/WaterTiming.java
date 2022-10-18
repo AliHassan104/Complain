@@ -40,4 +40,8 @@ public class WaterTiming {
     @JoinColumn(name = "block_id")
     private Block block;
 
+    @ManyToOne
+    @JoinColumn(name = "area_id")
+    private Area area;
+
 }

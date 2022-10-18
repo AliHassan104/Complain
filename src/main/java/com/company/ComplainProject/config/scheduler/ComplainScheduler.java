@@ -17,8 +17,8 @@ public class ComplainScheduler {
 //    sec , min , hr , dayofmonth , month , dayofweek
 //    @Scheduled(cron = "*/3 * * * * *")
 
-    @Scheduled(fixedRate = 1000)
-    public void performSomething(){
-        System.out.println("Complain Submitted");
-    }
+//    @Scheduled(fixedRate = 1000)
+//    public void performSomething(){
+//        System.out.println("Complain Submitted");
+//    }
 }

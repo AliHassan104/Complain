@@ -24,7 +24,9 @@ function formSubmit() {
 
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var selectforBlock = document.getElementById('dropdownblock');
+    var selectforArea = document.getElementById('dropdownarea');
     var block = selectforBlock.options[selectforBlock.selectedIndex].value;
+    var area = selectforArea.options[selectforArea.selectedIndex].value;
     let date = document.getElementById("date").value;
 
     var getDate = new Date(date);
@@ -37,19 +39,24 @@ function formSubmit() {
     newArea = {
         block: {
             id: block
+        },
+        area: {
+            id: area
         }
-        , day: dayName, date: date, start_time: start_time
+        , day: dayName
+        , date: date
+        , start_time: start_time
         ,end_time:end_time
     };
+    console.log(newArea);
 
 
     if (queryString == "") {
        
         sendData(`/watertiming`,newArea)
             .then(data => {
-                                                            //  Send notification on water timing add to users
+   //  Send notification on water timing add to users
                 
-
                 let table = ""
                 table += `
                         <div  style=" 

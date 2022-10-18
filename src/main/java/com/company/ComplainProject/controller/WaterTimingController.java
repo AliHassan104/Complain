@@ -27,9 +27,7 @@ public class WaterTimingController {
     public ResponseEntity<List<WaterTiming>> getWaterTiming(){
         List<WaterTiming> waterTiming = waterTimingService.getAllWaterTiming();
         return ResponseEntity.ok(waterTiming);
-
     }
-
 
     @GetMapping("/watertiming/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER') or hasRole('ROLE_WORKER')")
@@ -64,7 +62,6 @@ public class WaterTimingController {
 
     @GetMapping("watertimingByArea/{area}")
     public ResponseEntity<List<WaterTiming>> getWaterTimingByArea(@PathVariable("area") Long areaId){
-
             return ResponseEntity.ok(waterTimingService.getWaterTimingByArea(areaId));
     }
 //                                                          get water timing by block
@@ -76,7 +73,6 @@ public class WaterTimingController {
 
     @GetMapping("watertiming/allWatertimingByBlock")
     public ResponseEntity<List<WaterTimingByBlockDto>> getAllWaterTimingByBlock(){
-
             return ResponseEntity.ok(waterTimingService.getAllWaterTimingByBlock());
     }
 

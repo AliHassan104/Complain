@@ -22,4 +22,5 @@ public class WaterTimingDto {
     private LocalTime start_time;
     private LocalTime end_time;
     private Block block;
+    private Area area;
 }

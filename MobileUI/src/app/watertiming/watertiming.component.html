@@ -1,30 +1,25 @@
+<div style="height: 100%!important;overflow: auto;" class="">
 
-<div class="appHeader text-light" >
-  <div class="pageTitle">{{areaName}} Water Timing</div>
+  <div class="appHeader text-light" >
+    <div class="pageTitle">{{areaName}} Water Timing</div>
   <div class="right">
   </div>
 </div>
 <br> <br> <br>
 
 
-<div style="height: 100%!important;overflow: auto;" class="accordion" id="accordionExample">
+<div style="height: 100%!important;overflow: auto;margin-bottom: 50px;" class="accordion" id="accordionExample">
 
-  <!-- <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming"> -->
-  <!-- <div   *ngIf="areaWaterTimimg.waterTimingDtoList.length > 0"> -->
+  <div   *ngIf="blocks.length > 0; else noblock">
 
-  <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming">
+  <div   *ngFor="let block of blocks; let i = index">
 
-  <div   *ngFor="let list of areaWaterTimimg; let i = index">
-
-
-  <div   *ngIf="list.waterTimingDtoList.length > 0">
-
-    <div  class="card" >
+    <div  class="card" style="height: 100%!important;overflow: auto;">
 
       <div class="card-header" id="headingTwo" >
         <h5 class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#abc'+i"  aria-expanded="false" [attr.aria-controls]="'abc'+i">
-            {{list.block_name}}
+          <button (click)="getWaterTimingByBlock(block.id)" class="btn btn-link collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#abc'+i"  aria-expanded="false" [attr.aria-controls]="'abc'+i">
+            {{block.block_name}}
           </button>
         </h5>
       </div>
@@ -32,26 +27,21 @@
       <div [id]="'abc'+i" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
 
           <div class="card-body">
-            <div *ngFor="let watertime of list.waterTimingDtoList" class="">
-              <!-- On {{watertime.date | date:"EEEE" }} -->
-              <!-- On {{watertime.date.slice(0.3)}} -->
 
-              <!-- water will start at {{watertime.start_time | time}}
-              and end at {{watertime.end_time | time}} -->
-              <!-- *ngIf="watertime.date === 'Sunday'" -->
-              <div style="width: 200px;height: 50px; margin-bottom: 5px;" class="chip">
-                <!-- <i  style="width: 50px;height: 50px;" class="chip-icon bg-primary"> -->
-                    <!-- <ion-icon name="person"></ion-icon> -->
-                <!-- <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE').slice(0,2) === 'Mon'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/mon.png"/> -->
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Mon'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/mon.png"/>
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Tue'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/tue.png"/>
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Wed'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/wed.png"/>
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Thu'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/thur.png"/>
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Fri'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/fri.png"/>
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Sat'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/sat.png"/>
-                <img *ngIf="(watertime.date.slice(0,3) | date:'EEEE' | slice:0:3) === 'Sun'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/sun.png"/>
-                <!-- </i> -->
+          <div   *ngIf="areaWaterTimimg.length > 0; else nowatertiming">
 
+            <div *ngFor="let watertime of areaWaterTimimg" class="">
+              
+                <div style="width: 100%;height: 50px; margin-bottom: 5px;" class="chip " [style]="watertime.past ? 'background-color:red': 'background-color:green' ">
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Mon'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/mon.png"/>
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Tue'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/tue.png"/>
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Wed'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/wed.png"/>
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Thu'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/thur.png"/>
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Fri'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/fri.png"/>
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Sat'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/sat.png"/>
+                <img *ngIf="(watertime.day.slice(0,3)) === 'Sun'" style="width: 45px;height: 40px; padding-left: 10px; padding-top: 5px;" src="assets/icons/sun.png"/>
+
+                <span  class="chip-label">{{watertime.date | date}}</span>
                 <span  class="chip-label">{{watertime.start_time | time}} - {{watertime.end_time | time}}</span>
               </div>
 
@@ -61,74 +51,33 @@
 
           </div>
 
-          <!-- <div class="section full mt-2">
-            <div class="section-title">with Icon</div>
-            <div class="wide-block pt-2 pb-2">
-
-                <div class="chip chip-media">
-                    <i class="chip-icon bg-primary">
-                        <ion-icon name="person"></ion-icon>
-                    </i>
-                    <span class="chip-label">John Doe</span>
-                </div>
-
-                <div class="chip chip-media">
-                    <i class="chip-icon bg-danger">
-                        <ion-icon name="pin"></ion-icon>
-                    </i>
-                    <span class="chip-label">London</span>
-                </div>
-
-                <div class="chip chip-media">
-                    <i class="chip-icon bg-warning">
-                        <ion-icon name="alarm"></ion-icon>
-                    </i>
-                    <span class="chip-label">5:22 AM</span>
-                </div>
-
-            </div>
-        </div> -->
+          </div>
 
         </div>
-        <!-- </div> -->
 
       </div>
 
   </div>
   </div>
 
-  </div>
   <!-- </div> -->
-
-
-  <ng-template #nowatertiming>
-    <!-- <div class="card" style="width: 75%;position: absolute;top: 40%;left: 50%;transform: translate(-50%, -50%);">
-      <div class="card-body"> -->
+  <ng-template #noblock>
           <div class="text-center">
             <p>No Water Timing Available</p>
           </div>
-      <!-- </div>
-    </div> -->
+  </ng-template>
+
+  <ng-template #nowatertiming>
+    <div class="text-center">
+      <p>No Water Timing Available In Your Block</p>
+    </div>
   </ng-template>
 
 </div>
 
-<!-- <div class="accordion" id="accordionExample" *ngFor="let water of areaWaterTimimg; let i = index">
-  <div class="card" >
-
-    <div class="card-header" id="headingTwo" >
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#abc'+water.id"  aria-expanded="false" [attr.aria-controls]="'abc'+water.id">
-          {{water.block_name}}
-        </button>
-      </h5>
-    </div>
-    <div [id]="'abc'+water.id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div *ngFor="let list of areaWaterTimimg.waterTimingDtoList" class="card-body">
-        {{list.date | date:"fullDate"}} at  {{list.time}}
-      </div>
-    </div>
-</div> -->
-
-
+</div>
 <app-bottom-menu></app-bottom-menu>
+
+
+
+

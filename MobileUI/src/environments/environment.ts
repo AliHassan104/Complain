@@ -5,9 +5,10 @@
 export const environment = {
   production: false,
   // baseUrl: 'http://' + window.location.hostname + ':8081',
-  baseUrl:'https://api.jicomplain.com',
+  // baseUrl:'https://api.jicomplain.com',
 
-  // baseUrl: 'http://localhost:8081',
+  baseUrl: 'http://localhost:8081',
+  
     // baseUrl: 'https://d633-101-53-235-105.ap.ngrok.io',
   firebase: {
     apiKey: "AIzaSyB8t7wlWQpISipd9RyOwLIdcw4MNQ5B-aA",
