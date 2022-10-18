@@ -22,15 +22,3 @@ function addPermission() {
                 document.getElementById("UrlTable").innerHTML=data1
             })
   }
-
-
-
-
-
-
-
-
-
-
-
-
