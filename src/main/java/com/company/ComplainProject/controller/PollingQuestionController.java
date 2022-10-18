@@ -60,12 +60,9 @@ public class PollingQuestionController {
 
     @PutMapping("/pollingquestion/{id}")
     public ResponseEntity<Optional<PollingQuestionDto>> updatePollingQuestionById(@PathVariable Long id,@RequestBody PollingQuestionDto pollingQuestionDto){
-        try{
+
             return ResponseEntity.ok(pollingQuestionService.updatePollingQuestionById(id,pollingQuestionDto));
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @GetMapping("/pollingquestionbyarea/{area_id}")

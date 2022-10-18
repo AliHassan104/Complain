@@ -183,7 +183,13 @@ public class AdminService {
             }
             ComplainDto _complainDto = complainService.toDto(complainRepository.save(updateComplain.get()));
             if(_complainDto != null){
-                notificatonService.sendNotificationToUserOnComplainStatusChange(_complainDto);
+
+                Note note = new Note();
+                note.setSubject("Your Complain is in " + _complainDto.getStatus());
+                note.setContent("Your Complain of " + _complainDto.getComplainType().getName() + " is in " + _complainDto.getStatus());
+
+                notificatonService.sendNotification(note,_complainDto.getUser().getDeviceToken());
+
             }
 
             return _complainDto;

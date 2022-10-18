@@ -2,6 +2,9 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.EventDto;
+import com.company.ComplainProject.dto.Note;
+import com.company.ComplainProject.dto.SearchCriteria;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.repository.EventRepository;
@@ -30,6 +33,8 @@ public class EventService {
     AreaService areaService;
     @Autowired
     FirebaseMessagingService notificationService;
+    @Autowired
+    UserService userService;
 
     final String eventImageFolderPath = Paths.get("src/main/resources/static/event/images").toAbsolutePath().toString();
 //                                                                                          get all events
@@ -46,12 +51,25 @@ public class EventService {
      }
 
 //                                                                                           save events in the record
-     public EventDto saveEventsInRecord(EventDto eventDto){
-        EventDto _eventDto = todto(eventRepository.save(dto(eventDto)));
-        if(_eventDto != null){
-            notificationService.sendNotificationOnEventUpload(_eventDto);
-        }
-        return _eventDto;
+     public EventDto saveEventsInRecord(EventDto eventDto) {
+         try {
+             EventDto _eventDto = todto(eventRepository.save(dto(eventDto)));
+
+             if (_eventDto != null) {
+                 Note note = new Note();
+                 note.setSubject("New Event is added");
+                 note.setContent("Event name " + _eventDto.getTitle());
+
+                 List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", _eventDto.getArea()));
+
+                 for (UserDetailsResponse users : userList) {
+                         notificationService.sendNotification(note, users.getDeviceToken());
+                 }
+             }
+             return _eventDto;
+         }catch (Exception e){
+             throw new RuntimeException("Some thing went wrong cannot save Events");
+         }
      }
 
 //      `                                                                                     get event by id

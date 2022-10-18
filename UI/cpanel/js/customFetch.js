@@ -287,11 +287,11 @@ function tokenNotExist() {
 
         userDetails = decodeJwtToken(token.substring(7))
         var roles = userDetails.ROLES.replace(/[\])}[{(]/g, '');
-        // Converting roles (string) into array
+                                                                        // Converting roles (string) into array
         var arrayOfRoles = roles.split(",");
 
         for (let i = 0; i < arrayOfRoles.length; i++) {
-            // Removing white spaces from array of role using trim()
+                                                                        // Removing white spaces from array of role using trim()
             getRoles[i] = arrayOfRoles[i].trim()
         }
 

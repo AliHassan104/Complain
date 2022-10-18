@@ -1,9 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.dto.WaterTimingByBlockDto;
-import com.company.ComplainProject.dto.WaterTimingDetails;
-import com.company.ComplainProject.dto.WaterTimingDto;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.model.WaterTiming;
 import com.company.ComplainProject.repository.BlockRepository;
@@ -30,6 +28,8 @@ public class WaterTimingService {
     FirebaseMessagingService notificationService;
     @Autowired
     BlockRepository blockRepository;
+    @Autowired
+    UserService userService;
 
     public List<WaterTiming> getAllWaterTiming() {
         try {
@@ -65,8 +65,19 @@ public class WaterTimingService {
             waterTimingDto.setBlock(block.get());
 
             WaterTimingDto _waterTimingDto = toDto(waterTimingRepository.save(dto(waterTimingDto)));
+
             if (_waterTimingDto != null) {
-                notificationService.sendNotificationOnWaterTiming(_waterTimingDto);
+
+                Note note = new Note();
+                note.setSubject("Water timing Updates");
+                note.setContent(_waterTimingDto.getDay() + " at " + _waterTimingDto.getStart_time() + " till " + _waterTimingDto.getEnd_time());
+
+                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block", ":",_waterTimingDto.getBlock()));
+
+                for (UserDetailsResponse users : userList) {
+                    notificationService.sendNotification(note,users.getDeviceToken());
+                }
+
             }
             return waterTimingDto;
         }

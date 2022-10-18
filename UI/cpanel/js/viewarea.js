@@ -1,6 +1,10 @@
 let uid ;
 
 
+
+    //     ${1==2 ?
+    //    `<i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
+    //    `:``
 function getArea(pageNumber) {
     if (pageNumber >= 0) {
         getData(`/admin/area?pageNumber=${pageNumber}&pageSize=${10}`).
@@ -38,16 +42,14 @@ function renderArea(data){
         style="margin-right: 15px;"  class="fa fa-pencil"></i>
         
         </a>
-        ${1==2 ?
-       `<i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
-       `:``
-    }
+       
+       <i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
+       
+    
 </td>
     </tr>`
-
-  
-
     }
+
     document.getElementById("datatables-reponsive").innerHTML = table;
 
       
@@ -61,8 +63,6 @@ function renderArea(data){
    else{
         document.getElementById("noRecordFound").innerHTML =  "" 
    }
-
-   
     
 }
 

@@ -1,3 +1,10 @@
+checkTokenInLocal();
+function checkTokenInLocal(){
+    token = localStorage.getItem('jwtToken')
+    if(token != null){
+        window.open(`${loginUrl}/index.html`,"_self")
+    }
+}
 
 function loginData() {
    

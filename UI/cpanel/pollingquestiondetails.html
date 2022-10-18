@@ -7,14 +7,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+	<meta name="keywords"
+		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com/">
 	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
-    
+
 
 	<link rel="canonical" href="/index-2.html" />
 
@@ -30,9 +31,9 @@
 			opacity: 0;
 		}
 	</style>
-	
-<script src="/js/properties.js"></script>
-<script src="/js/customFetch.js"></script>
+
+	<script src="/js/properties.js"></script>
+	<script src="/js/customFetch.js"></script>
 
 </head>
 
@@ -47,7 +48,7 @@
 						<b>Cantonment Board</b>
 						<b>Faisal Ward 2</b>
 					</span>
-					
+
 				</a>
 
 				<div class="sidebar-user">
@@ -57,11 +58,12 @@
 								alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
-							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" id="username">
-								
+							<a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown"
+								id="username">
+
 							</a>
 							<div class="dropdown-menu dropdown-menu-start">
-								
+
 								<a class="dropdown-item" onclick="logOut()">Log out</a>
 							</div>
 
@@ -91,10 +93,10 @@
 						</a>
 						<ul id="complaintype" class="sidebar-dropdown list-unstyled collapse "
 							data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link"
-									href="/addcomplaintype.html">Add Complain Type</a></li>
-							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewcomplaintype.html">View Complain Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/addcomplaintype.html">Add Complain
+									Type</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="/viewcomplaintype.html">View Complain
+									Type</a></li>
 						</ul>
 					</li>
 
@@ -125,97 +127,94 @@
 						<ul id="user" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="/adduser.html">Add User</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="/viewuser.html">View User</a>
-								<li class="sidebar-item"><a class="sidebar-link" href="/pendingRequest.html">Pending Users</a></li>
-							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/permission.html">Permission</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/assignpermission.html">Assign Permission</a></li>
-						</ul>
+							<li class="sidebar-item"><a class="sidebar-link" href="/pendingRequest.html">Pending
+									Users</a></li>
 					</li>
-
-
-
-					<li class="sidebar-item">
-						<a data-bs-target="#watertiming" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Water
-								Timing</span>
-						</a>
-						<ul id="watertiming" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addwatertiming.html">Add
-									Water Timing</a></li>
-							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewwatertiming.html">View Water Timing</a></li>
-						</ul>
+					<li class="sidebar-item"><a class="sidebar-link" href="/permission.html">Permission</a></li>
+					<li class="sidebar-item"><a class="sidebar-link" href="/assignpermission.html">Assign Permission</a>
 					</li>
+				</ul>
+				</li>
 
 
 
-					<li class="sidebar-item">
-						<a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="book"></i> <span
-								class="align-middle">Document</span>
-						</a>
-						<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/adddocument.html">Add
-									Document</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/viewdocument.html">View
-									Document</a></li>
-						</ul>
-					</li>
-
-					<li class="sidebar-item " >
-						<a data-bs-target="#complain" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span
-								class="align-middle">Complain</span>
-						</a>
-						<ul id="complain" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addcomplain.html">Add
-									Complain</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/viewcomplain.html">View
-									Complain</a></li>
-						</ul>
-					</li>
-
-					<li class="sidebar-item">
-						<a data-bs-target="#achievement" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="award"></i> <span
-								class="align-middle">Achievement</span>
-						</a>
-						<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addachievement.html">Add
-									Achievement</a></li>
-							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewachievement.html">View Achievement</a></li>
-						</ul>
-					</li>
+				<li class="sidebar-item">
+					<a data-bs-target="#watertiming" data-bs-toggle="collapse" class="sidebar-link collapsed">
+						<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Water
+							Timing</span>
+					</a>
+					<ul id="watertiming" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+						<li class="sidebar-item"><a class="sidebar-link" href="/addwatertiming.html">Add
+								Water Timing</a></li>
+						<li class="sidebar-item"><a class="sidebar-link" href="/viewwatertiming.html">View Water
+								Timing</a></li>
+					</ul>
+				</li>
 
 
-					<li class="sidebar-item active">
-						<a data-bs-target="#pollingquestion" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">Polling
-								Question</span>
-						</a>
-						<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse "
-							data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link"
-									href="/addpollingquestion.html">Add Polling Question</a></li>
-							<li class="sidebar-item"><a class="sidebar-link"
-									href="/viewpollingquestion.html">View Polling Question</a></li>
-						</ul>
-					</li>
 
-					<li class="sidebar-item">
-						<a data-bs-target="#events" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="target"></i> <span class="align-middle">Events</span>
-						</a>
-						<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="/addevents.html">Add
-									Events</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="/viewevents.html">View
-									Events</a></li>
-						</ul>
-					</li>
+				<li class="sidebar-item">
+					<a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link collapsed">
+						<i class="align-middle" data-feather="book"></i> <span class="align-middle">Document</span>
+					</a>
+					<ul id="document" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+						<li class="sidebar-item"><a class="sidebar-link" href="/adddocument.html">Add
+								Document</a></li>
+						<li class="sidebar-item"><a class="sidebar-link" href="/viewdocument.html">View
+								Document</a></li>
+					</ul>
+				</li>
 
-				
+				<li class="sidebar-item ">
+					<a data-bs-target="#complain" data-bs-toggle="collapse" class="sidebar-link collapsed">
+						<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Complain</span>
+					</a>
+					<ul id="complain" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+						<li class="sidebar-item"><a class="sidebar-link" href="/addcomplain.html">Add
+								Complain</a></li>
+						<li class="sidebar-item"><a class="sidebar-link" href="/viewcomplain.html">View
+								Complain</a></li>
+					</ul>
+				</li>
+
+				<li class="sidebar-item">
+					<a data-bs-target="#achievement" data-bs-toggle="collapse" class="sidebar-link collapsed">
+						<i class="align-middle" data-feather="award"></i> <span class="align-middle">Achievement</span>
+					</a>
+					<ul id="achievement" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+						<li class="sidebar-item"><a class="sidebar-link" href="/addachievement.html">Add
+								Achievement</a></li>
+						<li class="sidebar-item"><a class="sidebar-link" href="/viewachievement.html">View
+								Achievement</a></li>
+					</ul>
+				</li>
+
+
+				<li class="sidebar-item active">
+					<a data-bs-target="#pollingquestion" data-bs-toggle="collapse" class="sidebar-link collapsed">
+						<i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">Polling
+							Question</span>
+					</a>
+					<ul id="pollingquestion" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+						<li class="sidebar-item"><a class="sidebar-link" href="/addpollingquestion.html">Add Polling
+								Question</a></li>
+						<li class="sidebar-item"><a class="sidebar-link" href="/viewpollingquestion.html">View Polling
+								Question</a></li>
+					</ul>
+				</li>
+
+				<li class="sidebar-item">
+					<a data-bs-target="#events" data-bs-toggle="collapse" class="sidebar-link collapsed">
+						<i class="align-middle" data-feather="target"></i> <span class="align-middle">Events</span>
+					</a>
+					<ul id="events" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+						<li class="sidebar-item"><a class="sidebar-link" href="/addevents.html">Add
+								Events</a></li>
+						<li class="sidebar-item"><a class="sidebar-link" href="/viewevents.html">View
+								Events</a></li>
+					</ul>
+				</li>
+
 
 
 			</div>
@@ -227,17 +226,17 @@
 					<i class="hamburger align-self-center"></i>
 				</a>
 
-				
+
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-					
+
 						<li class="nav-item dropdown">
 							<a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
 								<img src="/img/photos/userAvatar.png" class="avatar img-fluid rounded"
 									alt="Charles Hall" />
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								
+
 								<a class="dropdown-item" onclick="logOut()">Log out</a>
 							</div>
 						</li>
@@ -252,47 +251,41 @@
 
 
 
-
-            
-            
-            
-            
-			
-            
 			<main class="content">
-                <div class="container-fluid p-0">
+				<div class="container-fluid p-0">
 
 					<div id="formSubmitted" style="height: 5vh;">
-                        
-                    </div>
+
+					</div>
 
 					<div class="mb-3">
 						<h1 class="h3 d-inline align-middle"><b>Polling Question Details</b></h1>
 					</div>
 
 					<div class="card" style="background-color:gainsboro;">
-						<div class="card-header" id="pollingQuestion" style="font-size:medium ; background-color:gainsboro;">
-						 
+						<div class="card-header" id="pollingQuestion"
+							style="font-size:medium ; background-color:gainsboro;">
+
 						</div>
-						
+
 						<div class="list-group" id="options">
 
-						
-						  </div> 
 
-					  </div>	 
+						</div>
 
-				
-					  <canvas id="myChart" style="width:100%;max-width:600px;margin-left: 10%;"></canvas>
+					</div>
+
+
+					<canvas id="myChart" style="width:100%;max-width:600px;margin-left: 10%;"></canvas>
 				</div>
 			</main>
+			</div>
 
 			<script src="/js/dashboard.js"></script>
-	<script src="/js/app.js"></script>
-	<script src="/js/properties.js"></script>
-	<script src="/js/pollingquestiondetails.js"></script>
+			<script src="/js/app.js"></script>
+			<script src="/js/properties.js"></script>
+			<script src="/js/pollingquestiondetails.js"></script>
 
 </body>
 
-<!-- Mirrored from demo.adminkit.io/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Aug 2022 11:49:44 GMT -->
 </html>

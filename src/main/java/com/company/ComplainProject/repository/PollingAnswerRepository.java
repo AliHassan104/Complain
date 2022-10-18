@@ -20,4 +20,7 @@ public interface PollingAnswerRepository extends JpaRepository<PollingAnswer,Lon
         @Query("SELECT p.pollingQuestion FROM PollingAnswer p WHERE p.user = :user")
         List<PollingQuestion> getAttemptedPollingQuestionsByUser(@Param("user") User user);
 
+        @Query("SELECT COUNT(p) FROM PollingAnswer p WHERE p.pollingQuestion.id =:question_id")
+        Long countAnsweredPollingQuestion(@Param("question_id") Long question_id);
+
 }

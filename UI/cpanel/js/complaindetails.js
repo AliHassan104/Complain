@@ -16,11 +16,11 @@ function renderComplainDetails(){
     .then((data)=>{
     
             dataRender += `
-                <img src="${data.picture}"  class="rounded mx-auto d-block "  alt="Not found" ">
+                <img src="${data.picture}"   alt="Not found">
             
             `
             document.getElementById('showImage').innerHTML = dataRender
-
+            console.log(data.user);
             document.getElementById('complainer_name').value = data.user.firstname+" "+data.user.lastname
             document.getElementById('email').value = data.user.email
             document.getElementById('cnic').value =  data.user.cnic

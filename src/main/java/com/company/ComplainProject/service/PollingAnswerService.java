@@ -1,5 +1,6 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.PollingAnswerDto;
 import com.company.ComplainProject.dto.PollingOptionDto;
 import com.company.ComplainProject.dto.PollingQuestionResult;
@@ -83,7 +84,7 @@ public class PollingAnswerService {
                 .build();
     }
 
-    public PollingQuestionResult getPollingOptionPercent(Long id) {
+    public PollingQuestionResult getPollingOptionResult(Long id) {
         Optional<PollingQuestion> pollingQuestion = pollingQuestionRepository.findById(id);
 
         List<Map<String,Long>> optionResult = new ArrayList<>();
@@ -94,7 +95,7 @@ public class PollingAnswerService {
 
             optionResult.add(pollingResult);
         }
-//                                                  Sort the HashMap with largest value (Descending Order)
+//                                                                                              Sort the HashMap with largest value (Descending Order)
          Collections.sort(optionResult,new filterPollingOptionResults());
 
         return new PollingQuestionResult(pollingQuestion.get().getId(),pollingQuestion.get().getQuestion(),optionResult);
