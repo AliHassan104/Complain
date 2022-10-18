@@ -50,8 +50,9 @@ function renderWaterTiming(data) {
         <a  href="/addwatertiming.html?id=${data[i].id}">
         <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="margin-right: 10px;"  class="fa fa-pencil"></i>
+      
         </a>
-
+       
         <i onclick="deleteWaterTiming(${data[i].id})"  style=" margin-right: 15px;" class="fa fa-close"></i>
 </td>
     </tr>`

@@ -83,7 +83,7 @@ public class AreaService {
 
     }
 
-    public AreaDto updateAchievementById(Long id, AreaDto areaDto) {
+    public AreaDto updateAreaById(Long id, AreaDto areaDto) {
         try {
             Optional<Area> updateArea = areaRepository.findById(id);
             if (updateArea.isPresent()) {

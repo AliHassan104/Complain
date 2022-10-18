@@ -70,8 +70,9 @@ function renderPollingQuestion(data) {
     <a  href="/addpollingquestion.html?id=${data[i].id}">
     <i onclick="modal(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
     style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
+   
     </a>
-
+    <i class="fa fa-check-circle" aria-hidden="true"  style="margin-right: 10px;"></i>
     <i onclick="deletePollingQuestion(${data[i].id})"  style="padding-right: 15px; margin-right: 15px;" class="fa fa-close"></i>
     
     </td>

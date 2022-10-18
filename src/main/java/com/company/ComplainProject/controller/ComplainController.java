@@ -1,7 +1,7 @@
 package com.company.ComplainProject.controller;
 
 
-import com.company.ComplainProject.config.scheduler.ScheduleConfig;
+
 import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.exportDataToExcel.ComplainExcelExporter;
@@ -63,11 +63,10 @@ public class ComplainController {
 
     @PostMapping("/complain")
     public ResponseEntity<ComplainDetailsResponse> addComplain(@RequestParam("pictureUrl") MultipartFile image,
-                                                   @RequestParam("data") String userdata) {
-//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(ScheduleConfig.class);
+                                                   @RequestParam("data") String complainData) {
         try{
             ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-            ComplainDto complainDto = mapper.readValue(userdata,ComplainDto.class);
+            ComplainDto complainDto = mapper.readValue(complainData,ComplainDto.class);
             /**
              *  Upload Image
              */

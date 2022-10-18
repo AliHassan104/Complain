@@ -33,8 +33,9 @@ function renderBlocks(data) {
         <a  href="/addblock.html?id=${data[i].id}">
         <i
         style="margin-right: 15px;"  class="fa fa-pencil"></i>
+       
         </a>
-
+        <i class="fa fa-check-circle" aria-hidden="true"  style="margin-right: 10px;"></i>
         <i onclick="deleteBlock(${data[i].id})"  class="fa fa-close"></i>
 </td>
     </tr>`

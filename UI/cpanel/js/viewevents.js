@@ -32,8 +32,9 @@ function renderEvent(data) {
             <a  href="/addevents.html?id=${data[i].id}">
             <i onclick="modalValue(${data[i].id})" data-bs-toggle="modal" data-bs-target="#exampleModal"  
             style="padding-right: 15px; margin-right: 15px;"  class="fa fa-pencil"></i>
-            </a>
             
+            </a>
+            <i class="fa fa-check-circle" aria-hidden="true"  style="margin-right: 10px;"></i>
             <i onclick="deleteEvent(${data[i].id})"  class="fa fa-close"></i>
     </td>
         </tr>`
