@@ -23,9 +23,8 @@ export class NewPasswordService {
 
       updatePasswordInDb(forgetPassword){
       //  console.log(forgetPassword)
-      
+
         // const headers = new HttpHeaders().set("Access-Control-Allow-Origin","*");
-        debugger
         return this.http.put(this.url+"/api/updatePassword",forgetPassword);
       }
 

@@ -36,8 +36,6 @@ export class WatertimingComponent implements OnInit {
 
   getWaterTimingByBlock(id: any){
     this.waterTimingService.getWaterTimingByBlock(id).subscribe((data:any)=>{
-      //this.areaWaterTimimg=data
-      debugger
       let list = [];
       for(let wt of data){
         let obj = {
@@ -57,39 +55,6 @@ export class WatertimingComponent implements OnInit {
 
   }
 
-  // getWaterTiming() {
-  //   // this.userService.getUser().subscribe((user:any)=>{
-  //   //   this.waterTimingService.getWaterTimingOfArea(user.area.id).subscribe((data:any)=>{
-  //   //     console.log(data);
-  //   //     this.areaName=user.area.name
-  //   //     this.areaWaterTimimg=data
-  //   //   })
-  //   // })
-  //   this.waterTimingService.getAllWaterTiming().subscribe((data:any) => {
-  //     //loop on data
-  //     // {
-  //       // id:
-  //       // past:true
-  //       // }
-
-  //     this.areaWaterTimimg = data
-  //     // console.log(this.areaWaterTimimg);
-  //     // data.forEach((v: any) => {
-  //     //   v.waterTimingDtoList.forEach((watertime: any , index : any)=>{
-  //     //     // console.log();
-  //     //     let i=0
-  //     //     // console.log(v);
-  //     //     let obj = {past : this.isInThePast(watertime.date)}
-  //     //     // v.waterTimingDtoList[`${i}`].push(obj)
-  //     //     v.waterTimingDtoList.push(this.isInThePast(watertime.date))
-  //     //     i++
-  //     //   })
-  //     // });
-  //     // console.log(this.areaWaterTimimg);
-  //     // this.areaName = this.areaWaterTimimg[0].area_name
-  //   }, error => {
-  //   });
-  // }
 
   isInThePast(dateValue): boolean {
     let inPast: boolean = false;
