@@ -21,7 +21,7 @@ function renderComplainDetails(){
             `
             document.getElementById('showImage').innerHTML = dataRender
 
-            document.getElementById('username').value = data.user.firstname+" "+data.user.lastname
+            document.getElementById('complainer_name').value = data.user.firstname+" "+data.user.lastname
             document.getElementById('email').value = data.user.email
             document.getElementById('cnic').value =  data.user.cnic
             document.getElementById('number').value = data.user.phoneNumber

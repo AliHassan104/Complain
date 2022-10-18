@@ -10,6 +10,7 @@ import com.company.ComplainProject.model.PollingQuestion;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.PollingAnswerRepository;
 import com.company.ComplainProject.repository.PollingOptionRepository;
+import com.company.ComplainProject.repository.PollingQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,8 @@ public class PollingAnswerService {
     private PollingOptionService pollingOptionService;
     @Autowired
     private SessionService service;
+    @Autowired
+    private PollingQuestionRepository pollingQuestionRepository;
 
     public List<PollingAnswer> getAllPollingAnswer() {
         return pollingAnswerRepository.findAll();
@@ -81,11 +84,11 @@ public class PollingAnswerService {
     }
 
     public PollingQuestionResult getPollingOptionPercent(Long id) {
-        PollingQuestion pollingQuestion = pollingQuestionService.getAllPollingQuestion().stream().filter(pollingQuestion1 -> pollingQuestion1.getId().equals(id)).findAny().get();
+        Optional<PollingQuestion> pollingQuestion = pollingQuestionRepository.findById(id);
 
         List<Map<String,Long>> optionResult = new ArrayList<>();
 
-        for (PollingOption pollingOption:pollingQuestion.getPollingOptions()) {
+        for (PollingOption pollingOption:pollingQuestion.get().getPollingOptions()) {
             Map<String,Long> pollingResult = new HashMap<>();
             pollingResult.put(pollingOption.getOption(),pollingAnswerRepository.countUsersFromPollingOption(pollingOption));
 
@@ -94,7 +97,7 @@ public class PollingAnswerService {
 //                                                  Sort the HashMap with largest value (Descending Order)
          Collections.sort(optionResult,new filterPollingOptionResults());
 
-        return new PollingQuestionResult(pollingQuestion.getId(),pollingQuestion.getQuestion(),optionResult);
+        return new PollingQuestionResult(pollingQuestion.get().getId(),pollingQuestion.get().getQuestion(),optionResult);
     }
 }
 

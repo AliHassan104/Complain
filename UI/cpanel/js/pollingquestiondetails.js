@@ -9,8 +9,7 @@ function getPollingQuestionDetails() {
 
         getData(`/pollinganswer/getpollingoptionresult/${pollingQuestionId}`)
         .then((data) => {
-            getData(`/user/countuserbystatus/Published`)
-            .then((countUser)=>{
+          
                
                 renderQuestion += `<b>${data.pollingQuestion}</b> `
 
@@ -35,7 +34,7 @@ function getPollingQuestionDetails() {
     
                 document.getElementById("options").innerHTML = renderOption
 
-            })
+            
         
         })
 }
