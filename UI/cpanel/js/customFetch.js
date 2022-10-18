@@ -60,9 +60,9 @@ function getData(url) {
                     console.log(err)
                 })
         })
-        // .catch((error) => {
-        //     window.open(exception503, "_self")
-        // })
+        .catch((error) => {
+            window.open(exception503, "_self")
+        })
 
 }
 
@@ -101,10 +101,10 @@ function sendData(url, data) {
                     console.log("Caught it " + err);
                 })
         })
-        // .catch((error) => {
-        //     window.open(exception503, "_self")
-        //     console.log(error)
-        // });
+        .catch((error) => {
+            window.open(exception503, "_self")
+            console.log(error)
+        });
 }
 
 

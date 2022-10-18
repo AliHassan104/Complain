@@ -3,22 +3,6 @@ var PollingOptions = []
 var PollingAnswer=[]
 
 
-function getComplain() {
-        getData(`/complainbymonth`)
-        .then((data)=> {
-
-        for (const property in data) {
-          complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)
-        }
-        max = 0
-        for (let i = 0; i < complainNumber.length-1; i++) {
-          if (complainNumber[i] < complainNumber[i+1]) {
-            max = complainNumber[i+1]
-          }
-        }
-        barchart1()
-      })
-}
 
 function getPollingQuestionDetails() {
     
@@ -42,12 +26,12 @@ function getPollingQuestionDetails() {
                     mapkeys.push(Object.keys(data.getPollingQuestionResult[i]))
                     mapValues.push(Object.values(data.getPollingQuestionResult[i]))
 
-                    var pollingAnswerInPercentage = Math.round((Object.values(data.getPollingQuestionResult[i])*100)/countUser)
+                    // var pollingAnswerInPercentage = Math.round((Object.values(data.getPollingQuestionResult[i])*100)/countUser)
 
     
                 }
     
-                document.getElementById("options").innerHTML = renderOption
+                // document.getElementById("options").innerHTML = renderOption
 
 
                 var barColors = [
@@ -81,12 +65,12 @@ function getPollingQuestionDetails() {
                   });
 
             })
+          }
         
-        })
-}
 
 
-    // console.log(PollingOptions)
+
+
 getPollingQuestionDetails()
 
 // var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
