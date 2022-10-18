@@ -8,11 +8,13 @@ import com.company.ComplainProject.model.Block;
 import com.company.ComplainProject.model.WaterTiming;
 import com.company.ComplainProject.repository.BlockRepository;
 import com.company.ComplainProject.repository.WaterTimingRepository;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -84,6 +86,7 @@ public class WaterTimingService {
                 updateWaterTiming.setDay(waterTimingDto.getDay());
                 updateWaterTiming.setBlock(block.get());
                 updateWaterTiming.setDate(waterTimingDto.getDate());
+                updateWaterTiming.setArea(waterTimingDto.getArea());
             }
             return toDto(waterTimingRepository.save(updateWaterTiming));
         }
@@ -100,6 +103,7 @@ public class WaterTimingService {
                 .day(waterTimingDto.getDay())
                 .date(waterTimingDto.getDate())
                 .block(waterTimingDto.getBlock())
+                .area(waterTimingDto.getArea())
                 .build();
     }
 
@@ -111,12 +115,15 @@ public class WaterTimingService {
                 .day(waterTiming.getDay())
                 .date(waterTiming.getDate())
                 .block(waterTiming.getBlock())
+                .area(waterTiming.getArea())
                 .build();
     }
 
     public List<WaterTiming> getWaterTimingByArea(Long areaId) {
         try {
-            List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getArea().getId().equals(areaId)).collect(Collectors.toList());
+            List<WaterTiming> waterTimings = getAllWaterTiming().stream()
+                    .filter(waterTiming -> waterTiming.getBlock().getArea().getId().equals(areaId))
+                    .collect(Collectors.toList());
             return waterTimings;
         }
         catch (Exception e){
@@ -126,7 +133,9 @@ public class WaterTimingService {
 
     public List<WaterTiming> getWaterTimingByBlock(Long blockId) {
         try {
-            List<WaterTiming> waterTimings = getAllWaterTiming().stream().filter(waterTiming -> waterTiming.getBlock().getId().equals(blockId)).collect(Collectors.toList());
+            List<WaterTiming> waterTimings = getAllWaterTiming().stream()
+                    .filter(waterTiming -> waterTiming.getBlock().getId().equals(blockId))
+                    .collect(Collectors.toList());
             return waterTimings;
         }
         catch (Exception e){
@@ -141,11 +150,12 @@ public class WaterTimingService {
             List<WaterTimingByBlockDto> blockDtos = new ArrayList<>();
             List<WaterTiming> waterTimings;
             List<WaterTimingDetails> waterTimingDetails;
-
             for (Block block : blocks) {
                 waterTimings = waterTimingRepository.getAllWaterTimingByBlock(block);
-                waterTimingDetails = waterTimings.stream().map(waterTiming -> waterTimingToWaterTimingDetails(waterTiming)).collect(Collectors.toList());
-                blockDtos.add(new WaterTimingByBlockDto(block.getArea().getId(), block.getArea().getName(), block.getId(), block.getBlock_name(), waterTimingDetails));
+                waterTimingDetails = waterTimings.stream().map(waterTiming ->
+                        waterTimingToWaterTimingDetails(waterTiming)).collect(Collectors.toList());
+                blockDtos.add(new WaterTimingByBlockDto(block.getArea().getId(),
+                        block.getArea().getName(), block.getId(), block.getBlock_name(), waterTimingDetails));
             }
             return blockDtos;
         }
@@ -155,7 +165,12 @@ public class WaterTimingService {
     }
 
     public WaterTimingDetails waterTimingToWaterTimingDetails(WaterTiming waterTiming){
-        return WaterTimingDetails.builder().start_time(waterTiming.getStart_time()).end_time(waterTiming.getEnd_time()).day(waterTiming.getDay()).date(waterTiming.getDate()).build();
+//        LocalDate currentDate = Date
+        return WaterTimingDetails.builder().start_time(waterTiming.getStart_time())
+                .end_time(waterTiming.getEnd_time()).day(waterTiming.getDay())
+                .date(waterTiming.getDate())
+//                .past(waterTiming.getDate() > LocalDateTime.now())
+                .build();
     }
 }
 

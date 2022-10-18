@@ -27,7 +27,7 @@ public class User {
     private String lastname;
     private String email;
     private String password;
-    private Long phoneNumber;
+    private String phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
     @Lob

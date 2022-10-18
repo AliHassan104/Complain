@@ -24,7 +24,7 @@ export class MycomplainComponent implements OnInit {
   blockId: any
   userEmail: any
   userFile: File
-  imageSrc:any
+  imageSrc:any = null
 
   constructor(private myComplainService: MycomplainService ,
               private userService : UserService,
@@ -103,8 +103,7 @@ export class MycomplainComponent implements OnInit {
     var formData = new FormData()
 
     formData.append('data', newComplain);
-    // debugger
-
+    
     formData.append('pictureUrl', this.userFile);
 
     this.myComplainService.postComplain(formData).subscribe(data => {

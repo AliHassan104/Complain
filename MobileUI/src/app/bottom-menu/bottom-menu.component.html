@@ -32,8 +32,16 @@
           <span  *ngIf="reqCount>0" class="badge badge-danger" >{{reqCount}}</span>
       </div>
   </a>
-  <a (click)="logout()"  class="item">
-    <!-- data-toggle="modal" data-target="#DialogBlockButton" -->
+
+
+
+
+
+
+
+
+
+  <a class="item" data-toggle="modal" data-target="#DialogBlockButton">
       <div class="col">
           <img width="25px" src="assets/icons/logout2.png"/>
           <!-- <i class="bi bi-bell-fill"></i> -->
@@ -190,39 +198,16 @@
 
               </ul>
 
-              <!-- <div class="listview-title mt-2 mb-1">
-                  <span>Online Friends</span>
-              </div>
-              <div>
-              <ul class="listview image-listview flush transparent no-line">
-                  <li  *ngFor="let user of friendsArray" (click)="gotoChatroom(user.id)" data-dismiss="modal">
-                      <a  class="item">
-                          <img [src]="
-                          user.profilePicture != null
-                            ? 'data:image/jpeg;base64,' + user.profilePicture
-                            : 'assets/user.png'
-                        "  alt="image" class="image">
-                          <div class="in">
-                              <div>{{user.name}}</div>
-                          </div>
-
-                          <span *ngIf="user.sender!=id && user.seen==false" class="badge badge-danger badge-empty"></span>
-                      </a>
-                  </li>
-              </ul>
-              <div *ngIf="!friendsArray.length" style="text-align: center;margin-top: 10px;">
-                  No Friends online
-              </div> -->
 
             </div>
 
 
           <!-- sidebar buttons -->
-          <div class="sidebar-buttons">
+          <!-- <div class="sidebar-buttons">
               <a  class="button" data-dismiss="modal">
                   <img width="25px" src="assets/icons/logout2.png"/>
               </a>
-          </div>
+          </div> -->
           <!-- * sidebar buttons -->
       </div>
   </div>
@@ -263,7 +248,7 @@
   </div>
 </div>
 
-<!-- <div class="modal fade dialogbox" #dbb id="DialogBlockButton"  data-keyboard="false" tabindex="-1" role="dialog">
+<div class="modal fade dialogbox" #dbb id="DialogBlockButton"  data-keyboard="false" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -275,9 +260,9 @@
           <div class="modal-footer">
               <div class="btn-list">
                   <a (click)="logout()" class="btn btn-text-danger btn-block" data-bs-dismiss="modal">LOG OUT</a>
-                  <a (click)="closeDialogue()" class="btn btn-text-secondary btn-block " data-bs-dismiss="modal">CLOSE</a>
+                  <!-- <a (click)="closeDialogue()" class="btn btn-text-secondary btn-block " data-bs-dismiss="modal">CLOSE</a> -->
               </div>
           </div>
       </div>
   </div>
-</div> -->
+</div>

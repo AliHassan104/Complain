@@ -31,7 +31,7 @@ public class UserDetailsResponse {
     private String firstname;
     private String lastname;
     private String email;
-    private Long phoneNumber;
+    private String phoneNumber;
     private String cnic;
     private Integer numberOfFamilyMembers;
     private Address address;

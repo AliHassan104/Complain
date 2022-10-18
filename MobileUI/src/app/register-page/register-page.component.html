@@ -157,7 +157,7 @@
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input formControlName="password" [type]="typeChange" class="form-control" name="password" placeholder="Password">
+                        <input formControlName="password"  class="form-control" name="password" placeholder="Password">
 
                         <div class="alert alert-danger"
                          *ngIf="registerForm.controls['password'].invalid &&
@@ -190,7 +190,7 @@
                 <div class="form-group boxed">
                   <div class="input-wrapper" formGroupName="area">
                       <select formControlName="id" (change)="getBlock()"  class="browser-default custom-select" name="area">
-                          <option  value="null" selected disabled>Select Area</option>
+                          <option value="null" selected disabled>Select Area</option>
                           <option *ngFor="let area of areas" [value]="area.id">{{area.name}}</option>>
                         </select>
               </div>
@@ -211,15 +211,26 @@
 
             <div class="form-group boxed">
               <div class="input-wrapper">
-                  <input type="text" formControlName="houseNumber" class="form-control" name="email"  placeholder="House Number">
+                  <input type="text" formControlName="houseNumber" class="form-control" name="house"  placeholder="House Number">
               </div>
           </div>
-          <div class="form-group boxed">
+          <!-- <div class="form-group boxed">
             <div class="input-wrapper">
                 <input type="text" formControlName="floorNumber" class="form-control" name="email"  placeholder="Floor Number">
-
-
             </div>
+          </div> -->
+          <div class="form-group boxed">
+            <div class="input-wrapper">
+                <select formControlName="floorNumber"  class="browser-default custom-select" name="floorNumber">
+                    <option  value="null" selected disabled>Select Your Floor Number</option>
+                    <option  value="G">Ground Floor</option>
+                    <option  value="1">1st Floor</option>
+                    <option  value="2">2nd Floor</option>
+                    <option  value="3">3rd Floor</option>
+                    <option  value="4">4th Floor</option>
+                    <option  value="5">5th Floor</option>
+                </select>
+        </div>
         </div>
 
 

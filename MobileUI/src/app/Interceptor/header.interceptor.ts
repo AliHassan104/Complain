@@ -30,7 +30,6 @@ export class HeaderInterceptor implements HttpInterceptor {
   }
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     //handle your auth error or rethrow
-    // debugger;
     if (err.status === 401 || err.status === 403) {
         //navigate /delete cookies or whatever
         //yahan tm logout krwaogy yani tm local storage se token wagera sb clear krdogy
