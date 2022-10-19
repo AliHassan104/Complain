@@ -1,16 +1,12 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.dto.PollingAnswerDto;
-import com.company.ComplainProject.dto.PollingOptionDto;
-import com.company.ComplainProject.dto.PollingQuestionResult;
-import com.company.ComplainProject.dto.filterPollingOptionResults;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.model.PollingAnswer;
 import com.company.ComplainProject.model.PollingOption;
 import com.company.ComplainProject.model.PollingQuestion;
 import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.PollingAnswerRepository;
-import com.company.ComplainProject.repository.PollingOptionRepository;
 import com.company.ComplainProject.repository.PollingQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,22 +80,33 @@ public class PollingAnswerService {
                 .build();
     }
 
-    public PollingQuestionResult getPollingOptionResult(Long id) {
-        Optional<PollingQuestion> pollingQuestion = pollingQuestionRepository.findById(id);
+    public PollingQuestionResult getPollingOptionResult(Long polling_question) {
+        Optional<PollingQuestion> pollingQuestion = pollingQuestionRepository.findById(polling_question);
+//
+//        List<Map<String,Long>> optionResult = new ArrayList<>();
+//
+//        for (PollingOption pollingOption:pollingQuestion.get().getPollingOptions()) {
+//            Map<String,Long> pollingResult = new HashMap<>();
+//            pollingResult.put(pollingOption.getOption(),pollingAnswerRepository.countUsersFromPollingOption(pollingOption));
+//
+//            optionResult.add(pollingResult);
+//        }
+////                                                                                              Sort the HashMap with largest value (Descending Order)
+//         Collections.sort(optionResult,new filterPollingOptionResults());
+//
+//        return new PollingQuestionResult(pollingQuestion.get().getId(),pollingQuestion.get().getQuestion(),optionResult);
 
-        List<Map<String,Long>> optionResult = new ArrayList<>();
-
-        for (PollingOption pollingOption:pollingQuestion.get().getPollingOptions()) {
-            Map<String,Long> pollingResult = new HashMap<>();
-            pollingResult.put(pollingOption.getOption(),pollingAnswerRepository.countUsersFromPollingOption(pollingOption));
-
-            optionResult.add(pollingResult);
+        try {
+            List<PollingOptionResponseDto> pollingOptionCountDtos = pollingAnswerRepository.getPollingOptionResult(polling_question);
+            return new PollingQuestionResult(pollingQuestion.get().getId(),pollingQuestion.get().getQuestion(),pollingOptionCountDtos);
         }
-//                                                                                              Sort the HashMap with largest value (Descending Order)
-         Collections.sort(optionResult,new filterPollingOptionResults());
-
-        return new PollingQuestionResult(pollingQuestion.get().getId(),pollingQuestion.get().getQuestion(),optionResult);
+        catch (Exception e){
+            throw new ContentNotFoundException("Exception "+e);
+        }
     }
+
+
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.company.ComplainProject.repository;
 
+import com.company.ComplainProject.dto.PollingOptionResponseDto;
 import com.company.ComplainProject.model.PollingAnswer;
 import com.company.ComplainProject.model.PollingOption;
 import com.company.ComplainProject.model.PollingQuestion;
@@ -22,5 +23,8 @@ public interface PollingAnswerRepository extends JpaRepository<PollingAnswer,Lon
 
         @Query("SELECT COUNT(p) FROM PollingAnswer p WHERE p.pollingQuestion.id =:question_id")
         Long countAnsweredPollingQuestion(@Param("question_id") Long question_id);
+
+        @Query(value = "SELECT NEW com.company.ComplainProject.dto.PollingOptionResponseDto(p.pollingOption.option,COUNT(p))  FROM PollingAnswer p WHERE p.pollingQuestion.id = :question_id group by p.pollingOption order by COUNT(p) DESC")
+        List<PollingOptionResponseDto> getPollingOptionResult(@Param("question_id") Long question_id);
 
 }
