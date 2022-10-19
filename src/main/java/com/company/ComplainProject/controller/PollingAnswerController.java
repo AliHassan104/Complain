@@ -81,7 +81,7 @@ public class PollingAnswerController {
             return ResponseEntity.ok(pollingAnswerService.getPollingOptionResult(id));
         }catch (Exception e){
             System.out.println(e);
-            throw new ContentNotFoundException("Nu polling question");
+            throw new ContentNotFoundException("No polling question");
         }
     }
 
