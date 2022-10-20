@@ -4,3 +4,4 @@ public enum AnnouncementType {
     SMS ,
     NOTIFICATION
 }
+
