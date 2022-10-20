@@ -64,9 +64,7 @@ function getData(url) {
 
 }
 
-// console.log(123);
 function sendData(url, data) {
-    console.log(data+""+url);
     var paginationDiv=document.getElementById('preloader')
 
    paginationDiv.style.display='flex'

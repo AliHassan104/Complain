@@ -1,3 +1,34 @@
+let queryString = window.location.search;
+
+if (queryString != "") {
+    const urlparams = new URLSearchParams(queryString);
+    var aid = urlparams.get("id")
+
+        getData(`/announcement/${aid}`)
+        .then(data => {
+            console.log(data);
+            document.getElementById("anouncementbtn").innerText = "Update"
+            document.getElementById('title').value = data.title;
+            document.getElementById('content').value = data.description;
+            document.getElementById('announcmentdate').value = data.date;
+            document.getElementById('announcmenttime').value = data.time;
+
+            if (data.announcementType == 'SMS') {
+                let sms = document.getElementById("sms");
+                sms.checked = true;
+            }else{
+                let noti = document.getElementById("notification");
+                noti.checked = true;
+            }
+
+
+
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 function renderUserData(){
     getUserData()
     .then((data)=>{
@@ -52,10 +83,7 @@ function createAnnouncement(){
         announcementType:announcementmethod,
     }
 
-    console.log(announcement);
-
-    // if (queryString == "") {
-        console.log(12);
+    if (queryString == "") {
         sendData(`/announcement`, announcement)
 
             .then(data => {
@@ -109,55 +137,54 @@ function createAnnouncement(){
                 console.log("Error occured " + error)
             })
 
-    // } 
-    // else {
-    //     console.log(newUser)
-    //     updateData(`/announcement/${urlId}`, newUser)
-    //         .then(data => {
-    //             let table = ""
-    //             if (Object.prototype.toString.call(data) == "[object Object]") {
-    //                 table += `
-    //                 <div  style=" 
-    //                 margin: auto;
-    //                 text-align: center;
-    //                 width: 50%;
-    //                 height: 5vh; text-align: center; 
-    //                 justify-content: center;
-    //                 font-size: large" 
-    //                 class="alert alert-success" role="alert">
-    //                 <b> ${newUser.firstname + " " + newUser.lastname} </b> &nbsp   Updated In User Successfully
-    //                 </div>`
+    } 
+    else {
+        console.log(announcement)
+        updateData(`/announcement/${aid}`, announcement)
+            .then(data => {
+                let table = ""
+                if (Object.prototype.toString.call(data) == "[object Object]") {
+                    table += `
+                    <div  style=" 
+                    margin: auto;
+                    text-align: center;
+                    width: 50%;
+                    height: 5vh; text-align: center; 
+                    justify-content: center;
+                    font-size: large" 
+                    class="alert alert-success" role="alert">
+                    <b> ${announcement.title} </b> &nbsp   Updated In User Successfully
+                    </div>`
 
+                    document.getElementById("formSubmitted").innerHTML = table
 
-    //                 document.getElementById("formSubmitted").innerHTML = table
-
-    //                 setTimeout(() => {
-    //                     document.getElementById("formSubmitted").innerHTML = ""
-    //                 }, 2000)
-    //             }
-    //             else{
-    //                 table += `
-    //                      <div  style=" 
-    //                      margin: auto;
-    //                      text-align: center;
-    //                      width: 50%;
-    //                      height: 5vh; text-align: center; 
-    //                      justify-content: center;
-    //                      font-size: large" 
-    //                      class="alert alert-danger" role="alert">
-    //                      <b>${data[0].message}</b> 
-    //                      </div>`
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                }
+                else{
+                    table += `
+                         <div  style=" 
+                         margin: auto;
+                         text-align: center;
+                         width: 50%;
+                         height: 5vh; text-align: center; 
+                         justify-content: center;
+                         font-size: large" 
+                         class="alert alert-danger" role="alert">
+                         <b>${data[0].message}</b> 
+                         </div>`
     
     
-    //                 document.getElementById("formSubmitted").innerHTML = table
+                    document.getElementById("formSubmitted").innerHTML = table
     
-    //                 setTimeout(() => {
-    //                     document.getElementById("formSubmitted").innerHTML = ""
-    //                 }, 2000)
-    //             }
-    //         })
+                    setTimeout(() => {
+                        document.getElementById("formSubmitted").innerHTML = ""
+                    }, 2000)
+                }
+            })
 
-    // }
+    }
     
     document.getElementById("title").value = "";
     document.getElementById("content").value = "";

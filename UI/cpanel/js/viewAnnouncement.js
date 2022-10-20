@@ -1,10 +1,5 @@
 let uid ;
 
-
-
-    //     ${1==2 ?
-    //    `<i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
-    //    `:``
 function getAnnouncement() {
     // if (pageNumber >= 0) {
         getData(`/announcement`).
@@ -13,12 +8,11 @@ function getAnnouncement() {
             renderAnnouncement(data)
             // renderPagination(data) 
             
-
         })
     // }
 }
-getAnnouncement()
 
+getAnnouncement()
 
 function renderAnnouncement(data){
     let table =''
@@ -27,35 +21,33 @@ function renderAnnouncement(data){
 
     table += `<tr  class="tablepoint">
     <th  class="toptable ">Title</th>
+    <th  class="toptable ">Method</th>
+    <th  class="toptable ">Date</th>
+    <th  class="toptable ">Time</th>
     <th  class="toptable ">Description</th>
-    <th  class="toptable ">Area</th>
     <th  class="toptable ">Action</th>
     </tr>`
 
     for (let i = 0; i < data.length; i++) {
-        // console.log(123);
         table += `
 
     <tr class="tablepoint">
         <td  class="datatable">${data[i].title}</td>
+        <td  class="datatable">${data[i].announcementType}</td>
+        <td  class="datatable">${data[i].date}</td>
+        <td  class="datatable">${data[i].time}</td>
         <td  class="datatable">${data[i].description}</td>
         <td  class="datatable">${data[i].area.name}</td>
 
         <td  class="datatable"> 
-        <a  href="/addarea.html?id=${data[i].id}"> 
+        <a  href="/addAnnouncement.html?id=${data[i].id}">
         <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
         style="margin-right: 15px;"  class="fa fa-pencil"></i>
         </a>
-        <i id="close12" onclick="deleteArea(${data[i].id})"   class="fa fa-close"></i>
+        <i id="close12" onclick="deleteAnnouncement(${data[i].id})"   class="fa fa-close"></i>
         </td>
     </tr>
     `
-    
-    // <td  class="datatable">${data.title}</td>
-    // <td  class="datatable">${data.description}</td>
-    // <td  class="datatable">${data.area[i].name}</td>
-
-    
     }
 
     document.getElementById("datatables-reponsive").innerHTML = table;
@@ -74,12 +66,10 @@ function renderAnnouncement(data){
     
 }
 
-
-
-function deleteArea(id){
+function deleteAnnouncement(id){
     let table = ""
 
-    deleteData(`/area/${id}`).then((response)=>{
+    deleteData(`/announcement/${id}`).then((response)=>{
         
         if(response.ok){
             table += `
@@ -91,7 +81,7 @@ function deleteArea(id){
             justify-content: center;
             font-size: large" 
             class="alert alert-success" role="alert">
-            Area  Deleted Successfully
+            Announcement Deleted Successfully
             </div>`
 
         }
@@ -117,7 +107,7 @@ function deleteArea(id){
             document.getElementById("formSubmitted").innerHTML = ""
         }, 2000)
         
-        getArea(0);
+        getAnnouncement();
     })
 
 }

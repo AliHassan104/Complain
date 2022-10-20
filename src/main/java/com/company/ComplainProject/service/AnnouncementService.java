@@ -1,9 +1,7 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.dto.AnnouncementDto;
-import com.company.ComplainProject.dto.ComplainDetailsResponse;
-import com.company.ComplainProject.dto.ComplainDto;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.AnnouncementRepository;
 import com.company.ComplainProject.repository.AreaRepository;
@@ -23,6 +21,10 @@ public class AnnouncementService {
     AnnouncementRepository announcementRepository;
     @Autowired
     SessionService service;
+    @Autowired
+    FirebaseMessagingService notificationService;
+    @Autowired
+    UserService userService;
     @Autowired
     AreaRepository areaRepository;
 
@@ -53,7 +55,23 @@ public class AnnouncementService {
         try {
             User user = service.getLoggedInUser();
             announcementDto.setUser(user);
-            return toDto(announcementRepository.save(dto(announcementDto)));
+
+
+            AnnouncementDto _announcementDto = toDto(announcementRepository.save(dto(announcementDto)));
+
+//            if (_announcementDto != null) {
+//
+//                Note note = new Note();
+//                note.setSubject(_announcementDto.getTitle());
+//                note.setContent(_announcementDto.getDescription());
+//
+//                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block", ":",_announcementDto.getArea()));
+//
+//                for (UserDetailsResponse users : userList) {
+//                    notificationService.sendNotification(note,users.getDeviceToken());
+//                }
+//            }
+            return announcementDto;
         }
         catch (Exception e ){
             throw new RuntimeException("Cannot Save Complain  "+e);
