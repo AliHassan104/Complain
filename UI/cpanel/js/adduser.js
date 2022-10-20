@@ -182,6 +182,7 @@ function addUser() {
             })
 
     }
+    
     document.getElementById("firstname").value = "";
     document.getElementById("lastname").value = "";
     document.getElementById("cnic").value = "";

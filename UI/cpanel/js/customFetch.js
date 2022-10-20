@@ -24,8 +24,6 @@ function decodeJwtToken(token) {
 };
 
 
-
-
 function getData(url) {
    var paginationDiv=document.getElementById('preloader')
 
@@ -60,13 +58,15 @@ function getData(url) {
                     console.log(err)
                 })
         })
-        .catch((error) => {
+        .catch((error) => { 
             window.open(exception503, "_self")
         })
 
 }
 
+// console.log(123);
 function sendData(url, data) {
+    console.log(data+""+url);
     var paginationDiv=document.getElementById('preloader')
 
    paginationDiv.style.display='flex'

@@ -11,7 +11,7 @@ function addPermission() {
         .then((data) => {
             debugger;
             let data1 = '';
-            console.log(data)
+            // console.log(data)
                 for(let i=0 ; i<permissions.length ; i++){
                     data1+=`
                 <tr> 

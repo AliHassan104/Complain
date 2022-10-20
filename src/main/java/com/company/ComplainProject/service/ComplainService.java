@@ -87,7 +87,8 @@ public class ComplainService {
 
     public ComplainDetailsResponse updateComplainById(Long id, ComplainDto complainDto) {
         try {
-            Complain updateComplain = dto(getAllComplain().stream().filter(complain -> complain.getId().equals(id)).findAny().get());
+            Complain updateComplain = dto(getAllComplain().stream()
+                    .filter(complain -> complain.getId().equals(id)).findAny().get());
             User user = service.getLoggedInUser();
             Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(complainDto.getArea().getId())).findAny().get();
             ComplainType complainType = complainTypeService.getAllComplainType().stream().filter(complainType1 -> complainType1.getId().equals(complainDto.getComplainType().getId())).findAny().get();
