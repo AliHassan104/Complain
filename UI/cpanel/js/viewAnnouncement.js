@@ -31,6 +31,7 @@ function renderAnnouncement(data){
     </tr>`
 
     for (let i = 0; i < data.length; i++) {
+        
         table += `
 
     <tr class="tablepoint">
@@ -68,6 +69,7 @@ function renderAnnouncement(data){
    }
     
 }
+
 
 function deleteAnnouncement(id){
     let table = ""

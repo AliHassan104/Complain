@@ -5,12 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@EnableScheduling
 public class ScheduleConfig {
 
     @Bean
-    public ComplainScheduler scheduler(){
-        return new ComplainScheduler();
+    public AnnouncementScheduler scheduler(){
+        return new AnnouncementScheduler();
     }
 
 }

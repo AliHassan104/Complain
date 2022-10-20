@@ -5,7 +5,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 
 //@EnableAsync
-public class ComplainScheduler {
+public class AnnouncementScheduler {
 //    @Async
 //    @Scheduled(fixedRate = 1000)
 //    public void scheduleFixedRateTaskAsync() throws InterruptedException {
@@ -17,8 +17,8 @@ public class ComplainScheduler {
 //    sec , min , hr , dayofmonth , month , dayofweek
 //    @Scheduled(cron = "*/3 * * * * *")
 
-//    @Scheduled(fixedRate = 1000)
-//    public void performSomething(){
-//        System.out.println("Complain Submitted");
+//    @Scheduled(cron = "*/3 * * * * *")
+//    public void SendAnnouncement(){
+//        System.out.println("Announcement Sent");
 //    }
 }

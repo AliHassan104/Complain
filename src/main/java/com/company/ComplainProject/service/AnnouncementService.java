@@ -1,12 +1,16 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.config.scheduler.AnnouncementScheduler;
 import com.company.ComplainProject.dto.*;
+import com.company.ComplainProject.dto.ProjectEnums.AnnouncementStatus;
+import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.AnnouncementRepository;
 import com.company.ComplainProject.repository.AreaRepository;
 import com.company.ComplainProject.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -59,24 +63,33 @@ public class AnnouncementService {
 
             AnnouncementDto _announcementDto = toDto(announcementRepository.save(dto(announcementDto)));
 
-//            if (_announcementDto != null) {
-//
-//                Note note = new Note();
-//                note.setSubject(_announcementDto.getTitle());
-//                note.setContent(_announcementDto.getDescription());
-//
-//                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("block", ":",_announcementDto.getArea()));
-//
-//                for (UserDetailsResponse users : userList) {
-//                    notificationService.sendNotification(note,users.getDeviceToken());
-//                }
-//            }
+            if (_announcementDto != null) {
+                if (_announcementDto.getAnnouncementType() == AnnouncementType.NOTIFICATION){
+
+                Note note = new Note();
+                note.setSubject(_announcementDto.getTitle());
+                note.setContent(_announcementDto.getDescription());
+
+                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":",_announcementDto.getArea()));
+
+                for (UserDetailsResponse users : userList) {
+                    notificationService.sendNotification(note,users.getDeviceToken());
+                }
+            }
+
+                else if (_announcementDto.getAnnouncementType() == AnnouncementType.SMS){
+
+                }
+
+            }
+
             return announcementDto;
         }
         catch (Exception e ){
             throw new RuntimeException("Cannot Save Complain  "+e);
         }
     }
+
 
 
     public AnnouncementDto updateAnnouncementById(Long id, AnnouncementDto announcementDto) {
