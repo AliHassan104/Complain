@@ -1,5 +1,6 @@
 package com.company.ComplainProject.model;
 
+import com.company.ComplainProject.dto.ProjectEnums.AnnouncementStatus;
 import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -35,6 +36,9 @@ public class Announcement {
 
     @Enumerated(EnumType.STRING)
     private AnnouncementType announcementType;
+
+    @Enumerated(EnumType.STRING)
+    private AnnouncementStatus announcementStatus;
 
     private String title;
     @Lob

@@ -1,5 +1,6 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.dto.ProjectEnums.AnnouncementStatus;
 import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
 import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.User;
@@ -23,6 +24,7 @@ public class AnnouncementDto {
     private User user;
     private Area area;
     private AnnouncementType announcementType;
+    private AnnouncementStatus announcementStatus;
     private String title;
     private String description;
     private LocalDate date;

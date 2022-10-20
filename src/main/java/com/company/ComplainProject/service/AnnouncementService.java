@@ -87,6 +87,7 @@ public class AnnouncementService {
             if (updateAnnouncement != null) {
                 updateAnnouncement.get().setDescription(announcementDto.getDescription());
                 updateAnnouncement.get().setAnnouncementType(announcementDto.getAnnouncementType());
+                updateAnnouncement.get().setAnnouncementStatus(announcementDto.getAnnouncementStatus());
                 updateAnnouncement.get().setArea(announcementDto.getArea());
                 updateAnnouncement.get().setUser(user);
                 updateAnnouncement.get().setTitle(announcementDto.getTitle());
@@ -108,6 +109,7 @@ public class AnnouncementService {
                 .description(announcementDto.getDescription())
                 .title(announcementDto.getTitle())
                 .announcementType(announcementDto.getAnnouncementType())
+                .announcementStatus(announcementDto.getAnnouncementStatus())
                 .user(announcementDto.getUser())
                 .date(announcementDto.getDate())
                 .time(announcementDto.getTime())
@@ -124,6 +126,7 @@ public class AnnouncementService {
                 .date(announcement.getDate())
                 .time(announcement.getTime())
                 .announcementType(announcement.getAnnouncementType())
+                .announcementStatus(announcement.getAnnouncementStatus())
                 .build();
     }
 

@@ -22,9 +22,11 @@ function renderAnnouncement(data){
     table += `<tr  class="tablepoint">
     <th  class="toptable ">Title</th>
     <th  class="toptable ">Method</th>
+    <th  class="toptable ">Status</th>
     <th  class="toptable ">Date</th>
     <th  class="toptable ">Time</th>
     <th  class="toptable ">Description</th>
+    <th  class="toptable ">Area</th>
     <th  class="toptable ">Action</th>
     </tr>`
 
@@ -34,6 +36,7 @@ function renderAnnouncement(data){
     <tr class="tablepoint">
         <td  class="datatable">${data[i].title}</td>
         <td  class="datatable">${data[i].announcementType}</td>
+        <td  class="datatable">${data[i].announcementStatus}</td>
         <td  class="datatable">${data[i].date}</td>
         <td  class="datatable">${data[i].time}</td>
         <td  class="datatable">${data[i].description}</td>

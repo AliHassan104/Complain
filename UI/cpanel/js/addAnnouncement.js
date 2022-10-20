@@ -81,6 +81,7 @@ function createAnnouncement(){
         date:announcmentdate,
         time:announcmenttime,
         announcementType:announcementmethod,
+        announcementStatus:"PENDING",
     }
 
     if (queryString == "") {
