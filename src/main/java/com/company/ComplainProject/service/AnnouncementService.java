@@ -1,7 +1,6 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
-import com.company.ComplainProject.config.scheduler.AnnouncementScheduler;
 import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.AnnouncementStatus;
 import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ForkJoinPool;
 
 @Service
 public class AnnouncementService {
@@ -33,11 +33,21 @@ public class AnnouncementService {
     AreaRepository areaRepository;
 
     public List<Announcement> getAllAnnouncement(){
+        List<Announcement> announcement = announcementRepository.getAnnouncementByStatus();
+
+        System.out.println(announcement);
+
+//        if (announcement != null){
+//            announcement
+//        }
+
+
         List<Announcement> announcements = announcementRepository.findAll();
         return announcements;
     }
 
     public Optional<Announcement> getAnnouncementById(Long id){
+        System.out.println();
         Optional<Announcement> announcement = announcementRepository.findById(id);
         if(!announcement.isPresent()){
             throw new ContentNotFoundException("No Event Exist Having id "+id);
@@ -60,28 +70,22 @@ public class AnnouncementService {
             User user = service.getLoggedInUser();
             announcementDto.setUser(user);
 
-
             AnnouncementDto _announcementDto = toDto(announcementRepository.save(dto(announcementDto)));
+//            if (_announcementDto != null) {
+//                if (_announcementDto.getAnnouncementType() == AnnouncementType.NOTIFICATION){
+//
+//                Note note = new Note();
+//                note.setSubject(_announcementDto.getTitle());
+//                note.setContent(_announcementDto.getDescription());
+//
+//                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":",_announcementDto.getArea()));
+//
+//            }
+//                else if (_announcementDto.getAnnouncementType() == AnnouncementType.SMS){
+//
+//                }
+//            }
 
-            if (_announcementDto != null) {
-                if (_announcementDto.getAnnouncementType() == AnnouncementType.NOTIFICATION){
-
-                Note note = new Note();
-                note.setSubject(_announcementDto.getTitle());
-                note.setContent(_announcementDto.getDescription());
-
-                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":",_announcementDto.getArea()));
-
-                for (UserDetailsResponse users : userList) {
-                    notificationService.sendNotification(note,users.getDeviceToken());
-                }
-            }
-
-                else if (_announcementDto.getAnnouncementType() == AnnouncementType.SMS){
-
-                }
-
-            }
 
             return announcementDto;
         }

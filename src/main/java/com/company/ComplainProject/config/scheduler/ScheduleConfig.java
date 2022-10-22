@@ -7,9 +7,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 public class ScheduleConfig {
 
-    @Bean
-    public AnnouncementScheduler scheduler(){
-        return new AnnouncementScheduler();
-    }
+//    @Bean
+//    public AnnouncementScheduler scheduler(){
+//        return new AnnouncementScheduler();
+//    }
 
 }
