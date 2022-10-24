@@ -40,6 +40,8 @@ public class PermissionByRoleIdService {
                                                         .canEdit(permissionRole1.getCanEdit())
                                                         .canDelete(permissionRole1.getCanDelete())
                                                         .assign(permissionRole1.getAssign())
+                                                          .parent(permissionRole1.getParent())
+                                                        .label(permissionRole1.getLabel())
                                                         .build();
                     permissionRoleDtos.add(permissionRoleDto);
                 }

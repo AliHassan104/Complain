@@ -25,4 +25,6 @@ public class PermissionRole {
     private Boolean canEdit;
     private Boolean canDelete;
     private Boolean assign;
+    private String parent;
+    private String label;
 }

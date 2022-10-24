@@ -15,3 +15,80 @@ INSERT INTO `users` (`id`, `cnic`, `device_token`, `email`, `firstname`, `lastna
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 (1, 1);
+
+
+
+--
+-- Dumping data for table `permission`
+--
+
+INSERT INTO `permission` (`id`, `url`) VALUES
+(1, 'permission.html'),
+(2, 'assignpermission.html'),
+(3, 'viewarea.html'),
+(4, 'viewevents.html'),
+(5, 'addarea.html'),
+(6, 'addachievement.html'),
+(7, 'addblock.html'),
+(8, 'addcomplain.html'),
+(9, 'addcomplaintype.html'),
+(10, 'adddocument.html'),
+(11, 'addpollingquestion.html'),
+(12, 'adduser.html'),
+(13, 'addwatertiming.html'),
+(14, 'assigncomplain.html'),
+(15, 'eventdetails.html'),
+(16, 'index.html'),
+(17, 'pendingRequest.html'),
+(18, 'pollingquestiondetails.html'),
+(19, 'userdetails.html'),
+(20, 'viewachievement.html'),
+(21, 'viewblock.html'),
+(22, 'viewcomplain.html'),
+(23, 'viewcomplaintype.html'),
+(24, 'viewdocument.html'),
+(25, 'viewpollingquestion.html'),
+(26, 'viewuser.html'),
+(27, 'viewwatertiming.html'),
+(28, 'addevents.html');
+
+
+
+
+-- Database: `complain_management`
+--
+
+-- --------------------------------------------------------
+
+
+
+--
+-- Dumping data for table `permission_role`
+--
+
+INSERT INTO `permission_role` (`id`, `assign`, `can_delete`, `can_edit`, `parent`, `permission_id`, `roles_id`, `label`) VALUES
+(10, b'1', b'1', b'1', 'Event', 4, 1, 'View Event'),
+(11, b'1', b'0', b'1', 'Area', 3, 1, 'View Area'),
+(13, b'1', b'1', b'1', 'User', 2, 1, 'Assign Permission'),
+(14, b'1', b'1', b'1', 'Water', 27, 1, 'View Water Timing'),
+(15, b'1', b'1', b'1', 'User', 26, 1, 'View User'),
+(16, b'1', b'1', b'1', 'Area', 5, 1, 'Add Area'),
+(17, b'1', b'1', b'1', 'Document', 24, 1, 'View Document'),
+(18, b'1', b'1', b'1', 'ComplainType', 23, 1, 'View Complain Type'),
+(19, b'1', b'1', b'1', 'Complain', 22, 1, 'View Complain'),
+(21, b'1', b'1', b'1', 'Achievement', 20, 1, 'View Achievement'),
+(22, b'1', b'1', b'1', 'Water', 13, 1, 'Add Water Timing'),
+(24, b'1', b'1', b'1', 'Polling Question', 11, 1, 'Add Polling Question'),
+(25, b'1', b'1', b'1', 'Document', 10, 1, 'Add Document'),
+(27, b'1', b'1', b'1', 'Complain', 8, 1, 'Add Complain'),
+(28, b'1', b'1', b'1', 'Achievement', 6, 1, 'Add Achievement'),
+(29, b'1', b'1', b'1', 'User', 1, 1, 'Permission'),
+(30, b'1', b'1', b'1', 'Event', 28, 1, 'Add Event'),
+(31, b'1', b'1', b'1', 'User', 12, 1, 'Add User'),
+(32, b'1', b'1', b'1', 'Area', 7, 1, 'Add Block'),
+(33, b'1', b'1', b'1', 'Area', 21, 1, 'View Block'),
+(35, b'1', b'1', b'1', 'User', 17, 1, 'Pending Users'),
+(36, b'1', b'1', b'1', 'Dashboard', 16, 1, 'Dashboard'),
+(37, b'1', b'1', b'1', 'Polling Question', 25, 1, 'View Polling Question'),
+(38, b'1', b'1', b'1', 'ComplainType', 9, 1, 'Add Complain Type');
+

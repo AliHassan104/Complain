@@ -126,7 +126,7 @@ function renderComplainData(data) {
             class="fa fa-pencil"></i>
             
             </a>
-            <i class="fa fa-check-circle" aria-hidden="true"  style="margin-right: 10px;"></i>
+          
             <i style="margin-right: 5px;" onclick="deleteComplain(${data[i].id})"  class="fa fa-close"></i>
         
             <i onclick="assignComplainToUser(${data[i].id})"  
@@ -134,6 +134,10 @@ function renderComplainData(data) {
             </td>
         </tr>`
     }
+
+    
+
+
 
    
     document.getElementById("datatables-reponsive").innerHTML = table;
