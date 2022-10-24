@@ -65,7 +65,6 @@ public class EventController {
 //                                                                      Save image in the disk
             String imageUrl = imageService.uploadImageAndGetApiPath(image);
 
-
             eventDto.setImage(imageUrl);
 
             return ResponseEntity.ok(eventService.saveEventsInRecord(eventDto));

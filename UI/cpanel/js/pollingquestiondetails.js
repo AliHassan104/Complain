@@ -3,22 +3,6 @@ var PollingOptions = []
 var PollingAnswer=[]
 
 
-function getComplain() {
-        getData(`/complainbymonth`)
-        .then((data)=> {
-
-        for (const property in data) {
-          complainNumber.splice(data[property].compalinMonth-1 , 1 , data[property].numberofComplains)
-        }
-        max = 0
-        for (let i = 0; i < complainNumber.length-1; i++) {
-          if (complainNumber[i] < complainNumber[i+1]) {
-            max = complainNumber[i+1]
-          }
-        }
-        barchart1()
-      })
-}
 
 function getPollingQuestionDetails() {
     
@@ -31,30 +15,26 @@ function getPollingQuestionDetails() {
 
         getData(`/pollinganswer/getpollingoptionresult/${pollingQuestionId}`)
         .then((data) => {
-            
 
-          
-            
+                var pollingAnswerInPercentage = 0;
 
-            getData(`/user/countuserbystatus/Published`)
-            .then((countUser)=>{
-               
+
+
                 renderQuestion += `<b>${data.pollingQuestion}</b> `
 
                 document.getElementById("pollingQuestion").innerHTML = renderQuestion
     
                 for (let i = 0; i < data.getPollingQuestionResult.length; i++) {
-                    
+
                     mapkeys.push(Object.keys(data.getPollingQuestionResult[i]))
                     mapValues.push(Object.values(data.getPollingQuestionResult[i]))
 
-                    var pollingAnswerInPercentage = Math.round((Object.values(data.getPollingQuestionResult[i])*100)/countUser)
-                    
-    
+                    // var pollingAnswerInPercentage = Math.round((Object.values(data.getPollingQuestionResult[i])*100)/countUser)
+
+
                 }
-                console.log(mapkeys);
-                console.log(mapValues);
-                document.getElementById("options").innerHTML = renderOption
+    
+                // document.getElementById("options").innerHTML = renderOption
 
 
                 var barColors = [
@@ -69,7 +49,7 @@ function getPollingQuestionDetails() {
                     "#3364FF",
                     "#8633FF"
                   ];
-                  
+
                   new Chart("myChart", {
                     type: "pie",
                     data: {
@@ -88,12 +68,12 @@ function getPollingQuestionDetails() {
                   });
 
             })
-        
-        })
-}
+          }
 
 
-    // console.log(PollingOptions)
+
+
+
 getPollingQuestionDetails()
 
 // var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];

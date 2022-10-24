@@ -1,7 +1,9 @@
 package com.company.ComplainProject.service;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.ComplainDto;
 import com.company.ComplainProject.dto.ComplainLogDto;
+import com.company.ComplainProject.dto.Note;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.model.Complain;
 import com.company.ComplainProject.model.ComplainLog;
@@ -28,6 +30,8 @@ public class ComplainLogService {
     ComplainRepository complainRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    FirebaseMessagingService firebaseMessagingService;
 
 
     public List<ComplainLogDto> getAllComplainLog() {
@@ -48,25 +52,48 @@ public class ComplainLogService {
 
     public ComplainLogDto addComplainLogByComplainService(Long id, ComplainLogDto complainLogDto) {
 //                                                                                          get the user (admin) object
+    try {
 
-        if(complainLogDto.getAssignedFrom() != null){
-           Optional<User> admin = userRepository.findById(complainLogDto.getAssignedFrom().getId());
-           complainLogDto.setAssignedFrom(admin.get());
-        }
-        if(complainLogDto.getAssignedTo() != null){
+        Optional<Complain> complain = complainRepository.findById(id);
+
+        if (complainLogDto.getAssignedFrom() != null && complainLogDto.getAssignedTo() != null) {
+            Optional<User> admin = userRepository.findById(complainLogDto.getAssignedFrom().getId());
+            complainLogDto.setAssignedFrom(admin.get());
+
             Optional<User> worker = userRepository.findById(complainLogDto.getAssignedTo().getId());
             complainLogDto.setAssignedTo(worker.get());
         }
 
-        Optional<Complain> complain = complainRepository.findById(id);
-
         complainLogDto.setStatus(complain.get().getStatus());
-        complainLogDto.setDescription("Your Complain is "+complain.get().getStatus());
+        complainLogDto.setDescription("Your Complain is " + complain.get().getStatus());
         complainLogDto.setDate(LocalDate.now());
         complainLogDto.setComplain(complain.get());
 
-        return todto(complainLogRespository.save(dto(complainLogDto)));
+        ComplainLogDto _complainLogDto = todto(complainLogRespository.save(dto(complainLogDto)));
 
+        /**
+         *  Send Notification to worker
+         */
+        if(_complainLogDto != null) {
+            if (_complainLogDto.getStatus().equals(Status.IN_PROGRESS)) {
+                Note note = Note.builder().subject("Assign Complain")
+                        .content(_complainLogDto.getAssignedFrom().getEmail() + " assigned " + _complainLogDto.getComplain().getComplainType().getName() + " Complian ").build();
+                firebaseMessagingService.sendNotification(note, _complainLogDto.getAssignedTo().getDeviceToken());
+            }
+
+            /**
+             * Send Notification to Customer
+             */
+            Note customerNote = Note.builder().subject("Your Complain is in " + _complainLogDto.getStatus())
+                    .content("Your Complain of "+complain.get().getComplainType().getName()+" is in "+_complainLogDto.getStatus()).build();
+            firebaseMessagingService.sendNotification(customerNote,complain.get().getUser().getDeviceToken());
+
+        }
+        return _complainLogDto;
+    }
+        catch (Exception e){
+            throw new ContentNotFoundException("Some thing went wrong in complain logs of complain id "+id);
+        }
     }
 
     public void deleteComplainLogByComplain(Long id) {

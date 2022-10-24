@@ -190,18 +190,13 @@ function updateStatus() {
 
     patchData(`/admin/complain/${uid}`,updatedstatus1)
         .then(data => {
-                getComplain()
-                updateComplainLog(data.id)
-                giveNotificationToUserOnComplainStatus(data.id)
+              
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 }
-//                                                                            give notification to user on change of complain Status
-// function giveNotificationToUserOnComplainStatus(complain_id){
-//     sendData(`/send-notification-touser/${complain_id}`)
-// }
+
 
 // function updateComplainLog(complain_id){
     

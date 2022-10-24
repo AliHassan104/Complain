@@ -44,12 +44,6 @@ function getComplain() {
 
 
         document.getElementById("totalcomplain").innerText = totalcomplain;
-        // if(totalcomplain != 0){
-        //     document.getElementById("rejectperc").innerText = parseInt(((totalcomplain - inprogress - resolved - inreview)/totalcomplain)*100)+"%"
-        // }
-        // else{
-        //     document.getElementById("rejectperc").innerText = 100+"%"
-        // }
         if(totalcomplain == 0){
             document.getElementById("rejectperc").innerText = 0+"%"
         }

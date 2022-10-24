@@ -1,7 +1,10 @@
 package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
+import com.company.ComplainProject.dto.Note;
 import com.company.ComplainProject.dto.PollingQuestionDto;
+import com.company.ComplainProject.dto.SearchCriteria;
+import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.PollingAnswerRepository;
 import com.company.ComplainProject.repository.PollingOptionRepository;
@@ -30,11 +33,12 @@ public class PollingQuestionService {
     AreaService areaService;
     @Autowired
     PollingAnswerRepository pollingAnswerRepository;
-
     @Autowired
     SessionService service;
     @Autowired
     FirebaseMessagingService notificationService;
+    @Autowired
+    UserService userService;
 
     public List<PollingQuestion> getAllPollingQuestion(){
         return pollingQuestionRepository.findAll();
@@ -57,28 +61,47 @@ public class PollingQuestionService {
     }
 
     public PollingQuestionDto addPollingQuestion(PollingQuestionDto pollingQuestionDto) {
-        PollingQuestionDto _pollingQuestionDto = toDto(pollingQuestionRepository.save(dto(pollingQuestionDto)));
-        if(_pollingQuestionDto != null){
-            notificationService.sendNotificationOnNewPollingQuestion(_pollingQuestionDto);
+        try {
+            PollingQuestionDto _pollingQuestionDto = toDto(pollingQuestionRepository.save(dto(pollingQuestionDto)));
+            if (_pollingQuestionDto != null) {
+
+                Note note = new Note();
+                note.setSubject("New Polling Question is added");
+                note.setContent("Question : " + _pollingQuestionDto.getQuestion());
+
+                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", _pollingQuestionDto.getArea()));
+
+                for (UserDetailsResponse users : userList) {
+                    notificationService.sendNotification(note, users.getDeviceToken());
+                }
+            }
+            return _pollingQuestionDto;
         }
-        return _pollingQuestionDto;
+        catch (Exception e){
+            throw new ContentNotFoundException("Some thing went wrong in adding new  polling question or delivering push notification ");
+        }
     }
 
     public Optional<PollingQuestionDto> updatePollingQuestionById(Long id, PollingQuestionDto pollingQuestionDto) {
-        PollingQuestion updatePollingQuestion = getAllPollingQuestion().stream().filter(el->el.getId().equals(id)).findAny().get();
-        Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(pollingQuestionDto.getArea().getId())).findAny().get();
+        try {
+            PollingQuestion updatePollingQuestion = getAllPollingQuestion().stream().filter(el -> el.getId().equals(id)).findAny().get();
+            Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(pollingQuestionDto.getArea().getId())).findAny().get();
 
-        if(updatePollingQuestion != null){
+            if (updatePollingQuestion != null) {
 //                                                                                           first we will delete the previous options
-            pollingOptionRepository.deleteOptionByid(updatePollingQuestion.getId());
+                pollingOptionRepository.deleteOptionByid(updatePollingQuestion.getId());
 
-            updatePollingQuestion.setEnd_date(pollingQuestionDto.getEnd_date());
-            updatePollingQuestion.setEnd_time(pollingQuestionDto.getEnd_time());
-            updatePollingQuestion.setQuestion(pollingQuestionDto.getQuestion());
-            updatePollingQuestion.setPollingOptions(pollingQuestionDto.getPollingOptions());
-            updatePollingQuestion.setArea(area);
+                updatePollingQuestion.setEnd_date(pollingQuestionDto.getEnd_date());
+                updatePollingQuestion.setEnd_time(pollingQuestionDto.getEnd_time());
+                updatePollingQuestion.setQuestion(pollingQuestionDto.getQuestion());
+                updatePollingQuestion.setPollingOptions(pollingQuestionDto.getPollingOptions());
+                updatePollingQuestion.setArea(area);
+            }
+            return Optional.of(toDto(pollingQuestionRepository.save(updatePollingQuestion)));
         }
-        return Optional.of(toDto(pollingQuestionRepository.save(updatePollingQuestion)));
+        catch (Exception e){
+            throw new ContentNotFoundException("Some thing went wrong cannot update polling question");
+        }
     }
 
     public PollingQuestion dto(PollingQuestionDto pollingQuestionDto){

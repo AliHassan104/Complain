@@ -3,12 +3,9 @@ package com.company.ComplainProject.service;
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.config.exception.InputMisMatchException;
 import com.company.ComplainProject.config.exception.UserNotFoundException;
-import com.company.ComplainProject.dto.ForgetPasswordDto;
+import com.company.ComplainProject.dto.*;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.dto.ProjectEnums.UserType;
-import com.company.ComplainProject.dto.SearchCriteria;
-import com.company.ComplainProject.dto.UserDetailsResponse;
-import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.AreaRepository;
 import com.company.ComplainProject.repository.RolesRepository;
@@ -42,6 +39,8 @@ public class UserService {
     AreaRepository areaRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    FirebaseMessagingService firebaseMessagingService;
 
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -73,9 +72,23 @@ public class UserService {
 
     public UserDetailsResponse addUser(UserDto userDto) {
 
-        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-        userDto.setRoles(assignRolesToUser(userDto));
-        return userToUserDetailsResponse(userRepository.save(dto(userDto)));
+        try{
+            userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+            userDto.setRoles(assignRolesToUser(userDto));
+            UserDetailsResponse userDetailsResponse =  userToUserDetailsResponse(userRepository.save(dto(userDto)));
+
+            if(userDetailsResponse != null) {
+                Note note = Note.builder().subject("JiComplain Registration").
+                    content("Dear " + userDetailsResponse.getFirstname() + " your registration request is in review please wait 24 hours for account activation")
+                    .build();
+
+            firebaseMessagingService.sendNotification(note, userDetailsResponse.getDeviceToken());
+            }
+            return userDetailsResponse;
+
+        }catch (Exception e){
+            throw new RuntimeException("Some thing went wrong in adding new user "+e);
+        }
 
     }
 
