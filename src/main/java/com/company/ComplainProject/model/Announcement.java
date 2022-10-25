@@ -4,6 +4,7 @@ import com.company.ComplainProject.dto.ProjectEnums.AnnouncementStatus;
 import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
 import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

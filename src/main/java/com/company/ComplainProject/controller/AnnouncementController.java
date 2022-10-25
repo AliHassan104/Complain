@@ -6,6 +6,7 @@ import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Announcement;
 import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.service.AnnouncementService;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,15 @@ public class AnnouncementController {
     @Autowired
     AnnouncementService announcementService;
 
+//    @GetMapping("/send")
+//    public String sendMessage(String mobile){
+//
+////        announcementService.AnnouncementToUser();
+//        return "message sent"+Thread.currentThread().getName();
+//    }
+
     @GetMapping("/announcement")
-    public ResponseEntity<List<Announcement>> getAllEvent(){
+    public ResponseEntity<List<Announcement>> getAllEvent() throws FirebaseMessagingException {
         return ResponseEntity.ok(announcementService.getAllAnnouncement());
     }
 

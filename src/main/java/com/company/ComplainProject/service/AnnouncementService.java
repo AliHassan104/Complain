@@ -7,17 +7,18 @@ import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.AnnouncementRepository;
 import com.company.ComplainProject.repository.AreaRepository;
-import com.company.ComplainProject.repository.EventRepository;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AnnouncementService {
@@ -32,22 +33,17 @@ public class AnnouncementService {
     @Autowired
     AreaRepository areaRepository;
 
-    public List<Announcement> getAllAnnouncement(){
-        List<Announcement> announcement = announcementRepository.getAnnouncementByStatus();
-
-        System.out.println(announcement);
-
-//        if (announcement != null){
-//            announcement
-//        }
-
+    public List<Announcement> getAllAnnouncement() throws FirebaseMessagingException {
+//        Announcement _announcement = announcementRepository.getAnnouncementScheduler();
+//        System.out.println(_announcement);
+//        AnnouncementToUser(_announcement);
 
         List<Announcement> announcements = announcementRepository.findAll();
+        getPendingAnnouncement();
         return announcements;
     }
 
     public Optional<Announcement> getAnnouncementById(Long id){
-        System.out.println();
         Optional<Announcement> announcement = announcementRepository.findById(id);
         if(!announcement.isPresent()){
             throw new ContentNotFoundException("No Event Exist Having id "+id);
@@ -118,6 +114,83 @@ public class AnnouncementService {
         }
     }
 
+    @Async
+    public void AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
+
+            if (_announcementDto != null) {
+
+                Note note = new Note();
+
+                note.setSubject(_announcementDto.getTitle());
+
+                note.setContent(_announcementDto.getDescription());
+
+                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":",_announcementDto.getAreaId()));
+
+                for (UserDetailsResponse users : userList) {
+                    notificationService.sendNotification(note,users.getDeviceToken());
+                }
+
+            }
+
+
+    }
+
+    public PendingAnnoucementDTO getPendingAnnouncement() throws FirebaseMessagingException {
+        List<PendingAnnoucementDTO> _announcement = announcementRepository.getAnnouncementScheduler();
+        if(_announcement.size() > 0 ){
+            return _announcement.get(0);
+        }
+
+        return null; //threow wxception
+    }
+
+    public AnnouncementDto updateAnnouncementStatus(Long id, AnnouncementDto announcementDto) {
+        try {
+            Optional<Announcement> updateComplain = announcementRepository.findById(id);
+            if (updateComplain.isPresent()) {
+                updateComplain.get().setAnnouncementStatus(announcementDto.getAnnouncementStatus());
+            }
+            else{
+                throw new ContentNotFoundException("Announcement "+id);
+            }
+            return announcementDto;
+
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot update complain Status "+e);
+        }
+    }
+
+
+
+
+    //    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "*/10 * * * * *")
+    public void SendAnnouncement() throws FirebaseMessagingException {
+
+        PendingAnnoucementDTO anc =  getPendingAnnouncement();
+        System.out.println(anc);
+
+        AnnouncementToUser(anc);
+//        getAllAnnouncement();
+
+//        Announcement _announcement = announcementRepository.getAnnouncementScheduler();
+
+//        System.out.println(_announcement);
+
+//        AnnouncementToUser(_announcement);
+
+//        announcementAsync.getAsyncExecutor();
+    }
+
+    private void sleep(int args){
+        try {
+            TimeUnit.SECONDS.sleep(args);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Announcement dto(AnnouncementDto announcementDto){
         return Announcement.builder()
