@@ -49,7 +49,6 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/upload/image").permitAll()
                 .antMatchers("/api/view/image/**").permitAll()
                 .antMatchers("/api/login").permitAll()
-                .antMatchers("/10").permitAll()
                 .antMatchers("/api/send/otp/**").permitAll()
                 .antMatchers("/api/area").permitAll()
                 .antMatchers("/api/blockByArea/**").permitAll()
