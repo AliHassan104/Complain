@@ -1,5 +1,6 @@
 package com.company.ComplainProject.dto;
 
+import com.company.ComplainProject.dto.ProjectEnums.AnnouncementStatus;
 import com.company.ComplainProject.dto.ProjectEnums.AnnouncementType;
 import lombok.*;
 
@@ -17,4 +18,7 @@ public class PendingAnnoucementDTO {
     private String title;
     private String description;
     private Long areaId;
+
+    @Enumerated(EnumType.STRING)
+    private AnnouncementType announcementType;
 }
