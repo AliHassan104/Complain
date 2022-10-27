@@ -34,12 +34,7 @@ public class AnnouncementService {
     AreaRepository areaRepository;
 
     public List<Announcement> getAllAnnouncement() throws FirebaseMessagingException {
-//        Announcement _announcement = announcementRepository.getAnnouncementScheduler();
-//        System.out.println(_announcement);
-//        AnnouncementToUser(_announcement);
-
         List<Announcement> announcements = announcementRepository.findAll();
-        getPendingAnnouncement();
         return announcements;
     }
 
@@ -67,22 +62,6 @@ public class AnnouncementService {
             announcementDto.setUser(user);
 
             AnnouncementDto _announcementDto = toDto(announcementRepository.save(dto(announcementDto)));
-//            if (_announcementDto != null) {
-//                if (_announcementDto.getAnnouncementType() == AnnouncementType.NOTIFICATION){
-//
-//                Note note = new Note();
-//                note.setSubject(_announcementDto.getTitle());
-//                note.setContent(_announcementDto.getDescription());
-//
-//                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":",_announcementDto.getArea()));
-//
-//            }
-//                else if (_announcementDto.getAnnouncementType() == AnnouncementType.SMS){
-//
-//                }
-//            }
-
-
             return announcementDto;
         }
         catch (Exception e ){
@@ -114,10 +93,13 @@ public class AnnouncementService {
         }
     }
 
-    @Async
+//    @Async
     public void AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
 
-            if (_announcementDto != null) {
+
+        Long appStartTime = System.currentTimeMillis();
+        System.out.println(appStartTime);
+        if (_announcementDto != null) {
 
                 Note note = new Note();
 
@@ -130,10 +112,11 @@ public class AnnouncementService {
                 for (UserDetailsResponse users : userList) {
                     notificationService.sendNotification(note,users.getDeviceToken());
                 }
+                updateAnnouncementStatus(_announcementDto.getId());
 
-            }
-
-
+        }
+            Long appFinishTime = System.currentTimeMillis();
+            System.out.println(appFinishTime);
     }
 
     public PendingAnnoucementDTO getPendingAnnouncement() throws FirebaseMessagingException {
@@ -141,56 +124,41 @@ public class AnnouncementService {
         if(_announcement.size() > 0 ){
             return _announcement.get(0);
         }
-
-        return null; //threow wxception
+        return null;
     }
 
-    public AnnouncementDto updateAnnouncementStatus(Long id, AnnouncementDto announcementDto) {
+    public Optional<Announcement> updateAnnouncementStatus(Long id) {
         try {
-            Optional<Announcement> updateComplain = announcementRepository.findById(id);
-            if (updateComplain.isPresent()) {
-                updateComplain.get().setAnnouncementStatus(announcementDto.getAnnouncementStatus());
+            Optional<Announcement> updateAnnouncement = announcementRepository.findById(id);
+            if (updateAnnouncement.isPresent()) {
+                updateAnnouncement.get().setAnnouncementStatus(AnnouncementStatus.SENT);
+                Announcement announcementStatus = announcementRepository.save(updateAnnouncement.get());
             }
             else{
                 throw new ContentNotFoundException("Announcement "+id);
             }
-            return announcementDto;
-
+            return updateAnnouncement;
         }
         catch (Exception e){
-            throw new RuntimeException("Some thing went wrong Cannot update complain Status "+e);
+            throw new RuntimeException("Some thing went wrong Cannot update announcement status "+e);
         }
     }
 
 
-
-
-    //    @Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "*/7 * * * * *")
     public void SendAnnouncement() throws FirebaseMessagingException {
-
         PendingAnnoucementDTO anc =  getPendingAnnouncement();
-        System.out.println(anc);
-
+//        System.out.println(anc);
         AnnouncementToUser(anc);
-//        getAllAnnouncement();
-
-//        Announcement _announcement = announcementRepository.getAnnouncementScheduler();
-
-//        System.out.println(_announcement);
-
-//        AnnouncementToUser(_announcement);
-
-//        announcementAsync.getAsyncExecutor();
     }
 
-    private void sleep(int args){
-        try {
-            TimeUnit.SECONDS.sleep(args);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void sleep(int args){
+//        try {
+//            TimeUnit.SECONDS.sleep(args);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public Announcement dto(AnnouncementDto announcementDto){
         return Announcement.builder()
@@ -219,7 +187,4 @@ public class AnnouncementService {
                 .announcementStatus(announcement.getAnnouncementStatus())
                 .build();
     }
-
-
-
 }

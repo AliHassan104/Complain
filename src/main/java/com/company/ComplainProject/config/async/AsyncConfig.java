@@ -1,4 +1,4 @@
-package com.company.ComplainProject.config.announcement;
+package com.company.ComplainProject.config.async;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;

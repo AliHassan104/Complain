@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface AnnouncementRepository extends JpaRepository<Announcement,Long> {
 
-
-    @Query(value = "SELECT new com.company.ComplainProject.dto.PendingAnnoucementDTO(a.id,a.title,a.description,a.area.id) From Announcement a WHERE announcement_status = 'PENDING' and announcement_type= 'NOTIFICATION'")
+//    and announcement_type= 'NOTIFICATION'
+    @Query(value = "SELECT new com.company.ComplainProject.dto.PendingAnnoucementDTO(a.id,a.title,a.description,a.area.id,a.announcementType) From Announcement a WHERE announcement_status = 'PENDING'")
     public List<PendingAnnoucementDTO> getAnnouncementScheduler();
 
 
