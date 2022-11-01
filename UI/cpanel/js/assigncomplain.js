@@ -100,7 +100,8 @@ function updateStatus() {
         .then(data => {
             assignComplain(data.id)                                                      
             })
-        .catch((error) => {
+        .catch((error) => 
+        {
             console.error('Error:', error);
         });
 }
@@ -108,14 +109,16 @@ function updateStatus() {
 
 
 function assignComplain(complain_id){
-    
+    let description = document.getElementById("description").value ;
     let complainLog = {
         assignedFrom:{
             id:loginUserId
         },
         assignedTo: {
             id:document.getElementById("worker_id").value
-        }  
+        },
+        description:description 
+
     }
 
     sendData(`/complainlog/${complain_id}`,complainLog)

@@ -4,5 +4,7 @@ public enum Status {
     IN_REVIEW ,
     IN_PROGRESS ,
     COMPLETED ,
-    REJECTED
+    REJECTED ,
+
+    DUPLICATE
 }

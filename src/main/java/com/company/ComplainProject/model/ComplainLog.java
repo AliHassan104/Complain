@@ -32,6 +32,8 @@ public class ComplainLog {
     private User assignedTo;
     @Lob
     private String description;
+    @Lob
+    private String reason;
 
     @ManyToOne
     @JoinColumn(name = "complain")

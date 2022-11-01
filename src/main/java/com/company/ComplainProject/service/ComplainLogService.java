@@ -29,6 +29,8 @@ public class ComplainLogService {
     @Autowired
     ComplainRepository complainRepository;
     @Autowired
+    AdminService adminService;
+    @Autowired
     UserRepository userRepository;
     @Autowired
     FirebaseMessagingService firebaseMessagingService;
@@ -56,16 +58,18 @@ public class ComplainLogService {
 
         Optional<Complain> complain = complainRepository.findById(id);
 
-        if (complainLogDto.getAssignedFrom() != null && complainLogDto.getAssignedTo() != null) {
+        if (complainLogDto.getAssignedFrom() != null) {
             Optional<User> admin = userRepository.findById(complainLogDto.getAssignedFrom().getId());
             complainLogDto.setAssignedFrom(admin.get());
+        }
 
+        if(complainLogDto.getAssignedTo() != null){
             Optional<User> worker = userRepository.findById(complainLogDto.getAssignedTo().getId());
             complainLogDto.setAssignedTo(worker.get());
         }
 
         complainLogDto.setStatus(complain.get().getStatus());
-        complainLogDto.setDescription("Your Complain is " + complain.get().getStatus());
+        complainLogDto.setDescription(complainLogDto.getDescription());
         complainLogDto.setDate(LocalDate.now());
         complainLogDto.setComplain(complain.get());
 
@@ -106,6 +110,7 @@ public class ComplainLogService {
     public ComplainLog  dto(ComplainLogDto complainLogDto){
         return ComplainLog.builder().id(complainLogDto.getId())
                 .date(complainLogDto.getDate()).description(complainLogDto.getDescription())
+                .reason(complainLogDto.getReason())
                 .status(complainLogDto.getStatus()).assignedFrom(complainLogDto.getAssignedFrom())
                 .assignedTo(complainLogDto.getAssignedTo()).complain(complainLogDto.getComplain()).build();
     }
@@ -113,9 +118,40 @@ public class ComplainLogService {
     public ComplainLogDto todto(ComplainLog complainLog){
         return ComplainLogDto.builder().id(complainLog.getId())
                 .date(complainLog.getDate()).description(complainLog.getDescription())
+                .reason(complainLog.getReason())
                 .status(complainLog.getStatus()).assignedFrom(complainLog.getAssignedFrom())
                 .assignedTo(complainLog.getAssignedTo()).build();
     }
 
+
+    public ComplainLogDto addComplainLogRejection(Long id, ComplainLogDto complainDto) {
+        try {
+            Optional<ComplainLog> updateComplain = complainLogRespository.findById(id);
+            if (updateComplain.isPresent()) {
+                updateComplain.get().setStatus(Status.REJECTED);
+                updateComplain.get().setReason(complainDto.getReason());
+            }
+            else{
+                throw new ContentNotFoundException("No Complain Exist Having id "+id);
+            }
+            ComplainLogDto _complainDto = todto(complainLogRespository.save(updateComplain.get()));
+            adminService.updateComplainRejectStatus(id);
+//            if(_complainDto != null){
+//
+//                Note note = new Note();
+//                note.setSubject("Your Complain is in " + _complainDto.getStatus());
+//                note.setContent("Your Complain of " + _complainDto.getComplainType().getName() + " is in " + _complainDto.getStatus());
+//
+//                notificatonService.sendNotification(note,_complainDto.getUser().getDeviceToken());
+//
+//            }
+
+            return _complainDto;
+
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot update complain Status "+e);
+        }
+    }
 
 }
