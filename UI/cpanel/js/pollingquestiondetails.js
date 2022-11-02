@@ -15,24 +15,26 @@ function getPollingQuestionDetails() {
 
         getData(`/pollinganswer/getpollingoptionresult/${pollingQuestionId}`)
         .then((data) => {
-
+             
                 var pollingAnswerInPercentage = 0;
 
 
-
+                
                 renderQuestion += `<b>${data.pollingQuestion}</b> `
 
                 document.getElementById("pollingQuestion").innerHTML = renderQuestion
     
                 for (let i = 0; i < data.getPollingQuestionResult.length; i++) {
-
-                    mapkeys.push(Object.keys(data.getPollingQuestionResult[i]))
-                    mapValues.push(Object.values(data.getPollingQuestionResult[i]))
-
-                    // var pollingAnswerInPercentage = Math.round((Object.values(data.getPollingQuestionResult[i])*100)/countUser)
+                    
+                   
+                    
+                    mapkeys.push(data.getPollingQuestionResult[i].pol_options)
+                    mapValues.push(data.getPollingQuestionResult[i].count)
 
 
                 }
+
+         
     
                 // document.getElementById("options").innerHTML = renderOption
 
@@ -49,7 +51,7 @@ function getPollingQuestionDetails() {
                     "#3364FF",
                     "#8633FF"
                   ];
-
+                  
                   new Chart("myChart", {
                     type: "pie",
                     data: {
@@ -69,6 +71,7 @@ function getPollingQuestionDetails() {
 
             })
           }
+        
 
 
 

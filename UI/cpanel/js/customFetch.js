@@ -300,10 +300,9 @@ function tokenNotExist() {
             window.open(loginPage, "_self")
         }
         else if(getRoles.includes("ROLE_WORKER")){
-            
             window.open(loginPage, "_self")
         }
-        
+
     }
     else {
         window.open(loginPage, "_self")

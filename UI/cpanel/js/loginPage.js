@@ -1,13 +1,7 @@
-checkTokenInLocal();
-function checkTokenInLocal(){
-    token = localStorage.getItem('jwtToken')
-    if(token != null){
-        window.open(`${loginUrl}/index.html`,"_self")
-    }
-}
+
 
 function loginData() {
-   debugger
+   
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
 
@@ -27,7 +21,6 @@ function loginData() {
             body: JSON.stringify(loginCredentials)
         })
         .then((response) => {
-            debugger;
                 wrongEmailAndPass = '';
 
                     if(!response.ok){

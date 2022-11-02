@@ -5,13 +5,11 @@ import com.company.ComplainProject.dto.PermissionDto;
 import com.company.ComplainProject.dto.PermissionRoleDto;
 import com.company.ComplainProject.model.Permission;
 import com.company.ComplainProject.model.PermissionRole;
-import com.company.ComplainProject.model.User;
 import com.company.ComplainProject.repository.PermissionRepository;
 import com.company.ComplainProject.repository.PermissionRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,9 +22,6 @@ public class PermissionRoleService {
     PermissionRepository permissionRepository;
     @Autowired
     PermissionService permissionService;
-
-    @Autowired
-            SessionService sessionService;
     PermissionRole permissionRole;
     PermissionRoleDto permissionRoleDto1;
     PermissionRoleDto permissionRoleDto2;
@@ -35,7 +30,7 @@ public class PermissionRoleService {
         try {
 
 
-            permissionRole = permissionRoleRepository.findByPermissionId(permissionRoleDto.getPermission().getId(),permissionRoleDto.getRoles().getId());
+            permissionRole = permissionRoleRepository.findByPermissionId(permissionRoleDto.getPermission().getId());
             if(permissionRole!=null){
                 permissionRoleDto.setId(permissionRole.getId());
                 permissionRoleDto1 = toDto(permissionRoleRepository.save(toDo(permissionRoleDto)));
@@ -43,7 +38,7 @@ public class PermissionRoleService {
             else{
                 permissionRoleDto1 = toDto(permissionRoleRepository.save(toDo(permissionRoleDto)));
             }
-            return permissionRoleDto1;
+            return permissionRoleDto;
         }catch (Exception e){
             throw new ContentNotFoundException("Cannot Assign Permission");
         }
@@ -58,16 +53,6 @@ public class PermissionRoleService {
             throw new ContentNotFoundException("Roles Permission Not Found");
         }
     }
-
-    public List<PermissionRoleDto> getAllPermissionByUserRole(){
-        User user = sessionService.getLoggedInUser();
-        List<Long> userRolesId = new ArrayList<>();
-        user.getRoles().stream().forEach(roles -> userRolesId.add(roles.getId()));
-
-        List<PermissionRole> permissionRoles = permissionRoleRepository.getPermissionRoleByRoleId(userRolesId);
-        return permissionRoles.stream().map(permissionRole1 -> toDto(permissionRole1)).collect(Collectors.toList());
-    }
-
     //
 //    public List<PermissionDto> getAssignPermissionRolesById(Long id) {
 //        List<PermissionRole> permissionRole = permissionRoleRepository.findByRoleId(id);
@@ -89,8 +74,6 @@ public class PermissionRoleService {
                 .permission(permissionRole.getPermission())
                 .canEdit(permissionRole.getCanEdit())
                 .canDelete(permissionRole.getCanDelete())
-                .parent(permissionRole.getParent())
-                .label(permissionRole.getLabel())
                 .assign(permissionRole.getAssign())
                 .build();
     }
@@ -103,8 +86,6 @@ public class PermissionRoleService {
                 .permission(permissionRoleDto.getPermission())
                 .canEdit(permissionRoleDto.getCanEdit())
                 .canDelete(permissionRoleDto.getCanDelete())
-                .parent(permissionRoleDto.getParent())
-                .label(permissionRoleDto.getLabel())
                 .assign(permissionRoleDto.getAssign())
                 .build();
     }

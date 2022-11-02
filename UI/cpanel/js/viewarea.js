@@ -1,18 +1,14 @@
 let uid ;
 
 
-
-    //     ${1==2 ?
-    //    `<i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
-    //    `:``
 function getArea(pageNumber) {
     if (pageNumber >= 0) {
         getData(`/admin/area?pageNumber=${pageNumber}&pageSize=${10}`).
         then((data)=> {
-            
+
             renderArea(data)
-            renderPagination(data) 
-            
+            renderPagination(data)
+
 
         })
     }
@@ -35,36 +31,39 @@ function renderArea(data){
     <tr class="tablepoint "  >
         <td  class="datatable">${data.content[i].name}</td>
         <td  class="datatable">${data.content[i].postalCode}</td>
-        <td  class="datatable"> 
+        <td  class="datatable">
 
-        <a  href="/addarea.html?id=${data.content[i].id}"> 
-        <i  data-bs-toggle="modal" data-bs-target="#exampleModal"  
+        <a  href="/addarea.html?id=${data.content[i].id}">
+        <i  data-bs-toggle="modal" data-bs-target="#exampleModal"
         style="margin-right: 15px;"  class="fa fa-pencil"></i>
-        
+
         </a>
-       
+
        <i id="close12" onclick="deleteArea(${data.content[i].id})"   class="fa fa-close"></i>
-       
-    
+
+
 </td>
     </tr>`
     }
 
+  
     document.getElementById("datatables-reponsive").innerHTML = table;
 
       
      
     if(data.content.length === 0){
         noAreaFound = ""
-        noAreaFound  += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large" 
+        noAreaFound  += `<span style=" margin: auto;text-align: center;width: 50%;height: 5vh; text-align: center; justify-content: center;font-size: large"
         class="alert alert-danger" role="alert" >No Area Found</span> `
         document.getElementById("noRecordFound").innerHTML =   noAreaFound 
    }
    else{
         document.getElementById("noRecordFound").innerHTML =  "" 
    }
-    
 }
+
+
+
 
 
 
@@ -72,7 +71,7 @@ function deleteArea(id){
     let table = ""
 
     deleteData(`/area/${id}`).then((response)=>{
-        
+
         if(response.ok){
             table += `
             <div  style=" 
@@ -101,14 +100,14 @@ function deleteArea(id){
                     </div>`
         }
 
-        
+
         document.getElementById("formSubmitted").innerHTML = table
 
-        
+
         setTimeout(() => {
             document.getElementById("formSubmitted").innerHTML = ""
         }, 2000)
-        
+
         getArea(0);
     })
 
@@ -127,7 +126,7 @@ function  renderPagination(data) {
     if(data.numberOfElements != 0){
         pageNumber += 1
     }
-   
+
     document.getElementById("showPageNumbers").innerHTML = `<a href="#" style="text-decoration:none;">Page ${pageNumber} Of ${pages}</a> `
 
     renderPagination += `

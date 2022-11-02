@@ -82,19 +82,6 @@ public class PollingAnswerService {
 
     public PollingQuestionResult getPollingOptionResult(Long polling_question) {
         Optional<PollingQuestion> pollingQuestion = pollingQuestionRepository.findById(polling_question);
-//
-//        List<Map<String,Long>> optionResult = new ArrayList<>();
-//
-//        for (PollingOption pollingOption:pollingQuestion.get().getPollingOptions()) {
-//            Map<String,Long> pollingResult = new HashMap<>();
-//            pollingResult.put(pollingOption.getOption(),pollingAnswerRepository.countUsersFromPollingOption(pollingOption));
-//
-//            optionResult.add(pollingResult);
-//        }
-////                                                                                              Sort the HashMap with largest value (Descending Order)
-//         Collections.sort(optionResult,new filterPollingOptionResults());
-//
-//        return new PollingQuestionResult(pollingQuestion.get().getId(),pollingQuestion.get().getQuestion(),optionResult);
 
         try {
             List<PollingOptionResponseDto> pollingOptionCountDtos = pollingAnswerRepository.getPollingOptionResult(polling_question);

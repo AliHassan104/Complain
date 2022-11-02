@@ -41,8 +41,4 @@ public class PermissionRoleController {
 
         return ResponseEntity.ok(permission.getAssignPermissionRolesById(id));
     }
-    @GetMapping("/permission/permissionByRole")
-    public ResponseEntity<List<PermissionRoleDto>> getAllAssignPermissionByRoles(){
-        return ResponseEntity.ok(permissionRoleService.getAllPermissionByUserRole());
-    }
 }
