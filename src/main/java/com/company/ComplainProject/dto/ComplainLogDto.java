@@ -28,7 +28,7 @@ public class ComplainLogDto {
     @Lob
     private String description;
     private Complain complain;
-    private String reason;
+
 
 
 }

@@ -88,8 +88,9 @@ public class ComplainLogService {
             /**
              * Send Notification to Customer
              */
-            Note customerNote = Note.builder().subject("Your Complain is in " + _complainLogDto.getStatus())
-                    .content("Your Complain of "+complain.get().getComplainType().getName()+" is in "+_complainLogDto.getStatus()).build();
+            Note customerNote = Note.builder().subject("Your Complain is  " + _complainLogDto.getStatus())
+                    .content(complainLogDto.getDescription()).build();
+//                    .content("Your Complain of "+complain.get().getComplainType().getName()+" is in "+_complainLogDto.getStatus()).build();
             firebaseMessagingService.sendNotification(customerNote,complain.get().getUser().getDeviceToken());
 
         }
@@ -110,7 +111,7 @@ public class ComplainLogService {
     public ComplainLog  dto(ComplainLogDto complainLogDto){
         return ComplainLog.builder().id(complainLogDto.getId())
                 .date(complainLogDto.getDate()).description(complainLogDto.getDescription())
-                .reason(complainLogDto.getReason())
+
                 .status(complainLogDto.getStatus()).assignedFrom(complainLogDto.getAssignedFrom())
                 .assignedTo(complainLogDto.getAssignedTo()).complain(complainLogDto.getComplain()).build();
     }
@@ -118,7 +119,7 @@ public class ComplainLogService {
     public ComplainLogDto todto(ComplainLog complainLog){
         return ComplainLogDto.builder().id(complainLog.getId())
                 .date(complainLog.getDate()).description(complainLog.getDescription())
-                .reason(complainLog.getReason())
+
                 .status(complainLog.getStatus()).assignedFrom(complainLog.getAssignedFrom())
                 .assignedTo(complainLog.getAssignedTo()).build();
     }
@@ -129,7 +130,7 @@ public class ComplainLogService {
             Optional<ComplainLog> updateComplain = complainLogRespository.findById(id);
             if (updateComplain.isPresent()) {
                 updateComplain.get().setStatus(Status.REJECTED);
-                updateComplain.get().setReason(complainDto.getReason());
+
             }
             else{
                 throw new ContentNotFoundException("No Complain Exist Having id "+id);

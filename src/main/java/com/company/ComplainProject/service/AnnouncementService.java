@@ -96,7 +96,6 @@ public class AnnouncementService {
 //    @Async
     public void AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
 
-
         Long appStartTime = System.currentTimeMillis();
         System.out.println(appStartTime);
         if (_announcementDto != null) {
@@ -145,7 +144,7 @@ public class AnnouncementService {
     }
 
 
-    @Scheduled(cron = "* */1 * * * *")
+    @Scheduled(cron = "*/3600 * * * * *")
     public void SendAnnouncement() throws FirebaseMessagingException {
         PendingAnnoucementDTO anc =  getPendingAnnouncement();
 //        System.out.println(anc);

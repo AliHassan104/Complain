@@ -183,15 +183,15 @@ public class AdminService {
                 throw new ContentNotFoundException("No Complain Exist Having id "+id);
             }
             ComplainDto _complainDto = complainService.toDto(complainRepository.save(updateComplain.get()));
-            if(_complainDto != null){
-
-                Note note = new Note();
-                note.setSubject("Your Complain is in " + _complainDto.getStatus());
-                note.setContent("Your Complain of " + _complainDto.getComplainType().getName() + " is in " + _complainDto.getStatus());
-
-                notificatonService.sendNotification(note,_complainDto.getUser().getDeviceToken());
-
-            }
+//            if(_complainDto != null){
+//
+//                Note note = new Note();
+//                note.setSubject("Your Complain is in " + _complainDto.getStatus());
+//                note.setContent("Your Complain of " + _complainDto.getComplainType().getName() + " is in " + _complainDto.getStatus());
+//
+//                notificatonService.sendNotification(note,_complainDto.getUser().getDeviceToken());
+//
+//            }
 
             return _complainDto;
 
