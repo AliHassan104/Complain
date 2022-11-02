@@ -187,7 +187,7 @@ roles();
   for(let i=0; i< assignPermissions.length; i++){
     sendData(`/permission/role`,assignPermissions[i])
    .then((data=>{
-    console.log(data);
+    // console.log(data);
   }))
   }
   window.location.reload();

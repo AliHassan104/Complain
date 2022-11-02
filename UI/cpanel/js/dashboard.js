@@ -10,7 +10,7 @@ function showUserData() {
     getUserData().then(
         (data) => {
             document.getElementById("username").innerText = data.firstname
-            console.log(data)
+            // console.log(data)
         })
 }
 

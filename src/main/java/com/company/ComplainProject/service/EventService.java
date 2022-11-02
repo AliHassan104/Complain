@@ -46,7 +46,6 @@ public class EventService {
     public Page<Event> getAllEventWithPagination(Integer pageNumber,Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Event> eventPage = eventRepository.findAll(pageable);
-
         return eventPage;
      }
 

@@ -9,9 +9,10 @@ import com.google.firebase.messaging.Notification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-
+@Async
 @Service
 public class FirebaseMessagingService {
 
@@ -28,6 +29,7 @@ public class FirebaseMessagingService {
 //     worker ko bhe notify
 //
 
+    //@Async
     public void sendNotification(Note note, String token) throws FirebaseMessagingException {
         try{
             if(token != null) {
