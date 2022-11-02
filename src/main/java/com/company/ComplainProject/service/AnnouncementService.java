@@ -145,7 +145,7 @@ public class AnnouncementService {
     }
 
 
-    @Scheduled(cron = "*/7 * * * * *")
+    @Scheduled(cron = "* */1 * * * *")
     public void SendAnnouncement() throws FirebaseMessagingException {
         PendingAnnoucementDTO anc =  getPendingAnnouncement();
 //        System.out.println(anc);
