@@ -2,6 +2,7 @@ package com.company.ComplainProject.service;
 
 import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.*;
+import com.company.ComplainProject.dto.ProjectEnums.Status;
 import com.company.ComplainProject.dto.ProjectEnums.UserStatus;
 import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.*;
@@ -191,6 +192,26 @@ public class AdminService {
                 notificatonService.sendNotification(note,_complainDto.getUser().getDeviceToken());
 
             }
+
+            return _complainDto;
+
+        }
+        catch (Exception e){
+            throw new RuntimeException("Some thing went wrong Cannot update complain Status "+e);
+        }
+    }
+
+    public ComplainDto updateComplainRejectStatus(Long id) {
+        try {
+
+            Optional<Complain> updateComplain = complainRepository.findById(id);
+            if (updateComplain.isPresent()) {
+                updateComplain.get().setStatus(Status.REJECTED);
+            }
+            else{
+                throw new ContentNotFoundException("No Complain Exist Having id "+id);
+            }
+            ComplainDto _complainDto = complainService.toDto(complainRepository.save(updateComplain.get()));
 
             return _complainDto;
 

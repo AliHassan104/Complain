@@ -70,5 +70,25 @@ public class ComplainLogController {
         }
     }
 
+//    @PatchMapping("/complainlogreason/{cid}")
+//    public ResponseEntity<ComplainLogDto> addComplainReason(@PathVariable("cid") Long id ) {
+//        try{
+//            complainLogService.addComplainLogByComplainService(id) ;
+//            return ResponseEntity.ok().build() ;
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//            throw new ContentNotFoundException("No Complain Log Exist with complain id "+id) ;
+//        }
+//    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/complainlogreason/{id}")
+    public ResponseEntity<ComplainLogDto> addComplainReason(@PathVariable Long id, @RequestBody ComplainLogDto complainDto){
+
+        return ResponseEntity.ok(complainLogService.addComplainLogRejection(id,complainDto));
+    }
+
+
+
 
 }

@@ -137,7 +137,9 @@ function formSubmit() {
             sendDataWithFormData(`/complain`,formData)
                 .then((data) => {
                                             //  empty complain log because at initial stage complain status =  inreview
-                    complainLog = {}
+                    complainLog = {
+                        description:"Your Complain is in Review"
+                    }
 
                     sendData(`/complainlog/${data.id}`,complainLog)
 
