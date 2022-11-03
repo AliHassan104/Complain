@@ -158,8 +158,8 @@ public class AnnouncementService {
 
 
 
-//    @Scheduled(cron = "0 0 */1 * * *")
-    @Scheduled(cron = "10 * * * * *")
+//    @Scheduled(cron = "10 * * * * *")
+    @Scheduled(cron = "0 0 */1 * * *")
     public void SendAnnouncement() throws FirebaseMessagingException {
         PendingAnnoucementDTO anc =  getPendingAnnouncement();
         AnnouncementToUser(anc);
