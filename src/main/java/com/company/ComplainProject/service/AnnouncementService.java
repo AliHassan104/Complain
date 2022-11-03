@@ -8,6 +8,8 @@ import com.company.ComplainProject.model.*;
 import com.company.ComplainProject.repository.AnnouncementRepository;
 import com.company.ComplainProject.repository.AreaRepository;
 import com.google.firebase.messaging.FirebaseMessagingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +34,8 @@ public class AnnouncementService {
     UserService userService;
     @Autowired
     AreaRepository areaRepository;
+
+    private final Logger log = LoggerFactory.getLogger(AnnouncementService.class);
 
     public List<Announcement> getAllAnnouncement() throws FirebaseMessagingException {
         List<Announcement> announcements = announcementRepository.findAll();
@@ -97,7 +101,8 @@ public class AnnouncementService {
     public void AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
 
         Long appStartTime = System.currentTimeMillis();
-        System.out.println(appStartTime);
+        log.info("Announcement Start Time is : ",appStartTime);
+
         if (_announcementDto != null) {
 
                 Note note = new Note();
@@ -115,7 +120,8 @@ public class AnnouncementService {
 
         }
             Long appFinishTime = System.currentTimeMillis();
-            System.out.println(appFinishTime);
+
+            log.info("Announcement End Time is : ",appFinishTime);
     }
 
     public PendingAnnoucementDTO getPendingAnnouncement() throws FirebaseMessagingException {
@@ -144,20 +150,11 @@ public class AnnouncementService {
     }
 
 
-    @Scheduled(cron = "*/3600 * * * * *")
+    @Scheduled(cron = "0 0 */1 * * *")
     public void SendAnnouncement() throws FirebaseMessagingException {
         PendingAnnoucementDTO anc =  getPendingAnnouncement();
-//        System.out.println(anc);
         AnnouncementToUser(anc);
     }
-
-//    private void sleep(int args){
-//        try {
-//            TimeUnit.SECONDS.sleep(args);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public Announcement dto(AnnouncementDto announcementDto){
         return Announcement.builder()
