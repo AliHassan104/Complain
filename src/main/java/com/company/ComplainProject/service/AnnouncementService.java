@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -100,10 +101,12 @@ public class AnnouncementService {
 //    @Async
     public void AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
 
-        Long appStartTime = System.currentTimeMillis();
-        log.info("Announcement Start Time is : ",appStartTime);
+//        Long appStartTime = System.currentTimeMillis();
+        log.info("Announcement Start Time is : ", LocalTime.now());
 
         if (_announcementDto != null) {
+
+            if (_announcementDto.getAnnouncementType().equals(AnnouncementType.NOTIFICATION)) {
 
                 Note note = new Note();
 
@@ -111,12 +114,16 @@ public class AnnouncementService {
 
                 note.setContent(_announcementDto.getDescription());
 
-                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":",_announcementDto.getAreaId()));
+                List<UserDetailsResponse> userList = userService.getFilteredUser(new SearchCriteria("area", ":", _announcementDto.getAreaId()));
 
                 for (UserDetailsResponse users : userList) {
-                    notificationService.sendNotification(note,users.getDeviceToken());
+                    notificationService.sendNotification(note, users.getDeviceToken());
                 }
                 updateAnnouncementStatus(_announcementDto.getId());
+            }
+            else if (_announcementDto.getAnnouncementType().equals(AnnouncementType.SMS)){
+
+            }
 
         }
             Long appFinishTime = System.currentTimeMillis();
@@ -150,7 +157,9 @@ public class AnnouncementService {
     }
 
 
-    @Scheduled(cron = "0 0 */1 * * *")
+
+//    @Scheduled(cron = "0 0 */1 * * *")
+    @Scheduled(cron = "10 * * * * *")
     public void SendAnnouncement() throws FirebaseMessagingException {
         PendingAnnoucementDTO anc =  getPendingAnnouncement();
         AnnouncementToUser(anc);
