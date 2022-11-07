@@ -49,7 +49,9 @@ function renderAnnouncement(data){
         style="margin-right: 15px;"  class="fa fa-pencil"></i>
         </a>
         <i id="close12" onclick="deleteAnnouncement(${data[i].id})"   class="fa fa-close"></i>
+        <i onclick="getAnnouncementData(${data[i].id})" class="fa fa-paper-plane" aria-hidden="true"></i>
         </td>
+        
     </tr>
     `
     }
@@ -155,4 +157,31 @@ function showNextPage(pageNumber){
     getArea(pageNumber)
 }
 
+function getAnnouncementData(id) {
 
+
+    getData(`/announcement/${id}`)
+    .then((result) => {
+        sendAnnouncment(result) ;
+    }).catch((err) => {
+        
+    });
+}
+
+function sendAnnouncment(data) {
+    
+        announcementObject = {
+            "id" : data.id ,
+            "title" : data.title ,
+            "description" : data.description ,
+            "areaId" : data.areaId
+        }
+
+        sendData(`/immediateAnnouncement` , announcementObject)
+        .then((result) => {
+            renderAnnouncement(result)
+        }).catch((err) => {
+            
+        });
+
+}

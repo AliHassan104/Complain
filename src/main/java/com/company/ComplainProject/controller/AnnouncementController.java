@@ -1,6 +1,7 @@
 package com.company.ComplainProject.controller;
 
 import com.company.ComplainProject.dto.AnnouncementDto;
+import com.company.ComplainProject.dto.PendingAnnoucementDTO;
 import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Announcement;
@@ -49,6 +50,8 @@ public class AnnouncementController {
         }
     }
 
+
+
     @GetMapping("/announcement/{id}")
     public  ResponseEntity<Optional<Announcement>> getEventWithId(@PathVariable Long id){
         return ResponseEntity.ok(announcementService.getAnnouncementById(id));
@@ -63,7 +66,15 @@ public class AnnouncementController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
+    @PostMapping("/immediateAnnouncement")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void immediateAnnouncement(@RequestBody PendingAnnoucementDTO pendingAnnoucementDTO){
+        try{
+            announcementService.AnnouncementToUser(pendingAnnoucementDTO);
+        }catch (Exception e){
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     @DeleteMapping("/announcement/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteAnnouncementById(@PathVariable Long id){

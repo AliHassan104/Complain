@@ -21,6 +21,8 @@ public interface AnnouncementRepository extends JpaRepository<Announcement,Long>
 
 
 
+
+
 //    @Query(value = "SELECT a FROM Announcement a WHERE a.announcementStatus  =:status ")
 //    Announcement getAnnouncementByStatus(@Param("status") AnnouncementStatus announcementStatus);
 
