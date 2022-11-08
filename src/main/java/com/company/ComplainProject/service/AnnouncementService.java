@@ -14,14 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class AnnouncementService {
@@ -99,7 +98,7 @@ public class AnnouncementService {
     }
 
 //    @Async
-    public void AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
+    public PendingAnnoucementDTO AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
 
 //        Long appStartTime = System.currentTimeMillis();
         log.info("Announcement Start Time is : ", LocalTime.now());
@@ -129,6 +128,7 @@ public class AnnouncementService {
             Long appFinishTime = System.currentTimeMillis();
 
             log.info("Announcement End Time is : ",appFinishTime);
+        return _announcementDto;
     }
 
     public PendingAnnoucementDTO getPendingAnnouncement() throws FirebaseMessagingException {

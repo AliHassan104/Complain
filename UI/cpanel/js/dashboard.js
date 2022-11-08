@@ -1,5 +1,6 @@
 
 function logOut() {
+    
     let token = localStorage.getItem("jwtToken")
     localStorage.clear();
     location.href = `${loginUrl}/loginpage.html`

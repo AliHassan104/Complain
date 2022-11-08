@@ -293,7 +293,6 @@ function tokenNotExist() {
             getRoles[i] = arrayOfRoles[i].trim()
         }
 
-
         if(!getRoles.includes("ROLE_WORKER") && !getRoles.includes("ROLE_ADMIN")){
             window.open(loginPage, "_self")
         }

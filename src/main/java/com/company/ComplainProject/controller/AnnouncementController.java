@@ -68,11 +68,11 @@ public class AnnouncementController {
     }
     @PostMapping("/immediateAnnouncement")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void immediateAnnouncement(@RequestBody PendingAnnoucementDTO pendingAnnoucementDTO){
+    public ResponseEntity<PendingAnnoucementDTO> immediateAnnouncement(@RequestBody PendingAnnoucementDTO pendingAnnoucementDTO){
         try{
-            announcementService.AnnouncementToUser(pendingAnnoucementDTO);
+            return ResponseEntity.ok(announcementService.AnnouncementToUser(pendingAnnoucementDTO));
         }catch (Exception e){
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
     @DeleteMapping("/announcement/{id}")
