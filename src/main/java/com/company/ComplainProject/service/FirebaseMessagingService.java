@@ -29,7 +29,7 @@ public class FirebaseMessagingService {
 //     worker ko bhe notify
 //
 
-    //@Async
+    @Async
     public void sendNotification(Note note, String token) throws FirebaseMessagingException {
         try{
             if(token != null) {
