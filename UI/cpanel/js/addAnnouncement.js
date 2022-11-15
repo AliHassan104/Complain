@@ -12,6 +12,7 @@ if (queryString != "") {
             document.getElementById('content').value = data.description;
             document.getElementById('announcmentdate').value = data.date;
             document.getElementById('announcmenttime').value = data.time;
+            document.getElementById("updateAnnouncementHd").innerText = "Update Announcement"
 
             if (data.announcementType == 'SMS') {
                 let sms = document.getElementById("sms");
@@ -61,6 +62,7 @@ function getArea(){
 getArea()
 
 function createAnnouncement(){
+    debugger
     // adminName= document.getElementById("name").value;
     title= document.getElementById("title").value;
     content= document.getElementById("content").value;
@@ -84,7 +86,22 @@ function createAnnouncement(){
         announcementStatus:"PENDING",
     }
 
-    if (queryString == "") {
+    if (title==="" || content==="" || announcmentdate==="" || announcmenttime==="" ) {
+        // if(block===""){
+      let invalidContent = "";
+      invalidContent += `<div  style=" margin: auto;text-align: center;width: 60%;height: 5vh; text-align: center; 
+                justify-content: center;font-size: large" class="alert alert-danger" role="alert">
+                <b> Please Fill All Fields </b> &nbsp  
+                </div>`;
+  
+      document.getElementById("formSubmitted").innerHTML = invalidContent;
+     
+      setTimeout(() => {
+        document.getElementById("formSubmitted").innerHTML = "";
+      }, 3000); 
+    // } 
+}
+else if (queryString == "") {
         sendData(`/announcement`, announcement)
 
             .then(data => {
@@ -141,6 +158,22 @@ function createAnnouncement(){
     } 
     else {
         console.log(announcement)
+        debugger
+        if (title==="" && content==="" && announcmentdate==="" && announcmenttime==="" ) {
+            // if(block===""){
+          let invalidContent = "";
+          invalidContent += `<div  style=" margin: auto;text-align: center;width: 60%;height: 5vh; text-align: center; 
+                    justify-content: center;font-size: large" class="alert alert-danger" role="alert">
+                    <b> Please Fill All Fields </b> &nbsp  
+                    </div>`;
+      
+          document.getElementById("formSubmitted").innerHTML = invalidContent;
+         
+          setTimeout(() => {
+            document.getElementById("formSubmitted").innerHTML = "";
+          }, 3000); 
+        // } 
+    }
         updateData(`/announcement/${aid}`, announcement)
             .then(data => {
                 let table = ""
@@ -161,6 +194,7 @@ function createAnnouncement(){
 
                     setTimeout(() => {
                         document.getElementById("formSubmitted").innerHTML = ""
+                        window.location.replace(`${loginUrl}/viewAnnouncement.html`);
                     }, 2000)
                 }
                 else{

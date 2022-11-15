@@ -9,6 +9,7 @@ if (queryString != "") {
             document.getElementById("name").value = data.name;
             document.getElementById("postalcode").value = data.postalCode
             document.getElementById("areabtn").innerText = "Update"
+            document.getElementById("updateHd").innerText = "Update Area"
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -48,7 +49,7 @@ function formSubmit() {
                         document.getElementById("formSubmitted").innerHTML = ""
                     }, 2000)
 
-
+                 
 
                 })
                 .catch((error) => {
@@ -73,8 +74,9 @@ function formSubmit() {
 
                     setTimeout(() => {
                         document.getElementById("formSubmitted").innerHTML = ""
+                        window.location.replace(`${loginUrl}/viewarea.html`);
                     }, 2000)
-
+                      
 
                 })
                 .catch((error) => {

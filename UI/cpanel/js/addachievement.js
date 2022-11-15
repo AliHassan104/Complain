@@ -10,6 +10,7 @@ if (queryString != "") {
             document.getElementById('achievementtitle').value = data.title;
             document.getElementById('description').value = data.description;
             document.getElementById('date').value = data.date;
+            document.getElementById("updateAchvHd").innerText = "Update Achievement"
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -86,6 +87,7 @@ function formSubmit() {
 
                     setTimeout(() => {
                         document.getElementById("formSubmitted").innerHTML = ""
+                        window.location.replace(`${loginUrl}/viewachievement.html`);
                     }, 2000)
 
                     document.getElementById("achievementtitle").value = "";

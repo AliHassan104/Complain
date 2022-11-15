@@ -11,6 +11,7 @@ if (queryString != "") {
             document.getElementById('description').value = data.description;
             document.getElementById('start_date').value = data.startDate;
             document.getElementById('start_time').value = data.startTime;
+            document.getElementById("updateEvent").innerText = "Update Event"
 
         })
         .catch((error) => {
@@ -99,6 +100,7 @@ function formSubmit() {
 
                     setTimeout(()=>{
                         document.getElementById("formSubmitted").innerHTML = ""
+                        window.location.replace(`${loginUrl}/viewevents.html`);
                     },2000)
 
                     document.getElementById("eventtitle").value = "";
