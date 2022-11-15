@@ -49,9 +49,24 @@ function formSubmit() {
         ,end_time:end_time
     };
     console.log(newArea);
+debugger
+// area===""|| block===""
 
+    if (date==="" || start_time==="" || end_time==="" || block==="" ) {
+      let invalidContent = "";
+      invalidContent += `<div  style=" margin: auto;text-align: center;width: 60%;height: 5vh; text-align: center; 
+                justify-content: center;font-size: large" class="alert alert-danger" role="alert">
+                <b> Please Fill All Fields </b> &nbsp  
+                </div>`;
+  
+      document.getElementById("formSubmitted").innerHTML = invalidContent;
+     
+      setTimeout(() => {
+        document.getElementById("formSubmitted").innerHTML = "";
+      }, 3000); 
+}
 
-    if (queryString == "") {
+    else if (queryString == "") {
        
         sendData(`/watertiming`,newArea)
             .then(data => {

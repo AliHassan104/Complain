@@ -11,6 +11,7 @@ if (queryString != "") {
 
             document.getElementById("addcomplaintype").value = data.name;
             document.getElementById("complaintypebtn").innerText = "Update";
+            document.getElementById("updateComplainHd").innerText = "Update Complain Type"
         })
         .catch((error) => {
             console.error('Error:', error);

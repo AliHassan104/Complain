@@ -43,7 +43,9 @@ public class UserDto{
     private Address address;
     @Lob
     private String deviceToken;
+
     private Area area;
+
     private Block block;
     @Enumerated(EnumType.STRING)
     private PropertyEnum property;
