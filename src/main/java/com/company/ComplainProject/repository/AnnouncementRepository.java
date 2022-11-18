@@ -25,7 +25,7 @@ public interface AnnouncementRepository extends JpaRepository<Announcement,Long>
 //    List<Announcement>  getAllAnnouncementByArea(@Param("id") Long areaId);
 
 
-    @Query(value = "select * FROM Announcement a WHERE a.area_id =:id ",nativeQuery = true)
+    @Query(value = "select * FROM announcement a WHERE a.area_id =:id ",nativeQuery = true)
     List<Announcement>  getAllAnnouncementByArea(@Param("id") Long areaId);
 
 
