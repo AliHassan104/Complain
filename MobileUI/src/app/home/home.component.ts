@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { count, error } from 'console';
 import { AchievementService } from '../Services/achievement.service';
+import { AnnouncementService } from '../Services/announcement.service';
 import { EventsService } from '../Services/events.service';
 import { UserService } from '../Services/user.service';
 
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
   screenWidth;
   token;
   areaId: Object
+  area : object
 
 
   customOptions = {
@@ -53,13 +56,13 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,
     private userService : UserService,
     private achievementService : AchievementService
-    , private eventService : EventsService ) {
+    , private eventService : EventsService, private announcementService : AnnouncementService ) {
     // this.onResize();
 
    }
    ngOnInit(): void {
-    this.getAchievements()
     this.getUser()
+    this.getAchievements()
   }
 
   achievement : any = []
@@ -73,14 +76,32 @@ export class HomeComponent implements OnInit {
   }
 
   events : any = []
-
+  
   getEventsByArea() {
+    
     this.eventService.getEventByArea(this.areaId).subscribe(data => {
-      this.events = data
+      this.events = data      
       this.Images.push(data)
     }, error => {
     });
   }
+
+  announcement : any = [] 
+  
+  getAnnouncementByAreaId() {
+    
+    this.announcementService.getAllAnnouncement(this.areaId).subscribe(data => {
+      this.announcement = data ;
+      
+    } , error => {
+
+    }) ;
+  }
+
+
+
+  
+ 
 
 
   getToken() {
@@ -111,11 +132,13 @@ getUser() {
   let user : any
   // const email = this.getEmailByToken()
   this.userService.getUser().subscribe(data => {
-
+    
     user = data
     this.areaId = user.area.id
 
     this.getEventsByArea()
+    this.getAnnouncementByAreaId()
+
   }, error => {
   });
 }

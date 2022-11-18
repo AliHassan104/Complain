@@ -101,3 +101,11 @@ function formSubmit() {
 
 
 
+var input = document.getElementById("enterkey");
+
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("areabtn").click();
+  }
+});

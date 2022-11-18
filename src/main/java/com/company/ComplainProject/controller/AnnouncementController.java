@@ -1,10 +1,12 @@
 package com.company.ComplainProject.controller;
 
+import com.company.ComplainProject.config.exception.ContentNotFoundException;
 import com.company.ComplainProject.dto.AnnouncementDto;
 import com.company.ComplainProject.dto.PendingAnnoucementDTO;
 import com.company.ComplainProject.dto.UserDetailsResponse;
 import com.company.ComplainProject.dto.UserDto;
 import com.company.ComplainProject.model.Announcement;
+import com.company.ComplainProject.model.Area;
 import com.company.ComplainProject.model.Event;
 import com.company.ComplainProject.service.AnnouncementService;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -37,6 +39,18 @@ public class AnnouncementController {
     @GetMapping("/announcement")
     public ResponseEntity<List<Announcement>> getAllEvent() throws FirebaseMessagingException {
         return ResponseEntity.ok(announcementService.getAllAnnouncement());
+    }
+
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @GetMapping("/announcementByArea/{area}")
+    public ResponseEntity<List<Announcement>> getAllAnnouncementByArea(@PathVariable("area") Long areaId) {
+        try {
+            return ResponseEntity.ok(announcementService.getAnnouncementByArea(areaId)) ;
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            throw new ContentNotFoundException("No Even Exist");
+        }
     }
 
     @GetMapping("/paginatedannouncement")

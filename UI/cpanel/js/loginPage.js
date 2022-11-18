@@ -1,11 +1,13 @@
 
 
-function loginData() {
+function loginData(){
 
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
 
-    if (email != "" && password != "") {
+    
+
+    if (email != "" && password != "" ) {
 
         let loginCredentials = {
             email: email,
@@ -82,10 +84,16 @@ function loginData() {
                             document.getElementById("notAllowed").innerHTML = ""
                         },2000)
         }
-}
+        
+} ;
 
 
+var input = document.getElementById("bodyenter");
 
-
-
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("myBtn").click();
+  }
+});
 
