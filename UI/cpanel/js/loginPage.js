@@ -81,10 +81,16 @@ function loginData() {
                             document.getElementById("notAllowed").innerHTML = ""
                         },2000)
         }
-}
+        
+} ;
 
 
+var input = document.getElementById("bodyenter");
 
-
-
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("myBtn").click();
+  }
+});
 

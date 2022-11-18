@@ -37,7 +37,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { RegisterpendingComponent } from './registerpending/registerpending.component';
 import { ResponseInterceptor } from './Interceptor/response.interceptor';
-
+import { CommonModule} from '@angular/common';
+import { AnnouncementComponent } from './announcement/announcement.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ResponseInterceptor } from './Interceptor/response.interceptor';
     ForgetPasswordComponent,
     NewPasswordComponent,
     RegisterpendingComponent,
+    AnnouncementComponent
 
 
   ],
@@ -78,7 +80,9 @@ import { ResponseInterceptor } from './Interceptor/response.interceptor';
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    IonicModule,
+    CommonModule
 
   ],
   providers: [

@@ -25,4 +25,9 @@ export class EventsService {
   getEventByArea(area: any){
     return this.http.get(`${this.url}/api/eventByArea/${area}`)
   }
+
+  getAnnouncementByAreaId(area : any) {
+    return this.http.get(`${this.url}/api/announcementByArea/${1}`)
+  }
+
 }

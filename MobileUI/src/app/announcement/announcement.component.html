@@ -1,0 +1,24 @@
+<div class="container-fluid" style=" height: 100%!important;overflow: auto;">
+    <div style="display: flex;justify-content: center;">
+        <h4>Announcement</h4>
+    </div>
+        <div style="height: 15vh;margin: 0;padding: 0;">
+            <ul class="listview image-listview" *ngFor="let list of announcement">
+                <li>
+                    <div class="item">
+                        <img src="../../assets/icons/icons8-notification-24.png" alt=""
+                            style="height: 6vh;border-radius: 50%;background-color: #0F59BC;">
+                        <div class="in mx-4">
+                            <div>{{list.title}}
+                                <br>
+                                <span style="font-size: 0.7rem;">{{list.description}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+</div>
+
+
+<app-bottom-menu></app-bottom-menu>

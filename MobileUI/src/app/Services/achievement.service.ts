@@ -19,8 +19,6 @@ export class AchievementService {
 
   getAchievementById(id: any)  { //: Observable<any>
     return this.http.get(`${this.url}/api/achievement/${id}`)
-  }
-
-  
+  }  
 
 }

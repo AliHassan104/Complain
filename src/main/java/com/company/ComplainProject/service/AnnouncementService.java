@@ -37,11 +37,24 @@ public class AnnouncementService {
     AreaRepository areaRepository;
 
     private final Logger log = LoggerFactory.getLogger(AnnouncementService.class);
+    @Autowired
+    private AreaService areaService;
 
     public List<Announcement> getAllAnnouncement() throws FirebaseMessagingException {
         List<Announcement> announcements = announcementRepository.findAll();
         return announcements;
     }
+
+    public List<Announcement> getAnnouncementByArea(Long areaid) {
+        try {
+           // Area area = areaService.getAllArea().stream().filter(area1 -> area1.getId().equals(areaid)).findAny().get();
+            List<Announcement> getAnnouncementByArea = announcementRepository.getAllAnnouncementByArea(areaid);
+            return getAnnouncementByArea;
+        }catch (Exception e){
+            throw new RuntimeException("No Announcement exist having area id "+areaid+"  "+e);
+        }
+    }
+
 
     public Optional<Announcement> getAnnouncementById(Long id){
         Optional<Announcement> announcement = announcementRepository.findById(id);

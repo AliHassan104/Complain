@@ -17,6 +17,7 @@ import { PollingsubmitComponent } from './pollingsubmit/pollingsubmit.component'
 import { HomeGuard } from './Guards/home.guard';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { RegisterpendingComponent } from './registerpending/registerpending.component';
+import { AnnouncementComponent } from './announcement/announcement.component';
 
 
 const routes: Routes = [
@@ -72,8 +73,11 @@ const routes: Routes = [
     path: "forget-password", component: ForgetPasswordComponent
   },
   {
-    path: "**", redirectTo: 'home' , pathMatch: 'full'
+    path: "announcement", component: AnnouncementComponent , canActivate:[HomeGuard] 
   },
+  {
+    path: "**", redirectTo: 'home' , pathMatch: 'full'
+  }
 
 ];
 
