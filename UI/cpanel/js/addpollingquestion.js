@@ -12,6 +12,8 @@ if (queryString != "") {
             document.getElementById('addpollingquestion').value = data.question;
             document.getElementById('end_time').value = data.end_time;
             document.getElementById('end_date').value = data.end_date;
+            document.getElementById("updatePollingQuestionbtn").innerText = "Update Polling Question"
+            
 
             for (let i = 0; i < data.pollingOptions.length - 1; i++) {
                 arr.push(i + 1)
@@ -82,11 +84,11 @@ function addOption(id) {
 
 
 function subtractOption(id) {
-
+debugger
     arr.splice(id, 1)
     let pollingOption = []
 
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i <= arr.length; i++) {
 
         if (i != id) {
             let option = document.getElementById("pollingoption" + i).value;
@@ -126,8 +128,21 @@ function formSubmit() {
             id: area
         }
     }
-
-    if (queryString == "") {
+    if (pollingQuestion==="" || area=="" || end_date=="" || end_time=="") {
+      let invalidContent = "";
+      invalidContent += `<div  style=" margin: auto;text-align: center;width: 60%;height: 5vh; text-align: center; 
+                justify-content: center;font-size: large" class="alert alert-danger" role="alert">
+                <b> Please Fill All Fields </b> &nbsp  
+                </div>`;
+  
+      document.getElementById("formSubmitted").innerHTML = invalidContent;
+     
+      setTimeout(() => {
+        document.getElementById("formSubmitted").innerHTML = "";
+      }, 3000);
+     
+    }
+   else if (queryString == "") {
 
         sendData(`/pollingquestion`, newPollingQuestion)
             .then(data => {

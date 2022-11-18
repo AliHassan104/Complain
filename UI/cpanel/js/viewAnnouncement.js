@@ -180,7 +180,7 @@ function sendAnnouncment(data) {
 
         sendData(`/immediateAnnouncement` , announcementObject)
         .then((result) => {
-            renderAnnouncement(result)
+            getAnnouncement()
         }).catch((err) => {
             
         });

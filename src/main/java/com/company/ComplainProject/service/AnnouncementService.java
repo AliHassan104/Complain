@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -112,8 +114,9 @@ public class AnnouncementService {
 //    @Async
     public PendingAnnoucementDTO AnnouncementToUser(PendingAnnoucementDTO _announcementDto) throws FirebaseMessagingException {
 
-//        Long appStartTime = System.currentTimeMillis();
+        Long appStartTime = System.currentTimeMillis();
         log.info("Announcement Start Time is : ", LocalTime.now());
+        System.out.println(appStartTime);
 
         if (_announcementDto != null) {
 
@@ -140,6 +143,7 @@ public class AnnouncementService {
             Long appFinishTime = System.currentTimeMillis();
 
             log.info("Announcement End Time is : ",appFinishTime);
+            System.out.println(appFinishTime);
         return _announcementDto;
     }
 

@@ -65,6 +65,7 @@ function getData(url) {
 }
 
 function sendData(url, data) {
+    debugger
     var paginationDiv=document.getElementById('preloader')
 
    paginationDiv.style.display='flex'
