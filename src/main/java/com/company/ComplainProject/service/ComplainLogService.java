@@ -54,49 +54,51 @@ public class ComplainLogService {
 
     public ComplainLogDto addComplainLogByComplainService(Long id, ComplainLogDto complainLogDto) {
 //                                                                                          get the user (admin) object
-    try {
+        try {
 
-        Optional<Complain> complain = complainRepository.findById(id);
+            Optional<Complain> complain = complainRepository.findById(id);
 
-        if (complainLogDto.getAssignedFrom() != null) {
-            Optional<User> admin = userRepository.findById(complainLogDto.getAssignedFrom().getId());
-            complainLogDto.setAssignedFrom(admin.get());
-        }
-
-        if(complainLogDto.getAssignedTo() != null){
-            Optional<User> worker = userRepository.findById(complainLogDto.getAssignedTo().getId());
-            complainLogDto.setAssignedTo(worker.get());
-        }
-
-        complainLogDto.setStatus(complain.get().getStatus());
-        complainLogDto.setDescription(complainLogDto.getDescription());
-        complainLogDto.setDate(LocalDate.now());
-        complainLogDto.setComplain(complain.get());
-
-        ComplainLogDto _complainLogDto = todto(complainLogRespository.save(dto(complainLogDto)));
-
-        /**
-         *  Send Notification to worker
-         */
-        if(_complainLogDto != null) {
-            if (_complainLogDto.getStatus().equals(Status.IN_PROGRESS)) {
-                Note note = Note.builder().subject("Assign Complain")
-                        .content(_complainLogDto.getAssignedFrom().getEmail() + " assigned " + _complainLogDto.getComplain().getComplainType().getName() + " Complian ").build();
-                firebaseMessagingService.sendNotification(note, _complainLogDto.getAssignedTo().getDeviceToken());
+            if (complainLogDto.getAssignedFrom() != null) {
+                Optional<User> admin = userRepository.findById(complainLogDto.getAssignedFrom().getId());
+                complainLogDto.setAssignedFrom(admin.get());
             }
 
-            /**
-             * Send Notification to Customer
-             */
-            Note customerNote = Note.builder().subject("Your Complain is  " + _complainLogDto.getStatus())
-                    .content(complainLogDto.getDescription()).build();
-//                    .content("Your Complain of "+complain.get().getComplainType().getName()+" is in "+_complainLogDto.getStatus()).build();
-            firebaseMessagingService.sendNotification(customerNote,complain.get().getUser().getDeviceToken());
+            if(complainLogDto.getAssignedTo() != null){
+                Optional<User> worker = userRepository.findById(complainLogDto.getAssignedTo().getId());
+                complainLogDto.setAssignedTo(worker.get());
+            }
 
+            complainLogDto.setStatus(complain.get().getStatus());
+            complainLogDto.setDescription(complainLogDto.getDescription());
+            complainLogDto.setDate(LocalDate.now());
+            complainLogDto.setComplain(complain.get());
+
+            ComplainLogDto _complainLogDto = todto(complainLogRespository.save(dto(complainLogDto)));
+
+            /**
+             *  Send Notification to worker
+             */
+            if(_complainLogDto != null) {
+                if (_complainLogDto.getStatus().equals(Status.IN_PROGRESS)) {
+                    Note note = Note.builder().subject("Assign Complain")
+                            .content(complainLogDto.getAssignedFrom().getEmail() + " assigned " + complainLogDto.getComplain().getComplainType().getName() + " Complian ").build();
+                    firebaseMessagingService.sendNotification(note, complainLogDto.getAssignedTo().getDeviceToken());
+                }
+
+                /**
+                 * Send Notification to Customer
+                 */
+                Note customerNote = Note.builder().subject("Your Complain is  " + complainLogDto.getStatus())
+                        .content(complainLogDto.getDescription()).build();
+//                    .content("Your Complain of "+complain.get().getComplainType().getName()+" is in "+_complainLogDto.getStatus()).build();
+                firebaseMessagingService.sendNotification(customerNote,complain.get().getUser().getDeviceToken());
+
+            }
+            return _complainLogDto;
         }
-        return _complainLogDto;
-    }
         catch (Exception e){
+            e.printStackTrace();
+            System.out.println("helllo");
             throw new ContentNotFoundException("Some thing went wrong in complain logs of complain id "+id);
         }
     }

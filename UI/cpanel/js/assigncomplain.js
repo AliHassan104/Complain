@@ -117,7 +117,10 @@ function assignComplain(complain_id){
         assignedTo: {
             id:document.getElementById("worker_id").value
         },
-        description:description 
+        description:description ,
+        complain : {
+            id : complain_id
+        }
 
     }
 
